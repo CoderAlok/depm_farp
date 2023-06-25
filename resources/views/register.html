@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Registration - FARP
+        </title>
+        <meta name="description" content="Page Titile">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+
+        <!-- Call App Mode on ios devices -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <!-- Remove Tap Highlight on Windows Phone IE -->
+        <meta name="msapplication-tap-highlight" content="no">
+
+        <!-- base css -->
+        <link rel="stylesheet" media="screen, print" href="css/vendors.bundle.css">
+        <link rel="stylesheet" media="screen, print" href="css/app.bundle.css">
+
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+        <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <!--<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+    <body class="mod-bg-1 ">
+        
+        <script>
+            /**
+             *	This script should be placed right after the body tag for fast execution 
+             *	Note: the script is written in pure javascript and does not depend on thirdparty library
+             **/
+            'use strict';
+
+            var classHolder = document.getElementsByTagName("BODY")[0],
+                /** 
+                 * Load from localstorage
+                 **/
+                themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+                {},
+                themeURL = themeSettings.themeURL || '',
+                themeOptions = themeSettings.themeOptions || '';
+            /** 
+             * Load theme options
+             **/
+            if (themeSettings.themeOptions)
+            {
+                classHolder.className = themeSettings.themeOptions;
+                console.log("%c✔ Theme settings loaded", "color: #148f32");
+            }
+            else
+            {
+                console.log("Heads up! Theme settings is empty or does not exist, loading default settings...");
+            }
+            if (themeSettings.themeURL && !document.getElementById('mytheme'))
+            {
+                var cssfile = document.createElement('link');
+                cssfile.id = 'mytheme';
+                cssfile.rel = 'stylesheet';
+                cssfile.href = themeURL;
+                document.getElementsByTagName('head')[0].appendChild(cssfile);
+            }
+            /** 
+             * Save to localstorage 
+             **/
+            var saveSettings = function()
+            {
+                themeSettings.themeOptions = String(classHolder.className).split(/[^\w-]+/).filter(function(item)
+                {
+                    return /^(nav|header|mod|display)-/i.test(item);
+                }).join(' ');
+                if (document.getElementById('mytheme'))
+                {
+                    themeSettings.themeURL = document.getElementById('mytheme').getAttribute("href");
+                };
+                localStorage.setItem('themeSettings', JSON.stringify(themeSettings));
+            }
+            /** 
+             * Reset settings
+             **/
+            var resetSettings = function()
+            {
+                localStorage.setItem("themeSettings", "");
+            }
+
+        </script>
+
+
+        <!-- BEGIN Page Wrapper -->
+        <div class="page-wrapper">
+            <div class="page-inner">
+
+                <!-- BEGIN Left Aside -->
+                <aside class="page-sidebar">
+                    <div class="page-logo">
+                        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
+                            <img src="img/logo.png" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                            <span class="page-logo-text mr-1">Registration - FARP</span>
+                            <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+                            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+                        </a>
+                    </div>
+
+                    <!-- BEGIN PRIMARY NAVIGATION -->
+                    <nav id="js-primary-nav" class="primary-nav" role="navigation">
+                        <div class="nav-filter">
+                            <div class="position-relative">
+                                <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control" tabindex="0">
+                                <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar">
+                                    <i class="fal fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <ul id="js-nav-menu" class="nav-menu">
+                            <li>
+                                <a href="#" title="Application Intel" data-filter-tags="application intel">
+                                    <i class="fal fa-info-circle text-white"></i>
+                                    <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Theme Settings" data-filter-tags="theme settings">
+                                    <i class="fal fa-cog text-white"></i>
+                                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Package Info" data-filter-tags="package info">
+                                    <i class="fal fa-tag text-white"></i>
+                                    <span class="nav-link-text" data-i18n="nav.package_info">Login</span>
+                                </a>
+                            </li>
+                            <li class="nav-title  text-white">Tools & Components</li>                        
+                        </ul>                        
+                    </nav>
+                    <!-- END PRIMARY NAVIGATION -->
+
+                    <!-- NAV FOOTER -->
+                    <div class="nav-footer shadow-top">
+                        <a href="#" onclick="return false;" data-action="toggle" data-class="nav-function-minify" class="hidden-md-down">
+                            <i class="ni ni-chevron-right  text-white"></i>
+                            <i class="ni ni-chevron-right  text-white"></i>
+                        </a>
+                        <ul class="list-table m-auto nav-footer-buttons">
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
+                                    <i class="fal fa-comments  text-white"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Support Chat">
+                                    <i class="fal fa-life-ring  text-white"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Make a call">
+                                    <i class="fal fa-phone  text-white"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> <!-- END NAV FOOTER -->
+                </aside>
+                <!-- END Left Aside -->
+
+
+
+
+                <div class="page-content-wrapper">
+
+                    <!-- BEGIN Page Header -->
+                    <header class="page-header" role="banner">
+
+                        <div class="ml-auto d-flex">                            
+                            
+                            <!-- app user menu -->
+                            <div>
+                                <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2 bg-success">
+                                    <!-- <img src="img/demo/avatars/avatar-admin.png" class="profile-image rounded-circle" alt="Dr. Codex Lantern"> -->
+                                    <i class="fa fa-user rounded-circle profile-image"></i>
+                                    <!-- you can also add username next to the avatar with the codes below:
+									<span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
+									<i class="ni ni-chevron-down hidden-xs-down"></i> -->
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
+                                    <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
+                                        <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
+                                            <span class="mr-2">
+                                                <!-- <img src="img/demo/avatars/avatar-admin.png" class="rounded-circle profile-image" alt="Dr. Codex Lantern"> -->
+                                                <i class="fa fa-user rounded-circle profile-image"></i>
+                                            </span>
+                                            <div class="info-card-text">
+                                                <div class="fs-lg text-truncate text-truncate-lg">Dr. Codex Lantern</div>
+                                                <span class="text-truncate text-truncate-md opacity-80">drlantern@gotbootstrap.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider m-0"></div>
+                                    <a href="#" class="dropdown-item" data-action="app-reset">
+                                        <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
+                                    </a>
+                                    <a href="#" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
+                                        <span data-i18n="drpdwn.settings">Settings</span>
+                                    </a>
+                                    <div class="dropdown-divider m-0"></div>
+                                    <a href="#" class="dropdown-item" data-action="app-fullscreen">
+                                        <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
+                                        <i class="float-right text-muted fw-n">F11</i>
+                                    </a>
+                                    <a href="#" class="dropdown-item" data-action="app-print">
+                                        <span data-i18n="drpdwn.print">Print</span>
+                                        <i class="float-right text-muted fw-n">Ctrl + P</i>
+                                    </a>
+                                    <div class="dropdown-multilevel dropdown-multilevel-left">
+                                        <div class="dropdown-item">
+                                            Language
+                                        </div>
+                                        <div class="dropdown-menu">
+                                            <a href="#?lang=fr" class="dropdown-item" data-action="lang" data-lang="fr">Français</a>
+                                            <a href="#?lang=en" class="dropdown-item active" data-action="lang" data-lang="en">English (US)</a>
+                                            <a href="#?lang=es" class="dropdown-item" data-action="lang" data-lang="es">Español</a>
+                                            <a href="#?lang=ru" class="dropdown-item" data-action="lang" data-lang="ru">Русский язык</a>
+                                            <a href="#?lang=jp" class="dropdown-item" data-action="lang" data-lang="jp">日本語</a>
+                                            <a href="#?lang=ch" class="dropdown-item" data-action="lang" data-lang="ch">中文</a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-divider m-0"></div>
+                                    <a class="dropdown-item fw-500 pt-3 pb-3" href="page_login-alt.html">
+                                        <span data-i18n="drpdwn.page-logout">Logout</span>
+                                        <span class="float-right fw-n">&commat;codexlantern</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- END Page Header -->
+
+                    <!-- BEGIN Page Content -->
+                    <!-- the #js-page-content id is needed for some plugins to initialize -->
+                    <main id="js-page-content" role="main" class="page-content">
+                        <div class="subheader">
+                            <h1 class="subheader-title">
+                                <i class='subheader-icon fal fa-'></i> Registration Page <sup class='badge badge-primary fw-500'>ADDON</sup>                                
+                            </h1>
+                            <div class="subheader-block">
+                                Register to create your account
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div id="panel-1" class="panel">
+                                    <div class="panel-hdr">
+                                        <h2>Establishment Details </h2>
+                                        <div class="panel-toolbar">
+                                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                                            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
+                                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10" data-original-title="Close"></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-container show">
+                                        <div class="panel-content">
+                                            <!-- <div class="panel-tag">Establishment Name</div> -->
+
+
+<form action="" method="post">
+
+    <div class="w-100 mb-3">
+        <label class="form-label" for="name-f">ESTABLISHMENT DETAILS </label>
+        <div class="input-group">        
+            <div class="input-group-prepend">
+                <span class="input-group-text text-success">
+                    <i class="fa fa-id-card"></i>
+                </span>
+            </div>
+            <input type="text" aria-label="Establishment Name" class="form-control" placeholder="Establishment Name" id="">
+            <input type="text" aria-label="Establishment ID" class="form-control" placeholder="Establishment ID" id="">
+            <input type="text" aria-label="Establishment GST" class="form-control" placeholder="Establishment GST" id="">
+        </div>
+    </div>
+
+    <div class="w-100 mb-3">
+        <label class="form-label" for="name-f">NAME : </label>
+        <div class="input-group">        
+            <div class="input-group-prepend">
+                <span class="input-group-text text-success">
+                    <i class="ni ni-user fs-xl"></i>
+                </span>
+            </div>
+            <input type="text" aria-label="First name" class="form-control" placeholder="First name" id="name-f">
+            <input type="text" aria-label="Middle name" class="form-control" placeholder="Middle name" id="name-m">
+            <input type="text" aria-label="Last name" class="form-control" placeholder="Last name" id="name-l">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+            <label class="form-label">EMAIL</label>
+            <div class="input-group">                
+                <div class="input-group-prepend">
+                    <span class="input-group-text text-success">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </span>
+                </div>                
+                <input type="email" id="" name="" class="form-control" placeholder="example@company.com">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">DATE OF INCORPORATION</label>
+                <div class="input-group">                
+                    <div class="input-group-prepend">
+                        <span class="input-group-text text-success">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                    </div>                                
+                <input class="form-control" id="example-date" type="date" name="date" value="2023-07-23">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">PHONE </label>
+            <div class="input-group">                
+                <div class="input-group-prepend">
+                    <span class="input-group-text text-success">
+                        <i class="fa fa-mobile"></i>
+                    </span>
+                </div>                                
+            <input type="tel" id="" name="" class="form-control" placeholder="+91-1234567890">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">FATHER'S NAME</label>
+            <div class="input-group">                
+                <div class="input-group-prepend">
+                    <span class="input-group-text text-success">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>                
+                <input type="email" id="" name="" class="form-control" placeholder="John Doe...">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">MOTHER'S NAME</label>
+            <div class="input-group">                
+                <div class="input-group-prepend">
+                    <span class="input-group-text text-success">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>                
+                <input type="email" id="" name="" class="form-control" placeholder="John Doe...">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="form-label">GENDER</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">Male</label>
+                        </div>
+                    </div>
+                    <div class="input-group-text">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio2">Female</label>
+                        </div>
+                    </div>
+                    <div class="input-group-text">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio3">Other</label>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" class="form-control" aria-label="Text input with radio button" id="radio-group-1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">NATIONALITY</label>
+            <select id="country" name="country" class="form-control">
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Åland Islands">Åland Islands</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>                
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Yemen">Yemen</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">PASSPORT NO.</label>
+            <div class="input-group">                
+                <div class="input-group-prepend">
+                    <span class="input-group-text text-success">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </span>
+                </div>                
+                <input type="text" id="" name="" class="form-control" placeholder="XYZ4561M">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="w-100 mb-1">
+        <label class="form-label" for="name-f">ESTABLISHMENT ADDRESS </label>
+        <div class="input-group">        
+            <div class="input-group-prepend">
+                <span class="input-group-text text-success">
+                    <i class="ni ni-map fs-xl"></i>
+                </span>
+            </div>
+            <input type="text" aria-label="First name" class="form-control" placeholder="Address Line 1" id="name-f">
+            <input type="text" aria-label="Middle name" class="form-control" placeholder="Address Line 2" id="name-m">
+        </div>
+    </div>
+    <div class="row mb-3">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">City</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected="">Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">District</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected="">Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">                
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">State</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected="">Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">                
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">PIN</label>
+                    </div>
+                    <input type="text" id="" name="" class="form-control" placeholder="123456">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-100 clearfix">
+        <button type="button" class="btn btn-md btn-success waves-effect waves-themed float-right">Register Now</button>
+    </div>
+
+
+</form>
+
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <!-- this overlay is activated only when mobile menu is triggered -->
+                    <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
+                    <!-- BEGIN Page Footer -->
+                    <footer class="page-footer" role="contentinfo">
+                        <div class="d-flex align-items-center flex-1 text-muted">
+                            <span class="hidden-md-down fw-700">2019 © SmartAdmin by&nbsp;<a href='https://www.gotbootstrap.com' class='text-primary fw-500' title='gotbootstrap.com' target='_blank'>gotbootstrap.com</a></span>
+                        </div>
+                        <div>
+                            <ul class="list-table m-0">
+                                <li><a href="" class="text-secondary fw-700">About</a></li>
+                                <li class="pl-3"><a href="info_app_licensing.html" class="text-secondary fw-700">License</a></li>
+                                <li class="pl-3"><a href="info_app_docs.html" class="text-secondary fw-700">Documentation</a></li>
+                                <li class="pl-3 fs-xl"><a href="https://wrapbootstrap.com/user/MyOrange" class="text-secondary" target="_blank"><i class="fal fa-question-circle" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </footer>
+                    <!-- END Page Footer -->
+                    <!-- BEGIN Shortcuts -->
+                    <!-- modal shortcut -->
+                    <div class="modal fade modal-backdrop-transparent" id="modal-shortcut" tabindex="-1" role="dialog" aria-labelledby="modal-shortcut" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-top modal-transparent" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <ul class="app-list w-auto h-auto p-0 text-left">
+                                        <li>
+                                            <a href="intel_introduction.html" class="app-list-item text-white border-0 m-0">
+                                                <div class="icon-stack">
+                                                    <i class="base base-7 icon-stack-3x opacity-100 color-primary-500 "></i>
+                                                    <i class="base base-7 icon-stack-2x opacity-100 color-primary-300 "></i>
+                                                    <i class="fal fa-home icon-stack-1x opacity-100 color-white"></i>
+                                                </div>
+                                                <span class="app-list-name">
+                                                    Home
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="page_inbox_general.html" class="app-list-item text-white border-0 m-0">
+                                                <div class="icon-stack">
+                                                    <i class="base base-7 icon-stack-3x opacity-100 color-success-500 "></i>
+                                                    <i class="base base-7 icon-stack-2x opacity-100 color-success-300 "></i>
+                                                    <i class="ni ni-envelope icon-stack-1x text-white"></i>
+                                                </div>
+                                                <span class="app-list-name">
+                                                    Inbox
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="intel_introduction.html" class="app-list-item text-white border-0 m-0">
+                                                <div class="icon-stack">
+                                                    <i class="base base-7 icon-stack-2x opacity-100 color-primary-300 "></i>
+                                                    <i class="fal fa-plus icon-stack-1x opacity-100 color-white"></i>
+                                                </div>
+                                                <span class="app-list-name">
+                                                    Add More
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- END Shortcuts -->
+                </div>
+            </div>
+        </div>
+        <!-- END Page Wrapper -->
+        <!-- BEGIN Quick Menu -->
+        <!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss -->
+        <nav class="shortcut-menu d-none d-sm-block">
+            <input type="checkbox" class="menu-open" name="menu-open" id="menu_open" />
+            <label for="menu_open" class="menu-open-button ">
+                <span class="app-shortcut-icon d-block"></span>
+            </label>
+            <a href="#" class="menu-item btn" data-toggle="tooltip" data-placement="left" title="Scroll Top">
+                <i class="fal fa-arrow-up"></i>
+            </a>
+            <a href="page_login-alt.html" class="menu-item btn" data-toggle="tooltip" data-placement="left" title="Logout">
+                <i class="fal fa-sign-out"></i>
+            </a>
+            <a href="#" class="menu-item btn" data-action="app-fullscreen" data-toggle="tooltip" data-placement="left" title="Full Screen">
+                <i class="fal fa-expand"></i>
+            </a>
+            <a href="#" class="menu-item btn" data-action="app-print" data-toggle="tooltip" data-placement="left" title="Print page">
+                <i class="fal fa-print"></i>
+            </a>
+            <a href="#" class="menu-item btn" data-action="app-voice" data-toggle="tooltip" data-placement="left" title="Voice command">
+                <i class="fal fa-microphone"></i>
+            </a>
+        </nav>
+        <!-- END Quick Menu -->
+        
+        
+
+        <!-- BEGIN Page Settings -->
+        <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-right modal-md">
+                <div class="modal-content">
+                    <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center w-100">
+                        <h4 class="m-0 text-center color-white">
+                            Layout Settings
+                            <small class="mb-0 opacity-80">User Interface Settings</small>
+                        </h4>
+                        <button type="button" class="close text-white position-absolute pos-top pos-right p-2 m-1 mr-2" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="settings-panel">
+                            <div class="mt-4 d-table w-100 px-5">
+                                <div class="d-table-cell align-middle">
+                                    <h5 class="p-0">App Layout</h5>
+                                </div>
+                            </div>
+                            <div class="list" id="fh">
+                                <a href="#" onclick="return false;" class="btn btn-switch" data-action="toggle" data-class="header-function-fixed"></a>
+                                <span class="onoffswitch-title">Fixed Header</span>
+                                <span class="onoffswitch-title-desc">header is in a fixed at all times</span>
+                            </div>
+                            <div class="mt-4 d-table w-100 px-5">
+                                <div class="d-table-cell align-middle">
+                                    <h5 class="p-0">
+                                        Mobile Menu
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="list" id="nmp">
+                                <a href="#" onclick="return false;" class="btn btn-switch" data-action="toggle" data-class="nav-mobile-push"></a>
+                                <span class="onoffswitch-title">Push Content</span>
+                                <span class="onoffswitch-title-desc">Content pushed on menu reveal</span>
+                            </div>
+                            <hr class="mb-0 mt-4">
+                            <div class="pl-5 pr-3 py-3 bg-faded">
+                                <div class="row no-gutters">
+                                    <div class="col-6 pr-1">
+                                        <a href="#" class="btn btn-outline-danger fw-500 btn-block" data-action="app-reset">Reset Settings</a>
+                                    </div>
+                                    <div class="col-6 pl-1">
+                                        <a href="#" class="btn btn-danger fw-500 btn-block" data-action="factory-reset">Factory Reset</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span id="saving"></span>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- END Page Settings -->
+
+        
+
+        <script src="js/vendors.bundle.js"></script>
+        <script src="js/app.bundle.js"></script>
+        <!--<script src="js/../script.js"></script>
+	<script>
+		$(document).ready(function () {
+			
+		});
+	</script>-->
+
+
+    <style>
+        .page-sidebar {
+            background: linear-gradient(to top, #4ad4c5 0%, #3772FF 100%) !important;
+        }
+    </style>
+    </body>
+</html>

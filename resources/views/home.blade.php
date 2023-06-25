@@ -14,6 +14,8 @@
                         </div>
                     @endif
 
+                    
+                    {{-- dd(Auth::user()) --}}
                     {{ __('You are logged in!') }}
                 </div>
             </div>
