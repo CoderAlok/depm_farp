@@ -43,15 +43,17 @@ class UsersController extends Controller
             $user = User::where('email', $request->email)->where('type', $request->type);
             if ($user->exists()) {
                 $user = $user->first();
+                // dd($user);
                 if (Hash::check($request->password, $user->password)) {
+                    // set data in both Auth and session
                     Auth::login($user);
                     session()->put('user', $user);
 
-                    // dd([Auth::user(), $request->session()->all()]);
-
                     if ($request->type == 1) {
-                        return redirect()->route('home');
+                        $data['page_title'] = 'Exporter | Home';
+                        return redirect()->route('home')->with($data);
                     } else {
+                        $data['page_title'] = 'Admin | Home';
                         return redirect()->route('admin.home');
                     }
                 } else {

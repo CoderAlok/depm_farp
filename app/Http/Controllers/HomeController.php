@@ -23,8 +23,8 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('home');
+        $data['page_title'] = 'Exporter Panel';
+        return view('home')->with($data);
     }
 
-    
 }

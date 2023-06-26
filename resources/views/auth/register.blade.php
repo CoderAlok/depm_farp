@@ -23,7 +23,7 @@
                                         <option value="">Select a role</option>
                                         
                                         <option value="1">Exporter</option>
-                                        <option value="2">DEPM</option>
+                                        <option value="2">Department User</option>
                                     </select>
                                     @error('role_id')
                                         <span class="invalid-feedback" role="alert">

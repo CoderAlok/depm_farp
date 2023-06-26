@@ -100,7 +100,7 @@
     <div class="page-wrapper">
         <div class="page-inner">
             <!-- BEGIN Left Aside -->
-            @include('layouts.sidebar')
+            @include('admin.layouts.sidebar')
             <!-- END Left Aside -->
 
             <div class="page-content-wrapper">
@@ -363,6 +363,7 @@
         </div>
     </div>
     <!-- END Page Settings -->
+
     <script src="{{ asset('js/vendors.bundle.js') }}"></script>
     <script src="{{ asset('js/app.bundle.js') }}"></script>
     <!--<script src="js/../script.js"></script>
