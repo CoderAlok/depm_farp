@@ -171,6 +171,10 @@ class TblExportersController extends Controller
      */
     public function login(Request $request)
     {
+        // $credentials = ['email' => $request->email, 'password' => $request->password];
+        // // $credentials = ['username' => $request->username, 'password' => $request->password];
+        // dd(Auth::guard('exporter')->login($credentials));
+
         try {
             $validator = Validator::make($request->all(), [
                 'type.required'     => 'Please enter the role_id',

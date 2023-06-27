@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Notification\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class tbl_exporters extends Model
+class tbl_exporters extends Authenticatable
 {
     // use HasApiTokens, HasFactory, Notifiable;
     use HasFactory;

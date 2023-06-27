@@ -29,43 +29,43 @@ class UsersController extends Controller
      * @author AlokDas
      * @return void
      */
-    public function userLogin(Request $request)
-    {
-        $request->validate([
-            'username'    => 'required',
-            'password' => 'required',
-        ], [
-            'username.required'    => 'Please enter the username',
-            'password.required' => 'Please enter the password',
-        ]);
+    // public function userLogin(Request $request)
+    // {
+    //     $request->validate([
+    //         'username'    => 'required',
+    //         'password' => 'required',
+    //     ], [
+    //         'username.required'    => 'Please enter the username',
+    //         'password.required' => 'Please enter the password',
+    //     ]);
 
-        try {
-            $user = User::where('username', $request->username);//->where('type', $request->type);
-            if ($user->exists()) {
-                $user = $user->first();
-                // dd($user);
-                if (Hash::check($request->password, $user->password)) {
-                    // set data in both Auth and session
-                    Auth::login($user);
-                    session()->put('user', $user);
+    //     try {
+    //         $user = User::where('username', $request->username);//->where('type', $request->type);
+    //         if ($user->exists()) {
+    //             $user = $user->first();
+    //             // dd($user);
+    //             if (Hash::check($request->password, $user->password)) {
+    //                 // set data in both Auth and session
+    //                 Auth::login($user);
+    //                 session()->put('user', $user);
 
-                    if ($request->type == 1) {
-                        $data['page_title'] = 'Exporter | Home';
-                        return redirect()->route('home')->with($data);
-                    } else {
-                        $data['page_title'] = 'Admin | Home';
-                        return redirect()->route('admin.home');
-                    }
-                } else {
-                    return redirect()->route('welcome');
-                }
-            } else {
-                return redirect()->route('welcome');
-            }
-        } catch (\Exception $e) {
-            $data['data']    = [];
-            $data['message'] = $e->getMessage();
-            return response($data, 500);
-        }
-    }
+    //                 if ($request->type == 1) {
+    //                     $data['page_title'] = 'Exporter | Home';
+    //                     return redirect()->route('home')->with($data);
+    //                 } else {
+    //                     $data['page_title'] = 'Admin | Home';
+    //                     return redirect()->route('admin.home');
+    //                 }
+    //             } else {
+    //                 return redirect()->route('welcome');
+    //             }
+    //         } else {
+    //             return redirect()->route('welcome');
+    //         }
+    //     } catch (\Exception $e) {
+    //         $data['data']    = [];
+    //         $data['message'] = $e->getMessage();
+    //         return response($data, 500);
+    //     }
+    // }
 }

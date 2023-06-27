@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 // All the login routes
 Auth::routes();
-Route::post('/login', [UsersController::class, 'userLogin'])->name('login');
+// Route::post('/login', [UsersController::class, 'userLogin'])->name('login');
 
 // All the routes for exporters
 Route::group(['prefix' => 'exporters'], function () {

@@ -48,8 +48,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </a>
                         </div>
                         {{-- <a href="{{ route('register') }}" class="btn-link text-white ml-auto">Create Account</a> --}}
-                        <a href="{{ route('exporter.register') }}" class="btn-link text-white ml-auto">Create
-                            Exporter</a>
+                        <a href="#" class="btn-link text-white ml-auto">Create Account</a>
+                        {{-- <a href="{{ route('exporter.register') }}" class="btn-link text-white ml-auto">Create
+                            Exporter</a> --}}
                     </div>
                 </div>
                 <div class="flex-1"
@@ -161,7 +162,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     <input type="text" id="username" name="username"
                                                         class="form-control form-control-lg"
                                                         placeholder="your id or username"
-                                                        value="drlantern@gotbootstrap.com" required>
+                                                        value="" required>
                                                     <div class="invalid-feedback">No, you missedd this one.</div>
                                                     <div class="help-block">Your unique username to app</div>
                                                 </div>
@@ -178,7 +179,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     <label class="form-label" for="password">Password</label>
                                                     <input type="password" id="password" name="password"
                                                         class="form-control form-control-lg" placeholder="password"
-                                                        value="password123" required>
+                                                        value="" required>
                                                     <div class="invalid-feedback">Sorry, you missed this one.</div>
                                                     <div class="help-block">Your password</div>
                                                 </div>

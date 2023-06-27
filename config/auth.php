@@ -42,7 +42,7 @@ return [
         ],
         'exporter' => [
             'driver'   => 'session',
-            'provider' => 'exporters',
+            'provider' => 'tbl_exporters',
         ],
     ],
 
@@ -69,7 +69,7 @@ return [
             'model'  => App\Models\User::class,
         ],
 
-        'exporters' => [
+        'tbl_exporters' => [
             'driver' => 'eloquent',
             'model'  => App\Models\tbl_exporters::class,
         ],
