@@ -48,8 +48,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </a>
                         </div>
                         {{-- <a href="{{ route('register') }}" class="btn-link text-white ml-auto">Create Account</a> --}}
-                        <a href="{{ route('exporter.register') }}" class="btn-link text-white ml-auto">Create
-                            Exporter</a>
                     </div>
                 </div>
                 <div class="flex-1"
@@ -92,18 +90,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <ul class="nav nav-pills justify-content-center" role="tablist">
                                         <li class="nav-item"><a class="nav-link active" data-toggle="tab"
                                                 href="#js_change_pill_direction-1">Exporter</a></li>
-                                        <li class="nav-item"><a class="nav-link" data-toggle="tab"
-                                                href="#js_change_pill_direction-2">User</a></li>
+                                        {{-- <li class="nav-item"><a class="nav-link" data-toggle="tab"
+                                                href="#js_change_pill_direction-2">User</a></li> --}}
                                     </ul>
                                     <div class="tab-content py-3">
                                         <div class="tab-pane fade show active" id="js_change_pill_direction-1"
                                             role="tabpanel">
-                                            <form id="exporter-login-form" name="exporter-login-form" novalidate=""
-                                                action="{{ route('exporter.login') }}" method="POST">
+                                            <form method="POST" id="exporter-register-form"
+                                                name="exporter-register-form" novalidate=""
+                                                action="{{ route('exporter.register.create') }}">
                                                 @csrf
-                                                <input type="hidden" name="type" value="1" id="typeUser">
+                                                <input type="hidden" name="role_id" value="1" id="role_id">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="username">Username</label>
+                                                    <label class="form-label" for="name">Name</label>
+                                                    <input type="text" id="name" name="name"
+                                                        class="form-control form-control-lg @error('name') is-invalid @enderror"
+                                                        placeholder="Your Name" value="{{ old('name') }}"
+                                                        autocomplete="name" autofocus required>
+                                                    @error('name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    <div class="help-block">Your name</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="email">Email</label>
                                                     <input type="email" id="email" name="email"
                                                         class="form-control form-control-lg @error('email') is-invalid @enderror"
                                                         placeholder="your id or email" value="{{ old('email') }}"
@@ -113,7 +125,20 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
-                                                    <div class="help-block">Your unique username to app</div>
+                                                    <div class="help-block">Your email</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="username">Username</label>
+                                                    <input type="text" id="username" name="username"
+                                                        class="form-control form-control-lg @error('username') is-invalid @enderror"
+                                                        placeholder="your username" value="{{ old('username') }}"
+                                                        autocomplete="username" autofocus required>
+                                                    @error('username')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    <div class="help-block">Your unique username</div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-label" for="password">Password</label>
@@ -128,6 +153,57 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     @enderror
                                                     <div class="help-block">Your password</div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="phone">Phone</label>
+                                                    <input type="tel" id="phone" name="phone"
+                                                        class="form-control form-control-lg @error('phone') is-invalid @enderror"
+                                                        placeholder="your phone no" value="{{ old('phone') }}"
+                                                        autocomplete="phone" autofocus
+                                                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
+                                                    @error('phone')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    <div class="help-block">Your phone number</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="gender">Gender</label>
+                                                    <br>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="male" value="male">
+                                                        <label class="form-check-label" for="male">Male</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="female" value="female">
+                                                        <label class="form-check-label" for="female">Female</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="transgender" value="transgender">
+                                                        <label class="form-check-label"
+                                                            for="transgender">Transgender</label>
+                                                    </div>
+                                                    @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    <div class="help-block">Your gender</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label" for="address">Address</label>
+                                                    <textarea name="address" id="address" cols="20" rows="4" class="form-control"></textarea>
+                                                    @error('address')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                    <div class="help-block">Your address</div>
+                                                </div>
+
                                                 <div class="form-group text-left">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
@@ -137,6 +213,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                             me for the next 30 days</label>
                                                     </div>
                                                 </div>
+
                                                 <div class="row no-gutters">
                                                     <div class="col-lg-6 pr-lg-1 my-2">
                                                         <button type="button"
@@ -150,59 +227,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     </div>
                                                 </div>
                                             </form>
-                                        </div>
-                                        <div class="tab-pane fade" id="js_change_pill_direction-2" role="tabpanel">
-                                            <form id="user-login-form" name="user-login-form" novalidate=""
-                                                action="{{ route('login') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="type" value="2" id="typeUser">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="username">Username</label>
-                                                    <input type="text" id="username" name="username"
-                                                        class="form-control form-control-lg"
-                                                        placeholder="your id or username"
-                                                        value="drlantern@gotbootstrap.com" required>
-                                                    <div class="invalid-feedback">No, you missedd this one.</div>
-                                                    <div class="help-block">Your unique username to app</div>
-                                                </div>
-                                                {{-- <div class="form-group">
-                                                    <label class="form-label" for="username">Username</label>
-                                                    <input type="email" id="email" name="email"
-                                                        class="form-control form-control-lg"
-                                                        placeholder="your id or email"
-                                                        value="drlantern@gotbootstrap.com" required>
-                                                    <div class="invalid-feedback">No, you missedd this one.</div>
-                                                    <div class="help-block">Your unique username to app</div>
-                                                </div> --}}
-                                                <div class="form-group">
-                                                    <label class="form-label" for="password">Password</label>
-                                                    <input type="password" id="password" name="password"
-                                                        class="form-control form-control-lg" placeholder="password"
-                                                        value="password123" required>
-                                                    <div class="invalid-feedback">Sorry, you missed this one.</div>
-                                                    <div class="help-block">Your password</div>
-                                                </div>
-                                                <div class="form-group text-left">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="rememberme">
-                                                        <label class="custom-control-label" for="rememberme"> Remember
-                                                            me for the next 30 days</label>
-                                                    </div>
-                                                </div>
-                                                <div class="row no-gutters">
-                                                    <div class="col-lg-6 pr-lg-1 my-2">
-                                                        <button type="button"
-                                                            class="btn btn-info btn-block btn-lg">Sign in with <i
-                                                                class="fab fa-google"></i></button>
-                                                    </div>
-                                                    <div class="col-lg-6 pl-lg-1 my-2">
-                                                        <button id="js-login-btn" type="submit"
-                                                            class="btn btn-danger btn-block btn-lg">Secure
-                                                            login</button>
-                                                    </div>
-                                                </div>
-                                            </form>
+
+                                            <a href="{{ route('welcome') }}">Already an exporter login here!</a>
                                         </div>
                                     </div>
                                 </div>

@@ -26,6 +26,12 @@
             @case(1)
                 <ul id="js-nav-menu" class="nav-menu">
                     <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.users') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">User</span>
@@ -42,6 +48,12 @@
 
             @case(2)
                 <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
@@ -68,6 +80,12 @@
 
             @default
                 <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>

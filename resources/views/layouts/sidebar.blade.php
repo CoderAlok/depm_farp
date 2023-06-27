@@ -23,7 +23,13 @@
         </div>
         <ul id="js-nav-menu" class="nav-menu">
             <li>
-                <a href="#" title="Application Intel" data-filter-tags="application intel">
+                <a href="{{ route('exporter.home') }}" title="Application Intel" data-filter-tags="application intel">
+                    <i class="fal fa-info-circle text-white"></i>
+                    <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('exporter.application.register') }}" title="Application Intel" data-filter-tags="application intel">
                     <i class="fal fa-info-circle text-white"></i>
                     <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
                 </a>

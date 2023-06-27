@@ -43,8 +43,9 @@
                                             </span>
                                         </div>
                                         <input type="text" aria-label="Role Name" class="form-control"
-                                            placeholder="Role name" id="role_name" name="role_name" />
+                                            placeholder="Role name" id="role_name" name="role_name" required />
                                     </div>
+                                    <span id="role_name_error" class=""></span>
                                 </div>
 
                                 <div class="w-100 clearfix">
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
@@ -100,4 +101,33 @@
         </div>
     </main>
     <!-- this overlay is activated only when mobile menu is triggered -->
+@endsection
+
+@section('scripts')
+    @routes
+    <script>
+        $('#role_name').on('blur', (e) => {
+            let role_name = $('#role_name').val();
+
+            $.ajax({
+                type: "get",
+                url: route('admin.roles.check'),
+                data: {
+                    role_name: role_name,
+                },
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    // $("#role_name_error").text(data.message);
+                    // $("#role_name_error").addClass('text-danger');
+
+                    iziToast.error({
+                        title: 'Error',
+                        message: data.message,
+                        position: 'topRight',
+                    });
+                },
+            });
+        });
+    </script>
 @endsection

@@ -23,6 +23,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/faxvicon-32x32.png') }}" />
     <link rel="mask-icon" href="{{ asset('img/favicon/safari-pinned-tab.svg') }}" color="#5bbad5" />
     <!--<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" />
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -366,10 +368,29 @@
 
     <script src="{{ asset('js/vendors.bundle.js') }}"></script>
     <script src="{{ asset('js/app.bundle.js') }}"></script>
+    @yield('scripts')
     <!--<script src="js/../script.js"></script>
  <script>
      $(document).ready(function() {
 
+     });
+
+     iziToast.success({
+         title: 'Success',
+         message: 'Success',
+         position: 'topRight'
+     });
+
+     iziToast.error({
+         title: 'Error',
+         message: data.message,
+         position: 'topRight',
+     });
+
+     iziToast.warning({
+         title: 'Caution',
+         message: 'Caution',
+         position: 'topRight',
      });
  </script>-->
 

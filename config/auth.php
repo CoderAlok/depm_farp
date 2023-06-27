@@ -36,9 +36,13 @@ return [
      */
 
     'guards'           => [
-        'web' => [
+        'web'      => [
             'driver'   => 'session',
             'provider' => 'users',
+        ],
+        'exporter' => [
+            'driver'   => 'session',
+            'provider' => 'exporters',
         ],
     ],
 
@@ -60,9 +64,14 @@ return [
      */
 
     'providers'        => [
-        'users' => [
+        'users'     => [
             'driver' => 'eloquent',
             'model'  => App\Models\User::class,
+        ],
+
+        'exporters' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\tbl_exporters::class,
         ],
 
         // 'users' => [

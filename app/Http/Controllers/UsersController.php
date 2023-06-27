@@ -32,15 +32,15 @@ class UsersController extends Controller
     public function userLogin(Request $request)
     {
         $request->validate([
-            'email'    => 'required',
+            'username'    => 'required',
             'password' => 'required',
         ], [
-            'email.required'    => 'Please enter the email',
+            'username.required'    => 'Please enter the username',
             'password.required' => 'Please enter the password',
         ]);
 
         try {
-            $user = User::where('email', $request->email)->where('type', $request->type);
+            $user = User::where('username', $request->username);//->where('type', $request->type);
             if ($user->exists()) {
                 $user = $user->first();
                 // dd($user);

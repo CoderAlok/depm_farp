@@ -126,7 +126,7 @@
                                         </span>
                                         <div class="info-card-text">
                                             <div class="fs-lg text-truncate text-truncate-lg">
-                                                {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
+                                                {{ (Auth::user()->first_name ?? '') . ' ' . (Auth::user()->last_name ?? '') }}
                                             </div>
                                             <span
                                                 class="text-truncate text-truncate-md opacity-80">{{ Auth::user()->email ?? '' }}</span>
@@ -365,6 +365,7 @@
     <!-- END Page Settings -->
     <script src="{{ asset('js/vendors.bundle.js') }}"></script>
     <script src="{{ asset('js/app.bundle.js') }}"></script>
+    @yield('scripts')
     <!--<script src="js/../script.js"></script>
  <script>
      $(document).ready(function() {

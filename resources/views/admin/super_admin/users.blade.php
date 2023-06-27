@@ -14,7 +14,7 @@
                 All the users are listed here
             </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
@@ -58,13 +58,18 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>User</h2>
+                        <h2>User
+                            <button type="button" class="ml-3 badge badge-primary" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Add User
+                            </button>
+                        </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -106,4 +111,90 @@
         </div>
     </main>
     <!-- this overlay is activated only when mobile menu is triggered -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="javascript:void(0)" name="user_add_modal_form" id="user_add_modal_form" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select name="role_id" id="role_id" class="form-control" required>
+                                <option value="">Select one</option>
+                                @foreach ($roles as $key => $item)
+                                    <option value="{{ $key }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control" value=""
+                                placeholder="Your first name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" name="last_name" id="last_name" class="form-control" value=""
+                                placeholder="Your last name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" value=""
+                                placeholder="Your email address" />
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" value=""
+                                placeholder="Your user name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" value=""
+                                placeholder="**********" />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" name="phone" id="phone" class="form-control" value=""
+                                placeholder="Your phone number" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    @routes
+    <script>
+        $('#user_add_modal_form').on('submit', (e) => {
+            $.ajax({
+                type: "post",
+                url: route('admin.users.add'),
+                data: $('#user_add_modal_form').serialize(),
+                dataType: "json",
+                success: function(data) {
+                    iziToast.success({
+                        title: 'Success',
+                        message: data.message,
+                        position: 'topRight',
+                    });
+
+                    window.location.reload();
+                },
+            });
+        })
+    </script>
 @endsection
