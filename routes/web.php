@@ -22,6 +22,11 @@ Route::get('/', function () {
     return view('welcome')->with(['page_title' => 'FARP Login']);
 })->name('welcome');
 
+// ----------------------------
+Route::view('/login-test', 'login');
+Route::view('/register-test', 'register');
+// ----------------------------
+
 // All the login routes
 Auth::routes();
 // Route::post('/login', [UsersController::class, 'userLogin'])->name('login');
@@ -49,6 +54,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/roles', [AdminController::class, 'roles'])->name('admin.roles');
     Route::get('/roles-check', [AdminController::class, 'roles_check'])->name('admin.roles.check');
     Route::post('/roles', [AdminController::class, 'add_roles'])->name('admin.roles.add');
-    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::post('/users', [AdminController::class, 'add_users'])->name('admin.users.add');
+    Route::get('/user', [UsersController::class, 'users'])->name('admin.users');
+    Route::post('/user', [UsersController::class, 'add_users'])->name('admin.users.add');
+    Route::post('/show-user', [UsersController::class, 'show_user'])->name('admin.users.show');
+    Route::post('/edit-user', [UsersController::class, 'edit_users'])->name('admin.users.edit');
 });

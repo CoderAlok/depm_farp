@@ -99,7 +99,14 @@
                                             <td>{{ $value->first_name . ' ' . $value->last_name }}</td>
                                             <td>{{ $value->email ?? '' }}</td>
                                             <td>{{ $value->phone ?? '' }}</td>
-                                            <td><a href="{{ '#' . $value->id }}">Edit</a></td>
+                                            <td>
+                                                {{-- <button type="button" class="ml-3 badge badge-primary" data-toggle="modal"
+                                                    data-target="#edit_user_modal">
+                                                    Edit
+                                                </button> --}}
+                                                <a class="btn btn-info btn-lg edit-user" data-toggle="modal"
+                                                    data-target="#edit_user_modal" data-id="{{ $value->id }}">edit</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -127,7 +134,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="role">Role</label>
+                            <label for="role_id">Role</label>
                             <select name="role_id" id="role_id" class="form-control" required>
                                 <option value="">Select one</option>
                                 @foreach ($roles as $key => $item)
@@ -174,27 +181,150 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_user_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="javascript:void(0)" name="user_edit_modal_form" id="user_edit_modal_form" method="post">
+                    {{-- @csrf --}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit_role_id">Role</label>
+                            <input type="hidden" name="edit_user_id" id="edit_user_id" value="" />
+                            <select name="edit_role_id" id="edit_role_id" class="form-control" required>
+                                <option value="">Select one</option>
+                                @foreach ($roles as $key => $item)
+                                    <option value="{{ $key }}">
+                                        {{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_first_name">First Name</label>
+                            <input type="text" name="edit_first_name" id="edit_first_name" class="form-control"
+                                value="" placeholder="Your first name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_last_name">Last Name</label>
+                            <input type="text" name="edit_last_name" id="edit_last_name" class="form-control"
+                                value="" placeholder="Your last name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_email">Email</label>
+                            <input type="email" name="edit_email" id="edit_email" class="form-control" value=""
+                                placeholder="Your email address" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_username">Username</label>
+                            <input type="text" name="edit_username" id="edit_username" class="form-control"
+                                value="" placeholder="Your user name" />
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="edit_password">Password</label>
+                            <input type="password" name="edit_password" id="edit_password" class="form-control"
+                                value="" placeholder="**********" />
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="edit_phone">Phone</label>
+                            <input type="tel" name="edit_phone" id="edit_phone" class="form-control" value=""
+                                placeholder="Your phone number" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save
+                            changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
     @routes
     <script>
-        $('#user_add_modal_form').on('submit', (e) => {
-            $.ajax({
-                type: "post",
-                url: route('admin.users.add'),
-                data: $('#user_add_modal_form').serialize(),
-                dataType: "json",
-                success: function(data) {
-                    iziToast.success({
-                        title: 'Success',
-                        message: data.message,
-                        position: 'topRight',
-                    });
+        $(document).ready((e) => {
+            // Add models
+            $('#user_add_modal_form').on('submit', (e) => {
+                $.ajax({
+                    type: "post",
+                    url: route('admin.users.add'),
+                    data: $('#user_add_modal_form').serialize(),
+                    dataType: "json",
+                    success: function(data) {
+                        iziToast.success({
+                            title: 'Success',
+                            message: data.message,
+                            position: 'topRight',
+                        });
+                        window.location.reload();
+                    },
+                });
+            })
 
-                    window.location.reload();
-                },
+            // Edit model called
+            $("body").on("click", ".edit-user", function(e) {
+                e.preventDefault();
+                var id = $(this).attr("data-id");
+
+                console.log('ID : ' + id);
+                $.ajax({
+                    type: 'post',
+                    url: route('admin.users.show'),
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    data: {
+                        "id": id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        // console.log(data.data.status);
+                        $('#edit_user_id').val(data.data.id);
+                        $('#edit_role_id').val(data.data.role_id);
+                        $('#edit_first_name').val(data.data.first_name);
+                        $('#edit_last_name').val(data.data.last_name);
+                        $('#edit_email').val(data.data.email);
+                        $('#edit_username').val(data.data.username);
+                        // $('#edit_password').val(data.data.password);
+                        $('#edit_phone').val(data.data.phone);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    }
+                });
             });
-        })
+
+            // Edit modal update
+            $('#user_edit_modal_form').on('submit', (e) => {
+                $.ajax({
+                    type: "post",
+                    url: route('admin.users.edit'),
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    data: $('#user_edit_modal_form').serialize(),
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        iziToast.success({
+                            title: 'Success',
+                            message: data.message,
+                            position: 'topRight',
+                        });
+                        window.location.reload();
+                    },
+                });
+            })
+        });
     </script>
 @endsection
