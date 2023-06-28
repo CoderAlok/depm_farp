@@ -19,6 +19,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        // dd('m here');
         $data['page_title'] = 'Admin Panel';
         $role_id            = Auth::user()->role_id;
         $data['role']       = Role::where('id', $role_id)->first()->name;

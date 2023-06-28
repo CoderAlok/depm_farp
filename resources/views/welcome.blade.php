@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
 
     <!-- additional css -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -43,7 +43,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 
     <style>
         .bg-login {
-            background-image: url("{{ asset('img/inds-2.jpg') }}");
+            background-image: url("{{ asset('public/img/inds-2.jpg') }}");
             background-position: center;
             background-size: cover;
             height: auto;
@@ -77,13 +77,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 </div>
             </nav>
 
-
-
             <nav class="navbar main-nav sticky-top navbar-light bg-white">
                 <div class="d-flex align-items-center container p-0">
                     <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center">
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                            <img src="img/logo.png" alt="SmartAdmin WebApp" aria-roledescription="logo" width="60">
+                            <img src="{{ asset('public/img/logo.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo" width="60">
                             <div class="mr-1 text-dark">
                                 <div class="page-logo-text">Micro, Small & Medium Enterprise Department</div>
                                 <div class="page-logo-text-small mr-1">Government of Odisha</div>
@@ -93,7 +91,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     <a href="page_register.html" class="btn-link text-white ml-auto">Create Account</a>
                 </div>
             </nav>
-
 
             <div class="w-100 bg-login py-5 position-relative d-flex align-items-center">
                 <div class="bg-overlay"></div>

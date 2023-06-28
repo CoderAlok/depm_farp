@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Category;
 use Exporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,8 @@ class TblExportersController extends Controller
      */
     public function create()
     {
-        return view('exporters_register');
+        $data['categories'] = Category::get();
+        return view('exporters_register')->with($data);
     }
 
     /**
@@ -38,24 +40,63 @@ class TblExportersController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
-            'role_id'  => 'required',
-            'name'     => 'required',
-            'email'    => 'required',
-            'username' => 'required',
-            'password' => 'required',
-            'phone'    => 'required',
-            'gender'   => 'required',
-            'address'  => 'required',
+            "type"             => "required",
+            "category"         => "required",
+            "exporter_name"    => "required",
+            "ceo_name"         => "required",
+            "mobile"           => "required",
+            "email"            => "required",
+            "address_at"       => "required",
+            "address_post"     => "required",
+            "address_city"     => "required",
+            "address_district" => "required",
+            "address_pin"      => "required",
+            "bank_name"        => "required",
+            "bank_ac_no"       => "required",
+            "bank_ifsc_code"   => "required",
+            "export_iec"       => "required",
+            "export_epc"       => "required",
+            "export_urn"       => "required",
+            "export_hsm"       => "required",
+
+            // 'role_id'          => 'required',
+            // 'name'             => 'required',
+            // 'email'            => 'required',
+            // 'username'         => 'required',
+            // 'password'         => 'required',
+            // 'phone'            => 'required',
+            // 'gender'           => 'required',
+            // 'address'          => 'required',
         ], [
-            'role_id.required'  => 'Please enter the role_id',
-            'name.required'     => 'Please enter the name',
-            'email.required'    => 'Please enter the email',
-            'username.required' => 'Please enter the username',
-            'password.required' => 'Please enter the password',
-            'phone.required'    => 'Please enter the phone',
-            'gender.required'   => 'Please enter the gender',
-            'address.required'  => 'Please enter the address',
+            "type.required"             => "Please, enter the type",
+            "category.required"         => "Please, enter the category",
+            "exporter_name.required"    => "Please, enter the exporter_name",
+            "ceo_name.required"         => "Please, enter the ceo_name",
+            "mobile.required"           => "Please, enter the mobile",
+            "email.required"            => "Please, enter the email",
+            "address_at.required"       => "Please, enter the address_at",
+            "address_post.required"     => "Please, enter the address_post",
+            "address_city.required"     => "Please, enter the address_city",
+            "address_district.required" => "Please, enter the address_district",
+            "address_pin.required"      => "Please, enter the address_pin",
+            "bank_name.required"        => "Please, enter the bank_name",
+            "bank_ac_no.required"       => "Please, enter the bank_ac_no",
+            "bank_ifsc_code.required"   => "Please, enter the bank_ifsc_code",
+            "export_iec.required"       => "Please, enter the export_iec",
+            "export_epc.required"       => "Please, enter the export_epc",
+            "export_urn.required"       => "Please, enter the export_urn",
+            "export_hsm.required"       => "Please, enter the export_hsm",
+
+            // 'role_id.required'  => 'Please enter the role_id',
+            // 'name.required'     => 'Please enter the name',
+            // 'email.required'    => 'Please enter the email',
+            // 'username.required' => 'Please enter the username',
+            // 'password.required' => 'Please enter the password',
+            // 'phone.required'    => 'Please enter the phone',
+            // 'gender.required'   => 'Please enter the gender',
+            // 'address.required'  => 'Please enter the address',
         ]);
 
         try {
@@ -219,7 +260,8 @@ class TblExportersController extends Controller
         }
     }
 
-    public function applicationRegister(Request $request){
+    public function applicationRegister(Request $request)
+    {
         return view('application');
     }
 }

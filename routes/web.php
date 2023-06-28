@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TblExportersController;
 use App\Http\Controllers\UsersController;
@@ -51,11 +52,21 @@ Route::group(['prefix' => 'exporters'], function () {
 // All the routes for Departmental Users
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
-    Route::get('/roles', [AdminController::class, 'roles'])->name('admin.roles');
-    Route::get('/roles-check', [AdminController::class, 'roles_check'])->name('admin.roles.check');
-    Route::post('/roles', [AdminController::class, 'add_roles'])->name('admin.roles.add');
-    Route::get('/user', [UsersController::class, 'users'])->name('admin.users');
-    Route::post('/user', [UsersController::class, 'add_users'])->name('admin.users.add');
-    Route::post('/show-user', [UsersController::class, 'show_user'])->name('admin.users.show');
-    Route::post('/edit-user', [UsersController::class, 'edit_users'])->name('admin.users.edit');
+
+    Route::group(['prefix' => 'roles'], function () {
+        Route::get('/', [AdminController::class, 'roles'])->name('admin.roles');
+        Route::post('/', [AdminController::class, 'add_roles'])->name('admin.roles.add');
+        Route::get('/roles-check', [AdminController::class, 'roles_check'])->name('admin.roles.check');
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/user', [UsersController::class, 'users'])->name('admin.users');
+        Route::post('/user', [UsersController::class, 'add_users'])->name('admin.users.add');
+        Route::post('/show-user', [UsersController::class, 'show_user'])->name('admin.users.show');
+        Route::post('/edit-user', [UsersController::class, 'edit_users'])->name('admin.users.edit');
+    });
+
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('admin.category');
+    });
 });

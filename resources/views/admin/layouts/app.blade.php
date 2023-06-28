@@ -15,13 +15,13 @@
     <meta name="msapplication-tap-highlight" content="no" />
 
     <!-- base css -->
-    <link rel="stylesheet" media="screen, print" href="{{ asset('css/vendors.bundle.css') }}" />
-    <link rel="stylesheet" media="screen, print" href="{{ asset('css/app.bundle.css') }}" />
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/css/vendors.bundle.css') }}" />
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/css/app.bundle.css') }}" />
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/faxvicon-32x32.png') }}" />
-    <link rel="mask-icon" href="{{ asset('img/favicon/safari-pinned-tab.svg') }}" color="#5bbad5" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/img/favicon/apple-touch-icon.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/img/favicon/faxvicon-32x32.png') }}" />
+    <link rel="mask-icon" href="{{ asset('public/img/favicon/safari-pinned-tab.svg') }}" color="#5bbad5" />
     <!--<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" />
@@ -366,8 +366,8 @@
     </div>
     <!-- END Page Settings -->
 
-    <script src="{{ asset('js/vendors.bundle.js') }}"></script>
-    <script src="{{ asset('js/app.bundle.js') }}"></script>
+    <script src="{{ asset('public/js/vendors.bundle.js') }}"></script>
+    <script src="{{ asset('public/js/app.bundle.js') }}"></script>
     @yield('scripts')
     <!--<script src="js/../script.js"></script>
  <script>

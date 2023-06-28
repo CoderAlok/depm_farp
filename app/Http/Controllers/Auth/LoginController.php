@@ -70,10 +70,13 @@ class LoginController extends Controller
                     Auth::login($user);
                     session()->put('user', $user);
 
+                    // dd('pal');
                     if ($request->type == 1) {
-                        $data['page_title'] = 'Exporter | Home';
-                        return redirect()->route('home')->with($data);
+                        dd('for now its not required');
+                        // $data['page_title'] = 'Exporter | Home';
+                        // return redirect()->route('home')->with($data);
                     } else {
+                        // dd('ggo2');
                         $data['page_title'] = 'Admin | Home';
                         return redirect()->route('admin.home');
                     }

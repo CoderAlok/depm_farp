@@ -233,6 +233,7 @@ return [
 
         'User'         => App\Models\User::class,
         'Exporter'     => App\Models\tbl_exporters::class,
+        'Category'     => App\Models\Categories::class,
     ],
 
 ];
