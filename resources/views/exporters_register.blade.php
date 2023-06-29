@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
 
     <!-- ADDITIONAL CSS  -->
-    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/exporter-register-style.css') }}">
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -36,8 +36,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <!-- bootstrap -->
-    
-    
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" />
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -147,8 +147,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Mobile</label>
-                                        <input type="tel" class="form-control form-control-sm" placeholder="Mobile "
-                                            name="mobile" id="mobile">
+                                        <input type="tel" class="form-control form-control-sm"
+                                            placeholder="Mobile " name="mobile" id="mobile">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">E-Mail</label>

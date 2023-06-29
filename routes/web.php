@@ -23,20 +23,15 @@ Route::get('/', function () {
     return view('welcome')->with(['page_title' => 'FARP Login']);
 })->name('welcome');
 
-// ----------------------------
-Route::view('/login-test', 'login');
-Route::view('/register-test', 'register');
-// ----------------------------
-
 // All the login routes
 Auth::routes();
-// Route::post('/login', [UsersController::class, 'userLogin'])->name('login');
+Route::get('/exporter-register', [TblExportersController::class, 'create'])->name('exporter.register');
 
 // All the routes for exporters
-Route::group(['prefix' => 'exporters', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'exporters'], function () {
     Route::get('/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
     Route::post('/login', [TblExportersController::class, 'login'])->name('exporter.login');
-    Route::get('/register', [TblExportersController::class, 'create'])->name('exporter.register');
+    // Route::get('/register', [TblExportersController::class, 'create'])->name('exporter.register');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
 
@@ -75,7 +70,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete');
     });
 
-    Route::group(['prefix'=>'publicity-officer'], function(){
+    Route::group(['prefix' => 'publicity-officer'], function () {
         Route::get('/pending-exporters', [AdminController::class, 'pending_exporters'])->name('admin.publicity.officer.pending.exporters');
+        Route::post('/update-pending-exporters-status', [AdminController::class, 'update_pending_exporters_status'])->name('admin.publicity.officer.pending.exporters.status');
     });
 });

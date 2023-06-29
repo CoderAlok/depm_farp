@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
 
     <!-- additional css -->
-    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/welcome-style.css') }}">
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -81,7 +81,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <div class="d-flex align-items-center container p-0">
                     <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center">
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                            <img src="{{ asset('public/img/logo.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo" width="60">
+                            <img src="{{ asset('public/img/logo.png') }}" alt="SmartAdmin WebApp"
+                                aria-roledescription="logo" width="60">
                             <div class="mr-1 text-dark">
                                 <div class="page-logo-text">Micro, Small & Medium Enterprise Department</div>
                                 <div class="page-logo-text-small mr-1">Government of Odisha</div>

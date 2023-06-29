@@ -2,81 +2,88 @@
 
 @section('content')
     <!-- BEGIN Page Content -->
-    <!-- the #js-page-content id is needed for some plugins to initialize -->
-    <main id="js-page-content" role="main" class="page-content">
-        <div class="subheader">
-            <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i>
-                Catgeories
-                <sup class="badge badge-primary fw-500">ADDON</sup>
-            </h1>
-            <div class="subheader-block">
-                All the catgeories are listed here
-            </div>
-        </div>
+    <div class="col p-4 offset-md-3 offset-sm-4 offset-xl-2 offset-1">
+        <div class="w-100">
+            <div class="w-100 bg-white position-relative rounded regFormBox my-3">
+                <h3 class="bg-green text-white text-center py-2 mb-2">
+                    Dashboard
+                </h3>
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
-                        <h2>Catgeories
-                            <button type="button" class="ml-3 badge badge-primary" data-toggle="modal"
-                                data-target="#exampleModal">
-                                Add Category
-                            </button>
-                        </h2>
-                        <div class="panel-toolbar">
-                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
-                                data-offset="0,10" data-original-title="Collapse"></button>
-                            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-                                data-offset="0,10" data-original-title="Fullscreen"></button>
-                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
-                                data-original-title="Close"></button>
-                        </div>
-                    </div>
-                    <div class="panel-container show">
-                        <div class="panel-content">
-                            <table class="table">
-                                <thead>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Action</th>
-                                </thead>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div id="panel-1" class="panel">
+                                        <div class="panel-hdr">
+                                            <h2>Catgeories
+                                                <button type="button" class="ml-3 badge badge-primary" data-toggle="modal"
+                                                    data-target="#exampleModal">
+                                                    Add Category
+                                                </button>
+                                            </h2>
+                                            <div class="panel-toolbar">
+                                                <button class="btn btn-panel" data-action="panel-collapse"
+                                                    data-toggle="tooltip" data-offset="0,10"
+                                                    data-original-title="Collapse"></button>
+                                                <button class="btn btn-panel" data-action="panel-fullscreen"
+                                                    data-toggle="tooltip" data-offset="0,10"
+                                                    data-original-title="Fullscreen"></button>
+                                                <button class="btn btn-panel" data-action="panel-close"
+                                                    data-toggle="tooltip" data-offset="0,10"
+                                                    data-original-title="Close"></button>
+                                            </div>
+                                        </div>
+                                        <div class="panel-container show">
+                                            <div class="panel-content">
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Action</th>
+                                                    </thead>
 
-                                <tbody>
-                                    @if (isset($category))
-                                        @foreach ($category as $value)
-                                            <tr>
-                                                <td>{{ $value->id ?? '' }}</td>
-                                                <td>{{ $value->name ?? '' }}</td>
-                                                <td>
-                                                    <a class="btn btn-info btn-lg edit-user" data-toggle="modal"
-                                                        data-target="#edit_user_modal"
-                                                        data-id="{{ $value->id }}">edit</a>
-                                                    <button type="button" id="delete_cat" data-id="{{ $value->id }}"
-                                                        class="btn btn-danger btn-lg delete-user delete_cat"><i
-                                                            class="glyphicon
-                                                        glyphicon-trash"></i>
-                                                        Delete</button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td>
-                                                <p>No Data</p>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                                                    <tbody>
+                                                        @if (isset($category))
+                                                            @foreach ($category as $value)
+                                                                <tr>
+                                                                    <td>{{ $value->id ?? '' }}</td>
+                                                                    <td>{{ $value->name ?? '' }}</td>
+                                                                    <td>
+                                                                        <a class="btn btn-info btn-lg edit-user"
+                                                                            data-toggle="modal"
+                                                                            data-target="#edit_user_modal"
+                                                                            data-id="{{ $value->id }}">edit</a>
+                                                                        <button type="button" id="delete_cat"
+                                                                            data-id="{{ $value->id }}"
+                                                                            class="btn btn-danger btn-lg delete-user delete_cat"><i
+                                                                                class="glyphicon
+                                                                            glyphicon-trash"></i>
+                                                                            Delete</button>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @else
+                                                            <tr>
+                                                                <td>
+                                                                    <p>No Data</p>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    <!-- this overlay is activated only when mobile menu is triggered -->
+        <!-- /END ROW -->
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

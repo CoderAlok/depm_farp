@@ -10,7 +10,11 @@
 
                 <div class="row">
                     <div class="col-xl-12">
-                        Welcome, {{ $role ?? '' }}
+                        <div id="panel-1" class="panel">
+                            <h1>
+                                Welcome, {{ $role ?? '' }}
+                            </h1>
+                        </div>
                     </div>
                 </div>
             </div>
