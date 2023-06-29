@@ -61,25 +61,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" title="Application Intel" data-filter-tags="application intel">
+                        <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#" title="Theme Settings" data-filter-tags="theme settings">
-                            <i class="fal fa-cog text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="Package Info" data-filter-tags="package info">
-                            <i class="fal fa-tag text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.package_info">Login</span>
-                        </a>
-                    </li>
-                    <li class="nav-title text-white">
-                        Tools & Components
                     </li>
                 </ul>
             @break
