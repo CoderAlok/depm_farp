@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use Auth;
 use Carbon\Carbon;
 use Category;
@@ -11,6 +12,7 @@ use ExportersBankDetails;
 use ExportersOtherCodes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class TblExportersController extends Controller
@@ -32,6 +34,7 @@ class TblExportersController extends Controller
      */
     public function create()
     {
+        $data['page_title'] = 'MSME|registration form';
         $data['categories'] = Category::get();
         return view('exporters_register')->with($data);
     }
@@ -92,13 +95,15 @@ class TblExportersController extends Controller
         ]);
 
         try {
-            $data = [
+            $username = explode(' ', $request->exporter_name);
+            $username = strtolower(trim($username[0])) . rand(111111, 999999);
+            $data     = [
                 'role_id'             => $request->type,
                 'category_id'         => $request->category,
                 'name'                => $request->exporter_name,
                 'chief_ex_name'       => $request->ceo_name,
                 'email'               => $request->email,
-                'username'            => $request->name . rand(111111, 999999),
+                'username'            => $username,
                 'password'            => Hash::make('12345678'),
                 'phone'               => $request->mobile,
                 'regsitration_status' => 0,
@@ -161,6 +166,16 @@ class TblExportersController extends Controller
                 ];
                 $update_exporter = Exporter::where('id', $exporter_id)->update($update_data);
                 if ($update_exporter) {
+                    $data = [
+                        'id'        => $exporter_id,
+                        'mail_type' => 1,
+                    ];
+
+                    $to      = 'alok.das@oasystspl.com';
+                    $subject = 'Exporters application registered.';
+                    // Send mail
+                    Mail::to($to)->send(new SendMail($data));
+
                     return redirect()->route('welcome');
                 } else {
                     return redirect()->route('exporter.register');
@@ -184,10 +199,11 @@ class TblExportersController extends Controller
     public function show(Request $request, $id = null)
     {
         try {
-            $exporters       = Exporter::where('id', $id)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
+            $exporters       = Exporter::where('id', $id)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->first();
             $data['data']    = $exporters;
-            $data['message'] = 'Exporters data loaded successfully.';
-            return response($data, 200);
+            $data['message'] = 'Exporters data loaded successfully jjuk.';
+            // return response($data, 200);
+            return view('admin.publicity_officer.pending_exporters_details')->with($data);
         } catch (\Exception $e) {
             $data['data']    = [];
             $data['message'] = $e->getMessage();

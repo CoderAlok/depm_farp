@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use Auth;
 use Exporter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 use User;
 
@@ -108,9 +110,42 @@ class AdminController extends Controller
 
     public function pending_exporters(Request $request)
     {
-        $data['exporters'] = Exporter::where('regsitration_status', 0)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
+        $data['exporters'] = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
         // dd($data['exporters']->toArray());
         return view('admin.publicity_officer.pending_exporters')->with($data);
+    }
+
+    public function update_pending_exporters_status(Request $request)
+    {
+        try {
+            $status = Exporter::where('id', $request->exporter_id);
+            if ($status->update(['regsitration_status' => $request->approval_status])) {
+
+                $data = [
+                    'id'        => $request->exporter_id,
+                    'mail_type' => 2,
+                ];
+
+                $to      = 'alok.das@oasystspl.com';
+                $subject = 'Exporters registration approval mail.';
+                // Send mail
+                Mail::to($to)->send(new SendMail($data));
+
+                $data['data']    = [];
+                $data['message'] = 'Status Updated successfully.';
+                // return response($data, 200);
+                return redirect()->route('admin.publicity.officer.pending.exporters');
+            } else {
+                $data['data']    = [];
+                $data['message'] = 'Failed to update';
+                // return response($data, 200);
+                return redirect()->route('exporter.details');
+            }
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
     }
 
 }
