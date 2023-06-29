@@ -68,5 +68,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'category'], function () {
         Route::get('/', [CategoryController::class, 'index'])->name('admin.category');
+        Route::post('/', [CategoryController::class, 'store'])->name('admin.category.store');
+        Route::get('/{id}', [CategoryController::class, 'show'])->name('admin.category.show');
+        Route::post('/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete');
+    });
+
+    Route::group(['prefix'=>'publicity-officer'], function(){
+        Route::get('/pending-exporters', [AdminController::class, 'pending_exporters'])->name('admin.publicity.officer.pending.exporters');
     });
 });
