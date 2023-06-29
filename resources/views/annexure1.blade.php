@@ -1,27 +1,7 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <!-- BEGIN Page Content -->
-    <!-- the #js-page-content id is needed for some plugins to initialize -->
-    {{-- <main id="js-page-content" role="main" class="page-content">
-        <div class="subheader">
-            <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i>
-                Dashboard
-                <sup class="badge badge-primary fw-500">+</sup>
-            </h1>
-            <div class="subheader-block">
-                All the application details
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-12">
-                Welcome, {{ $role ?? '' }}
-            </div>
-        </div>
-    </main> --}}
-    <!-- this overlay is activated only when mobile menu is triggered -->
-
     <div class="col p-4 offset-md-3 offset-sm-4 offset-xl-2 offset-1">
         <div class="w-100">
             <div class="w-100 bg-white position-relative rounded regFormBox my-3">
@@ -55,8 +35,8 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <h6>1. IEC Number Issued by DGFT:</h6>
-                            <input type="number" class="form-control form-control-sm" placeholder="Enter IEC No."
-                                name="" id="" />
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter IEC No."
+                                name="" id="" value="{{ $data->get_other_code_details->iec }}" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <h6>
@@ -64,7 +44,7 @@
                                 Orgatization:
                             </h6>
                             <input type="text" class="form-control form-control-sm" placeholder="Exporting Orgatization "
-                                name="" id="" />
+                                name="" id="" value="{{ $data->name }}" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <h6>
@@ -72,7 +52,8 @@
                                 Proprietor/Director/CEO:
                             </h6>
                             <input type="text" class="form-control form-control-sm"
-                                placeholder="Enter Proprietor/Director/CEO" name="" id="" />
+                                placeholder="Enter Proprietor/Director/CEO" name="" id=""
+                                value="{{ $data->chief_ex_name }}" />
                         </div>
                     </div>
                     <!-- End Row -->
@@ -82,12 +63,13 @@
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(a).Exporter's Email :</label>
                             <input type="email" class="form-control form-control-sm" placeholder="Enter Exporter Email id"
-                                name="" id="" />
+                                name="" id="" value="{{ $data->email }}" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(b).Contact No. :</label>
                             <input type="tel" class="form-control form-control-sm"
-                                placeholder="Enter Exporter Contact No." name="" id="" />
+                                placeholder="Enter Exporter Contact No." name="" id=""
+                                value="{{ $data->phone }}" />
                         </div>
                     </div>
                     <!-- End Row -->
@@ -99,22 +81,22 @@
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(a). Name Of the Banker</label>
                             <input type="text" class="form-control form-control-sm" placeholder="Name" name=""
-                                id="" />
+                                id="" value="{{ $data->get_bank_details->name }}" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(b). Details A/c No.</label>
                             <input type="number" class="form-control form-control-sm" placeholder="Account No."
-                                name="" id="" />
+                                name="" id="" value="{{ $data->get_bank_details->account_no }}" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(c). IFSC Code</label>
                             <input type="tel" class="form-control form-control-sm" placeholder="IFSC code"
-                                name="" id="" />
+                                name="" id="" value="{{ $data->get_bank_details->ifsc }}" />
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(d). Udayam Regd No.</label>
                             <input type="tel" class="form-control form-control-sm" placeholder="IFSC code"
-                                name="" id="" />
+                                name="" id="" value="{{ $data->get_other_code_details->urn }}" />
                         </div>
                     </div>
                     <!-- /End Row -->

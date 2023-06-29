@@ -1,82 +1,82 @@
-<aside class="page-sidebar">
-    <div class="page-logo">
-        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative"
-            data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{ asset('public/img/logo.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo" />
-            <span class="page-logo-text mr-1">Registration - FARP</span>
-            <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar-bg sidebar-menu position-fixed">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-5 d-none d-sm-inline">Menu</span>
         </a>
-    </div>
 
-    <!-- BEGIN PRIMARY NAVIGATION -->
-    <nav id="js-primary-nav" class="primary-nav" role="navigation">
-        <div class="nav-filter">
-            <div class="position-relative">
-                <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control"
-                    tabindex="0" />
-                <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off"
-                    data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar">
-                    <i class="fal fa-chevron-up"></i>
-                </a>
-            </div>
+        @switch($data->track_status)
+            @case(1)
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="{{ route('exporter.home') }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i>
+                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('exporter.application.annexure1') }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-ui-checks-grid"></i>
+                            <span class="ms-1 d-none d-sm-inline">Annexure 1</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('exporter.application.annexure2') }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-ui-checks-grid"></i>
+                            <span class="ms-1 d-none d-sm-inline">Annexure 2</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ '#' }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-app"></i>
+                            <span class="ms-1 d-none d-sm-inline">Application</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ '#' }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-app-indicator"></i>
+                            <span class="ms-1 d-none d-sm-inline">Application Status</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ '#' }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-list-task"></i>
+                            <span class="ms-1 d-none d-sm-inline">Application List</span>
+                        </a>
+                    </li>
+                </ul>
+            @break
+
+            @default
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="{{ route('exporter.home') }}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i>
+                            <span class="ms-1 d-none d-sm-inline">Reset Password</span>
+                        </a>
+                    </li>
+                </ul>
+        @endswitch
+
+        <hr />
+        <div class="dropdown p-4 fixed-bottom">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                    class="rounded-circle" />
+                <span class="d-none d-sm-inline mx-1">Coder</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">Sign
+                        out</a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
+            </ul>
         </div>
-        <ul id="js-nav-menu" class="nav-menu">
-            <li>
-                <a href="{{ route('exporter.home') }}" title="Application Intel" data-filter-tags="application intel">
-                    <i class="fal fa-info-circle text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('exporter.application.register') }}" title="Application Intel" data-filter-tags="application intel">
-                    <i class="fal fa-info-circle text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" title="Theme Settings" data-filter-tags="theme settings">
-                    <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" title="Package Info" data-filter-tags="package info">
-                    <i class="fal fa-tag text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.package_info">Login</span>
-                </a>
-            </li>
-            <li class="nav-title text-white">
-                Tools & Components
-            </li>
-        </ul>
-    </nav>
-    <!-- END PRIMARY NAVIGATION -->
-
-    <!-- NAV FOOTER -->
-    <div class="nav-footer shadow-top">
-        <a href="#" onclick="return false;" data-action="toggle" data-class="nav-function-minify"
-            class="hidden-md-down">
-            <i class="ni ni-chevron-right text-white"></i>
-            <i class="ni ni-chevron-right text-white"></i>
-        </a>
-        <ul class="list-table m-auto nav-footer-buttons">
-            <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
-                    <i class="fal fa-comments text-white"></i>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Support Chat">
-                    <i class="fal fa-life-ring text-white"></i>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Make a call">
-                    <i class="fal fa-phone text-white"></i>
-                </a>
-            </li>
-        </ul>
     </div>
-    <!-- END NAV FOOTER -->
-</aside>
+</div>

@@ -24,7 +24,18 @@ class TblExportersController extends Controller
      */
     public function index()
     {
-        //
+        dd('m here');
+        // try {
+        //     $exporters       = Exporter::where('id', $id)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->first();
+        //     $data['data']    = $exporters;
+        //     $data['message'] = 'Exporters data loaded successfully jjuk.';
+        //     // return response($data, 200);
+        //     return view('admin.publicity_officer.pending_exporters_details')->with($data);
+        // } catch (\Exception $e) {
+        //     $data['data']    = [];
+        //     $data['message'] = $e->getMessage();
+        //     return response($data, 500);
+        // }
     }
 
     /**
@@ -198,6 +209,7 @@ class TblExportersController extends Controller
      */
     public function show(Request $request, $id = null)
     {
+        dd('m here');
         try {
             $exporters       = Exporter::where('id', $id)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->first();
             $data['data']    = $exporters;
@@ -304,6 +316,7 @@ class TblExportersController extends Controller
                     if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
                         session()->put('exporter', $exporterData);
                         $data['page_title'] = 'Exporter | Home';
+                        // dd('m ahsjsajshaj');
                         return redirect()->route('exporter.home');
                     } else {
                         return redirect()->route('welcome');
@@ -325,9 +338,34 @@ class TblExportersController extends Controller
         }
     }
 
-    public function applicationRegister(Request $request)
+    public function annexure1(Request $request)
     {
+        $data['page_title'] = 'Annexure 1';
+        $exporter           = Auth::guard('exporter')->user();
+        $data['data']       = Exporter::where('id', $exporter->id)
+            ->with([
+                'get_category_details:id,name',
+                'get_address_details:exporter_id,address,post,city,district,pincode',
+                'get_bank_details:exporter_id,name,account_no,ifsc,cheque_img',
+                'get_other_code_details:exporter_id,iec,rcmc,epc,urn,hsm',
+            ])
+            ->first();
+            // dd($data);
+        return view('annexure1')->with($data);
+    }
 
-        return view('application');
+    public function annexure2(Request $request)
+    {
+        $data['page_title'] = 'Annexure 2';
+        $exporter           = Auth::guard('exporter')->user();
+        $data['data']       = Exporter::where('id', $exporter->id)
+            ->with([
+                'get_category_details:id,name',
+                'get_address_details:exporter_id,address,post,city,district,pincode',
+                'get_bank_details:exporter_id,name,account_no,ifsc,cheque_img',
+                'get_other_code_details:exporter_id,iec,rcmc,epc,urn,hsm',
+            ])
+            ->first();
+        return view('annexure2')->with($data);
     }
 }

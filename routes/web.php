@@ -29,14 +29,15 @@ Route::get('/exporter-register', [TblExportersController::class, 'create'])->nam
 
 // All the routes for exporters
 Route::group(['prefix' => 'exporters'], function () {
-    Route::get('/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
+    Route::get('/show/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
     Route::post('/login', [TblExportersController::class, 'login'])->name('exporter.login');
     // Route::get('/register', [TblExportersController::class, 'create'])->name('exporter.register');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
 
     Route::group(['prefix' => 'applications'], function () {
-        Route::get('/register', [TblExportersController::class, 'applicationRegister'])->name('exporter.application.register');
+        Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
+        Route::get('/annexure-2', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
     });
 
     Route::group([], function () {

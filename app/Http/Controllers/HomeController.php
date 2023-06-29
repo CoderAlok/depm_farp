@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
+use Exporter;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -24,9 +25,23 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data['page_title'] = 'Exporter Panel';
-        // dd(Auth::guard('exporter')->user()->toArray());
-        return view('home')->with($data);
+        $exporter     = Auth::guard('exporter')->user();
+        $data['data'] = Exporter::where('id', $exporter->id)
+            ->with([
+                'get_category_details:id,name',
+                'get_address_details:exporter_id,address,post,city,district,pincode',
+                'get_bank_details:exporter_id,name,account_no,ifsc,cheque_img',
+                'get_other_code_details:exporter_id,iec,rcmc,epc,urn,hsm',
+            ])
+            ->first();
+
+        if ($exporter->track_status) {
+            $data['page_title'] = 'Exporter Panel';
+            return view('home')->with($data);
+        } else {
+            $data['page_title'] = 'Exporter|Reset Password';
+            return view('reset_password')->with($data);
+        }
     }
 
 }
