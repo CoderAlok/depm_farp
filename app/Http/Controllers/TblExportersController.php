@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Carbon\Carbon;
 use Category;
 use Exporter;
+use ExportersAddress;
+use ExportersBankDetails;
+use ExportersOtherCodes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +45,7 @@ class TblExportersController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+
         $request->validate([
             "type"             => "required",
             "category"         => "required",
@@ -48,27 +53,22 @@ class TblExportersController extends Controller
             "ceo_name"         => "required",
             "mobile"           => "required",
             "email"            => "required",
+
             "address_at"       => "required",
             "address_post"     => "required",
             "address_city"     => "required",
             "address_district" => "required",
             "address_pin"      => "required",
+
             "bank_name"        => "required",
             "bank_ac_no"       => "required",
             "bank_ifsc_code"   => "required",
+
             "export_iec"       => "required",
+            "export_rcmc_no"   => "required",
             "export_epc"       => "required",
             "export_urn"       => "required",
             "export_hsm"       => "required",
-
-            // 'role_id'          => 'required',
-            // 'name'             => 'required',
-            // 'email'            => 'required',
-            // 'username'         => 'required',
-            // 'password'         => 'required',
-            // 'phone'            => 'required',
-            // 'gender'           => 'required',
-            // 'address'          => 'required',
         ], [
             "type.required"             => "Please, enter the type",
             "category.required"         => "Please, enter the category",
@@ -85,35 +85,86 @@ class TblExportersController extends Controller
             "bank_ac_no.required"       => "Please, enter the bank_ac_no",
             "bank_ifsc_code.required"   => "Please, enter the bank_ifsc_code",
             "export_iec.required"       => "Please, enter the export_iec",
+            "export_rcmc_no.required"   => "Please, enter the export_epc",
             "export_epc.required"       => "Please, enter the export_epc",
             "export_urn.required"       => "Please, enter the export_urn",
             "export_hsm.required"       => "Please, enter the export_hsm",
-
-            // 'role_id.required'  => 'Please enter the role_id',
-            // 'name.required'     => 'Please enter the name',
-            // 'email.required'    => 'Please enter the email',
-            // 'username.required' => 'Please enter the username',
-            // 'password.required' => 'Please enter the password',
-            // 'phone.required'    => 'Please enter the phone',
-            // 'gender.required'   => 'Please enter the gender',
-            // 'address.required'  => 'Please enter the address',
         ]);
 
         try {
-            $insert_data = [
-                'role_id'  => $request->role_id,
-                'name'     => $request->name,
-                'email'    => $request->email,
-                'username' => $request->username,
-                'password' => Hash::make($request->password),
-                'phone'    => $request->phone,
-                'gender'   => $request->gender,
-                'address'  => $request->address,
+            $data = [
+                'role_id'             => $request->type,
+                'category_id'         => $request->category,
+                'name'                => $request->exporter_name,
+                'chief_ex_name'       => $request->ceo_name,
+                'email'               => $request->email,
+                'username'            => $request->name . rand(111111, 999999),
+                'password'            => Hash::make('12345678'),
+                'phone'               => $request->mobile,
+                'regsitration_status' => 0,
+                'created_at'          => Carbon::now(),
+                // 'gender'              => $request->gender,
             ];
 
-            $exporter = Exporter::insert($insert_data);
-            if ($exporter) {
-                return redirect()->route('welcome');
+            $exporter_id = Exporter::insertGetId($data);
+            if ($exporter_id) {
+                // dd($exporter_id);
+                $address_data = [
+                    'exporter_id' => $exporter_id,
+                    'address'     => $request->address_at,
+                    'post'        => $request->address_post,
+                    'city'        => $request->address_city,
+                    'district'    => $request->address_district,
+                    'pincode'     => $request->address_pin,
+                    'status'      => 0,
+                    'created_by'  => $exporter_id,
+                    'created_at'  => Carbon::now(),
+                ];
+                $address_id = ExportersAddress::insert($address_data);
+                // dd($address_id);
+
+                // File uploading
+                $image            = $request->bank_cheque;
+                $cheque_file_name = $image->getClientOriginalName();
+                $image->storeAs('public/images/exporters', $cheque_file_name);
+
+                $bank_data = [
+                    'exporter_id' => $exporter_id,
+                    'name'        => $request->bank_name,
+                    'account_no'  => $request->bank_ac_no,
+                    'ifsc'        => $request->bank_ifsc_code,
+                    'cheque_img'  => $cheque_file_name,
+                    'created_by'  => $exporter_id,
+                    'created_at'  => Carbon::now(),
+                ];
+                $bank_id = ExportersBankDetails::insert($bank_data);
+                // dd($bank_id);
+
+                $code_data = [
+                    'exporter_id' => $exporter_id,
+                    'iec'         => $request->export_iec,
+                    'rcmc'        => $request->export_rcmc_no,
+                    'epc'         => $request->export_epc,
+                    'urn'         => $request->export_urn,
+                    'hsm'         => $request->export_hsm,
+                    'created_by'  => $exporter_id,
+                    'created_at'  => Carbon::now(),
+                ];
+                $other_code_id = ExportersOtherCodes::insert($code_data);
+                // dd($other_code_id);
+
+                $update_data = [
+                    'address_id'    => $address_id,
+                    'bank_id'       => $bank_id,
+                    'other_code_id' => $other_code_id,
+                    'created_by'    => $exporter_id,
+                ];
+                $update_exporter = Exporter::where('id', $exporter_id)->update($update_data);
+                if ($update_exporter) {
+                    return redirect()->route('welcome');
+                } else {
+                    return redirect()->route('exporter.register');
+                }
             } else {
                 return redirect()->route('exporter.register');
             }
@@ -262,6 +313,7 @@ class TblExportersController extends Controller
 
     public function applicationRegister(Request $request)
     {
+        
         return view('application');
     }
 }
