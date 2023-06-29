@@ -181,11 +181,12 @@ class TblExportersController extends Controller
      * @param  \App\Models\tbl_exporters  $tbl_exporters
      * @return \Illuminate\Http\Response
      */
-    public function show(Exporter $tbl_exporters)
+    public function show(Request $request, $id = null)
     {
         try {
-            $data['data']    = [];
-            $data['message'] = '';
+            $exporters       = Exporter::where('id', $id)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
+            $data['data']    = $exporters;
+            $data['message'] = 'Exporters data loaded successfully.';
             return response($data, 200);
         } catch (\Exception $e) {
             $data['data']    = [];
@@ -284,11 +285,8 @@ class TblExportersController extends Controller
                 $exporterData = Exporter::where('email', $request->email);
                 if ($exporterData->exists()) {
                     $exporterData = $exporterData->first();
-                    if (Hash::check($request->password, $exporterData->password)) {
-                        // set data in both Auth and session
-                        // Auth::login($exporterData);
+                    if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
                         session()->put('exporter', $exporterData);
-
                         $data['page_title'] = 'Exporter | Home';
                         return redirect()->route('exporter.home');
                     } else {
@@ -313,7 +311,7 @@ class TblExportersController extends Controller
 
     public function applicationRegister(Request $request)
     {
-        
+
         return view('application');
     }
 }

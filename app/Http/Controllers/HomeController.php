@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Exporter Panel';
+        // dd(Auth::guard('exporter')->user()->toArray());
         return view('home')->with($data);
     }
 

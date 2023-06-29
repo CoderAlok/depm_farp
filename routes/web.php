@@ -33,7 +33,8 @@ Auth::routes();
 // Route::post('/login', [UsersController::class, 'userLogin'])->name('login');
 
 // All the routes for exporters
-Route::group(['prefix' => 'exporters'], function () {
+Route::group(['prefix' => 'exporters', 'middleware' => 'auth'], function () {
+    Route::get('/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
     Route::post('/login', [TblExportersController::class, 'login'])->name('exporter.login');
     Route::get('/register', [TblExportersController::class, 'create'])->name('exporter.register');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');

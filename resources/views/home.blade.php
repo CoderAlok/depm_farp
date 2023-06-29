@@ -16,7 +16,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                Dashboard
+                Welcome,  {{ Auth::guard('exporter')->user()->name }}
             </div>
         </div>
     </main>

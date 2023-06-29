@@ -32,59 +32,50 @@
                         <div class="panel-content">
                             <!-- <div class="panel-tag">Establishment Name</div> -->
                             {{-- <h1>All the pending application will be Listed here</h1> --}}
-                            <table class="table ">
+                            {{-- class list: display, stripe, row-border, order-column, hover, display compact, cell-border, ui celled table,  --}}
+
+                            <table id="table" class="stripe" style="width:100%">
                                 <thead>
-                                    <th>SlNo</th>
+                                    <th>ID</th>
                                     <th>Type</th>
-                                    {{-- <th>Category</th> --}}
+                                    <th>Category</th>
                                     <th>Name</th>
-                                    <th>Cheif Executive</th>
                                     <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Username</th>
-
-                                    <th>Address</th>
-                                    
-                                    <th>Bank name</th>
-                                    <th>IFSC</th>
-
-                                    <th>IEC</th>
-                                    <th>RCMC</th>
-                                    <th>EPC</th>
-                                    <th>URN</th>
-                                    <th>HSN</th>
-
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </thead>
 
                                 <tbody>
                                     @php
                                         $type = ['', '', '', '', '', '', 'Merchant', 'Manufacturer'];
+                                        $reg_status = ['Pending', 'Approved', 'Rejected'];
                                     @endphp
-                                    @foreach ($exporters as $item)
+                                    @foreach ($exporters as $key => $item)
                                         <tr>
-                                            <td>{{ $item->id }}</td>
-                                            <td>{{ $type[$item->role_id] }}</td>
-                                            {{-- <td>{{ $type[$item->role_id] }}</td> --}}
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->chief_ex_name }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->phone }}</td>
-                                            <td>{{ $item->username }}</td>
+                                            <td width="5%">{{ ++$key }}</td>
+                                            <td width="20%">{{ $type[$item->role_id] }}</td>
+                                            <td width="20%">{{ $item->get_category_details->name }}</td>
+                                            <td width="20%">{{ $item->name }}</td>
+                                            <td width="60%">{{ $item->email }}</td>
+                                            <td width="10%">{{ $reg_status[$item->regsitration_status] }}</td>
+                                            <td width="5%">
+                                                <a class="edit-user p-3 btn btn-info view_exporter" data-toggle="modal"
+                                                    data-target="#viewmodal" data-id="{{ $item->id }}">
+                                                    <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                </a>
 
-                                            <td>{{ $item->get_address_details->address }}<br/>{{ $item->get_address_details->post }}<br/>{{ $item->get_address_details->city }}<br/>{{ $item->get_address_details->district }}<br/>{{ $item->get_address_details->pincode }}</td>
 
-                                            <td>{{ $item->get_bank_details->name }}</td>
-                                            <td>{{ $item->get_bank_details->ifsc }}</td>
-                                            
-                                            <td>{{ $item->get_other_code_details->iec }}</td>
-                                            <td>{{ $item->get_other_code_details->rcmc }}</td>
-                                            <td>{{ $item->get_other_code_details->epc }}</td>
-                                            <td>{{ $item->get_other_code_details->urn }}</td>
-                                            <td>{{ $item->get_other_code_details->hsm }}</td>
+                                                {{-- <a class="delete-user p-3" data-toggle="modal"
+                                                    data-id="{{ $item->id }}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a> --}}
+                                                {{-- {{ $item->id }} --}}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -92,4 +83,55 @@
         </div>
     </main>
     <!-- this overlay is activated only when mobile menu is triggered -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    @routes
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+
+        $(document).ready((e) => {
+            // Edit model show
+            $("body").on("click", ".edit-user", function(e) {
+                e.preventDefault();
+                var id = $(this).attr("data-id");
+
+                // console.log('ID : ' + id);
+                $.ajax({
+                    type: 'get',
+                    url: route('exporter.details', id),
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

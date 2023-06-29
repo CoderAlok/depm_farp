@@ -108,7 +108,7 @@ class AdminController extends Controller
 
     public function pending_exporters(Request $request)
     {
-        $data['exporters'] = Exporter::where('regsitration_status', 0)->with(['get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
+        $data['exporters'] = Exporter::where('regsitration_status', 0)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
         // dd($data['exporters']->toArray());
         return view('admin.publicity_officer.pending_exporters')->with($data);
     }

@@ -23,7 +23,7 @@ class tbl_exporters extends Authenticatable
 
     public function get_category_details()
     {
-        return $this->hasOne(Category::class, 'category_id', 'id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function get_address_details()
