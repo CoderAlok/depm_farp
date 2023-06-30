@@ -190,7 +190,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 </div>
                                                 <div class="col-lg-6 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
-                                                        class="btn btn-danger btn-block btn-sm">{{ __('Signup') }}</button>
+                                                        class="btn btn-success btn-block btn-sm">{{ __('Signup') }}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -225,12 +225,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             </div>
                                             <div class="row no-gutters">
                                                 <div class="col-lg-6 pr-lg-1 my-2">
-                                                    <a type="button" class="btn btn-info btn-block btn-sm"
-                                                        href="{{ '#' }}">Register</a>
+                                                    {{-- <a type="button" class="btn btn-info btn-block btn-sm"
+                                                        href="{{ '#' }}">Register</a> --}}
                                                 </div>
                                                 <div class="col-lg-6 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
-                                                        class="btn btn-danger btn-block btn-sm">Signup</button>
+                                                        class="btn btn-success btn-block btn-sm">Sign in</button>
                                                 </div>
                                             </div>
                                         </form>
