@@ -34,6 +34,7 @@ Route::group(['prefix' => 'exporters'], function () {
     // Route::get('/register', [TblExportersController::class, 'create'])->name('exporter.register');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
+    Route::post('/check-user-name', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.check.username');
 
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');

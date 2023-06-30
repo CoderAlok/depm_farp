@@ -367,4 +367,8 @@ class TblExportersController extends Controller
             ->first();
         return view('annexure2')->with($data);
     }
+
+    public function exporter_reset_password(Request $request){
+        dd($request->all());
+    }
 }
