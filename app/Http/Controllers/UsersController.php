@@ -21,8 +21,9 @@ class UsersController extends Controller
     public function users(Request $request)
     {
         $data['page_title'] = 'Admin Panel | Users';
-        $data['users']      = User::where('type', 2)->get();
+        $data['users']      = User::where('type', 2)->with('get_role_details:id,name')->get();
         $data['roles']      = Role::where('id', '!=', 1)->get()->pluck('name', 'id');
+        // dd($data);
         return view('admin.super_admin.users')->with($data);
     }
 

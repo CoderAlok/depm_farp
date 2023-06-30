@@ -190,7 +190,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 </div>
                                                 <div class="col-lg-6 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
-                                                        class="btn btn-success btn-block btn-sm">{{ __('Signup') }}</button>
+                                                        class="btn btn-success btn-block btn-sm">{{ __('Sign in') }}</button>
                                                 </div>
                                             </div>
                                         </form>

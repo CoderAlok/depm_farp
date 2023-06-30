@@ -29,6 +29,7 @@
                         <table class="table">
                             <thead>
                                 <th>ID</th>
+                                <th>Role</th>
                                 <th>Username</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -40,6 +41,7 @@
                                 @foreach ($users as $key => $value)
                                     <tr>
                                         <td>{{ $value->id ?? '' }}</td>
+                                        <td>{{ $value->get_role_details->name ?? '' }}</td>
                                         <td>{{ $value->username ?? '' }}</td>
                                         <td>{{ $value->first_name . ' ' . $value->last_name }}</td>
                                         <td>{{ $value->email ?? '' }}</td>
