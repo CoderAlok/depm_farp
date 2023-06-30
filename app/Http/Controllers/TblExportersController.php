@@ -209,7 +209,6 @@ class TblExportersController extends Controller
      */
     public function show(Request $request, $id = null)
     {
-        dd('m here');
         try {
             $exporters       = Exporter::where('id', $id)->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->first();
             $data['data']    = $exporters;
@@ -350,7 +349,7 @@ class TblExportersController extends Controller
                 'get_other_code_details:exporter_id,iec,rcmc,epc,urn,hsm',
             ])
             ->first();
-            // dd($data);
+        // dd($data);
         return view('annexure1')->with($data);
     }
 

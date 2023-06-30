@@ -237,7 +237,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             placeholder="Account No." name="export_rcmc_no" id="export_epc">
                                     </div>
                                     <div class="col-md-4 mb-4">
-                                        <h6>10. Nameof the EPC</h6>
+                                        <h6>10. Name of the EPC</h6>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="EPC Name" name="export_epc" id="export_epc">
                                     </div>

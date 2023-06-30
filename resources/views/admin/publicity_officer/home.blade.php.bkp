@@ -12,7 +12,7 @@
                     <div class="col-xl-12">
                         <div id="panel-1" class="panel">
                             <h1>
-                                Welcome, {{ $role ?? '' }}
+                                Welcome, {{ $role ?? '' }}asasasas
                             </h1>
                         </div>
                     </div>
