@@ -52,11 +52,13 @@
                                             {{ $item->get_category_details->name }}
                                         </td>
                                         <td width="20%">{{ $item->name }}</td>
-                                        <td width="60%">{{ $item->email }}</td>
-                                        <td width="10%" class="text-{{ $reg_status_color[$item->regsitration_status] }}">
-                                            {{ $reg_status[$item->regsitration_status] }}
+                                        <td width="50%">{{ $item->email }}</td>
+                                        <td width="15%">
+                                            <span
+                                                class="text-white badge bg-{{ $reg_status_color[$item->regsitration_status] }}">{{ $reg_status[$item->regsitration_status] }}
+                                            </span>
                                         </td>
-                                        <td width="5%">
+                                        <td width="10%">
                                             {{-- <a class="edit-user p-3 btn btn-info view_exporter"
                                                 data-toggle="modal" data-target="#viewmodal"
                                                 data-id="{{ $item->id }}">

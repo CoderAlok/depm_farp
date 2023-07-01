@@ -121,10 +121,11 @@ class TblExportersController extends Controller
                 'created_at'          => Carbon::now(),
                 // 'gender'              => $request->gender,
             ];
+            // dd($data);
 
             $exporter_id = Exporter::insertGetId($data);
+            // dd($exporter_id);
             if ($exporter_id) {
-                // dd($exporter_id);
                 $address_data = [
                     'exporter_id' => $exporter_id,
                     'address'     => $request->address_at,
@@ -176,6 +177,8 @@ class TblExportersController extends Controller
                     'created_by'    => $exporter_id,
                 ];
                 $update_exporter = Exporter::where('id', $exporter_id)->update($update_data);
+                // dd($update_exporter);
+
                 if ($update_exporter) {
                     $data = [
                         'id'        => $exporter_id,
@@ -291,10 +294,6 @@ class TblExportersController extends Controller
      */
     public function login(Request $request)
     {
-        // $credentials = ['email' => $request->email, 'password' => $request->password];
-        // // $credentials = ['username' => $request->username, 'password' => $request->password];
-        // dd(Auth::guard('exporter')->login($credentials));
-
         try {
             $validator = Validator::make($request->all(), [
                 'type.required'     => 'Please enter the role_id',

@@ -150,10 +150,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             placeholder="CEO Name" name="ceo_name" id="ceo_name">
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Phone</label>
-                                        <input type="text" placeholder="Phone number" data-inputmask="'mask': '(999) 999-9999'"
-                                            class="form-control form-control-sm">
-                                        <span class="help-block text-dark" style="font-size: 12px">(999) 999-9999</span>
+                                        <label class="form-label">Mobile</label>
+                                        <input type="tel" class="form-control form-control-sm"
+                                            placeholder="Mobile " name="mobile" id="mobile">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">E-Mail</label>
@@ -191,7 +190,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">PIN</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="PIN Code" name="address_pin" id="address_pin">
+                                            placeholder="PIN Code" name="address_pin" id="address_pin"
+                                            max="6" min="6">
                                     </div>
                                     <div class="col-md-4">
                                         &nbsp;
@@ -200,7 +200,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </div>
 
                             <div class="mb-4">
-                                <h6>6. Name Of the Banker</h6>
+                                <h6>6. Name Of the Bank</h6>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input type="text" class="form-control form-control-sm"
@@ -296,7 +296,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
             var form_submit_status = 0;
             $(":input").inputmask();
 
-
+            // File size check
             $('#bank_cheque').bind('change', (e) => {
                 var fsize = $('#bank_cheque')[0].size;
                 var file = Math.round((fsize / 1024));

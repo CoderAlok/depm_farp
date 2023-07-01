@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('content')
+    <link rel="stylesheet" media="screen, print"
+        href="{{ asset('public/farp1_assets/css/miscellaneous/lightgallery/lightgallery.bundle.css') }}">
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
@@ -114,10 +116,15 @@
                                     <label class="form-label">IFSC Code : </label>
                                     <b>{{ $data->get_bank_details->ifsc }}</b>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" id="js-lightgallery">
                                     <label class="form-label">Consult Cheque : </label>
-                                    <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
-                                        alt="Cheque image" width="15%">
+                                    <br/>
+                                    <a class=""
+                                        href="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
+                                        data-sub-html="The free in pointed they their for the so fame.">
+                                        <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
+                                            alt="Cheque image" class="img-responsive" alt="image" width="15%">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -184,9 +191,35 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     @routes
     <script>
         $(document).ready((e) => {
+
+            var $initScope = $('#js-lightgallery');
+            if ($initScope.length) {
+                $initScope.justifiedGallery({
+                    border: -1,
+                    rowHeight: 150,
+                    margins: 8,
+                    waitThumbnailsLoad: true,
+                    randomize: false,
+                }).on('jg.complete', function() {
+                    $initScope.lightGallery({
+                        thumbnail: true,
+                        animateThumb: true,
+                        showThumbByDefault: true,
+                    });
+                });
+            };
+            $initScope.on('onAfterOpen.lg', function(event) {
+                $('body').addClass("overflow-hidden");
+            });
+            $initScope.on('onCloseAfter.lg', function(event) {
+                $('body').removeClass("overflow-hidden");
+            });
+
+
             // Edit model show
             // $("body").on("click", ".edit-user", function(e) {
             // e.preventDefault();
