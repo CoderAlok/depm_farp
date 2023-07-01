@@ -12,13 +12,8 @@
     <h4>{{ $title }}</h4>
     <b>Dear Exporter,</b>
     <p>
-        Congratulations, You have successfully registered in our portal.
-        Please, wait for the scrutiny process to complete by our higher authority. After completion of scrutiny process
-        you will recieve a mail from our side with your email, username and password and a link to login to your
-        respectiive account.
-    </p>
-    <p>
-        Please, check your mail to get notified regarding the further process.
+        Congratulations, You have successfully reset your password.
+        Please, login with your current email id and password.
     </p>
 
     <br>
