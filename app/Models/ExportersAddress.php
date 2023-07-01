@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Exporter;
 use District;
+use Exporter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,8 +22,9 @@ class ExportersAddress extends Model
         return $this->belongsTo(Exporter::class, 'id', 'exporter_id');
     }
 
-    public function get_district(){
-        return $thi->belongsTo(District::class, 'id', 'district');
+    public function get_district_details()
+    {
+        return $this->belongsTo(District::class, 'district', 'id');
     }
 
 }

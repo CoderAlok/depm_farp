@@ -34,15 +34,15 @@
                                 @php
                                     $role_name = ['', 'Super Admin', 'Publicity Officer', 'Director of DEPM', 'MSME Department', 'Principal Secretary', 'Exporters, Merchant', 'Exporters, Manufacturer'];
                                 @endphp
-                                <b>{{ $role_name[$data->role_id] }}</b>
+                                <b>{{ $role_name[$data->role_id] ?? '' }}</b>
                             </div>
                             <div class="col-md-4">
                                 <h6>2. Choose Category</h6>
-                                <b>{{ $data->get_category_details->name }}</b>
+                                <b>{{ $data->get_category_details->name ?? '' }}</b>
                             </div>
                             <div class="col-md-4">
                                 <h6>3. Name of Exporter</h6>
-                                <b>{{ $data->name }}</b>
+                                <b>{{ $data->name ?? '' }}</b>
                             </div>
                         </div>
 
@@ -51,15 +51,15 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Name : </label>
-                                    <b>{{ $data->chief_ex_name }}</b>
+                                    <b>{{ $data->chief_ex_name ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Mobile : </label>
-                                    <b>{{ $data->phone }}</b>
+                                    <b>{{ $data->phone ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">E-Mail : </label>
-                                    {{ $data->email }}
+                                    {{ $data->email ?? '' }}
                                 </div>
                             </div>
                         </div>
@@ -70,25 +70,25 @@
                             <div class="row mb-2">
                                 <div class="col-md-4">
                                     <label class="form-label">At : </label>
-                                    <b>{{ $data->get_address_details->address }}</b>
+                                    <b>{{ $data->get_address_details->address ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Post : </label>
-                                    {{ $data->get_address_details->post }}
+                                    {{ $data->get_address_details->post ?? '' }}
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">City : </label>
-                                    {{ $data->get_address_details->city }}
+                                    {{ $data->get_address_details->city ?? '' }}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">District : </label>
-                                    {{ $data->get_address_details->district }}
+                                    {{ $data->get_address_details->get_district_details->name ?? '' }}
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">PIN : </label>
-                                    <b>{{ $data->get_address_details->pincode }}</b>
+                                    <b>{{ $data->get_address_details->pincode ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     &nbsp;
@@ -101,7 +101,7 @@
                             <h6>6. Name Of the Bank</h6>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <b>{{ $data->get_bank_details->name }}</b>
+                                    <b>{{ $data->get_bank_details->name ?? '' }}</b>
                                 </div>
                             </div>
                         </div>
@@ -110,11 +110,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Account No. : </label>
-                                    <b>{{ $data->get_bank_details->account_no }}</b>
+                                    <b>{{ $data->get_bank_details->account_no ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">IFSC Code : </label>
-                                    <b>{{ $data->get_bank_details->ifsc }}</b>
+                                    <b>{{ $data->get_bank_details->ifsc ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4" id="js-lightgallery">
                                     <label class="form-label">Consult Cheque : </label>
@@ -127,7 +127,7 @@
                                     </a> --}}
 
                                     <a href="javascript:void(0);"
-                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}')">
+                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img ?? '') }}')">
                                         <span class="text-warning badge bg-dark p-1">View file</span>
                                     </a>
                                 </div>
@@ -138,23 +138,23 @@
                             <div class="row">
                                 <div class="col-md-4 mb-4">
                                     <h6>8. IEC (Import Export Code) : </h6>
-                                    <b>{{ $data->get_other_code_details->iec }}</b>
+                                    <b>{{ $data->get_other_code_details->iec ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4 mb-4">
                                     <h6>9. RCMC NO. : </h6>
-                                    <b>{{ $data->get_other_code_details->rcmc }}</b>
+                                    <b>{{ $data->get_other_code_details->rcmc ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4 mb-4">
                                     <h6>10. Name of the EPC : </h6>
-                                    <b>{{ $data->get_other_code_details->epc }}</b>
+                                    <b>{{ $data->get_other_code_details->epc ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4 mb-4">
                                     <h6>11. Udayam Registration No. : </h6>
-                                    <b>{{ $data->get_other_code_details->urn }}</b>
+                                    <b>{{ $data->get_other_code_details->urn ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <h6>12. HSM Code : </h6>
-                                    <b>{{ $data->get_other_code_details->hsm }}</b>
+                                    <b>{{ $data->get_other_code_details->hsm ?? '' }}</b>
                                 </div>
                             </div>
                         </div>
@@ -166,14 +166,21 @@
 
 
                             <div class="form-group row">
-                                <input type="hidden" name="exporter_id" id="exporter_id" value="{{ $data->id }}">
+                                <input type="hidden" name="exporter_id" id="exporter_id" value="{{ $data->id ?? '' }}">
 
                                 <label class="form-label col-md-2" for="approval_status">Approval Status</label>
-                                <div class="custom-control custom-switch col-md-10">
+
+                                <select name="approval_status" id="approval_status" class="form-control m-3">
+                                    {{-- <option value="">Choose an option</option> --}}
+                                    <option value="1">Approve</option>
+                                    <option value="2">Reject</option>
+                                </select>
+
+                                {{-- <div class="custom-control custom-switch col-md-10">
                                     <input type="checkbox" class="custom-control-input approval_status" id="approval_status"
                                         name="approval_status" {{ $data->regsitration_status == 1 ? 'checked disabled' : '' }}>
                                     <label class="custom-control-label" for="approval_status"></label>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="form-group">
@@ -181,14 +188,14 @@
                                 @if (in_array($data->regsitration_status, [1, 2]))
                                     <p>{{ $data->get_remarks_details->remarks }}</p>
                                 @else
-                                    <input type="text" name="remarks" id="remarks" class="form-control"
+                                    <input type="text" name="remarks" id="remarks" class="form-control d-none"
                                         value="" placeholder="Enter your remarks..." />
                                 @endif
                             </div>
                             @if (in_array($data->regsitration_status, [1, 2]))
                             @else
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-info sbmt" id="sbmt">Update</button>
+                                    <button type="submit" class="btn btn-info sbmt" id="sbmt">Submit</button>
                                 </div>
                             @endif
                         </form>
@@ -218,6 +225,16 @@
         }
 
         $(document).ready((e) => {
+            $('#approval_status').on('change', (e) => {
+                let status = $('#approval_status').val();
+                if (status == 1 || status != 2) {
+                    $('#remarks').addClass('d-none');
+                } else {
+                    $('#remarks').removeClass('d-none');
+                }
+            });
+
+
             // $.ajax({
             //     type: 'get',
             //     url: route('exporter.details', id),

@@ -248,7 +248,7 @@ class TblExportersController extends Controller
     public function show(Request $request, $id = null)
     {
         try {
-            $exporters       = Exporter::where('id', $id)->with(['get_role_details', 'get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details', 'get_remarks_details'])->first();
+            $exporters       = Exporter::where('id', $id)->with(['get_role_details', 'get_category_details', 'get_address_details.get_district_details', 'get_bank_details', 'get_other_code_details', 'get_remarks_details'])->first();
             $data['data']    = $exporters;
             $data['message'] = 'Exporters data loaded successfully jjuk.';
             // return response($data, 200);

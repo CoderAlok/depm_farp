@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 use User;
-use Session;
 
 class AdminController extends Controller
 {
@@ -138,7 +137,8 @@ class AdminController extends Controller
         // dd($request->all());
         try {
             $status = Exporter::where('id', $request->exporter_id);
-            if ($status->update(['regsitration_status' => ($request->approval_status == "on" ? 1 : 2)])) {
+            // if ($status->update(['regsitration_status' => ($request->approval_status == "on" ? 1 : 2)])) {
+            if ($status->update(['regsitration_status' => $request->approval_status])) {
                 $exporterRemarks = ExporterRemark::where('exporter_id', $request->exporter_id);
 
                 if ($exporterRemarks->first() !== null) {
