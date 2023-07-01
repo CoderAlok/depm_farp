@@ -4,11 +4,12 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Dashboard
+                <i class="subheader-icon fal fa-"></i> Profile
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
             <div class="subheader-block">All the exporter details will be listed here.</div>
         </div>
+
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
@@ -116,12 +117,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Consult Cheque : </label>
-                                    {{-- <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
-                                        alt="Cheque image" width="15%"> --}}
-                                    <a href="javascript:void(0);"
-                                        onclick="view_file('{{ asset(`public/storage/images/exporters/` . $data->get_bank_details->cheque_img) }}')">
-                                        <span class="text-warning badge bg-dark p-1">View file</span>
-                                    </a>
+                                    <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
+                                        alt="Cheque image" width="15%">
                                 </div>
                             </div>
                         </div>
@@ -168,21 +165,6 @@
             </div>
         </div>
     </main>
-
-    <div class="modal fade" id="view_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close text-red" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row center" id="content">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts')
@@ -195,15 +177,4 @@
             });
         </script>
     @endif
-
-    <script>
-        $(document).ready((e) => {
-            function view_file(url) {
-                event.preventDefault();
-                $('#content').html('<embed src="' + url +
-                    '" frameborder="0" width="100%" id="view_upload_image" height="400px">');
-                $('#view_modal').modal('show');
-            }
-        });
-    </script>
 @endsection
