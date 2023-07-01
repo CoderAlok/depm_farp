@@ -39,9 +39,9 @@ class SendMail extends Mailable
                 break;
 
             case 2:
-                $data['title'] = 'Exporters application approval';
+                $data['title'] = 'Exporters application ';
                 $data['view']  = 'mailer-view.exporter_application_approval_mail';
-                $data['data']  = Exporter::where('id', $this->data['id'])->first();
+                $data['data']  = Exporter::where('id', $this->data['id'])->with('get_remarks_details')->first();
                 break;
 
             case 3:

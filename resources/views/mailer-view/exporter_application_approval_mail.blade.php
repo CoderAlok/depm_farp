@@ -9,18 +9,26 @@
 </head>
 
 <body>
-    <h4>{{ $title }}</h4>
+    <h4>{{ $title . ($data->regsitration_status === 1 ? ' approved' : ' rejected') }}</h4>
     <b>Dear Exporter,</b>
 
-    <p>Congratulations, your application has been approved from our side and following are the credentials that you will
-        require to log into the exporter portal.</p>
+    @if ($data->regsitration_status === 1)
+        <p>Congratulations, your application has been approved from our side and following are the credentials that you
+            will
+            require to log into the exporter portal.</p>
 
-    <span>Username : <b>{{ $data->username }}</b></span>
-    <span>Password : <b>12345678</b></span>
-    <span>Email : <b>{{ $data->email }}</b></span>
+        <span>Username : <b>{{ $data->username }}</b></span>
+        <span>Password : <b>12345678</b></span>
+        <span>Email : <b>{{ $data->email }}</b></span>
 
-    <p>Please, click this link to login. <a href="{{ route('welcome') }}">Login here</a></p>
-    
+        <p>Please, click this link to login. <a href="{{ route('welcome') }}">Login here</a></p>
+    @else
+        <p>Sorry, your application has been rejected from our side. Here is a remarks form our higher authority that has
+            been delivered during scrutiny process.</p>
+        <b>{{ $data->get_remarks_details->remarks }}</b>
+        <p>Please, click this link to register again. <a href="{{ route('exporter.register') }}">Register here</a></p>
+    @endif
+
     <br>
     <br>
 

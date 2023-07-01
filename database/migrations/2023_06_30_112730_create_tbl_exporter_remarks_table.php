@@ -17,7 +17,7 @@ class CreateTblExporterRemarksTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('exporter_id')->nullable()->comment('PK of tbl_exporters');
             $table->tinyInteger('type')->default(0)->nullable()->comment('0: Registration approval, vice versa');
-            $table->string('remarks', 100)->nullable()->comment('text');
+            $table->longText('remarks')->nullable()->comment('Authority remarks');
             $table->boolean('status')->nullable()->default(false)->comment('active / inactive');
             $table->bigInteger('created_by')->nullable()->comment('PK of User table');
             $table->bigInteger('updated_by')->nullable()->comment('PK of User table');
