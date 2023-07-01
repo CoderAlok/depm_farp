@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Exporter;
 use Illuminate\Http\Request;
+use Otp;
 
 class HomeController extends Controller
 {
@@ -40,8 +41,15 @@ class HomeController extends Controller
             $data['page_title'] = 'Exporter Panel';
             return view('home')->with($data);
         } else {
-            $data['page_title'] = 'Exporter|Reset Password';
-            return view('reset_password')->with($data);
+
+            $otpStatus = Otp::where('email', $exporter->track_status)->latest()->first()->status;
+
+            // Here it will redirect to otp page
+            $data['page_title'] = 'Exporter|Verify OTP';
+            return view('send-otp')->with($data);
+
+            // $data['page_title'] = 'Exporter|Reset Password';
+            // return view('reset_password')->with($data);
         }
     }
 

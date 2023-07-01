@@ -2,10 +2,11 @@
 
 namespace App\Mail;
 
+use Exporter;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Exporter;
+use Otp;
 
 class SendMail extends Mailable
 {
@@ -48,6 +49,12 @@ class SendMail extends Mailable
                 $data['title'] = 'Forgot password.';
                 $data['view']  = 'mailer-view.exporter_forgot_password_mail';
                 $data['data']  = '';
+                break;
+
+            case 4:
+                $data['title'] = 'Send OTP.';
+                $data['view']  = 'mailer-view.exporter_send_otp_mail';
+                $data['data']  = Otp::where('email', $this->data['mail_id'])->latest()->first();
                 break;
 
             default:

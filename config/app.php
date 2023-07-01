@@ -239,6 +239,8 @@ return [
         'ExportersOtherCodes'  => App\Models\ExportersOtherCodes::class,
         'ExportersBankDetails' => App\Models\ExportersBankDetails::class,
         'ExporterRemark'       => App\Models\ExporterRemarks::class,
+        'Otp'                  => App\Models\Otp::class,
+        'District'             => App\Models\Districts::class,
     ],
 
 ];

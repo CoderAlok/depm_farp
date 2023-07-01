@@ -32,7 +32,7 @@
     <br>
     <br>
 
-    <b>Regards</b>
+    <b>Regards</b>, <br />
     <span>Publicity Officer</span>
     <span>DEPM</span>
 </body>

@@ -39,6 +39,13 @@ Route::group(['prefix' => 'exporters'], function () {
     Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
     Route::get('/profile', [TblExportersController::class, 'profile'])->name('exporter.profile');
 
+    Route::group(['prefix' => 'otp'], function () {
+        Route::get('/send-otp', [TblExportersController::class, 'otp_view'])->name('exporter.view.otp');
+        Route::post('/send-otp', [TblExportersController::class, 'send_otp'])->name('exporter.send.otp');
+        Route::get('/verify-otp/{email}', [TblExportersController::class, 'verify_otp_view'])->name('exporter.view.verify.otp');
+        Route::post('/verify-otp', [TblExportersController::class, 'verify_otp'])->name('exporter.verify.otp');
+    });
+
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
         Route::get('/annexure-2', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');

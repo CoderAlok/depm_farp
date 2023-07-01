@@ -171,7 +171,7 @@
                                 <label class="form-label col-md-2" for="approval_status">Approval Status</label>
                                 <div class="custom-control custom-switch col-md-10">
                                     <input type="checkbox" class="custom-control-input approval_status" id="approval_status"
-                                        name="approval_status" {{ $data->regsitration_status == 1 ? 'checked' : '' }}>
+                                        name="approval_status" {{ $data->regsitration_status == 1 ? 'checked disabled' : '' }}>
                                     <label class="custom-control-label" for="approval_status"></label>
                                 </div>
                             </div>

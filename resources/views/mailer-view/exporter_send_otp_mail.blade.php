@@ -12,8 +12,9 @@
     <h4>{{ $title }}</h4>
     <b>Dear Exporter,</b>
     <p>
-        Congratulations, You have successfully reset your password.
-        Please, login with your current email id and password.
+        {{-- {{ dd($data->email) }} --}}
+        Please, enter this otp : <b>{{ $data->otp }}</b> to verify.
+        <a href="{{ route('exporter.view.verify.otp', $data->email) }}" target="blank">link here</a>
     </p>
 
     <br>

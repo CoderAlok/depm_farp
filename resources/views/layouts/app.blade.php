@@ -386,7 +386,7 @@
         @case('success')
             <script>
                 $(document).ready(function() {
-                    toastr.success('Success', {{ Session()->get('sess_data')['message'] }})
+                    toastr.success('Success', {{ (Session()->get('sess_data')['message'] ?? '') }})
                 });
             </script>
         @break
@@ -394,7 +394,7 @@
         @case('danger')
             <script>
                 $(document).ready(function() {
-                    toastr.danger('Error', {{ Session()->get('sess_data')['message'] }})
+                    toastr.danger('Error', {{ (Session()->get('sess_data')['message'] ?? '') }})
                 });
             </script>
         @break
@@ -402,7 +402,7 @@
         @case('warning')
             <script>
                 $(document).ready(function() {
-                    toastr.warning('Notice', {{ Session()->get('sess_data')['message'] }})
+                    toastr.warning('Notice', {{ (Session()->get('sess_data')['message'] ?? '') }})
                 });
             </script>
         @break
