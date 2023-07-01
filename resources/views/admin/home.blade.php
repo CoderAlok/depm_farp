@@ -26,20 +26,20 @@
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        <table class="table table-responsive">
-                            <tr>
-                                <td>Name </td>
-                                <td>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</td>
-                            </tr>
-                            <tr>
-                                <td>Email </td>
-                                <td>{{ Auth::user()->email }}</td>
-                            </tr>
-                            <tr>
-                                <td>Phone </td>
-                                <td>{{ Auth::user()->phone }}</td>
-                            </tr>
-                        </table>
+                        <div class="mb-4 row">
+                            <div class="col-md-4">
+                                <h6>Name </h6>
+                                <b>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</b>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Email</h6>
+                                <b>{{ Auth::user()->email }}</b>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Phone</h6>
+                                <b>{{ Auth::user()->phone }}</b>
+                            </div>
+                        </div>
                         <!-- Main content ends here -->
                     </div>
                 </div>

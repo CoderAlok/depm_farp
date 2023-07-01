@@ -25,9 +25,13 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
+    </script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -88,7 +92,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <div class="d-flex align-items-center container p-0">
                     <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center">
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                            <img src="{{ asset('public/img/logo.png') }}" alt="SmartAdmin WebApp"
+                            <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp"
                                 aria-roledescription="logo" width="60">
                             <div class="mr-1 text-dark">
                                 <div class="page-logo-text">Micro, Small & Medium Enterprise Department</div>
@@ -146,9 +150,10 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             placeholder="CEO Name" name="ceo_name" id="ceo_name">
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Mobile</label>
-                                        <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Mobile " name="mobile" id="mobile">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" placeholder="Phone number" data-inputmask="'mask': '(999) 999-9999'"
+                                            class="form-control form-control-sm">
+                                        <span class="help-block text-dark" style="font-size: 12px">(999) 999-9999</span>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">E-Mail</label>
@@ -284,21 +289,105 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         </div>
     </div>
 
+    <script src="{{ asset('public/farp1_assets/js/formplugins/inputmask/inputmask.bundle.js') }}"></script>
+    @routes
     <script>
-        $('#bank_cheque').bind('change', (e) => {
-            var fsize = $('#bank_cheque')[0].size;
-            var file = Math.round((fsize / 1024));
-            if (file >= 5120) { //5MB
-                iziToast.error({
-                    title: 'Error',
-                    message: 'File size must be less then 5mb.',
-                    position: 'topRight',
+        $(document).ready((e) => {
+            var form_submit_status = 0;
+            $(":input").inputmask();
+
+
+            $('#bank_cheque').bind('change', (e) => {
+                var fsize = $('#bank_cheque')[0].size;
+                var file = Math.round((fsize / 1024));
+                if (file >= 5120) { //5MB
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'File size must be less then 5mb.',
+                        position: 'topRight',
+                    });
+                    $('.sbmt').addClass('disabled');
+                } else {
+                    $('.sbmt').removeClass('disabled');
+                }
+            })
+
+            $('#mobile').on('blur', (e) => {
+                let mobile = $('#mobile').val();
+                console.log('mobile' + mobile);
+
+                $.ajax({
+                    type: 'post',
+                    url: route('exporter.check.mobile'),
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    data: {
+                        "mobile": mobile
+                    },
+                    success: function(data) {
+                        console.log(data);
+
+                        if (data.data == 1) {
+                            form_submit_status = 0;
+                            iziToast.warning({
+                                title: 'Caution',
+                                message: data.message,
+                                position: 'topRight',
+                            });
+                            $('.sbmt').addClass('disabled');
+                        } else {
+                            form_submit_status = 1
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    }
                 });
-                $('.sbmt').addClass('disabled');
-            } else {
-                $('.sbmt').removeClass('disabled');
-            }
-        })
+            });
+
+            $('#email').on('blur', (e) => {
+                let email = $('#email').val();
+                console.log('email' + email);
+
+                $.ajax({
+                    type: 'post',
+                    url: route('exporter.check.email'),
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    data: {
+                        "email": email
+                    },
+                    success: function(data) {
+                        console.log(data);
+
+                        if (data.data == 1) {
+                            form_submit_status = 0;
+                            iziToast.warning({
+                                title: 'Caution',
+                                message: data.message,
+                                position: 'topRight',
+                            });
+
+                            $('.sbmt').addClass('disabled');
+                        } else {
+                            form_submit_status = 1
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    }
+                });
+            });
+
+            $('#export_hsm').on('blur', (e) => {
+                console.log(form_submit_status);
+                if (form_submit_status) {
+                    $('.sbmt').removeClass('disabled');
+                }
+            });
+        });
     </script>
 </body>
 

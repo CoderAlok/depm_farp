@@ -14,10 +14,6 @@
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no" />
 
-    <!-- base css -->
-    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/vendors.bundle.css') }}" />
-    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/app.bundle.css') }}" />
-
     <!-- Place favicon.ico in the root directory -->
     <link rel="apple-touch-icon" sizes="180x180"
         href="{{ asset('public/farp1_assets/img/favicon/apple-touch-icon.png') }}" />
@@ -33,10 +29,14 @@
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    {{-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
+    <!-- base css -->
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/vendors.bundle.css') }}" />
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/app.bundle.css') }}" />
+    <link rel="stylesheet" media="screen, print"
+        href="{{ asset('public/farp1_assets/css/notifications/toastr/toastr.css') }}" />
+    <link rel="stylesheet" media="screen, print"
+        href="{{ asset('public/farp1_assets/css/datagrid/datatables/datatables.bundle.css') }}">
+
 
     <!-- External Script libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -149,13 +149,16 @@
                                     </div>
                                 </div>
                                 <div class="dropdown-divider m-0"></div>
-                                <a href="#" class="dropdown-item" data-action="app-reset">
+                                <a href="{{ route('admin.profile') }}" class="dropdown-item">
+                                    <span data-i18n="drpdwn.reset_layout">Profile</span>
+                                </a>
+                                {{-- <a href="#" class="dropdown-item" data-action="app-reset">
                                     <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
                                 </a>
                                 <a href="#" class="dropdown-item" data-toggle="modal"
                                     data-target=".js-modal-settings">
                                     <span data-i18n="drpdwn.settings">Settings</span>
-                                </a>
+                                </a> --}}
                                 <div class="dropdown-divider m-0"></div>
                                 <a href="#" class="dropdown-item" data-action="app-fullscreen">
                                     <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
@@ -165,7 +168,7 @@
                                     <span data-i18n="drpdwn.print">Print</span>
                                     <i class="float-right text-muted fw-n">Ctrl + P</i>
                                 </a>
-                                <div class="dropdown-multilevel dropdown-multilevel-left">
+                                {{-- <div class="dropdown-multilevel dropdown-multilevel-left">
                                     <div class="dropdown-item">
                                         Language
                                     </div>
@@ -183,9 +186,9 @@
                                         <a href="#?lang=ch" class="dropdown-item" data-action="lang"
                                             data-lang="ch">中文</a>
                                     </div>
-                                </div>
-                                <div class="dropdown-divider m-0"></div>
-                                <a class="dropdown-item fw-500 pt-3 pb-3" href="page_login-alt.html">
+                                </div> --}}
+                                {{-- <div class="dropdown-divider m-0"></div> --}}
+                                <a class="dropdown-item fw-500 pt-3 pb-3" href="#">
                                     <span data-i18n="drpdwn.page-logout">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -381,9 +384,29 @@
 
     <script src="{{ asset('public/farp1_assets/js/vendors.bundle.js') }}"></script>
     <script src="{{ asset('public/farp1_assets/js/app.bundle.js') }}"></script>
+    <script src="{{ asset('public/farp1_assets/js/notifications/toastr/toastr.js') }}"></script>
     <!-- Datatables  -->
     <script src="//code.jquery.com/jquery-1.12.3.js"></script>
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": 500,
+            "hideDuration": 100,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
     @yield('scripts')
 
     <!--<script src="js/../script.js"></script>

@@ -14,10 +14,6 @@
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no" />
 
-    <!-- base css -->
-    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/vendors.bundle.css') }}" />
-    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/app.bundle.css') }}" />
-
     <!-- Place favicon.ico in the root directory -->
     <link rel="apple-touch-icon" sizes="180x180"
         href="{{ asset('public/farp1_assets/img/favicon/apple-touch-icon.png') }}" />
@@ -33,10 +29,14 @@
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    {{-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
+    <!-- base css -->
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/vendors.bundle.css') }}" />
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/app.bundle.css') }}" />
+    <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/fa-solid.css') }}">
+    <link rel="stylesheet" media="screen, print"
+        href="{{ asset('public/farp1_assets/css/notifications/toastr/toastr.css') }}" />
+    <link rel="stylesheet" media="screen, print"
+        href="{{ asset('public/farp1_assets/css/datagrid/datatables/datatables.bundle.css') }}">
 
     <!-- External Script libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -381,9 +381,67 @@
 
     <script src="{{ asset('public/farp1_assets/js/vendors.bundle.js') }}"></script>
     <script src="{{ asset('public/farp1_assets/js/app.bundle.js') }}"></script>
+    <script src="{{ asset('public/farp1_assets/js/notifications/toastr/toastr.js') }}"></script>
     <!-- Datatables  -->
+    <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.export.js') }}"></script>
+
     <script src="//code.jquery.com/jquery-1.12.3.js"></script>
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": 500,
+            "hideDuration": 100,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+
+    {{-- session check start --}}
+    {{ Session()->get('sess_data')['status'] ?? '-' }}
+    {{ Session()->get('sess_data')['message'] ?? '-' }}
+    {{-- session check end --}}
+
+    @switch(Session()->get('sess_data')['status'] ?? 0)
+        @case('success')
+            <script>
+                $(document).ready(function() {
+                    toastr.success('Success', {{ Session()->get('sess_data')['message'] }})
+                });
+            </script>
+        @break
+
+        @case('danger')
+            <script>
+                $(document).ready(function() {
+                    toastr.danger('Error', {{ Session()->get('sess_data')['message'] }})
+                });
+            </script>
+        @break
+
+        @case('warning')
+            <script>
+                $(document).ready(function() {
+                    toastr.warning('Notice', {{ Session()->get('sess_data')['message'] }})
+                });
+            </script>
+        @break
+
+        @default
+    @endswitch
+
     @yield('scripts')
 
     <!--<script src="js/../script.js"></script>

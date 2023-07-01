@@ -81,7 +81,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <div class="d-flex align-items-center container p-0">
                     <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center">
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                            <img src="{{ asset('public/img/logo.png') }}" alt="SmartAdmin WebApp"
+                            <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp"
                                 aria-roledescription="logo" width="60">
                             <div class="mr-1 text-dark">
                                 <div class="page-logo-text">Micro, Small & Medium Enterprise Department</div>
@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             @csrf
                                             <input type="hidden" name="type" value="1" id="typeUser">
                                             <div class="form-group">
-                                                <label class="form-label" for="username">Username</label>
+                                                <label class="form-label" for="email">Email</label>
                                                 <input type="email" id="email" name="email"
                                                     class="form-control @error('email') is-invalid @enderror"
                                                     placeholder="your id or email" value="{{ old('email') }}"
