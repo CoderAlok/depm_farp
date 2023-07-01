@@ -368,7 +368,94 @@ class TblExportersController extends Controller
         return view('annexure2')->with($data);
     }
 
-    public function exporter_reset_password(Request $request){
-        dd($request->all());
+    public function exporter_reset_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_pass' => 'required|string',
+            'new_pass' => 'required|string',
+            'con_pass' => 'required|string',
+        ]);
+
+        if ($validator->passes()) {
+            $user     = Auth::guard('exporter')->user();
+            $exporter = Exporter::where('id', $user->id)->first();
+
+            if (Hash::check($request->old_pass, $exporter->password)) {
+
+                $reset = $exporter->where('id', $user->id)->update(['password' => Hash::make($request->new_pass), 'track_status' => 1]);
+                if ($reset) {
+
+                    $data = [
+                        'id'        => $user->id,
+                        'mail_type' => 3,
+                    ];
+
+                    $to      = 'alok.das@oasystspl.com';
+                    $subject = 'Exporters application reset password successfully.';
+                    // Send mail
+                    Mail::to($to)->send(new SendMail($data));
+
+                    // $mail = Mail::send('emails.nodalMail_Info', $details, function ($message) use ($details) {
+                    //     $message->to($details['to_address']);
+                    //     $message->subject($details['subject']);
+                    // });
+
+                    $data['data']    = $exporter;
+                    $data['status']  = 'success';
+                    $data['message'] = 'Password changed successfully.';
+                    // return response($data, 200);
+                    $request->session()->put('sess_data', $data);
+                    return redirect()->route('welcome')->with($data);
+                } else {
+                    $data['data']    = $exporter;
+                    $data['status']  = 'danger';
+                    $data['message'] = 'Password didn\'t changed.';
+                    // return response($data, 500);
+                    $request->session()->put('sess_data', $data);
+                    return back();
+                    // return redirect()->route('exporter.reset.password')->with($data);
+                }
+
+            } else {
+                $data['data']    = [];
+                $data['status']  = 'danger';
+                $data['message'] = 'Password didn\'t matched.';
+                // return response($data, 500);
+                $request->session()->put('sess_data', $data);
+                // return redirect()->route('exporter.reset')->with($data);
+                return back();
+            }
+        } else {
+            $data['data']    = [];
+            $data['message'] = $validator->errors();
+            return response($data, 406);
+        }
     }
+
+    public function checkMobile(Request $request)
+    {
+        try {
+            $data['data']    = Exporter::where('phone', $request->mobile)->get()->isNotEmpty() ? 1 : 0;
+            $data['message'] = $data['data'] ? 'Mobile number already exists' : 'N/A';
+            return response($data, 200);
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    public function checkEmail(Request $request)
+    {
+        try {
+            $data['data']    = Exporter::where('email', $request->email)->get()->isNotEmpty() ? 1 : 0;
+            $data['message'] = $data['data'] ? 'Email already exists' : 'N/A';
+            return response($data, 200);
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
 }

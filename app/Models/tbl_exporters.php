@@ -41,4 +41,9 @@ class tbl_exporters extends Authenticatable
         return $this->hasOne(ExportersOtherCodes::class, 'exporter_id', 'id');
     }
 
+    public function get_remarks_details()
+    {
+        return $this->hasOne(ExporterRemark::class, 'exporter_id', 'id');
+    }
+
 }
