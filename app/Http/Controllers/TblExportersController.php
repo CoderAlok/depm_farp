@@ -323,11 +323,13 @@ class TblExportersController extends Controller
 
                             return redirect()->route('exporter.home');
                         } else {
+                            Session::flash('message', 'Invalid credentials. Enter valid email id & password.');
                             return redirect()->route('welcome');
                         }
                     }
 
                 } else {
+                    Session::flash('message', 'Sorry, exporter doesn\'t exists.');
                     return redirect()->route('welcome');
                 }
             } else {

@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 class LoginController extends Controller
 {
@@ -81,9 +82,11 @@ class LoginController extends Controller
                         return redirect()->route('admin.home');
                     }
                 } else {
+                    Session::flash('message', 'Invalid credentials. Enter valid username & password.');
                     return redirect()->route('welcome');
                 }
             } else {
+                Session::flash('message', 'Sorry, user doesn\'t exists.');
                 return redirect()->route('welcome');
             }
         } catch (\Exception $e) {
