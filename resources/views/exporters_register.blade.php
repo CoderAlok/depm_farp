@@ -117,7 +117,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <h6>1. Type of Exporter</h6>
                                     <select id="type" name="type"
                                         class="form-select form-control form-control-sm"
-                                        aria-label="Default select example">
+                                        aria-label="Default select example" required>
                                         <option selected="">Form Types</option>
                                         <option value="6">Merchant</option>
                                         <option value="7">Manufacturer</option>
@@ -127,7 +127,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <h6>2. Choose Category</h6>
                                     <select id="category" name="category"
                                         class="form-select form-control form-control-sm"
-                                        aria-label="Default select example">
+                                        aria-label="Default select example" required>
                                         <option selected="">Select a category</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -137,7 +137,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <div class="col-md-4">
                                     <h6>3. Name of Exporter</h6>
                                     <input type="text" class="form-control form-control-sm"
-                                        placeholder="Exporter Name" name="exporter_name" id="exporter_name">
+                                        placeholder="Exporter Name" name="exporter_name" id="exporter_name" required>
                                 </div>
                             </div>
 
@@ -147,17 +147,17 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">Name</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="CEO Name" name="ceo_name" id="ceo_name">
+                                            placeholder="CEO Name" name="ceo_name" id="ceo_name" required>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Mobile</label>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Mobile " name="mobile" id="mobile">
+                                            placeholder="Mobile " name="mobile" id="mobile" required>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">E-Mail</label>
                                         <input type="email" class="form-control form-control-sm"
-                                            placeholder="E-Mail" name="email" id="email">
+                                            placeholder="E-Mail" name="email" id="email" required>
                                     </div>
                                 </div>
                             </div>
@@ -168,30 +168,37 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">At </label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="At/Village/Building..." name="address_at" id="address_at">
+                                            placeholder="At/Village/Building..." name="address_at" id="address_at"
+                                            required>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Post</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Post Office" name="address_post" id="address_post">
+                                            placeholder="Post Office" name="address_post" id="address_post" required>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">City</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="City/Block" name="address_city" id="address_city">
+                                            placeholder="City/Block" name="address_city" id="address_city" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">District</label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="District" name="address_district" id="address_district">
+                                        <select id="address_district" name="address_district"
+                                            class="form-select form-control form-control-sm"
+                                            aria-label="Default select example" required>
+                                            <option selected="">Select a district</option>
+                                            @foreach ($districts as $key => $item)
+                                                <option value="{{ $key }}">{{ $item }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">PIN</label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="PIN Code" name="address_pin" id="address_pin"
-                                            max="6" min="6">
+                                            max="6" min="6" required>
                                     </div>
                                     <div class="col-md-4">
                                         &nbsp;
@@ -204,7 +211,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Banker Name" name="bank_name" id="bank_name">
+                                            placeholder="Banker Name" name="bank_name" id="bank_name" required>
                                     </div>
                                 </div>
                             </div>
@@ -214,15 +221,16 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">Account No.</label>
                                         <input type="number" class="form-control form-control-sm"
-                                            placeholder="Banker Name" name="bank_ac_no" id="bank_ac_no">
+                                            placeholder="Banker Name" name="bank_ac_no" id="bank_ac_no" required>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">IFSC Code</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Banker Name" name="bank_ifsc_code" id="bank_ifsc_code">
+                                            placeholder="Banker Name" name="bank_ifsc_code" id="bank_ifsc_code"
+                                            required>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Consult Cheque</label>
+                                        <label class="form-label">Cancelled Cheque</label>
                                         <input class="form-control form-control-sm" name="bank_cheque"
                                             id="bank_cheque" type="file">
                                     </div>
@@ -234,17 +242,17 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4 mb-4">
                                         <h6>8. IEC (Import Export Code)</h6>
                                         <input type="text" class="form-control form-control-sm" placeholder="Name"
-                                            name="export_iec" id="export_iec">
+                                            name="export_iec" id="export_iec" required>
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <h6>9. RCMC NO.</h6>
                                         <input type="number" class="form-control form-control-sm"
-                                            placeholder="Account No." name="export_rcmc_no" id="export_epc">
+                                            placeholder="Account No." name="export_rcmc_no" id="export_epc" required>
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <h6>10. Name of the EPC</h6>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="EPC Name" name="export_epc" id="export_epc">
+                                            placeholder="EPC Name" name="export_epc" id="export_epc" required>
                                     </div>
                                 </div>
                             </div>
@@ -254,12 +262,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4 mb-4">
                                         <h6>11. Udayam Registration No.</h6>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="IFSC code" name="export_urn" id="export_urn">
+                                            placeholder="IFSC code" name="export_urn" id="export_urn" required>
                                     </div>
                                     <div class="col-md-4">
                                         <h6>12. HSM Code</h6>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="HSM Code" name="export_hsm" id="export_hsm">
+                                            placeholder="HSM Code" name="export_hsm" id="export_hsm" required>
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +281,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-12 text-right">
-                                    <a href="{{ route('welcome') }}" class="link">Already an exporter login here</a>
+                                    <a href="{{ route('welcome') }}" class="link">Already an exporter login
+                                        here</a>
                                 </div>
                             </div>
                         </form>

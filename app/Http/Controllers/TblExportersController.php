@@ -6,6 +6,7 @@ use App\Mail\SendMail;
 use Auth;
 use Carbon\Carbon;
 use Category;
+use District;
 use Exporter;
 use ExportersAddress;
 use ExportersBankDetails;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Otp;
 use Session;
 
 class TblExportersController extends Controller
@@ -48,6 +50,7 @@ class TblExportersController extends Controller
     {
         $data['page_title'] = 'MSME|registration form';
         $data['categories'] = Category::get();
+        $data['districts']  = District::get()->pluck('name', 'id');
         return view('exporters_register')->with($data);
     }
 
@@ -61,30 +64,52 @@ class TblExportersController extends Controller
     {
         // dd($request->all());
 
-        $request->validate([
-            "type"             => "required",
-            "category"         => "required",
-            "exporter_name"    => "required",
-            "ceo_name"         => "required",
-            "mobile"           => "required",
-            "email"            => "required",
+        // $request->validate([
+        //     "type"             => "required",
+        //     "category"         => "required",
+        //     "exporter_name"    => "required",
+        //     "ceo_name"         => "required",
+        //     "mobile"           => "required",
+        //     "email"            => "required",
 
-            "address_at"       => "required",
-            "address_post"     => "required",
-            "address_city"     => "required",
-            "address_district" => "required",
-            "address_pin"      => "required",
+        //     "address_at"       => "required",
+        //     "address_post"     => "required",
+        //     "address_city"     => "required",
+        //     "address_district" => "required",
+        //     "address_pin"      => "required",
 
-            "bank_name"        => "required",
-            "bank_ac_no"       => "required",
-            "bank_ifsc_code"   => "required",
+        //     "bank_name"        => "required",
+        //     "bank_ac_no"       => "required",
+        //     "bank_ifsc_code"   => "required",
 
-            "export_iec"       => "required",
-            "export_rcmc_no"   => "required",
-            "export_epc"       => "required",
-            "export_urn"       => "required",
-            "export_hsm"       => "required",
-        ], [
+        //     "export_iec"       => "required",
+        //     "export_rcmc_no"   => "required",
+        //     "export_epc"       => "required",
+        //     "export_urn"       => "required",
+        //     "export_hsm"       => "required",
+        // ], [
+        //     "type.required"             => "Please, enter the type",
+        //     "category.required"         => "Please, enter the category",
+        //     "exporter_name.required"    => "Please, enter the exporter_name",
+        //     "ceo_name.required"         => "Please, enter the ceo_name",
+        //     "mobile.required"           => "Please, enter the mobile",
+        //     "email.required"            => "Please, enter the email",
+        //     "address_at.required"       => "Please, enter the address_at",
+        //     "address_post.required"     => "Please, enter the address_post",
+        //     "address_city.required"     => "Please, enter the address_city",
+        //     "address_district.required" => "Please, enter the address_district",
+        //     "address_pin.required"      => "Please, enter the address_pin",
+        //     "bank_name.required"        => "Please, enter the bank_name",
+        //     "bank_ac_no.required"       => "Please, enter the bank_ac_no",
+        //     "bank_ifsc_code.required"   => "Please, enter the bank_ifsc_code",
+        //     "export_iec.required"       => "Please, enter the export_iec",
+        //     "export_rcmc_no.required"   => "Please, enter the export_epc",
+        //     "export_epc.required"       => "Please, enter the export_epc",
+        //     "export_urn.required"       => "Please, enter the export_urn",
+        //     "export_hsm.required"       => "Please, enter the export_hsm",
+        // ]);
+
+        $validator = Validator::make($request->all(), [
             "type.required"             => "Please, enter the type",
             "category.required"         => "Please, enter the category",
             "exporter_name.required"    => "Please, enter the exporter_name",
@@ -106,103 +131,112 @@ class TblExportersController extends Controller
             "export_hsm.required"       => "Please, enter the export_hsm",
         ]);
 
-        try {
-            $username = explode(' ', $request->exporter_name);
-            $username = strtolower(trim($username[0])) . rand(111111, 999999);
-            $data     = [
-                'role_id'             => $request->type,
-                'category_id'         => $request->category,
-                'name'                => $request->exporter_name,
-                'chief_ex_name'       => $request->ceo_name,
-                'email'               => $request->email,
-                'username'            => $username,
-                'password'            => Hash::make('12345678'),
-                'phone'               => $request->mobile,
-                'regsitration_status' => 0,
-                'created_at'          => Carbon::now(),
-                // 'gender'              => $request->gender,
-            ];
-            // dd($data);
-
-            $exporter_id = Exporter::insertGetId($data);
-            // dd($exporter_id);
-            if ($exporter_id) {
-                $address_data = [
-                    'exporter_id' => $exporter_id,
-                    'address'     => $request->address_at,
-                    'post'        => $request->address_post,
-                    'city'        => $request->address_city,
-                    'district'    => $request->address_district,
-                    'pincode'     => $request->address_pin,
-                    'status'      => 0,
-                    'created_by'  => $exporter_id,
-                    'created_at'  => Carbon::now(),
+        if ($validator->passes()) {
+            try {
+                $username = explode(' ', $request->exporter_name);
+                $username = strtolower(trim($username[0])) . rand(111111, 999999);
+                $data     = [
+                    'role_id'             => $request->type,
+                    'category_id'         => $request->category,
+                    'name'                => $request->exporter_name,
+                    'chief_ex_name'       => $request->ceo_name,
+                    'email'               => $request->email,
+                    'username'            => $username,
+                    'password'            => Hash::make('12345678'),
+                    'phone'               => $request->mobile,
+                    'regsitration_status' => 0,
+                    'created_at'          => Carbon::now(),
+                    // 'gender'              => $request->gender,
                 ];
-                $address_id = ExportersAddress::insert($address_data);
-                // dd($address_id);
+                // dd($data);
 
-                // File uploading
-                $image            = $request->bank_cheque;
-                $cheque_file_name = $image->getClientOriginalName();
-                $image->storeAs('public/images/exporters', $cheque_file_name);
-
-                $bank_data = [
-                    'exporter_id' => $exporter_id,
-                    'name'        => $request->bank_name,
-                    'account_no'  => $request->bank_ac_no,
-                    'ifsc'        => $request->bank_ifsc_code,
-                    'cheque_img'  => $cheque_file_name,
-                    'created_by'  => $exporter_id,
-                    'created_at'  => Carbon::now(),
-                ];
-                $bank_id = ExportersBankDetails::insert($bank_data);
-                // dd($bank_id);
-
-                $code_data = [
-                    'exporter_id' => $exporter_id,
-                    'iec'         => $request->export_iec,
-                    'rcmc'        => $request->export_rcmc_no,
-                    'epc'         => $request->export_epc,
-                    'urn'         => $request->export_urn,
-                    'hsm'         => $request->export_hsm,
-                    'created_by'  => $exporter_id,
-                    'created_at'  => Carbon::now(),
-                ];
-                $other_code_id = ExportersOtherCodes::insert($code_data);
-                // dd($other_code_id);
-
-                $update_data = [
-                    'address_id'    => $address_id,
-                    'bank_id'       => $bank_id,
-                    'other_code_id' => $other_code_id,
-                    'created_by'    => $exporter_id,
-                ];
-                $update_exporter = Exporter::where('id', $exporter_id)->update($update_data);
-                // dd($update_exporter);
-
-                if ($update_exporter) {
-                    $data = [
-                        'id'        => $exporter_id,
-                        'mail_type' => 1,
+                $exporter_id = Exporter::insertGetId($data);
+                // dd($exporter_id);
+                if ($exporter_id) {
+                    $address_data = [
+                        'exporter_id' => $exporter_id,
+                        'address'     => $request->address_at,
+                        'post'        => $request->address_post,
+                        'city'        => $request->address_city,
+                        'district'    => $request->address_district,
+                        'pincode'     => $request->address_pin,
+                        'status'      => 0,
+                        'created_by'  => $exporter_id,
+                        'created_at'  => Carbon::now(),
                     ];
+                    $address_id = ExportersAddress::insert($address_data);
+                    // dd($address_id);
 
-                    $to      = 'alok.das@oasystspl.com';
-                    $subject = 'Exporters application registered.';
-                    // Send mail
-                    Mail::to($to)->send(new SendMail($data));
+                    // File uploading
+                    $image            = $request->bank_cheque;
+                    $cheque_file_name = $image->getClientOriginalName();
+                    $image->storeAs('public/images/exporters', $cheque_file_name);
 
-                    return redirect()->route('welcome');
+                    $bank_data = [
+                        'exporter_id' => $exporter_id,
+                        'name'        => $request->bank_name,
+                        'account_no'  => $request->bank_ac_no,
+                        'ifsc'        => $request->bank_ifsc_code,
+                        'cheque_img'  => $cheque_file_name,
+                        'created_by'  => $exporter_id,
+                        'created_at'  => Carbon::now(),
+                    ];
+                    $bank_id = ExportersBankDetails::insert($bank_data);
+                    // dd($bank_id);
+
+                    $code_data = [
+                        'exporter_id' => $exporter_id,
+                        'iec'         => $request->export_iec,
+                        'rcmc'        => $request->export_rcmc_no,
+                        'epc'         => $request->export_epc,
+                        'urn'         => $request->export_urn,
+                        'hsm'         => $request->export_hsm,
+                        'created_by'  => $exporter_id,
+                        'created_at'  => Carbon::now(),
+                    ];
+                    $other_code_id = ExportersOtherCodes::insert($code_data);
+                    // dd($other_code_id);
+
+                    $update_data = [
+                        'address_id'    => $address_id,
+                        'bank_id'       => $bank_id,
+                        'other_code_id' => $other_code_id,
+                        'created_by'    => $exporter_id,
+                    ];
+                    $update_exporter = Exporter::where('id', $exporter_id)->update($update_data);
+                    // dd($update_exporter);
+
+                    if ($update_exporter) {
+                        $data = [
+                            'id'        => $exporter_id,
+                            'mail_type' => 1,
+                        ];
+
+                        $to      = 'alok.das@oasystspl.com';
+                        $subject = 'Exporters application registered.';
+                        // Send mail
+                        Mail::to($to)->send(new SendMail($data));
+
+                        return redirect()->route('welcome');
+                    } else {
+                        return redirect()->route('exporter.register');
+                    }
                 } else {
                     return redirect()->route('exporter.register');
                 }
-            } else {
-                return redirect()->route('exporter.register');
+            } catch (\Exception $e) {
+                $data['data']    = [];
+                $data['message'] = $e->getMessage();
+                return response($data, 500);
             }
-        } catch (\Exception $e) {
+        } else {
             $data['data']    = [];
-            $data['message'] = $e->getMessage();
-            return response($data, 500);
+            $data['message'] = $validator->errors();
+            return response($data, 403);
+
+            // return redirect()->route('welcome')->with($data);
         }
+
     }
 
     /**
@@ -474,6 +508,63 @@ class TblExportersController extends Controller
             ])
             ->first();
         return view('profile')->with($data);
+    }
+
+    public function otp_view(Request $request)
+    {dd('asas');
+        $data['page_title'] = 'Exporter|Send OTP';
+        return view('send-otp')->with($data);
+    }
+
+    public function send_otp(Request $request)
+    {
+        try {
+            $otp_status = Otp::insert(['email' => $request->email, 'otp' => rand(111111, 999999), 'created_at' => Carbon::now()]);
+
+            if ($otp_status) {
+                $data = [
+                    'mail_id'   => $request->email,
+                    'mail_type' => 4,
+                ];
+
+                $to      = $request->email;
+                $subject = 'Exporters OTP verification.';
+                Mail::to($to)->send(new SendMail($data));
+
+                return redirect()->route('exporter.view.verify.otp', $request->email)->with($data);
+            } else {
+                return back();
+            }
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    public function verify_otp_view(Request $request, $email = null)
+    {
+        $data['page_title'] = 'Exporter|Verify OTP';
+        $data['email']      = $email;
+        return view('verify-otp')->with($data);
+    }
+
+    public function verify_otp(Request $request)
+    {
+        try {
+            $checkOtp = Otp::where('email', $request->email)->latest()->first()->otp;
+            if (strcmp($checkOtp, $request->otp) == 0) {
+                Session::flash('message', 'Otp verified please, change your password in password reset form.');
+                return redirect()->route('welcome')->with($data);
+            } else {
+                Session::flash('message', 'Otp didn\'t matched. Please, enter the sent otp.');
+                return back();
+            }
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
     }
 
 }
