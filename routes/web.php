@@ -31,10 +31,12 @@ Route::get('/exporter-register', [TblExportersController::class, 'create'])->nam
 Route::group(['prefix' => 'exporters'], function () {
     Route::get('/show/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
     Route::post('/login', [TblExportersController::class, 'login'])->name('exporter.login');
-    // Route::get('/register', [TblExportersController::class, 'create'])->name('exporter.register');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
     Route::post('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.reset.password');
+
+    Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->name('exporter.check.mobile');
+    Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
 
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
@@ -50,6 +52,7 @@ Route::group(['prefix' => 'exporters'], function () {
 // All the routes for Departmental Users
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
 
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/', [AdminController::class, 'roles'])->name('admin.roles');
