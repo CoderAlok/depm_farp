@@ -397,28 +397,14 @@ class TblExportersController extends Controller
 
                 $reset = $exporter->where('id', $user->id)->update(['password' => Hash::make($request->new_pass), 'track_status' => 1]);
                 if ($reset) {
-
-                    $data = [
-                        'id'        => $user->id,
-                        'mail_type' => 3,
-                    ];
-
-                    $to      = 'alok.das@oasystspl.com';
-                    $subject = 'Exporters application reset password successfully.';
-                    // Send mail
-                    Mail::to($to)->send(new SendMail($data));
-
-                    // $mail = Mail::send('emails.nodalMail_Info', $details, function ($message) use ($details) {
-                    //     $message->to($details['to_address']);
-                    //     $message->subject($details['subject']);
-                    // });
-
                     $data['data']    = $exporter;
                     $data['status']  = 'success';
                     $data['message'] = 'Password changed successfully.';
                     // return response($data, 200);
-                    $request->session()->put('sess_data', $data);
-                    return redirect()->route('welcome')->with($data);
+                    // $request->session()->put('sess_data', $data);
+                    Session::flash('message', 'Your password has been changed successfully.');
+                    // return redirect()->route('welcome')->with($data);
+                    return redirect()->route('exporter.home')->with($data);
                 } else {
                     $data['data']    = $exporter;
                     $data['status']  = 'danger';
@@ -469,6 +455,23 @@ class TblExportersController extends Controller
             $data['message'] = $e->getMessage();
             return response($data, 500);
         }
+    }
+
+    public function profile(Request $request)
+    {
+        $data['page_title'] = 'Exporter profile';
+        $exporter           = Auth::guard('exporter')->user();
+        $data['data']       = Exporter::where('id', $exporter->id)
+            ->with([
+                'get_role_details:id,name',
+                'get_category_details:id,name',
+                'get_address_details:exporter_id,address,post,city,district,pincode',
+                'get_bank_details:exporter_id,name,account_no,ifsc,cheque_img',
+                'get_other_code_details:exporter_id,iec,rcmc,epc,urn,hsm',
+                'get_remarks_details:exporter_id,type,remarks',
+            ])
+            ->first();
+        return view('profile')->with($data);
     }
 
 }

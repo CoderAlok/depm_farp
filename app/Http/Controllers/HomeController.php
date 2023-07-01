@@ -28,6 +28,7 @@ class HomeController extends Controller
         $exporter     = Auth::guard('exporter')->user();
         $data['data'] = Exporter::where('id', $exporter->id)
             ->with([
+                'get_role_details:id,name',
                 'get_category_details:id,name',
                 'get_address_details:exporter_id,address,post,city,district,pincode',
                 'get_bank_details:exporter_id,name,account_no,ifsc,cheque_img',

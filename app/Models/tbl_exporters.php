@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Category;
+use ExporterRemark;
 use ExportersAddress;
 use ExportersBankDetails;
 use ExportersOtherCodes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Models\Role;
 
 class tbl_exporters extends Authenticatable
 {
@@ -20,6 +22,11 @@ class tbl_exporters extends Authenticatable
         'role_id', 'type', 'name', 'cheif_ex_name', 'email', 'username', 'password', 'phone',
         'gender', 'address_id', 'bank_id', 'other_code_id', 'regsitration_status', 'created_by', 'created_at',
     ];
+
+    public function get_role_details()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
 
     public function get_category_details()
     {

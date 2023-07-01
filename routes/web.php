@@ -37,6 +37,7 @@ Route::group(['prefix' => 'exporters'], function () {
 
     Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->name('exporter.check.mobile');
     Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
+    Route::get('/profile', [TblExportersController::class, 'profile'])->name('exporter.profile');
 
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');

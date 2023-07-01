@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use Auth;
 use Carbon\Carbon;
 use Exporter;
 use ExporterRemark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 use User;
+use Session;
 
 class AdminController extends Controller
 {
@@ -132,9 +135,10 @@ class AdminController extends Controller
 
     public function update_pending_exporters_status(Request $request)
     {
+        // dd($request->all());
         try {
             $status = Exporter::where('id', $request->exporter_id);
-            if ($status->update(['regsitration_status' => $request->approval_status])) {
+            if ($status->update(['regsitration_status' => ($request->approval_status == "on" ? 1 : 2)])) {
                 $exporterRemarks = ExporterRemark::where('exporter_id', $request->exporter_id);
 
                 if ($exporterRemarks->first() !== null) {

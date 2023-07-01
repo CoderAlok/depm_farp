@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="col-md-4" id="js-lightgallery">
                                     <label class="form-label">Consult Cheque : </label>
-                                    <br/>
+                                    <br />
                                     <a class=""
                                         href="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
                                         data-sub-html="The free in pointed they their for the so fame.">
@@ -147,11 +147,6 @@
                                     <h6>11. Udayam Registration No. : </h6>
                                     <b>{{ $data->get_other_code_details->urn }}</b>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <div class="row">
                                 <div class="col-md-4">
                                     <h6>12. HSM Code : </h6>
                                     <b>{{ $data->get_other_code_details->hsm }}</b>
@@ -162,14 +157,21 @@
                         <form action="{{ route('admin.publicity.officer.pending.exporters.status') }}" method="post"
                             name="pending_approval_form" id="pending_approval_form">
                             @csrf
-                            <div class="form-group">
-                                <label for="approval_status">Approval Status</label>
-
+                            <div class="form-group row">
                                 <input type="hidden" name="exporter_id" id="exporter_id" value="{{ $data->id }}">
-                                <select name="approval_status" id="approval_status" class="form-control">
+                                {{-- <label for="approval_status">Approval Status</label> --}}
+
+                                {{-- <select name="approval_status" id="approval_status" class="form-control">
                                     <option value="1">Approve</option>
                                     <option value="2">Reject</option>
-                                </select>
+                                </select> --}}
+
+                                <label class="form-label col-md-2" for="approval_status">Approval Status</label>
+                                <div class="custom-control custom-switch col-md-10">
+                                    <input type="checkbox" class="custom-control-input approval_status"
+                                        id="approval_status" name="approval_status">
+                                    <label class="custom-control-label" for="approval_status"></label>
+                                </div>
                             </div>
 
                             <div class="form-group">
