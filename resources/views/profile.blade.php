@@ -117,8 +117,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Consult Cheque : </label>
-                                    <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
-                                        alt="Cheque image" width="15%">
+                                    {{-- <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
+                                        alt="Cheque image" width="15%"> --}}
+
+                                    <a href="javascript:void(0);"
+                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}')">
+                                        <span class="text-warning badge bg-dark p-1">View file</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

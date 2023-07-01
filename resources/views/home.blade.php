@@ -119,7 +119,7 @@
                                     {{-- <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
                                         alt="Cheque image" width="15%"> --}}
                                     <a href="javascript:void(0);"
-                                        onclick="view_file('{{ asset(`public/storage/images/exporters/` . $data->get_bank_details->cheque_img) }}')">
+                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}')">
                                         <span class="text-warning badge bg-dark p-1">View file</span>
                                     </a>
                                 </div>
@@ -195,15 +195,4 @@
             });
         </script>
     @endif
-
-    <script>
-        $(document).ready((e) => {
-            function view_file(url) {
-                event.preventDefault();
-                $('#content').html('<embed src="' + url +
-                    '" frameborder="0" width="100%" id="view_upload_image" height="400px">');
-                $('#view_modal').modal('show');
-            }
-        });
-    </script>
 @endsection

@@ -13,7 +13,7 @@
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>Establishment Details</h2>
+                        <h2>Exporters List</h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>

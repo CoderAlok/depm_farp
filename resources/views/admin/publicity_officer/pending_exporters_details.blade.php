@@ -119,11 +119,16 @@
                                 <div class="col-md-4" id="js-lightgallery">
                                     <label class="form-label">Consult Cheque : </label>
                                     <br />
-                                    <a class=""
+                                    {{-- <a class=""
                                         href="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
                                         data-sub-html="The free in pointed they their for the so fame.">
                                         <img src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
                                             alt="Cheque image" class="img-responsive" alt="image" width="15%">
+                                    </a> --}}
+
+                                    <a href="javascript:void(0);"
+                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}')">
+                                        <span class="text-warning badge bg-dark p-1">View file</span>
                                     </a>
                                 </div>
                             </div>
@@ -154,35 +159,38 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('admin.publicity.officer.pending.exporters.status') }}" method="post"
+                        <form class="form-group mb-3"
+                            action="{{ route('admin.publicity.officer.pending.exporters.status') }}" method="post"
                             name="pending_approval_form" id="pending_approval_form">
                             @csrf
+
+
                             <div class="form-group row">
                                 <input type="hidden" name="exporter_id" id="exporter_id" value="{{ $data->id }}">
-                                {{-- <label for="approval_status">Approval Status</label> --}}
-
-                                {{-- <select name="approval_status" id="approval_status" class="form-control">
-                                    <option value="1">Approve</option>
-                                    <option value="2">Reject</option>
-                                </select> --}}
 
                                 <label class="form-label col-md-2" for="approval_status">Approval Status</label>
                                 <div class="custom-control custom-switch col-md-10">
-                                    <input type="checkbox" class="custom-control-input approval_status"
-                                        id="approval_status" name="approval_status">
+                                    <input type="checkbox" class="custom-control-input approval_status" id="approval_status"
+                                        name="approval_status" {{ $data->regsitration_status == 1 ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="approval_status"></label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="remarks">Remarks</label>
-                                <input type="text" name="remarks" id="remarks" class="form-control" value=""
-                                    placeholder="Enter your remarks..." />
+                                @if (in_array($data->regsitration_status, [1, 2]))
+                                    <p>{{ $data->get_remarks_details->remarks }}</p>
+                                @else
+                                    <input type="text" name="remarks" id="remarks" class="form-control"
+                                        value="" placeholder="Enter your remarks..." />
+                                @endif
                             </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info sbmt" id="sbmt">Update</button>
-                            </div>
+                            @if (in_array($data->regsitration_status, [1, 2]))
+                            @else
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info sbmt" id="sbmt">Update</button>
+                                </div>
+                            @endif
                         </form>
                         {{-- Main content end here --}}
                     </div>
@@ -195,39 +203,21 @@
 @section('scripts')
     <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     @routes
-    <script>
+    <script defer>
+        function view_file(url) {
+            Swal.fire({
+                imageUrl: url,
+                width: 1200,
+                imageWidth: 1200,
+                imageHeight: 800,
+                imageAlt: 'Custom image',
+                showConfirmButton: false,
+                showCancelButton: false,
+                showCloseButton: true
+            })
+        }
+
         $(document).ready((e) => {
-
-            var $initScope = $('#js-lightgallery');
-            if ($initScope.length) {
-                $initScope.justifiedGallery({
-                    border: -1,
-                    rowHeight: 150,
-                    margins: 8,
-                    waitThumbnailsLoad: true,
-                    randomize: false,
-                }).on('jg.complete', function() {
-                    $initScope.lightGallery({
-                        thumbnail: true,
-                        animateThumb: true,
-                        showThumbByDefault: true,
-                    });
-                });
-            };
-            $initScope.on('onAfterOpen.lg', function(event) {
-                $('body').addClass("overflow-hidden");
-            });
-            $initScope.on('onCloseAfter.lg', function(event) {
-                $('body').removeClass("overflow-hidden");
-            });
-
-
-            // Edit model show
-            // $("body").on("click", ".edit-user", function(e) {
-            // e.preventDefault();
-            // var id = $(this).attr("data-id");
-
-            // console.log('ID : ' + id);
             // $.ajax({
             //     type: 'get',
             //     url: route('exporter.details', id),
@@ -237,7 +227,6 @@
             //     error: function(error) {
             //         console.log(error)
             //     }
-            // });
             // });
         });
     </script>

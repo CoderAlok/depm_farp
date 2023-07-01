@@ -411,6 +411,29 @@
     @endswitch
 
     @yield('scripts')
+    <script>
+        function view_file(url) {
+            Swal.fire({
+                imageUrl: url,
+                width: 1200,
+                imageWidth: 1200,
+                imageHeight: 800,
+                imageAlt: 'Custom image',
+                showConfirmButton: false,
+                showCancelButton: false,
+                showCloseButton: true
+            })
+        }
+
+        $(document).ready((e) => {
+            // function view_file(url) {
+            //     event.preventDefault();
+            //     $('#content').html('<embed src="' + url +
+            //         '" frameborder="0" width="100%" id="view_upload_image" height="400px">');
+            //     $('#view_modal').modal('show');
+            // }
+        });
+    </script>
 
     <!--<script src="js/../script.js"></script>
  <script>
