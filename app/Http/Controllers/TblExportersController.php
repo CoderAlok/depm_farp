@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Session;
 
 class TblExportersController extends Controller
 {
@@ -311,14 +312,21 @@ class TblExportersController extends Controller
                 $exporterData = Exporter::where('email', $request->email);
                 if ($exporterData->exists()) {
                     $exporterData = $exporterData->first();
-                    if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                        session()->put('exporter', $exporterData);
-                        $data['page_title'] = 'Exporter | Home';
-                        // dd('m ahsjsajshaj');
-                        return redirect()->route('exporter.home');
+
+                    if ($exporterData->regsitration_status === 0) {
+                        Session::flash('message', 'Sorry, you are not eligible yet to login. Let the scrutiny process finish.');
+                        return redirect()->route('welcome'); //->with('message', 'Your are scrutiny is still under process.');
                     } else {
-                        return redirect()->route('welcome');
+                        if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                            session()->put('exporter', $exporterData);
+                            $data['page_title'] = 'Exporter | Home';
+
+                            return redirect()->route('exporter.home');
+                        } else {
+                            return redirect()->route('welcome');
+                        }
                     }
+
                 } else {
                     return redirect()->route('welcome');
                 }
@@ -336,6 +344,12 @@ class TblExportersController extends Controller
         }
     }
 
+    /**
+     * Method annexure1
+     * @param Request $request [explicite description]
+     * @author AlokDas
+     * @return void
+     */
     public function annexure1(Request $request)
     {
         $data['page_title'] = 'Annexure 1';

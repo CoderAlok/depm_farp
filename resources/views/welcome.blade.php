@@ -136,6 +136,10 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                         <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto">
                             <div class="card p-4 rounded-plus bg-faded">
 
+                                @if (Session::has('message'))
+                                    <p class="alert alert-warning">{{ Session::get('message') }}</p>
+                                @endif
+
                                 <ul class="nav nav-pills justify-content-center" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab"
                                             href="#js_change_pill_direction-1">Exporter</a></li>
