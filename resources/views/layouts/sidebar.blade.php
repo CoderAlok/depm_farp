@@ -27,7 +27,7 @@
             @case(1)
                 <ul id="js-nav-menu" class="nav-menu">
                     <li>
-                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                        <a href="{{ route('exporter.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
@@ -47,19 +47,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.category') }}" title="Theme Settings" data-filter-tags="theme settings">
+                        <a href="{{ '#' }}" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Application</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.category') }}" title="Theme Settings" data-filter-tags="theme settings">
+                        <a href="{{ '#' }}" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.category') }}" title="Theme Settings" data-filter-tags="theme settings">
+                        <a href="{{ '#' }}" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Application List</span>
                         </a>
