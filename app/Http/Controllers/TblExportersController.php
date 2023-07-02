@@ -217,6 +217,7 @@ class TblExportersController extends Controller
                         // Send mail
                         Mail::to($to)->send(new SendMail($data));
 
+                        Session::flash('message', 'Exporter registered successfully. Please, wait for our authority to approve your application. You will be notified through mail.');
                         return redirect()->route('welcome');
                     } else {
                         return redirect()->route('exporter.register');
@@ -470,7 +471,7 @@ class TblExportersController extends Controller
     public function checkMobile(Request $request)
     {
         try {
-            $data['data']    = Exporter::where('phone', $request->mobile)->get()->isNotEmpty() ? 1 : 0;
+            $data['data']    = Exporter::where('phone', $request->mobile)->whereIn('regsitration_status', [0, 1])->get()->isNotEmpty() ? 1 : 0;
             $data['message'] = $data['data'] ? 'Mobile number already exists' : 'N/A';
             return response($data, 200);
         } catch (\Exception $e) {
@@ -483,7 +484,7 @@ class TblExportersController extends Controller
     public function checkEmail(Request $request)
     {
         try {
-            $data['data']    = Exporter::where('email', $request->email)->get()->isNotEmpty() ? 1 : 0;
+            $data['data']    = Exporter::where('email', $request->email)->whereIn('regsitration_status', [0, 1])->get()->isNotEmpty() ? 1 : 0;
             $data['message'] = $data['data'] ? 'Email already exists' : 'N/A';
             return response($data, 200);
         } catch (\Exception $e) {

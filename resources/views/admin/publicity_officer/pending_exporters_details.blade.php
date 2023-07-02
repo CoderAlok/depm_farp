@@ -170,11 +170,24 @@
 
                                 <label class="form-label col-md-2" for="approval_status">Approval Status</label>
 
-                                <select name="approval_status" id="approval_status" class="form-control m-3">
-                                    {{-- <option value="">Choose an option</option> --}}
-                                    <option value="1">Approve</option>
-                                    <option value="2">Reject</option>
-                                </select>
+
+                                @if (in_array($data->regsitration_status, [1, 2]))
+                                    @php
+                                        $reg_status = ['Pending', 'Approved', 'Rejected'];
+                                        $reg_status_color = ['warning', 'success', 'danger'];
+                                    @endphp
+                                    <p class="text-white badge bg-{{ $reg_status_color[$data->regsitration_status] }}">
+                                        {{ $reg_status[$data->regsitration_status] }}</p>
+                                @else
+                                    <select name="approval_status" id="approval_status" class="form-control m-3">
+                                        <option value="">Choose an option</option>
+                                        <option value="1">Approve
+                                        </option>
+                                        <option value="2">Reject
+                                        </option>
+                                    </select>
+                                @endif
+
 
                                 {{-- <div class="custom-control custom-switch col-md-10">
                                     <input type="checkbox" class="custom-control-input approval_status" id="approval_status"

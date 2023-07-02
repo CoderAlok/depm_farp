@@ -100,7 +100,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </div>
                         </a>
                     </div>
-                    <a href="#" class="btn btn-sm bg-clr-1 text-white ml-auto">Create Account</a>
+                    <a href="#" class="btn btn-sm bg-clr-1 text-white ml-auto d-none">Create Account</a>
                 </div>
             </nav>
 
@@ -118,7 +118,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <select id="type" name="type"
                                         class="form-select form-control form-control-sm"
                                         aria-label="Default select example" required>
-                                        <option selected="">Form Types</option>
+                                        <option value="">Choose a type</option>
                                         <option value="6">Merchant</option>
                                         <option value="7">Manufacturer</option>
                                     </select>
@@ -128,7 +128,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <select id="category" name="category"
                                         class="form-select form-control form-control-sm"
                                         aria-label="Default select example" required>
-                                        <option selected="">Select a category</option>
+                                        <option value="">Choose a category</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach

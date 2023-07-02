@@ -89,7 +89,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </div>
                         </a>
                     </div>
-                    <a href="page_register.html" class="btn-link text-white ml-auto">Create Account</a>
+                    <a href="{{ route('exporter.register') }}" class="btn btn-sm bg-clr-1 text-white ml-auto">Create Account</a>
                 </div>
             </nav>
 
@@ -188,11 +188,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             </div>
 
                                             <div class="row no-gutters">
-                                                <div class="col-lg-6 pr-lg-1 my-2">
+                                                {{-- <div class="col-lg-6 pr-lg-1 my-2">
                                                     <a type="button" class="btn btn-info btn-block btn-sm"
                                                         href="{{ route('exporter.register') }}">Register</a>
-                                                </div>
-                                                <div class="col-lg-6 pl-lg-1 my-2">
+                                                </div> --}}
+                                                <div class="col-lg-12 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
                                                         class="btn btn-success btn-block btn-sm">{{ __('Login in') }}</button>
                                                 </div>

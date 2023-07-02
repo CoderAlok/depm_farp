@@ -33,6 +33,7 @@
                                 <th>Category</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Phone</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </thead>
@@ -52,8 +53,9 @@
                                             {{ $item->get_category_details->name }}
                                         </td>
                                         <td width="20%">{{ $item->name }}</td>
-                                        <td width="50%">{{ $item->email }}</td>
-                                        <td width="15%">
+                                        <td width="20%">{{ $item->email }}</td>
+                                        <td width="20%">{{ $item->phone }}</td>
+                                        <td width="20%">
                                             <span
                                                 class="text-white badge bg-{{ $reg_status_color[$item->regsitration_status] }}">{{ $reg_status[$item->regsitration_status] }}
                                             </span>
