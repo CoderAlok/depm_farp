@@ -89,7 +89,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </div>
                         </a>
                     </div>
-                    <a href="{{ route('exporter.register') }}" class="btn btn-sm bg-clr-1 text-white ml-auto">Create Account</a>
+                    <a href="{{ route('exporter.register') }}" class="btn btn-sm bg-clr-1 text-white ml-auto">Register</a>
                 </div>
             </nav>
 
@@ -144,7 +144,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab"
                                             href="#js_change_pill_direction-1">Exporter</a></li>
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab"
-                                            href="#js_change_pill_direction-2">User</a></li>
+                                            href="#js_change_pill_direction-2">Official</a></li>
                                 </ul>
                                 <div class="tab-content py-3">
                                     <div class="tab-pane fade show active" id="js_change_pill_direction-1"
@@ -178,13 +178,13 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 @enderror
                                             </div>
                                             <div class="form-group text-left">
-                                                <div class="custom-control custom-checkbox">
+                                                {{-- <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input"
                                                         name="remember" id="remember"
                                                         {{ old('remember') ? 'checked' : '' }}>
                                                     <label class="custom-control-label" for="rememberme"> Remember
                                                         me for the next 30 days</label>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                             <div class="row no-gutters">
@@ -220,12 +220,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 <div class="invalid-feedback">Sorry, you missed this one.</div>
                                             </div>
                                             <div class="form-group text-left">
-                                                <div class="custom-control custom-checkbox">
+                                                {{-- <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input"
                                                         id="rememberme">
                                                     <label class="custom-control-label" for="rememberme"> Remember
                                                         me for the next 30 days</label>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="row no-gutters">
                                                 {{-- <div class="col-lg-6 pr-lg-1 my-2"> --}}

@@ -133,9 +133,18 @@ class TblExportersController extends Controller
 
         if ($validator->passes()) {
             try {
-                $username = explode(' ', $request->exporter_name);
-                $username = strtolower(trim($username[0])) . rand(111111, 999999);
-                $data     = [
+                $username       = explode(' ', $request->exporter_name);
+                $username       = strtolower(trim($username[0])) . rand(111111, 999999);
+
+                $year1 = Date();
+                // $year1 = Date
+                // $year1 = 
+                // $year1 = 
+                // $year1 = 
+                $application_no = 'EXPREG'.$year1;
+
+                $data = [
+                    'application_no'      => $application_no,
                     'role_id'             => $request->type,
                     'category_id'         => $request->category,
                     'name'                => $request->exporter_name,
