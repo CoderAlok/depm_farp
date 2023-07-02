@@ -15,8 +15,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private $app;
+    public function __construct(CustomRepository $app)
     {
+        $this->app = $app;
         // $this->middleware('auth');
     }
 
@@ -57,5 +59,8 @@ class HomeController extends Controller
             }
         }
     }
-
+    public function genApp()
+    {
+        dd($this->app->generateExpApp());exit;
+    }
 }
