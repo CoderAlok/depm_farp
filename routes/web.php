@@ -33,6 +33,7 @@ Route::group(['prefix' => 'exporters'], function () {
     Route::post('/login', [TblExportersController::class, 'login'])->name('exporter.login');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
+    Route::get('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password_view'])->name('exporter.reset.password.view');
     Route::post('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.reset.password');
 
     Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->name('exporter.check.mobile');

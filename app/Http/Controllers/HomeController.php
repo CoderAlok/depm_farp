@@ -6,6 +6,7 @@ use Auth;
 use Exporter;
 use Illuminate\Http\Request;
 use Otp;
+use Session;
 
 class HomeController extends Controller
 {
@@ -37,19 +38,23 @@ class HomeController extends Controller
             ])
             ->first();
 
-        if ($exporter->track_status) {
-            $data['page_title'] = 'Exporter Panel';
-            return view('home')->with($data);
+        if ($exporter->regsitration_status == 2) {
+            Session::flash('message', 'Sorry, this user doesnot exist. already rejected');
+            return redirect()->route('welcome');
         } else {
+            if ($exporter->track_status) {
+                $data['page_title'] = 'Exporter Panel';
+                return view('home')->with($data);
+            } else {
+                $otpStatus = Otp::where('email', $exporter->track_status)->latest()->first()->status;
 
-            $otpStatus = Otp::where('email', $exporter->track_status)->latest()->first()->status;
+                // Here it will redirect to otp page
+                $data['page_title'] = 'Exporter|Verify OTP';
+                return view('send-otp')->with($data);
 
-            // Here it will redirect to otp page
-            $data['page_title'] = 'Exporter|Verify OTP';
-            return view('send-otp')->with($data);
-
-            // $data['page_title'] = 'Exporter|Reset Password';
-            // return view('reset_password')->with($data);
+                // $data['page_title'] = 'Exporter|Reset Password';
+                // return view('reset_password')->with($data);
+            }
         }
     }
 

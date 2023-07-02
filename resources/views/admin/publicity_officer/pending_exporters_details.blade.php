@@ -15,7 +15,7 @@
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>Application No : {{ 'asjahsjahsajsajsh' }}</h2>
+                        <h2>Application No : <b class="text-uppercase font-size-600">{{ $data->app_no ?? '' }}</b></h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -28,7 +28,7 @@
 
                     <div class="container-fluid">
                         {{-- Main content start here --}}
-                        <div class="mb-4 row">
+                        <div class="mt-4 mb-4 row">
                             <div class="col-md-4">
                                 <h6>1. Type of Exporter</h6>
                                 @php

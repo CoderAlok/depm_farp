@@ -133,18 +133,20 @@ class TblExportersController extends Controller
 
         if ($validator->passes()) {
             try {
-                $username       = explode(' ', $request->exporter_name);
-                $username       = strtolower(trim($username[0])) . rand(111111, 999999);
+                $username = explode(' ', $request->exporter_name);
+                $username = strtolower(trim($username[0])) . rand(111111, 999999);
 
-                $year1 = Date();
+                // generated app_no start
+                // $year1 = Date();
                 // $year1 = Date
-                // $year1 = 
-                // $year1 = 
-                // $year1 = 
-                $application_no = 'EXPREG'.$year1;
+                // $year1 =
+                // $year1 =
+                // $year1 =
+                $application_no = 'EXPREG' . rand(11111, 99999);
+                // generated app_no start
 
                 $data = [
-                    'application_no'      => $application_no,
+                    'app_no'             => $application_no,
                     'role_id'             => $request->type,
                     'category_id'         => $request->category,
                     'name'                => $request->exporter_name,
@@ -226,7 +228,7 @@ class TblExportersController extends Controller
                         // Send mail
                         Mail::to($to)->send(new SendMail($data));
 
-                        Session::flash('message', 'Exporter registered successfully. Please, wait for our authority to approve your application. You will be notified through mail.');
+                        Session::flash('message', 'Exporter registered successfully. Please, wait for authority approval. You will be notified through mail.');
                         return redirect()->route('welcome');
                     } else {
                         return redirect()->route('exporter.register');
@@ -427,6 +429,12 @@ class TblExportersController extends Controller
         return view('annexure2')->with($data);
     }
 
+    public function exporter_reset_password_view(Request $request)
+    {
+        $data['page_title'] = 'Exporter|Reset Password';
+        return view('reset_password')->with($data);
+    }
+
     public function exporter_reset_password(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -480,7 +488,9 @@ class TblExportersController extends Controller
     public function checkMobile(Request $request)
     {
         try {
-            $data['data']    = Exporter::where('phone', $request->mobile)->whereIn('regsitration_status', [0, 1])->get()->isNotEmpty() ? 1 : 0;
+            $data['data'] = Exporter::where('phone', $request->mobile)
+            // ->whereIn('regsitration_status', [0, 1])
+                ->get()->isNotEmpty() ? 1 : 0;
             $data['message'] = $data['data'] ? 'Mobile number already exists' : 'N/A';
             return response($data, 200);
         } catch (\Exception $e) {
@@ -493,7 +503,9 @@ class TblExportersController extends Controller
     public function checkEmail(Request $request)
     {
         try {
-            $data['data']    = Exporter::where('email', $request->email)->whereIn('regsitration_status', [0, 1])->get()->isNotEmpty() ? 1 : 0;
+            $data['data'] = Exporter::where('email', $request->email)
+            // ->whereIn('regsitration_status', [0, 1])
+                ->get()->isNotEmpty() ? 1 : 0;
             $data['message'] = $data['data'] ? 'Email already exists' : 'N/A';
             return response($data, 200);
         } catch (\Exception $e) {
@@ -521,7 +533,7 @@ class TblExportersController extends Controller
     }
 
     public function otp_view(Request $request)
-    {dd('asas');
+    {
         $data['page_title'] = 'Exporter|Send OTP';
         return view('send-otp')->with($data);
     }
@@ -564,8 +576,15 @@ class TblExportersController extends Controller
         try {
             $checkOtp = Otp::where('email', $request->email)->latest()->first()->otp;
             if (strcmp($checkOtp, $request->otp) == 0) {
-                Session::flash('message', 'Otp verified please, change your password in password reset form.');
-                return redirect()->route('welcome')->with($data);
+                $checkStatus = Exporter::where('email', $request->email)->update(['track_status' => 1]);
+
+                if ($checkStatus) {
+                    Session::flash('message', 'Otp verified please, change your password in password reset form.');
+                    return redirect()->route('welcome');
+                } else {
+                    Session::flash('message', 'Track status was not updated.');
+                    return redirect()->route('welcome');
+                }
             } else {
                 Session::flash('message', 'Otp didn\'t matched. Please, enter the sent otp.');
                 return back();
