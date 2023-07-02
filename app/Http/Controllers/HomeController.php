@@ -42,18 +42,13 @@ class HomeController extends Controller
             Session::flash('message', 'Sorry, this user doesnot exist. already rejected');
             return redirect()->route('welcome');
         } else {
-            if ($exporter->track_status) {
+            if ($exporter->track_status == 1) {
                 $data['page_title'] = 'Exporter Panel';
                 return view('home')->with($data);
             } else {
-                $otpStatus = Otp::where('email', $exporter->track_status)->latest()->first()->status;
-
-                // Here it will redirect to otp page
+                $otpStatus          = Otp::where('email', $exporter->track_status)->latest()->first()->status;
                 $data['page_title'] = 'Exporter|Verify OTP';
                 return view('send-otp')->with($data);
-
-                // $data['page_title'] = 'Exporter|Reset Password';
-                // return view('reset_password')->with($data);
             }
         }
     }

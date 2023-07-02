@@ -5,16 +5,16 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Category
-                <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal">Add Category</sup>
+                <i class="subheader-icon fal fa-"></i> Roles
+                <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal">Add Roles</sup>
             </h1>
-            <div class="subheader-block">All the categories are listed here</div>
+            <div class="subheader-block">All the roles are listed here</div>
         </div>
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>Categories Details</h2>
+                        <h2>Role Details</h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -29,31 +29,21 @@
                         <!-- Main content starts here -->
                         <div class="panel-container show">
                             <div class="panel-content">
-                                <table class="table">
+                                <table id="table" class="table">
                                     <thead>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </thead>
 
                                     <tbody>
-                                        @if (isset($category))
-                                            @php
-                                                $status_color = ['danger', 'success'];
-                                            @endphp
-                                            @foreach ($category as $value)
+                                        @if (isset($roles))
+                                            @foreach ($roles as $key => $value)
                                                 <tr>
-                                                    <td>{{ $value->id ?? '' }}</td>
+                                                    <td>{{ ++$key }}</td>
                                                     <td>{{ $value->name ?? '' }}</td>
                                                     <td>
-                                                        <span
-                                                            class="badge bg-{{ $status_color[$value->status] }}">
-                                                            {{ $value->status ? ($value->status == 1 ? 'Active' : 'Inactive') : '' }}
-                                                    </td>
-                                                    </span>
-                                                    <td>
-                                                        <a class="btn btn-warning text-dark btn-sm edit-user"
+                                                        <a class="btn btn-warning btn-sm text-dark btn-lg edit-user"
                                                             data-toggle="modal" data-target="#edit_user_modal"
                                                             data-id="{{ $value->id }}">edit</a>
                                                         {{-- <button type="button" id="delete_cat" data-id="{{ $value->id }}"
@@ -88,26 +78,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Roles</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="javascript:void(0)" name="user_add_modal_form" id="user_add_modal_form" method="post">
+                <form action="javascript:void(0)" name="role_add_modal_form" id="role_add_modal_form" method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="cat_name">Name</label>
-                            <input type="text" name="cat_name" id="cat_name" class="form-control" value=""
-                                placeholder="Category name" />
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" class="form-control" value=""
+                                placeholder="Roles name" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -130,22 +112,14 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="javascript:void(0)" name="user_edit_modal_form" id="user_edit_modal_form" method="post">
+                <form action="javascript:void(0)" name="role_edit_modal_form" id="role_edit_modal_form" method="post">
                     {{-- @csrf --}}
                     <div class="modal-body">
-                        <input type="hidden" name="edit_cat_id" id="edit_cat_id" value="" />
+                        <input type="hidden" name="edit_id" id="edit_id" value="" />
                         <div class="form-group">
-                            <label for="edit_cat_name">Name</label>
-                            <input type="text" name="edit_cat_name" id="edit_cat_name" class="form-control"
-                                value="" placeholder="Category name" />
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_status">Status</label>
-                            <select name="edit_status" id="edit_status" class="form-control" required>
-                                <option value="">Select one</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
+                            <label for="edit_name">Name</label>
+                            <input type="text" name="edit_name" id="edit_name" class="form-control" value=""
+                                placeholder="Role name" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -163,14 +137,18 @@
     @routes
     <script>
         $(document).ready((e) => {
+
+            // $('#table').DataTable();
+
             // Add models
-            $('#user_add_modal_form').on('submit', (e) => {
+            $('#role_add_modal_form').on('submit', (e) => {
                 $.ajax({
                     type: "post",
-                    url: route('admin.category.store'),
-                    data: $('#user_add_modal_form').serialize(),
+                    url: route('admin.roles.store'),
+                    data: $('#role_add_modal_form').serialize(),
                     dataType: "json",
                     success: function(data) {
+                        // console.log(data);
                         iziToast.success({
                             title: 'Success',
                             message: data.message,
@@ -189,7 +167,7 @@
                 // console.log('ID : ' + id);
                 $.ajax({
                     type: 'get',
-                    url: route('admin.category.show', id),
+                    url: route('admin.roles.show', id),
                     headers: {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}"
                     },
@@ -197,9 +175,9 @@
                         "id": id
                     },
                     success: function(data) {
-                        $('#edit_cat_id').val(data.data.id);
-                        $('#edit_cat_name').val(data.data.name);
-                        $('#edit_status').val(data.data.status);
+                        console.log(data);
+                        $('#edit_id').val(data.data.id);
+                        $('#edit_name').val(data.data.name);
                     },
                     error: function(error) {
                         console.log(error)
@@ -208,14 +186,14 @@
             });
 
             // Edit modal update
-            $('#user_edit_modal_form').on('submit', (e) => {
+            $('#role_edit_modal_form').on('submit', (e) => {
                 $.ajax({
                     type: "post",
-                    url: route('admin.category.edit'),
+                    url: route('admin.roles.edit'),
                     headers: {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}"
                     },
-                    data: $('#user_edit_modal_form').serialize(),
+                    data: $('#role_edit_modal_form').serialize(),
                     dataType: "json",
                     success: function(data) {
                         iziToast.success({

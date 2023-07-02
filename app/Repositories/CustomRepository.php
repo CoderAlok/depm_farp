@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Interfaces\CustomInterface;
 use App\Models\tbl_exporters;
+use Illuminate\Support\Facades\Crypt;
 
 class CustomRepository implements CustomInterface
 {
@@ -10,6 +11,7 @@ class CustomRepository implements CustomInterface
     {
         define('APP_CODE', 'EXPREG');
     }
+
     public function generateExpApp($exist_app_no = '')
     {
         $applicaton_no = '';
@@ -67,6 +69,7 @@ class CustomRepository implements CustomInterface
         }
         return $financial_year;
     }
+
     public function getMonth()
     {
         if ((int) date('m') < 10) {
@@ -76,6 +79,7 @@ class CustomRepository implements CustomInterface
         }
         return $month;
     }
+
     public function getNumApp(int $num)
     {
         $num    = (string) $num;
@@ -86,5 +90,56 @@ class CustomRepository implements CustomInterface
         }
         $newnum .= (int) $num;
         return $newnum;
+    }
+
+    public function encrypt($str)
+    {
+        return Crypt::encryptString($str);
+    }
+
+    public function decrypt($str)
+    {
+        return Crypt::decryptString($str);
+    }
+
+    public function generateOfficerUserName($role_id)
+    {
+        $username = '';
+        $random   = rand(11111111, 99999999);
+        switch ($role_id) {
+            // case 1:
+            //     $username = '';
+            //     break;
+
+            case 2:
+                $username = 'PODEPM';
+                break;
+
+            case 3:
+                $username = 'DIRDEPM';
+                break;
+
+            case 4:
+                $username = 'SOMSME';
+                break;
+
+            case 5:
+                $username = 'PSDEPM';
+                break;
+
+            case 7:
+                $username = 'AODEPM';
+                break;
+
+            case 10:
+                $username = 'SECMSME';
+                break;
+
+            default:
+                $username = '';
+                break;
+        }
+
+        return strtolower($username . $random);
     }
 }

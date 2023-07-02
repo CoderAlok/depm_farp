@@ -4,7 +4,7 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Dashboard
+                <i class="subheader-icon fal fa-"></i> {{ $page_title ?? '' }}
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
             <div class="subheader-block">All the exporter details will be listed here.</div>

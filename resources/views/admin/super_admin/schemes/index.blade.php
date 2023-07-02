@@ -5,16 +5,16 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Category
-                <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal">Add Category</sup>
+                <i class="subheader-icon fal fa-"></i> Schemes
+                <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal">Add Schemes</sup>
             </h1>
-            <div class="subheader-block">All the categories are listed here</div>
+            <div class="subheader-block">All the schemes are listed here</div>
         </div>
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>Categories Details</h2>
+                        <h2>Schemes Details</h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -29,32 +29,24 @@
                         <!-- Main content starts here -->
                         <div class="panel-container show">
                             <div class="panel-content">
-                                <table class="table">
+                                <table id="table" class="table">
                                     <thead>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
+                                        <th>Short name</th>
+                                        <th>Long name</th>
                                         <th>Action</th>
                                     </thead>
 
                                     <tbody>
-                                        @if (isset($category))
-                                            @php
-                                                $status_color = ['danger', 'success'];
-                                            @endphp
-                                            @foreach ($category as $value)
+                                        @if (isset($schemes))
+                                            @foreach ($schemes as $key => $value)
                                                 <tr>
-                                                    <td>{{ $value->id ?? '' }}</td>
-                                                    <td>{{ $value->name ?? '' }}</td>
+                                                    <td>{{ ++$key }}</td>
+                                                    <td>{{ $value->short_name ?? '' }}</td>
+                                                    <td>{{ $value->long_name ?? '' }}</td>
                                                     <td>
-                                                        <span
-                                                            class="badge bg-{{ $status_color[$value->status] }}">
-                                                            {{ $value->status ? ($value->status == 1 ? 'Active' : 'Inactive') : '' }}
-                                                    </td>
-                                                    </span>
-                                                    <td>
-                                                        <a class="btn btn-warning text-dark btn-sm edit-user"
-                                                            data-toggle="modal" data-target="#edit_user_modal"
+                                                        <a class="btn btn-warning btn-sm text-dark btn-lg edit-user" data-toggle="modal"
+                                                            data-target="#edit_user_modal"
                                                             data-id="{{ $value->id }}">edit</a>
                                                         {{-- <button type="button" id="delete_cat" data-id="{{ $value->id }}"
                                                             class="btn btn-danger btn-lg delete-user delete_cat"><i
@@ -88,19 +80,26 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Scheme</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="javascript:void(0)" name="user_add_modal_form" id="user_add_modal_form" method="post">
+                <form action="javascript:void(0)" name="scheme_add_modal_form" id="scheme_add_modal_form" method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="cat_name">Name</label>
-                            <input type="text" name="cat_name" id="cat_name" class="form-control" value=""
-                                placeholder="Category name" />
+                            <label for="short_name">Short name</label>
+                            <input type="text" name="short_name" id="short_name" class="form-control" value=""
+                                placeholder="Scheme short name" />
                         </div>
+
+                        <div class="form-group">
+                            <label for="long_name">Long name</label>
+                            <input type="text" name="long_name" id="long_name" class="form-control" value=""
+                                placeholder="Scheme long name" />
+                        </div>
+
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control" required>
@@ -133,10 +132,15 @@
                 <form action="javascript:void(0)" name="user_edit_modal_form" id="user_edit_modal_form" method="post">
                     {{-- @csrf --}}
                     <div class="modal-body">
-                        <input type="hidden" name="edit_cat_id" id="edit_cat_id" value="" />
+                        <input type="hidden" name="edit_id" id="edit_id" value="" />
                         <div class="form-group">
-                            <label for="edit_cat_name">Name</label>
-                            <input type="text" name="edit_cat_name" id="edit_cat_name" class="form-control"
+                            <label for="edit_short_name">Short name</label>
+                            <input type="text" name="edit_short_name" id="edit_short_name" class="form-control"
+                                value="" placeholder="Category name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_long_name">Long name</label>
+                            <input type="text" name="edit_long_name" id="edit_long_name" class="form-control"
                                 value="" placeholder="Category name" />
                         </div>
                         <div class="form-group">
@@ -163,14 +167,18 @@
     @routes
     <script>
         $(document).ready((e) => {
+
+            // $('#table').DataTable();
+
             // Add models
-            $('#user_add_modal_form').on('submit', (e) => {
+            $('#scheme_add_modal_form').on('submit', (e) => {
                 $.ajax({
                     type: "post",
-                    url: route('admin.category.store'),
-                    data: $('#user_add_modal_form').serialize(),
+                    url: route('admin.schemes.store'),
+                    data: $('#scheme_add_modal_form').serialize(),
                     dataType: "json",
                     success: function(data) {
+                        // console.log(data);
                         iziToast.success({
                             title: 'Success',
                             message: data.message,
@@ -189,7 +197,7 @@
                 // console.log('ID : ' + id);
                 $.ajax({
                     type: 'get',
-                    url: route('admin.category.show', id),
+                    url: route('admin.schemes.show', id),
                     headers: {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}"
                     },
@@ -197,8 +205,10 @@
                         "id": id
                     },
                     success: function(data) {
-                        $('#edit_cat_id').val(data.data.id);
-                        $('#edit_cat_name').val(data.data.name);
+                        console.log(data);
+                        $('#edit_id').val(data.data.id);
+                        $('#edit_short_name').val(data.data.short_name);
+                        $('#edit_long_name').val(data.data.long_name);
                         $('#edit_status').val(data.data.status);
                     },
                     error: function(error) {
@@ -211,7 +221,7 @@
             $('#user_edit_modal_form').on('submit', (e) => {
                 $.ajax({
                     type: "post",
-                    url: route('admin.category.edit'),
+                    url: route('admin.schemes.edit'),
                     headers: {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}"
                     },

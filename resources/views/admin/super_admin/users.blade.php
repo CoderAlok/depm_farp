@@ -40,7 +40,7 @@
                             <tbody>
                                 @foreach ($users as $key => $value)
                                     <tr>
-                                        <td>{{ $value->id ?? '' }}</td>
+                                        <td>{{ ++$key }}</td>
                                         <td>{{ $value->get_role_details->name ?? '' }}</td>
                                         <td>{{ $value->username ?? '' }}</td>
                                         <td>{{ $value->first_name . ' ' . $value->last_name }}</td>
@@ -51,7 +51,7 @@
                                         data-target="#edit_user_modal">
                                         Edit
                                     </button> --}}
-                                            <a class="btn btn-info btn-lg edit-user" data-toggle="modal"
+                                            <a class="btn btn-warning text-dark btn-sm edit-user" data-toggle="modal"
                                                 data-target="#edit_user_modal" data-id="{{ $value->id }}">edit</a>
                                         </td>
                                     </tr>
@@ -91,32 +91,32 @@
                         <div class="form-group">
                             <label for="first_name">First Name</label>
                             <input type="text" name="first_name" id="first_name" class="form-control" value=""
-                                placeholder="Your first name" />
+                                placeholder="Your first name" required />
                         </div>
                         <div class="form-group">
                             <label for="last_name">Last Name</label>
                             <input type="text" name="last_name" id="last_name" class="form-control" value=""
-                                placeholder="Your last name" />
+                                placeholder="Your last name" required />
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" class="form-control" value=""
-                                placeholder="Your email address" />
+                                placeholder="Your email address" required />
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" name="username" id="username" class="form-control" value=""
                                 placeholder="Your user name" />
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control" value=""
-                                placeholder="**********" />
+                                placeholder="**********" required />
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
                             <input type="tel" name="phone" id="phone" class="form-control" value=""
-                                placeholder="Your phone number" />
+                                placeholder="Your phone number" required />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -156,22 +156,22 @@
                         <div class="form-group">
                             <label for="edit_first_name">First Name</label>
                             <input type="text" name="edit_first_name" id="edit_first_name" class="form-control"
-                                value="" placeholder="Your first name" />
+                                value="" placeholder="Your first name" required />
                         </div>
                         <div class="form-group">
                             <label for="edit_last_name">Last Name</label>
                             <input type="text" name="edit_last_name" id="edit_last_name" class="form-control"
-                                value="" placeholder="Your last name" />
+                                value="" placeholder="Your last name" required />
                         </div>
                         <div class="form-group">
                             <label for="edit_email">Email</label>
                             <input type="email" name="edit_email" id="edit_email" class="form-control" value=""
-                                placeholder="Your email address" />
+                                placeholder="Your email address" readonly />
                         </div>
                         <div class="form-group">
                             <label for="edit_username">Username</label>
                             <input type="text" name="edit_username" id="edit_username" class="form-control"
-                                value="" placeholder="Your user name" />
+                                value="" placeholder="Your user name" readonly />
                         </div>
                         {{-- <div class="form-group">
                             <label for="edit_password">Password</label>
@@ -181,7 +181,7 @@
                         <div class="form-group">
                             <label for="edit_phone">Phone</label>
                             <input type="tel" name="edit_phone" id="edit_phone" class="form-control" value=""
-                                placeholder="Your phone number" />
+                                placeholder="Your phone number" required />
                         </div>
                     </div>
                     <div class="modal-footer">

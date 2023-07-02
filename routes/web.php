@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\SchemesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TblExportersController;
 use App\Http\Controllers\UsersController;
@@ -48,6 +50,8 @@ Route::group(['prefix' => 'exporters'], function () {
     });
 
     Route::group(['prefix' => 'applications'], function () {
+        Route::get('/list', [TblExportersController::class, 'application_list'])->name('exporter.application.list');
+
         Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
         Route::get('/annexure-2', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
     });
@@ -63,10 +67,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
 
-    Route::group(['prefix' => 'roles'], function () {
-        Route::get('/', [AdminController::class, 'roles'])->name('admin.roles');
-        Route::post('/', [AdminController::class, 'add_roles'])->name('admin.roles.add');
-        Route::get('/roles-check', [AdminController::class, 'roles_check'])->name('admin.roles.check');
+    Route::group(['prefix' => 'role'], function () {
+        Route::get('/', [RolesController::class, 'index'])->name('admin.roles');
+        Route::post('/', [RolesController::class, 'store'])->name('admin.roles.store');
+        Route::get('/{id}', [RolesController::class, 'show'])->name('admin.roles.show');
+        Route::post('/edit', [RolesController::class, 'edit'])->name('admin.roles.edit');
+        // Route::get('/delete/{id}', [SchemesController::class, 'delete'])->name('admin.roles.delete');
     });
 
     Route::group(['prefix' => 'users'], function () {
@@ -82,6 +88,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/{id}', [CategoryController::class, 'show'])->name('admin.category.show');
         Route::post('/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete');
+    });
+
+    Route::group(['prefix' => 'schemes'], function () {
+        Route::get('/', [SchemesController::class, 'index'])->name('admin.schemes');
+        Route::post('/', [SchemesController::class, 'store'])->name('admin.schemes.store');
+        Route::get('/{id}', [SchemesController::class, 'show'])->name('admin.schemes.show');
+        Route::post('/edit', [SchemesController::class, 'edit'])->name('admin.schemes.edit');
+        // Route::get('/delete/{id}', [SchemesController::class, 'delete'])->name('admin.schemes.delete');
     });
 
     Route::group(['prefix' => 'publicity-officer'], function () {

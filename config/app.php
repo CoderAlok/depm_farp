@@ -241,6 +241,7 @@ return [
         'ExporterRemark'       => App\Models\ExporterRemarks::class,
         'Otp'                  => App\Models\Otp::class,
         'District'             => App\Models\Districts::class,
+        'Schemes'              => App\Models\Schemes::class,
     ],
 
 ];

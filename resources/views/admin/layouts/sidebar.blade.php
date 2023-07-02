@@ -32,6 +32,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('admin.schemes') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Schemes</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.users') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">User</span>
@@ -67,6 +73,96 @@
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
                     </li>
+                </ul>
+            @break
+
+            @case(3)
+                <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                        </a>
+                    </li> --}}
+                </ul>
+            @break
+            
+            @case(4)
+                <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                        </a>
+                    </li> --}}
+                </ul>
+            @break
+            
+            @case(5)
+                <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                        </a>
+                    </li> --}}
+                </ul>
+            @break
+            
+            @case(7)
+                <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                        </a>
+                    </li> --}}
+                </ul>
+            @break
+            
+            @case(10)
+                <ul id="js-nav-menu" class="nav-menu">
+                    <li>
+                        <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                        </a>
+                    </li> --}}
                 </ul>
             @break
 

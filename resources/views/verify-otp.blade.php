@@ -25,9 +25,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -40,6 +40,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
     <style>
         .bg-login {
@@ -47,6 +49,10 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
             background-position: center;
             background-size: cover;
             height: auto;
+        }
+
+        .text-resend {
+            margin-left: -33px;
         }
     </style>
 
@@ -140,7 +146,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <p class="alert alert-warning">{{ Session::get('message') }}</p>
                                 @endif
 
-                                <ul class="nav nav-pills justify-content-center" role="tablist">
+                                <ul class="nav nav-pills justify-content-center d-none" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab"
                                             href="#js_change_pill_direction-1">Verify OTP</a></li>
                                 </ul>
@@ -151,26 +157,37 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             action="{{ route('exporter.verify.otp') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="type" value="2" id="typeUser">
-                                            <input type="hidden" name="email" value="{{ $email ?? '' }}"
-                                                id="email">
+                                            <input type="hidden" name="email"
+                                                value="{{ Session::get('data')['email'] ?? '' }}" id="email">
+                                            <input type="hidden" name="password"
+                                                value="{{ Session::get('data')['password'] ?? '' }}" id="password">
+                                            <div class="alert alert-primary" role="alert"> Please check your
+                                                registred email for OTP</div>
                                             <div class="form-group">
-                                                <label class="form-label" for="otp">Enter the OTP</label>
-                                                <input type="text" id="otp" name="otp"
-                                                    class="form-control" placeholder="Enter the otp" value=""
-                                                    required>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="otp" name="otp"
+                                                            class="form-control" placeholder="OTP" value=""
+                                                            required>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <a href="javascript:;" onclick="resend()"
+                                                            class="btn btn-primary text-right text-resend">Resend</a>
+                                                    </div>
+                                                </div>
                                                 <div class="invalid-feedback">Please, enter a valid otp</div>
                                             </div>
 
                                             <div class="row no-gutters">
-                                                <div class="col-lg-6 pr-lg-1 my-2">
-                                                    {{-- <a type="button" class="btn btn-info btn-block btn-sm"
+                                                {{-- <div class="col-lg-6 pr-lg-1 my-2"> --}}
+                                                {{-- <a type="button" class="btn btn-info btn-block btn-sm"
                                                         href="{{ '#' }}">Register</a> --}}
-                                                </div>
-                                                <div class="col-lg-6 pl-lg-1 my-2">
+                                                {{-- </div> --}}
+                                                <div class="col-lg-12 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
                                                         class="btn btn-success btn-block btn-sm">Verify OTP</button>
                                                 </div>
-                                                <a href="{{ route('welcome') }}">Already a member! login here</a>
+                                                <a href="{{ route('welcome') }}">Back</a>
                                             </div>
                                         </form>
                                     </div>
@@ -189,6 +206,27 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function resend() {
+            $.post({
+                url: "{{ route('exporter.send.otp') }}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                dataType: "JSON",
+                success: function(res) {
+                    if (res.status == 1) {
+                        iziToast.success({
+                            title: 'OTP send successfully',
+                            message: '',
+                            position: 'topRight',
+                        });
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

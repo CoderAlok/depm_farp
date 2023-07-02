@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Admin | Category';
-        $data['category']   = Category::where('status', 1)->get();
+        $data['category']   = Category::get();
         return view('admin.super_admin.category.index')->with($data);
     }
 

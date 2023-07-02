@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\CustomRepository;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,13 @@ use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
+
+    private $app;
+
+    public function __construct(CustomRepository $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * Method users
@@ -21,7 +29,7 @@ class UsersController extends Controller
     public function users(Request $request)
     {
         $data['page_title'] = 'Admin Panel | Users';
-        $data['users']      = User::where('type', 2)->with('get_role_details:id,name')->get();
+        $data['users']      = User::where('type', 2)->whereNotIn('role_id', [1])->with('get_role_details:id,name')->get();
         $data['roles']      = Role::where('id', '!=', 1)->get()->pluck('name', 'id');
         // dd($data);
         return view('admin.super_admin.users')->with($data);
@@ -40,7 +48,7 @@ class UsersController extends Controller
             'first_name' => 'required',
             'last_name'  => 'required',
             'email'      => 'required',
-            'username'   => 'required',
+            // 'username'   => 'required',
             'password'   => 'required',
             'phone'      => 'required',
         ], [
@@ -48,7 +56,7 @@ class UsersController extends Controller
             'first_name.required' => 'Please enter the first_name',
             'last_name.required'  => 'Please enter the last_name',
             'email.required'      => 'Please enter the email',
-            'username.required'   => 'Please enter the username',
+            // 'username.required'   => 'Please enter the username',
             'password.required'   => 'Please enter the password',
             'phone.required'      => 'Please enter the phone',
         ]);
@@ -60,7 +68,7 @@ class UsersController extends Controller
                 'first_name' => $request->first_name,
                 'last_name'  => $request->last_name,
                 'email'      => $request->email,
-                'username'   => strtolower($request->first_name . str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT)),
+                'username'   => $this->app->generateOfficerUserName($request->role_id),
                 'password'   => Hash::make($request->password),
                 'phone'      => $request->phone,
             ];
@@ -131,7 +139,7 @@ class UsersController extends Controller
                 'first_name' => $request->edit_first_name,
                 'last_name'  => $request->edit_last_name,
                 'email'      => $request->edit_email,
-                'username'   => strtolower($request->edit_first_name . str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT)),
+                'username'   => $request->edit_username,
                 // 'password'   => Hash::make($request->edit_password),
                 'phone'      => $request->edit_phone,
             ];
