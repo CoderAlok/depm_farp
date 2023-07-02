@@ -1,6 +1,12 @@
 @extends('admin.layouts.app')
 
 @section('content')
+
+<style>
+    input[type='search']{
+        float: right !important;
+    }
+</style>
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
@@ -29,6 +35,7 @@
                         <table id="table" class="display" style="width:100%">
                             <thead>
                                 <th>ID</th>
+                                <th>Application No</th>
                                 <th>Type</th>
                                 <th>Category</th>
                                 <th>Name</th>
@@ -47,7 +54,9 @@
                                 @foreach ($exporters as $key => $item)
                                     <tr>
                                         <td width="5%">{{ ++$key }}</td>
-                                        <td width="20%">{{ $type[$item->role_id] }}
+                                        <td width="10%"><a href="{{ route('exporter.details', ['id' => $item->id]) }}"
+                                                class="" target="_blank">{{ $item->app_no }}</a></td>
+                                        <td width="10%">{{ $type[$item->role_id] }}
                                         </td>
                                         <td width="20%">
                                             {{ $item->get_category_details->name }}
@@ -68,7 +77,7 @@
                                                     aria-hidden="true"></i>
                                             </a> --}}
 
-                                            <a class="edit-user p-3 btn btn-info view_exporter"
+                                            <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
                                                 href="{{ route('exporter.details', ['id' => $item->id]) }}">
                                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                             </a>
@@ -113,6 +122,7 @@
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
+            $('#table_filter input').addClass('form-control');
         });
 
         $(document).ready((e) => {

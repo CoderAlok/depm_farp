@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use App\Repositories\CustomRepository;
 use Auth;
 use Carbon\Carbon;
 use Category;
@@ -20,6 +21,13 @@ use Session;
 
 class TblExportersController extends Controller
 {
+    private $app;
+
+    public function __construct(CustomRepository $app)
+    {
+        $this->app = $app;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -62,53 +70,6 @@ class TblExportersController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        // $request->validate([
-        //     "type"             => "required",
-        //     "category"         => "required",
-        //     "exporter_name"    => "required",
-        //     "ceo_name"         => "required",
-        //     "mobile"           => "required",
-        //     "email"            => "required",
-
-        //     "address_at"       => "required",
-        //     "address_post"     => "required",
-        //     "address_city"     => "required",
-        //     "address_district" => "required",
-        //     "address_pin"      => "required",
-
-        //     "bank_name"        => "required",
-        //     "bank_ac_no"       => "required",
-        //     "bank_ifsc_code"   => "required",
-
-        //     "export_iec"       => "required",
-        //     "export_rcmc_no"   => "required",
-        //     "export_epc"       => "required",
-        //     "export_urn"       => "required",
-        //     "export_hsm"       => "required",
-        // ], [
-        //     "type.required"             => "Please, enter the type",
-        //     "category.required"         => "Please, enter the category",
-        //     "exporter_name.required"    => "Please, enter the exporter_name",
-        //     "ceo_name.required"         => "Please, enter the ceo_name",
-        //     "mobile.required"           => "Please, enter the mobile",
-        //     "email.required"            => "Please, enter the email",
-        //     "address_at.required"       => "Please, enter the address_at",
-        //     "address_post.required"     => "Please, enter the address_post",
-        //     "address_city.required"     => "Please, enter the address_city",
-        //     "address_district.required" => "Please, enter the address_district",
-        //     "address_pin.required"      => "Please, enter the address_pin",
-        //     "bank_name.required"        => "Please, enter the bank_name",
-        //     "bank_ac_no.required"       => "Please, enter the bank_ac_no",
-        //     "bank_ifsc_code.required"   => "Please, enter the bank_ifsc_code",
-        //     "export_iec.required"       => "Please, enter the export_iec",
-        //     "export_rcmc_no.required"   => "Please, enter the export_epc",
-        //     "export_epc.required"       => "Please, enter the export_epc",
-        //     "export_urn.required"       => "Please, enter the export_urn",
-        //     "export_hsm.required"       => "Please, enter the export_hsm",
-        // ]);
-
         $validator = Validator::make($request->all(), [
             "type.required"             => "Please, enter the type",
             "category.required"         => "Please, enter the category",
@@ -137,16 +98,11 @@ class TblExportersController extends Controller
                 $username = strtolower(trim($username[0])) . rand(111111, 999999);
 
                 // generated app_no start
-                // $year1 = Date();
-                // $year1 = Date
-                // $year1 =
-                // $year1 =
-                // $year1 =
-                $application_no = 'EXPREG' . rand(11111, 99999);
-                // generated app_no start
+                $application_no = $this->app->generateExpApp();
 
                 $data = [
-                    'app_no'             => $application_no,
+                    'app_no'              => $application_no['applicaton_no'],
+                    'app_count_no'        => $application_no['app_count_no'],
                     'role_id'             => $request->type,
                     'category_id'         => $request->category,
                     'name'                => $request->exporter_name,
@@ -262,7 +218,9 @@ class TblExportersController extends Controller
         try {
             $exporters       = Exporter::where('id', $id)->with(['get_role_details', 'get_category_details', 'get_address_details.get_district_details', 'get_bank_details', 'get_other_code_details', 'get_remarks_details'])->first();
             $data['data']    = $exporters;
-            $data['message'] = 'Exporters data loaded successfully jjuk.';
+            $data['message'] = 'Exporters data loaded successfully.';
+            $data['page_title'] = '';
+            
             // return response($data, 200);
             return view('admin.publicity_officer.pending_exporters_details')->with($data);
         } catch (\Exception $e) {

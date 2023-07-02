@@ -109,7 +109,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <div class="container">
                     <div class="w-100 bg-white position-relative rounded regFormBox my-5">
                         <h5 class="bg-gradient-1 text-white text-center py-2 mb-2">Registration Form</h5>
-                        <form class="p-5" action="{{ route('exporter.register.create') }}" method="POST"
+                        <form class="p-5 formSave" action="{{ route('exporter.register.create') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="mb-4 row">
@@ -302,6 +302,15 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     @routes
     <script>
         $(document).ready((e) => {
+            
+            $('.formSave').on('submit', function() {
+                var html =
+                    '<button class="btn btn-info space-button" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...</button>';
+                $('button[type="submit"]').after(html);
+                $('button[type="submit"]').hide();
+            });
+
+
             var form_submit_status = 0;
             $(":input").inputmask();
 
