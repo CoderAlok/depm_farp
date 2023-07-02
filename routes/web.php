@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+Route::get('test',[HomeController::class,'genApp']);
 //  Landing page
 Route::get('/', function () {
     return view('welcome')->with(['page_title' => 'FARP Login']);
 })->name('welcome');
-
 // All the login routes
 Auth::routes();
 Route::get('/exporter-register', [TblExportersController::class, 'create'])->name('exporter.register');
@@ -88,3 +88,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::post('/update-pending-exporters-status', [AdminController::class, 'update_pending_exporters_status'])->name('admin.publicity.officer.pending.exporters.status');
     });
 });
+
+
+

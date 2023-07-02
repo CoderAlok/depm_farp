@@ -6,6 +6,7 @@ use Auth;
 use Exporter;
 use Illuminate\Http\Request;
 use Otp;
+use App\Repositories\CustomRepository;
 
 class HomeController extends Controller
 {
@@ -14,8 +15,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private $app;
+    public function __construct(CustomRepository $app)
     {
+        $this->app = $app;
         // $this->middleware('auth');
     }
 
@@ -52,5 +55,8 @@ class HomeController extends Controller
             // return view('reset_password')->with($data);
         }
     }
-
+    public function genApp()
+    {
+        dd($this->app->generateExpApp());exit;
+    }
 }
