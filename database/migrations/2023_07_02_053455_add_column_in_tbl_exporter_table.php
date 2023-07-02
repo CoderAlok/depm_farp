@@ -14,7 +14,7 @@ class AddColumnInTblExporterTable extends Migration
     public function up()
     {
         Schema::table('tbl_exporters', function (Blueprint $table) {
-            $table->string('application_no', 100)->nullable()->comment('Application number for refferal')->after('id');
+            $table->string('appl', 500)->nullable()->unique()->comment('Application number for refferal')->after('id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnInTblExporterTable extends Migration
     public function down()
     {
         Schema::table('tbl_exporters', function (Blueprint $table) {
-            $table->dropColumn('application_no');
+            $table->dropColumn('appl_no');
         });
     }
 }
