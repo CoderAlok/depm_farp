@@ -27,13 +27,13 @@
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        <div class="mb-4 row">
+                        <div class="mb-4 mt-4 row">
                             <div class="col-md-4">
                                 <h6>1. Type of Exporter</h6>
                                 @php
                                     $role = explode(' ', $data->get_role_details->name);
                                 @endphp
-                                <b>{{ $role[0] . ', ' . $role[1] }}</b>
+                                <b>{{ $role[0] . ', ' . ($role[1] ?? '') }}</b>
                             </div>
                             <div class="col-md-4">
                                 <h6>2. Choose Category</h6>

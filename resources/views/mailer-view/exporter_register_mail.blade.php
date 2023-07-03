@@ -12,14 +12,14 @@
     <h4>{{ $title }}</h4>
     <b>Dear Exporter,</b>
     <p>
-        Congratulations, You have successfully registered in our portal with application no :
+        Congratulations, You have been successfully registered in the portal with application no :
         <b>{{ $data->app_no ?? '' }}</b>
-        Please, wait for the scrutiny process to complete by our higher authority. After completion of scrutiny process
-        you will recieve a mail from our side with your email and password and a link to login to your
-        respectiive account.
+        Please, wait for the scrutiny process to complete by the authority. After completion of scrutiny process
+        you will recieve an email with your email and password and a link to login to your
+        respective account.
     </p>
     <p>
-        Please, check your mail to get notified regarding the further process.
+        Please, check your email to get notified regarding the further process.
     </p>
 
     <br>

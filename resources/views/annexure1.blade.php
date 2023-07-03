@@ -26,7 +26,8 @@
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        <form class="p-4">
+                        <form class="p-4" action="javascript:void(0)" name="annexure1_form" id="annexure1_form"
+                            enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <h6>Choose Form Type:</h6>
@@ -79,44 +80,49 @@
 
                             <div class="row">
                                 <h6>4. Exporter's Contact Details :</h6>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">(a).Exporter's Email :</label>
-                                    <input type="email" class="form-control form-control-sm"
-                                        placeholder="Enter Exporter Email id" name="" id=""
-                                        value="{{ $data->email }}" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">(b).Contact No. :</label>
-                                    <input type="tel" class="form-control form-control-sm"
-                                        placeholder="Enter Exporter Contact No." name="" id=""
-                                        value="{{ $data->phone }}" />
+                                <div class="row col-md-12">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">(a).Exporter's Email :</label>
+                                        <input type="email" class="form-control form-control-sm"
+                                            placeholder="Enter Exporter Email id" name="" id=""
+                                            value="{{ $data->email }}" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">(b).Contact No. :</label>
+                                        <input type="tel" class="form-control form-control-sm"
+                                            placeholder="Enter Exporter Contact No." name="" id=""
+                                            value="{{ $data->phone }}" />
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Row -->
 
                             <div class="row">
-                                <h6>
-                                    5. Name Of the Banker with details :
-                                </h6>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">(a). Name Of the Banker</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Name"
-                                        name="" id="" value="{{ $data->get_bank_details->name }}" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">(b). Details A/c No.</label>
-                                    <input type="number" class="form-control form-control-sm" placeholder="Account No."
-                                        name="" id="" value="{{ $data->get_bank_details->account_no }}" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">(c). IFSC Code</label>
-                                    <input type="tel" class="form-control form-control-sm" placeholder="IFSC code"
-                                        name="" id="" value="{{ $data->get_bank_details->ifsc }}" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">(d). Udayam Regd No.</label>
-                                    <input type="tel" class="form-control form-control-sm" placeholder="IFSC code"
-                                        name="" id="" value="{{ $data->get_other_code_details->urn }}" />
+                                <h6>5. Name Of the Banker with details :</h6>
+                                <div class="row col-md-12">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">(a). Name Of the Banker</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Name"
+                                            name="" id="" value="{{ $data->get_bank_details->name }}" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">(b). Details A/c No.</label>
+                                        <input type="number" class="form-control form-control-sm" placeholder="Account No."
+                                            name="" id=""
+                                            value="{{ $data->get_bank_details->account_no }}" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">(c). IFSC Code</label>
+                                        <input type="tel" class="form-control form-control-sm"
+                                            placeholder="IFSC code" name="" id=""
+                                            value="{{ $data->get_bank_details->ifsc }}" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">(d). Udayam Regd No.</label>
+                                        <input type="tel" class="form-control form-control-sm"
+                                            placeholder="IFSC code" name="" id=""
+                                            value="{{ $data->get_other_code_details->urn }}" />
+                                    </div>
                                 </div>
                             </div>
                             <!-- /End Row -->
@@ -127,10 +133,12 @@
                             </h4>
                             <div class="mb-3 row">
                                 <h6>6. Details of Events</h6>
+                                <div class="row col-md-12"></div>
                                 <div class="col-md-4 mb-3">
                                     <textarea class="form-control form-control-sm" rows="4" placeholder="Certificate Details " name=""
                                         id=""></textarea>
                                 </div>
+                                {{-- Tooltip will be here --}}
                                 <div class="col-md-8">
                                     <div class="alert alert-success" role="alert">
                                         <i class="fa fa-info-circle"
@@ -140,8 +148,8 @@
                                                     display: block;
                                                     float: left;
                                                     text-align: center;
-                                                    line-height: 45px;
-                                                    background: #fff;
+                                                    line-height: 18px;
+                                                    background: #ffffff00;
                                                     margin-right: 12px;
                                                     font-size: 30px;
                                                     border-radius: 6px;
@@ -158,92 +166,115 @@
 
                             <div class="row">
                                 <h6>7. Name of the Event</h6>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Name</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Name"
-                                        name="" id="" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Type</label>
-                                    <select class="form-select form-control form-control-sm"
-                                        aria-label="Default select example">
-                                        <option selected>Form Types</option>
-                                        <option value="organic">
-                                            National Events
-                                        </option>
-                                        <option value="quality">
-                                            International Events
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Exhibition</label>
-                                    <select class="form-select form-control form-control-sm"
-                                        aria-label="Default select example">
-                                        <option selected>Form Types</option>
-                                        <option value="organic">
-                                            National Events
-                                        </option>
-                                        <option value="quality">
-                                            International Events
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Conference</label>
-                                    <select class="form-select form-control form-control-sm"
-                                        aria-label="Default select example">
-                                        <option selected>Form Types</option>
-                                        <option value="organic">
-                                            National Events
-                                        </option>
-                                        <option value="quality">
-                                            International Events
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Other</label>
-                                    <select class="form-select form-control form-control-sm"
-                                        aria-label="Default select example">
-                                        <option selected>Form Types</option>
-                                        <option value="organic">
-                                            National Events
-                                        </option>
-                                        <option value="quality">
-                                            International Events
-                                        </option>
-                                    </select>
+                                <div class="row col-md-12">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Name</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Name"
+                                            name="" id="" />
+                                    </div>
+                                    {{-- <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Type</label>
+                                        <select class="form-select form-control form-control-sm"
+                                            aria-label="Default select example">
+                                            <option selected>Form Types</option>
+                                            <option value="organic">
+                                                National Events
+                                            </option>
+                                            <option value="quality">
+                                                International Events
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Exhibition</label>
+                                        <select class="form-select form-control form-control-sm"
+                                            aria-label="Default select example">
+                                            <option selected>Form Types</option>
+                                            <option value="organic">
+                                                National Events
+                                            </option>
+                                            <option value="quality">
+                                                International Events
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Conference</label>
+                                        <select class="form-select form-control form-control-sm"
+                                            aria-label="Default select example">
+                                            <option selected>Form Types</option>
+                                            <option value="organic">
+                                                National Events
+                                            </option>
+                                            <option value="quality">
+                                                International Events
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Other</label>
+                                        <select class="form-select form-control form-control-sm"
+                                            aria-label="Default select example">
+                                            <option selected>Form Types</option>
+                                            <option value="organic">
+                                                National Events
+                                            </option>
+                                            <option value="quality">
+                                                International Events
+                                            </option>
+                                        </select>
+                                    </div> --}}
+
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Type</label>
+                                        <select class="form-select form-control form-control-sm"
+                                            aria-label="Default select example">
+                                            <option selected>Form Types</option>
+                                            <option value="Exhibition">Exhibition</option>
+                                            <option value="Conference">Conference</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+
+                                    {{-- <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Remarks</label>
+                                        <textarea class="form-control" name="type_remarks" id="type_remarks" value=""
+                                            placeholder="Enter the remarks for respective types ..."></textarea>
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- end row -->
 
                             <div class="row">
                                 <h6>Place</h6>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">City</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="City"
-                                        name="" id="" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Country</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Country"
-                                        name="" id="" />
+                                <div class="row col-md-12">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">City</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="City"
+                                            name="" id="" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Country</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Country"
+                                            name="" id="" />
+                                    </div>
                                 </div>
                             </div>
                             <!-- /End Row -->
 
                             <div class="row">
                                 <h6>Type of Participation</h6>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Delegate</label>
-                                    <input type="tel" class="form-control form-control-sm" placeholder="Delegate"
-                                        name="" id="" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Exhibit</label>
-                                    <input type="tel" class="form-control form-control-sm" placeholder="Exhibit"
-                                        name="" id="" />
+                                <div class="row col-md-12">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Delegate</label>
+                                        <input type="tel" class="form-control form-control-sm" placeholder="Delegate"
+                                            name="" id="" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Exhibit</label>
+                                        <input type="tel" class="form-control form-control-sm" placeholder="Exhibit"
+                                            name="" id="" />
+                                    </div>
                                 </div>
                             </div>
                             <!-- /End Row -->
@@ -256,31 +287,33 @@
                                 <div class="col-md-12 h6">
                                     8. Travel Details
                                 </div>
-                                <div class="col-md-4 mb-1">
-                                    <label class="form-label h6">Mode of Travel</label>
-                                    <br />
-                                    <label class="form-check-label">Flight</label>
-                                    &nbsp;
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                    &nbsp; &nbsp; &nbsp;
-                                    <label class="form-check-label">Train</label>
-                                    &nbsp;
-                                    <input class="form-check-input" type="checkbox" value="" />
-                                    &nbsp; &nbsp; &nbsp;
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Incentive claimed towrds ticket
-                                        cost <br />
-                                        Rs</label>
-                                    <input type="number" class="form-control form-control-sm" placeholder="Certificate"
-                                        name="" id="" />
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label h6">Incentive claimed towards cost of
-                                        stall rent (where applicable)
-                                        Rs</label>
-                                    <input type="num" class="form-control form-control-sm"
-                                        placeholder="Certificate from" name="" id="" />
+                                <div class="row col-md-12">
+                                    <div class="col-md-4 mb-1">
+                                        <label class="form-label h6">Mode of Travel</label>
+                                        <br />
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mode_of_travel"
+                                                id="mode_of_travel1" value="Flight">
+                                            <label class="form-check-label" for="mode_of_travel1">Flight</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="mode_of_travel"
+                                                id="mode_of_travel2" value="Train">
+                                            <label class="form-check-label" for="mode_of_travel2">Train</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Incentive claimed towrds ticket cost
+                                            (Rs)<br /></label>
+                                        <input type="number" class="form-control form-control-sm"
+                                            placeholder="Rs" name="" id="" />
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label h6">Incentive claimed towards cost of
+                                            stall rent (where applicable) (Rs)</label>
+                                        <input type="number" class="form-control form-control-sm"
+                                            placeholder="Rs" name="" id="" />
+                                    </div>
                                 </div>
                             </div>
                             <hr />
@@ -387,7 +420,7 @@
                             <div class="row">
                                 <div class="col-md-10"></div>
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-sm bg-green text-white w-100">
+                                    <button type="submit" class="btn btn-sm bg-info text-white w-100">
                                         Submit
                                     </button>
                                 </div>
@@ -399,4 +432,15 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready((e) => {
+            console.log('annexure 1 page');
+            // $('[data-toggle="tooltip"]').tooltip()
+
+            // $('#example').tooltip(options)
+        });
+    </script>
 @endsection
