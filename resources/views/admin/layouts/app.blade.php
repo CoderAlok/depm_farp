@@ -372,30 +372,32 @@
     </script>
     @yield('scripts')
 
-    <!--<script src="js/../script.js"></script>
- <script>
-     $(document).ready(function() {
+    <!--<script src="js/../script.js"></script>-->
 
-     });
+    <script>
+        $(document).ready(function() {
 
-     iziToast.success({
-         title: 'Success',
-         message: 'Success',
-         position: 'topRight'
-     });
+            console.log('Amin: '+'{{ Session::get("status") }}');
 
-     iziToast.error({
-         title: 'Error',
-         message: data.message,
-         position: 'topRight',
-     });
+            // iziToast.success({
+            //     title: 'Success',
+            //     message: 'Success',
+            //     position: 'topRight'
+            // });
 
-     iziToast.warning({
-         title: 'Caution',
-         message: 'Caution',
-         position: 'topRight',
-     });
- </script>-->
+            // iziToast.error({
+            //     title: 'Error',
+            //     message: data.message,
+            //     position: 'topRight',
+            // });
+
+            // iziToast.warning({
+            //     title: 'Caution',
+            //     message: 'Caution',
+            //     position: 'topRight',
+            // });
+        });
+    </script>
 
     <style>
         .page-sidebar {

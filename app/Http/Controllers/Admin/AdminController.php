@@ -76,19 +76,21 @@ class AdminController extends Controller
                     'mail_type' => 2,
                 ];
 
-                $to      = 'alok.das@oasystspl.com';  // $request->email;
+                $to      = 'alok.das@oasystspl.com'; // $request->email;
                 $subject = 'Exporters registration approval mail.';
                 Mail::to($to)->send(new SendMail($data));
 
                 $data['data']    = [];
+                $data['status']  = 'success';
                 $data['message'] = 'Status Updated successfully.';
                 // return response($data, 200);
                 return redirect()->route('admin.publicity.officer.pending.exporters');
             } else {
                 $data['data']    = [];
+                $data['status']    = "danger";
                 $data['message'] = 'Failed to update';
                 // return response($data, 200);
-                return redirect()->route('exporter.details');
+                return redirect()->route('exporter.details')->with($data);
             }
         } catch (\Exception $e) {
             $data['data']    = [];

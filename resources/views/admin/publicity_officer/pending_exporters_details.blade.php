@@ -6,7 +6,7 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i>Exporter Details  
+                <i class="subheader-icon fal fa-"></i>Exporter Details
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
             <div class="subheader-block">All The details regarding exporters are listed here.</div>
@@ -197,10 +197,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="remarks">Remarks</label>
                                 @if (in_array($data->regsitration_status, [1, 2]))
-                                    <p>{{ $data->get_remarks_details->remarks }}</p>
+                                    @if ($data->regsitration_status == 2)
+                                        <label for="remarks">Remarks</label>
+                                        <p>{{ $data->get_remarks_details->remarks }}</p>
+                                    @endif
                                 @else
+                                    <label for="remarks" id="remarks_label" class="d-none">Remarks</label>
                                     <input type="text" name="remarks" id="remarks" class="form-control d-none"
                                         value="" placeholder="Enter your remarks..." />
                                 @endif
@@ -241,8 +244,10 @@
             $('#approval_status').on('change', (e) => {
                 let status = $('#approval_status').val();
                 if (status == 1 || status != 2) {
+                    $('#remarks_label').addClass('d-none');
                     $('#remarks').addClass('d-none');
                 } else {
+                    $('#remarks_label').removeClass('d-none');
                     $('#remarks').removeClass('d-none');
                 }
             });
