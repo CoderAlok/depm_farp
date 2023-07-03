@@ -43,7 +43,7 @@ class HomeController extends Controller
             return redirect()->route('welcome');
         } else {
             if ($exporter->track_status == 1) {
-                $data['page_title'] = 'Exporter Panel';
+                $data['page_title'] = 'Exporter Dashboard';
                 return view('home')->with($data);
             } else {
                 $otpStatus          = Otp::where('email', $exporter->track_status)->latest()->first()->status;

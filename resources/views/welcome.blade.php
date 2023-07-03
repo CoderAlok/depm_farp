@@ -185,6 +185,10 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     <label class="custom-control-label" for="rememberme"> Remember
                                                         me for the next 30 days</label>
                                                 </div> --}}
+                                                <div class="text-center">
+                                                    {{-- <a href="{{ route('exporter.view.otp') }}">Forgot password</a> --}}
+                                                    <a href="{{ '#' }}">Forgot password</a>
+                                                </div>
                                             </div>
 
                                             <div class="row no-gutters">
@@ -226,6 +230,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     <label class="custom-control-label" for="rememberme"> Remember
                                                         me for the next 30 days</label>
                                                 </div> --}}
+                                                <div class="text-center">
+                                                    <a href="#">Forgot password</a>
+                                                </div>
                                             </div>
                                             <div class="row no-gutters">
                                                 {{-- <div class="col-lg-6 pr-lg-1 my-2"> --}}

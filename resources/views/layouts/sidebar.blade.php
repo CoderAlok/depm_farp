@@ -27,17 +27,11 @@
             @case(1)
                 <ul id="js-nav-menu" class="nav-menu">
                     <li>
-                        <a href="{{ route('exporter.application.list') }}" title="Application Intel" data-filter-tags="application intel">
-                            <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
-                        </a>
-                    </li>
-                    {{-- <li>
                         <a href="{{ route('exporter.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
-                    </li> --}}
+                    </li>
                     {{-- <li>
                         <a href="{{ route('exporter.application.annexure1') }}" title="Application Intel"
                             data-filter-tags="application intel">
