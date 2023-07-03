@@ -76,7 +76,7 @@ class AdminController extends Controller
                     'mail_type' => 2,
                 ];
 
-                $to      = 'alok.das@oasystspl.com';
+                $to      = 'alok.das@oasystspl.com';  // $request->email;
                 $subject = 'Exporters registration approval mail.';
                 Mail::to($to)->send(new SendMail($data));
 

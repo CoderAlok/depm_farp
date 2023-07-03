@@ -179,7 +179,7 @@ class TblExportersController extends Controller
                             'mail_type' => 1,
                         ];
 
-                        $to      = 'alok.das@oasystspl.com';
+                        $to      = 'alok.das@oasystspl.com'; // $request->email;
                         $subject = 'Exporters application registered.';
                         // Send mail
                         Mail::to($to)->send(new SendMail($data));
@@ -464,7 +464,6 @@ class TblExportersController extends Controller
                     // return response($data, 500);
                     $request->session()->put('sess_data', $data);
                     return back();
-                    // return redirect()->route('exporter.reset.password')->with($data);
                 }
 
             } else {
@@ -473,8 +472,7 @@ class TblExportersController extends Controller
                 $data['message'] = 'Password didn\'t matched.';
                 // return response($data, 500);
                 $request->session()->put('sess_data', $data);
-                // return redirect()->route('exporter.reset')->with($data);
-                return back();
+                return back()->with($data);
             }
         } else {
             $data['data']    = [];

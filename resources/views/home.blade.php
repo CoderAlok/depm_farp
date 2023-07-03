@@ -32,7 +32,7 @@
                                 @php
                                     $role = explode(' ', $data->get_role_details->name);
                                 @endphp
-                                <b>{{ $role[0] . ', ' . $role[1] }}</b>
+                                <b>{{ $role[0] . ', ' . ($role[1] ?? '') }}</b>
                             </div>
                             <div class="col-md-4">
                                 <h6>2. Choose Category</h6>

@@ -615,6 +615,20 @@
                     }
                 ]
             });
+
+            if ("{{ Session::get('status') }}" == 'success') {
+                iziToast.success({
+                    title: 'Success',
+                    message: "{{ Session::get('message') }} ",
+                    position: 'topRight'
+                });
+            } else if ("{{ Session::get('status') }}" == 'danger') {
+                iziToast.error({
+                    title: 'Error',
+                    message: "{{ Session::get('message') }} ",
+                    position: 'topRight',
+                });
+            }
         });
     </script>
 @endsection
