@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Otp;
+use Schemes;
 use Session;
 
 class TblExportersController extends Controller
@@ -179,13 +180,15 @@ class TblExportersController extends Controller
                             'mail_type' => 1,
                         ];
 
-                        $to      = 'alok.das@oasystspl.com'; // $request->email;
+                        $to      = ['alok.das@oasystspl.com', 'anuswya.pradhan@oasystspl.com']; //'jitesh.jena@oasystspl.com'; //'alok.das@oasystspl.com'; // $request->email;
                         $subject = 'Exporters application registered.';
                         // Send mail
                         Mail::to($to)->send(new SendMail($data));
 
                         Session::flash('message', 'Exporter registered successfully. Ref.No: ' . $application_no['applicaton_no'] . '.Please, wait for authority approval. You will be notified through mail.');
-                        return redirect()->route('welcome');
+                        return view('registration_success');
+
+                        // return redirect()->route('welcome');
                     } else {
                         return redirect()->route('exporter.register');
                     }
@@ -205,6 +208,10 @@ class TblExportersController extends Controller
             // return redirect()->route('welcome')->with($data);
         }
 
+    }
+
+    public function test(Request $request){
+        return view('registration_success');
     }
 
     /**
@@ -384,6 +391,7 @@ class TblExportersController extends Controller
     {
         $data['page_title'] = 'Application List';
         $data['data']       = Auth::guard('exporter')->user();
+        $data['schemes']    = Schemes::get();
         return view('application-list')->with($data);
     }
 

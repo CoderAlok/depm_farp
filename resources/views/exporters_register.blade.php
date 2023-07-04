@@ -221,12 +221,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">Account No.</label>
                                         <input type="number" class="form-control form-control-sm"
-                                            placeholder="Banker Name" name="bank_ac_no" id="bank_ac_no" required>
+                                            placeholder="Bank account no" name="bank_ac_no" id="bank_ac_no" required>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">IFSC Code</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Banker Name" name="bank_ifsc_code" id="bank_ifsc_code"
+                                            placeholder="IFSC Code" name="bank_ifsc_code" id="bank_ifsc_code"
                                             required>
                                     </div>
                                     <div class="col-md-4">
@@ -241,13 +241,13 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <div class="row">
                                     <div class="col-md-4 mb-4">
                                         <h6>8. IEC (Import Export Code)</h6>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Name"
+                                        <input type="text" class="form-control form-control-sm" placeholder="IEC"
                                             name="export_iec" id="export_iec" required>
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <h6>9. RCMC NO.</h6>
                                         <input type="number" class="form-control form-control-sm"
-                                            placeholder="Account No." name="export_rcmc_no" id="export_epc" required>
+                                            placeholder="RCMC No" name="export_rcmc_no" id="export_epc" required>
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <h6>10. Name of the EPC</h6>
@@ -262,7 +262,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4 mb-4">
                                         <h6>11. Udayam Registration No.</h6>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="IFSC code" name="export_urn" id="export_urn" required>
+                                            placeholder="Udayam Registration No" name="export_urn" id="export_urn" required>
                                     </div>
                                     <div class="col-md-4">
                                         <h6>12. HSM Code</h6>

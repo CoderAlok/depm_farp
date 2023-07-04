@@ -6,6 +6,7 @@ use Auth;
 use Exporter;
 use Illuminate\Http\Request;
 use Otp;
+use Schemes;
 use Session;
 
 class HomeController extends Controller
@@ -44,6 +45,7 @@ class HomeController extends Controller
         } else {
             if ($exporter->track_status == 1) {
                 $data['page_title'] = 'Exporter Dashboard';
+                $data['schemes']    = Schemes::get();
                 return view('home')->with($data);
             } else {
                 $otpStatus          = Otp::where('email', $exporter->track_status)->latest()->first()->status;

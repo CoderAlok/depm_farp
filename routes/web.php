@@ -37,6 +37,8 @@ Route::group(['prefix' => 'exporters'], function () {
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
     Route::get('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password_view'])->name('exporter.reset.password.view');
     Route::post('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.reset.password');
+    
+    Route::get('/test', [TblExportersController::class, 'test'])->name('exporter.test');
 
     Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->name('exporter.check.mobile');
     Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
