@@ -61,12 +61,38 @@
                             <div class="w-100">
 
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h3 mb-0 text-gray-800">Please choose your Application</h1>
+                                    <h1 class="h3 mb-0 text-gray-800">Please choose your scheme</h1>
                                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                                 </div>
 
                                 <div class="row app-list-cards">
+                                    @foreach ($schemes as $key => $item)
+                                        <!-- Earnings (Monthly) Card Example -->
+                                        <div class="col-xl-3 col-md-6 mb-4">
+                                            <a href="{{ route($item->route_name ?? '') }}">
+                                                <div class="card border-left-primary shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div
+                                                                    class="text-xs fw-bold text-primary text-uppercase mb-1">
+                                                                    {{ ++$key . '. ' . $item->short_name ?? '' }}</div>
+                                                                {{-- <div class="h5 mb-0 fw-bold text-gray-800">Rs {{ $item->amount ?? '' }}</div> --}}
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="{{ $item->logo ?? '' }} fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+
+                                {{-- <div class="row app-list-cards">
 
                                     <!-- Earnings (Monthly) Card Example -->
                                     <div class="col-xl-3 col-md-6 mb-4">
@@ -161,9 +187,9 @@
                                         </a>
                                     </div>
 
-                                </div> <!-- /end Row -->
+                                </div> <!-- /end Row --> --}}
 
-                                <div class="row app-list-cards">
+                                {{-- <div class="row app-list-cards">
 
                                     <!-- Earnings (Monthly) Card Example -->
                                     <div class="col-xl-4 col-md-6 mb-4">
@@ -238,7 +264,7 @@
                                         </a>
                                     </div>
 
-                                </div> <!-- /end Row -->
+                                </div> <!-- /end Row --> --}}
 
                                 <div class="row">
                                     <div class="col-lg-6 mb-4">
@@ -269,12 +295,11 @@
                                                     <div class="progress-bar" role="progressbar" style="width: 60%"
                                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <h4 class="small fw-bold">Manufacturer <span
-                                                        class="float-right">80%</span></h4>
+                                                <h4 class="small fw-bold">Manufacturer <span class="float-right">80%</span>
+                                                </h4>
                                                 <div class="progress mb-4">
-                                                    <div class="progress-bar bg-info" role="progressbar"
-                                                        style="width: 80%" aria-valuenow="80" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+                                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <h4 class="small fw-bold">Producer <span
                                                         class="float-right">Complete!</span></h4>

@@ -16,6 +16,7 @@ class CreateTblSchemeMasterTable extends Migration
         Schema::create('tbl_scheme_master', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code', 100)->nullable()->comment('Scheme Code');
+            $table->string('route_name', 500)->nullable()->comment('Route name will be stored to redirect.');
             $table->longText('long_name', 100)->nullable()->comment('Scheme long name');
             $table->text('short_name')->nullable()->comment('Scheme short name');
             $table->string('logo', 100)->nullable()->comment('Scheme : fa fa icon');

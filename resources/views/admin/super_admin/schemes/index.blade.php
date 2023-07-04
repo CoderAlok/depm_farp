@@ -105,6 +105,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="route_name">Route name</label>
+                            <input type="text" name="route_name" id="route_name" class="form-control" value=""
+                                placeholder="Scheme route name" />
+                        </div>
+
+                        <div class="form-group">
                             <label for="logo">Logo</label>
                             <input type="text" name="logo" id="logo" class="form-control" value="fas fa-calendar"
                                 placeholder="Scheme logo name" />
@@ -152,22 +158,27 @@
                         <div class="form-group">
                             <label for="edit_short_name">Short name</label>
                             <input type="text" name="edit_short_name" id="edit_short_name" class="form-control"
-                                value="" placeholder="Category name" />
+                                value="" placeholder="Scheme short name" />
                         </div>
                         <div class="form-group">
                             <label for="edit_long_name">Long name</label>
                             <input type="text" name="edit_long_name" id="edit_long_name" class="form-control"
-                                value="" placeholder="Category name" />
+                                value="" placeholder="Scheme long name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_route_name">Route name</label>
+                            <input type="text" name="edit_route_name" id="edit_route_name" class="form-control"
+                                value="" placeholder="Scheme route name" />
                         </div>
                         <div class="form-group">
                             <label for="edit_logo">Logo</label>
                             <input type="text" name="edit_logo" id="edit_logo" class="form-control" value=""
-                                placeholder="Logo" />
+                                placeholder="Scheme logo" />
                         </div>
                         <div class="form-group">
                             <label for="edit_amount">Amount</label>
                             <input type="number" name="edit_amount" id="edit_amount" class="form-control"
-                                value="" placeholder="Amount" />
+                                value="" placeholder="Scheme amount" />
                         </div>
                         <div class="form-group">
                             <label for="edit_status">Status</label>
@@ -235,6 +246,7 @@
                         $('#edit_id').val(data.data.id);
                         $('#edit_short_name').val(data.data.short_name);
                         $('#edit_long_name').val(data.data.long_name);
+                        $('#edit_route_name').val(data.data.route_name);
                         $('#edit_logo').val(data.data.logo);
                         $('#edit_amount').val(data.data.amount);
                         $('#edit_status').val(data.data.status);

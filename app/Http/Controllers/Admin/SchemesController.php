@@ -39,14 +39,16 @@ class SchemesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'route_name' => 'required',
             'short_name' => 'required',
             'long_name'  => 'required',
             'logo'       => 'required',
             'amount'     => 'required',
             'status'     => 'required',
         ], [
-            'short_name.required' => 'Please enter the short_name',
-            'long_name.required'  => 'Please enter the long_name',
+            'route_name.required' => 'Please enter the route name',
+            'short_name.required' => 'Please enter the short name',
+            'long_name.required'  => 'Please enter the long name',
             'logo.required'       => 'Please enter the logo',
             'amount.required'     => 'Please enter the amount',
             'status.required'     => 'Please enter the status',
@@ -54,6 +56,7 @@ class SchemesController extends Controller
 
         try {
             $insert_data = [
+                'route_name' => $request->route_name,
                 'short_name' => $request->short_name,
                 'long_name'  => $request->long_name,
                 'logo'       => $request->logo,
@@ -102,12 +105,14 @@ class SchemesController extends Controller
         $request->validate([
             'edit_id'         => 'required',
             'edit_short_name' => 'required',
+            'edit_route_name' => 'required',
             'edit_long_name'  => 'required',
             'edit_logo'       => 'required',
             'edit_amount'     => 'required',
             'edit_status'     => 'required',
         ], [
             'edit_id.required'         => 'Please enter the id',
+            'edit_route_name.required' => 'Please enter the short_name',
             'edit_short_name.required' => 'Please enter the short_name',
             'edit_long_name.required'  => 'Please enter the long_name',
             'edit_logo.required'       => 'Please enter the logo',
@@ -117,6 +122,7 @@ class SchemesController extends Controller
 
         try {
             $update_data = [
+                'route_name' => $request->edit_route_name,
                 'short_name' => $request->edit_short_name,
                 'long_name'  => $request->edit_long_name,
                 'logo'       => $request->edit_logo,

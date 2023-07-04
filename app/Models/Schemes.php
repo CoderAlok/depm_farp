@@ -12,7 +12,7 @@ class Schemes extends Model
     protected $table = 'tbl_scheme_master';
 
     protected $fillable = [
-        'code', 'long_name', 'short_name', 'logo', 'amount', 'status', 'created_by', 'created_at',
+        'code', 'route_name', 'long_name', 'short_name', 'logo', 'amount', 'status', 'created_by', 'created_at',
     ];
 
 }
