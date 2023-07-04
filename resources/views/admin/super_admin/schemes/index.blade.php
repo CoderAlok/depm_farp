@@ -34,6 +34,8 @@
                                         <th>ID</th>
                                         <th>Short name</th>
                                         <th>Long name</th>
+                                        <th>Logo</th>
+                                        <th>Amount</th>
                                         <th>Action</th>
                                     </thead>
 
@@ -44,9 +46,11 @@
                                                     <td>{{ ++$key }}</td>
                                                     <td>{{ $value->short_name ?? '' }}</td>
                                                     <td>{{ $value->long_name ?? '' }}</td>
+                                                    <td>{{ $value->logo ?? '' }}</td>
+                                                    <td>{{ $value->amount ?? '' }}</td>
                                                     <td>
-                                                        <a class="btn btn-warning btn-sm text-dark btn-lg edit-user" data-toggle="modal"
-                                                            data-target="#edit_user_modal"
+                                                        <a class="btn btn-warning btn-sm text-dark btn-lg edit-user"
+                                                            data-toggle="modal" data-target="#edit_user_modal"
                                                             data-id="{{ $value->id }}">edit</a>
                                                         {{-- <button type="button" id="delete_cat" data-id="{{ $value->id }}"
                                                             class="btn btn-danger btn-lg delete-user delete_cat"><i
@@ -101,6 +105,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="logo">Logo</label>
+                            <input type="text" name="logo" id="logo" class="form-control" value="fas fa-calendar"
+                                placeholder="Scheme logo name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="number" name="amount" id="amount" class="form-control" value=""
+                                placeholder="Scheme amount" />
+                        </div>
+
+                        <div class="form-group">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control" required>
                                 <option value="">Select one</option>
@@ -142,6 +158,16 @@
                             <label for="edit_long_name">Long name</label>
                             <input type="text" name="edit_long_name" id="edit_long_name" class="form-control"
                                 value="" placeholder="Category name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_logo">Logo</label>
+                            <input type="text" name="edit_logo" id="edit_logo" class="form-control" value=""
+                                placeholder="Logo" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_amount">Amount</label>
+                            <input type="number" name="edit_amount" id="edit_amount" class="form-control"
+                                value="" placeholder="Amount" />
                         </div>
                         <div class="form-group">
                             <label for="edit_status">Status</label>
@@ -209,6 +235,8 @@
                         $('#edit_id').val(data.data.id);
                         $('#edit_short_name').val(data.data.short_name);
                         $('#edit_long_name').val(data.data.long_name);
+                        $('#edit_logo').val(data.data.logo);
+                        $('#edit_amount').val(data.data.amount);
                         $('#edit_status').val(data.data.status);
                     },
                     error: function(error) {

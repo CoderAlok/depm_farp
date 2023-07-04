@@ -41,10 +41,14 @@ class SchemesController extends Controller
         $request->validate([
             'short_name' => 'required',
             'long_name'  => 'required',
+            'logo'       => 'required',
+            'amount'     => 'required',
             'status'     => 'required',
         ], [
             'short_name.required' => 'Please enter the short_name',
             'long_name.required'  => 'Please enter the long_name',
+            'logo.required'       => 'Please enter the logo',
+            'amount.required'     => 'Please enter the amount',
             'status.required'     => 'Please enter the status',
         ]);
 
@@ -52,6 +56,8 @@ class SchemesController extends Controller
             $insert_data = [
                 'short_name' => $request->short_name,
                 'long_name'  => $request->long_name,
+                'logo'       => $request->logo,
+                'amount'     => $request->amount,
                 'status'     => $request->status,
             ];
             $user = Schemes::insert($insert_data);
@@ -97,11 +103,15 @@ class SchemesController extends Controller
             'edit_id'         => 'required',
             'edit_short_name' => 'required',
             'edit_long_name'  => 'required',
+            'edit_logo'       => 'required',
+            'edit_amount'     => 'required',
             'edit_status'     => 'required',
         ], [
-            'edit_id.required'         => 'Please enter the edit_id',
-            'edit_short_name.required' => 'Please enter the edit_short_name',
-            'edit_long_name.required'  => 'Please enter the edit_long_name',
+            'edit_id.required'         => 'Please enter the id',
+            'edit_short_name.required' => 'Please enter the short_name',
+            'edit_long_name.required'  => 'Please enter the long_name',
+            'edit_logo.required'       => 'Please enter the logo',
+            'edit_amount.required'     => 'Please enter the amount',
             'edit_status.required'     => 'Please enter the edit_status',
         ]);
 
@@ -109,6 +119,8 @@ class SchemesController extends Controller
             $update_data = [
                 'short_name' => $request->edit_short_name,
                 'long_name'  => $request->edit_long_name,
+                'logo'       => $request->edit_logo,
+                'amount'     => $request->edit_amount,
                 'status'     => $request->edit_status,
             ];
             $user = Schemes::where('id', $request->edit_id)->update($update_data);

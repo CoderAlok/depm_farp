@@ -18,6 +18,8 @@ class CreateTblSchemeMasterTable extends Migration
             $table->string('code', 100)->nullable()->comment('Scheme Code');
             $table->longText('long_name', 100)->nullable()->comment('Scheme long name');
             $table->text('short_name')->nullable()->comment('Scheme short name');
+            $table->string('logo', 100)->nullable()->comment('Scheme : fa fa icon');
+            $table->decimal('amount', 10, 2)->nullable()->default(0.00)->comment('Scheme amount');
             $table->boolean('status')->nullable()->default(false)->comment('Active/Inactive');
             $table->bigInteger('created_by')->nullable()->comment('PK of user table');
             $table->bigInteger('updated_by')->nullable()->comment('PK of user table');
