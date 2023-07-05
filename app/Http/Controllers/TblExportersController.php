@@ -210,7 +210,8 @@ class TblExportersController extends Controller
 
     }
 
-    public function test(Request $request){
+    public function test(Request $request)
+    {
         return view('registration_success');
     }
 
@@ -417,6 +418,55 @@ class TblExportersController extends Controller
         return view('annexure1')->with($data);
     }
 
+    public function annexure1_submit(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'form_type'              => 'required|string',
+                'iec'                    => 'required|string',
+                'exporting_organization' => 'required|string',
+                'dir_ceo'                => 'required|string',
+                'exptr_email'            => 'required|email|string',
+                'exptr_phone'            => 'required|min:10|max:10',
+                'bank_name'              => 'required|string',
+                'bank_ac'                => 'required|numeric',
+                'bank_ifsc'              => 'required|string',
+                'exptr_urn'              => 'required|string',
+                'event_detail'           => 'required|string',
+                'event_name'             => 'required|string',
+                'event_type'             => 'required|string',
+                'event_city'             => 'required|string',
+                'event_country'          => 'required|string',
+                'participation_type'     => 'required|string',
+                'mode_of_travel'         => 'required|string',
+                'incentive1'             => 'required',
+                'incentive2'             => 'required',
+                'file_iec'               => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'file_ticket'            => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'reg_conf_file'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'quot_file'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'b2b_detl_file'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'visa_file'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'tour_file'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+
+                // $data['data']    = [];
+                // $data['message'] = $validator->errors();
+                // return response($data, 406);
+            } else {
+                dd($validator->validated());
+            }
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return redirect()->route('exporter.application.list')->with($data);
+        }
+    }
+
     public function annexure2(Request $request)
     {
         $data['page_title'] = 'Annexure 2';
@@ -430,6 +480,57 @@ class TblExportersController extends Controller
             ])
             ->first();
         return view('annexure2')->with($data);
+    }
+
+    public function annexure2_submit(Request $request)
+    {
+        try {
+            dd($request->all());
+
+            $validator = Validator::make($request->all(), [
+                'form_type'              => 'required|string',
+                'iec'                    => 'required|string',
+                'exporting_organization' => 'required|string',
+                'dir_ceo'                => 'required|string',
+                'exptr_email'            => 'required|email|string',
+                'exptr_phone'            => 'required|min:10|max:10',
+                'bank_name'              => 'required|string',
+                'bank_ac'                => 'required|numeric',
+                'bank_ifsc'              => 'required|string',
+                'exptr_urn'              => 'required|string',
+                'event_detail'           => 'required|string',
+                'event_name'             => 'required|string',
+                'event_type'             => 'required|string',
+                'event_city'             => 'required|string',
+                'event_country'          => 'required|string',
+                'participation_type'     => 'required|string',
+                'mode_of_travel'         => 'required|string',
+                'incentive1'             => 'required|',
+                'incentive2'             => 'required|',
+                'file_iec'               => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'file_ticket'            => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'reg_conf_file'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'quot_file'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'b2b_detl_file'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'visa_file'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                'tour_file'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+
+                // $data['data']    = [];
+                // $data['message'] = $validator->errors();
+                // return response($data, 406);
+            } else {
+                dd($validator->validated());
+            }
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return redirect()->route('exporter.application.list')->with($data);
+        }
     }
 
     public function exporter_reset_password_view(Request $request)

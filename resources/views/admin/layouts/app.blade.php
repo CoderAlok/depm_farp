@@ -29,6 +29,8 @@
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
     <!-- base css -->
     <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/vendors.bundle.css') }}" />
     <link rel="stylesheet" media="screen, print" href="{{ asset('public/farp1_assets/css/app.bundle.css') }}" />
@@ -377,7 +379,7 @@
     <script>
         $(document).ready(function() {
 
-            console.log('Amin: '+'{{ Session::get("status") }}');
+            console.log('Amin: ' + '{{ Session::get('status') }}');
 
             // iziToast.success({
             //     title: 'Success',

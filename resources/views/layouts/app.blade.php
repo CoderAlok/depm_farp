@@ -345,96 +345,99 @@
         </div>
     </div>
     <!-- END Page Settings -->
+</body>
 
-    <script src="{{ asset('public/farp1_assets/js/vendors.bundle.js') }}"></script>
-    <script src="{{ asset('public/farp1_assets/js/app.bundle.js') }}"></script>
-    <script src="{{ asset('public/farp1_assets/js/notifications/toastr/toastr.js') }}"></script>
-    <!-- Datatables  -->
-    <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.export.js') }}"></script>
+</html>
 
-    <script src="//code.jquery.com/jquery-1.12.3.js"></script>
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="{{ asset('public/farp1_assets/js/vendors.bundle.js') }}"></script>
+<script src="{{ asset('public/farp1_assets/js/app.bundle.js') }}"></script>
+<script src="{{ asset('public/farp1_assets/js/notifications/toastr/toastr.js') }}"></script>
+<!-- Datatables  -->
+<script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.bundle.js') }}"></script>
+<script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.export.js') }}"></script>
 
-    <script>
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": true,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": 500,
-            "hideDuration": 100,
-            "timeOut": 5000,
-            "extendedTimeOut": 1000,
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-    </script>
+<script src="//code.jquery.com/jquery-1.12.3.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
-    {{-- session check start --}}
-    {{ Session()->get('sess_data')['status'] ?? '-' }}
-    {{ Session()->get('sess_data')['message'] ?? '-' }}
-    {{-- session check end --}}
+<script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": 500,
+        "hideDuration": 100,
+        "timeOut": 5000,
+        "extendedTimeOut": 1000,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>
 
-    @switch(Session()->get('sess_data')['status'] ?? 0)
-        @case('success')
-            <script>
-                $(document).ready(function() {
-                    toastr.success('Success', {{ Session()->get('sess_data')['message'] ?? '' }})
-                });
-            </script>
-        @break
+{{-- session check start --}}
+{{ Session()->get('sess_data')['status'] ?? '-' }}
+{{ Session()->get('sess_data')['message'] ?? '-' }}
+{{-- session check end --}}
 
-        @case('danger')
-            <script>
-                $(document).ready(function() {
-                    toastr.danger('Error', {{ Session()->get('sess_data')['message'] ?? '' }})
-                });
-            </script>
-        @break
+@switch(Session()->get('sess_data')['status'] ?? 0)
+    @case('success')
+        <script>
+            $(document).ready(function() {
+                toastr.success('Success', {{ Session()->get('sess_data')['message'] ?? '' }})
+            });
+        </script>
+    @break
 
-        @case('warning')
-            <script>
-                $(document).ready(function() {
-                    toastr.warning('Notice', {{ Session()->get('sess_data')['message'] ?? '' }})
-                });
-            </script>
-        @break
+    @case('danger')
+        <script>
+            $(document).ready(function() {
+                toastr.danger('Error', {{ Session()->get('sess_data')['message'] ?? '' }})
+            });
+        </script>
+    @break
 
-        @default
-    @endswitch
+    @case('warning')
+        <script>
+            $(document).ready(function() {
+                toastr.warning('Notice', {{ Session()->get('sess_data')['message'] ?? '' }})
+            });
+        </script>
+    @break
 
-    @yield('scripts')
-    <script>
-        function view_file(url) {
-            Swal.fire({
-                imageUrl: url,
-                width: 1200,
-                imageWidth: 1200,
-                imageHeight: 800,
-                imageAlt: 'Custom image',
-                showConfirmButton: false,
-                showCancelButton: false,
-                showCloseButton: true
-            })
-        }
+    @default
+@endswitch
 
-        $(document).ready((e) => {
-            // function view_file(url) {
-            //     event.preventDefault();
-            //     $('#content').html('<embed src="' + url +
-            //         '" frameborder="0" width="100%" id="view_upload_image" height="400px">');
-            //     $('#view_modal').modal('show');
-            // }
-        });
-    </script>
+@yield('scripts')
+<script>
+    function view_file(url) {
+        Swal.fire({
+            imageUrl: url,
+            width: 1200,
+            imageWidth: 1200,
+            imageHeight: 800,
+            imageAlt: 'Custom image',
+            showConfirmButton: false,
+            showCancelButton: false,
+            showCloseButton: true
+        })
+    }
 
-    <!--<script src="js/../script.js"></script>
+    $(document).ready((e) => {
+        // function view_file(url) {
+        //     event.preventDefault();
+        //     $('#content').html('<embed src="' + url +
+        //         '" frameborder="0" width="100%" id="view_upload_image" height="400px">');
+        //     $('#view_modal').modal('show');
+        // }
+    });
+</script>
+
+<!--<script src="js/../script.js"></script>
  <script>
      $(document).ready(function() {
 
@@ -459,13 +462,10 @@
      });
  </script>-->
 
-    <style>
-        .page-sidebar {
-            background: linear-gradient(to top,
-                    #4ad4c5 0%,
-                    #3772ff 100%) !important;
-        }
-    </style>
-</body>
-
-</html>
+<style>
+    .page-sidebar {
+        background: linear-gradient(to top,
+                #4ad4c5 0%,
+                #3772ff 100%) !important;
+    }
+</style>
