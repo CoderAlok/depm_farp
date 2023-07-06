@@ -27,12 +27,14 @@ Route::get('/', function () {
 
 // All the login routes
 Auth::routes();
+
+// Exporter register and login
 Route::get('/exporter-register', [TblExportersController::class, 'create'])->name('exporter.register');
+Route::post('/exporter-login', [TblExportersController::class, 'login'])->name('exporter.login');
 
 // All the routes for exporters
-Route::group(['prefix' => 'exporters'], function () {
+Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function () {
     Route::get('/show/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
-    Route::post('/login', [TblExportersController::class, 'login'])->name('exporter.login');
     Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
     Route::get('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password_view'])->name('exporter.reset.password.view');
@@ -54,9 +56,9 @@ Route::group(['prefix' => 'exporters'], function () {
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/list', [TblExportersController::class, 'application_list'])->name('exporter.application.list');
 
-        Route::get('/annexure-1', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
+        Route::get('/annexure-1/{id?}', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
         Route::post('/annexure-1', [TblExportersController::class, 'annexure1_submit'])->name('exporter.application.annexure1.submit');
-        Route::get('/annexure-2', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
+        Route::get('/annexure-2/{id?}', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
         Route::post('/annexure-2', [TblExportersController::class, 'annexure2_submit'])->name('exporter.application.annexure2.submit');
     });
 
