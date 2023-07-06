@@ -87,11 +87,36 @@ class AdminController extends Controller
                 return redirect()->route('admin.publicity.officer.pending.exporters');
             } else {
                 $data['data']    = [];
-                $data['status']    = "danger";
+                $data['status']  = "danger";
                 $data['message'] = 'Failed to update';
                 // return response($data, 200);
                 return redirect()->route('exporter.details')->with($data);
             }
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\tbl_exporters  $tbl_exporters
+     * @return \Illuminate\Http\Response
+     */
+    public function showExporter(Request $request, $id = null)
+    {
+        // $r = getExporterName($id);
+        // dd($r);
+        try {
+            $exporters          = Exporter::where('id', $id)->with(['get_role_details', 'get_category_details', 'get_address_details.get_district_details', 'get_bank_details', 'get_other_code_details', 'get_remarks_details'])->first();
+            $data['data']       = $exporters;
+            $data['message']    = 'Exporters data loaded successfully.';
+            $data['page_title'] = '';
+
+            // return response($data, 200);
+            return view('admin.publicity_officer.pending_exporters_details')->with($data);
         } catch (\Exception $e) {
             $data['data']    = [];
             $data['message'] = $e->getMessage();
