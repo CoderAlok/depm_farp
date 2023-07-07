@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SchemesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\TblExportersController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,16 @@ Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->na
 Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
 Route::get('/profile', [TblExportersController::class, 'profile'])->name('exporter.profile');
 
+// Route::get('/test', [TblExportersController::class, 'test'])->name('exporter.test');
+
+Route::group(['prefix' => 'otp'], function () {
+    Route::get('/send-otp', [OtpController::class, 'otp_view'])->name('exporter.view.otp');
+    Route::post('/send-otp', [OtpController::class, 'send_otp'])->name('exporter.send.otp');
+    Route::get('/verify-otp/{email}', [OtpController::class, 'verify_otp_view'])->name('exporter.view.verify.otp');
+    Route::post('/verify-otp', [OtpController::class, 'send_generated_otp'])->name('exporter.verify.otp');
+    // Route::post('/verify-otp', [OtpController::class, 'verify_otp'])->name('exporter.verify.otp');
+});
+
 // All the routes for exporters
 Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function () {
     Route::get('/show/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
@@ -44,15 +55,6 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
     Route::get('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password_view'])->name('exporter.reset.password.view');
     Route::post('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.reset.password');
-
-    Route::get('/test', [TblExportersController::class, 'test'])->name('exporter.test');
-
-    Route::group(['prefix' => 'otp'], function () {
-        Route::get('/send-otp', [TblExportersController::class, 'otp_view'])->name('exporter.view.otp');
-        Route::post('/send-otp', [TblExportersController::class, 'send_otp'])->name('exporter.send.otp');
-        Route::get('/verify-otp/{email}', [TblExportersController::class, 'verify_otp_view'])->name('exporter.view.verify.otp');
-        Route::post('/verify-otp', [TblExportersController::class, 'verify_otp'])->name('exporter.verify.otp');
-    });
 
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/list', [TblExportersController::class, 'application_list'])->name('exporter.application.list');

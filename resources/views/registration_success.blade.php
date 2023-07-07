@@ -99,29 +99,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <div class="container">
                     <div class="row">
 
+                        @php
+                            $session_data = json_decode(Session::get('message'), true);
+                        @endphp
                         <div class="col-xl-12">
                             <h2 class="fs-xxl fw-500 mt-4 text-white text-center">
                                 Thank you registrering! Please check your email.
                                 <small class="h3 fw-300 mt-3 mb-5 text-white opacity-70 hidden-sm-down">
-                                    We’ve sent a message to <strong>drlantern@gotbootstrap.com</strong> with a link to
-                                    activate your account.
+                                    We’ve sent a message to <strong>{{ $session_data['email'] ?? '' }}</strong> with a
+                                    link to
+                                    log into your account.
                                 </small>
                             </h2>
                         </div>
                         <div class="col-xl-6 ml-auto mr-auto">
                             <div class="card p-4 rounded-plus bg-faded">
                                 <div class="alert alert-primary text-dark" role="alert">
-                                    <strong>Heads Up!</strong> Due to server maintenance from 9:30GTA to 12GTA, the
-                                    verification emails could be delayed by up to 10 minutes.
+                                    <strong>Application No: </strong> {{ $session_data['appl_id'] ?? '' }}
                                 </div>
-                                <a href="javascript:void(0);" class="h4">
-                                    <i class="fal fa-chevron-right mr-2"></i> Didn’t get an email?
+                                <a href="{{ route('welcome') }}" class="h4">
+                                    <i class="fal fa-chevron-right mr-2"></i> Login through your email id here?
                                 </a>
                             </div>
                         </div>
 
 
-                        <div class="col-md-12 card p-4 rounded-plus bg-faded">
+                        {{-- <div class="col-md-12 card p-4 rounded-plus bg-faded">
                             <div class="alert alert-info" role="alert">
                                 <i class="fa fa-info-circle"
                                     style="
@@ -143,7 +146,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <a href="{{ route('welcome') }}" class="btn btn-sm btn-warning col-md-1">Back</a>
                             </div>
 
-                        </div>
+                        </div> --}}
                     </div> <!-- /row -->
                 </div>
             </div>

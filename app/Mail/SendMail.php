@@ -57,12 +57,19 @@ class SendMail extends Mailable
                 $data['data']  = Otp::where('email', $this->data['mail_id'])->latest()->first();
                 break;
 
+            case 5:
+                $data['title'] = 'Send OTP.';
+                $data['view']  = 'mailer-view.exporter_send_generated_otp_mail';
+                $data['data']  = $this->data['password'];
+                break;
+
             default:
                 // $data['title'] = '';
                 // $data['view']  = '';
                 break;
         }
 
+        // dd([$this->data['mail_type'], $data]);
         return $this->view($data['view'])->with($data);
         // ->attach('/path/to/file');
     }

@@ -140,7 +140,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <p class="alert alert-warning">{{ Session::get('message') }}</p>
                                 @endif
 
-                                <ul class="nav nav-pills justify-content-center" role="tablist">
+                                <ul class="nav nav-pills justify-content-center d-none" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab"
                                             href="#js_change_pill_direction-1">Verify OTP</a></li>
                                 </ul>
@@ -155,8 +155,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 <label class="form-label" for="email">Email</label>
                                                 <input type="email" id="email" name="email"
                                                     class="form-control @error('email') is-invalid @enderror"
-                                                    placeholder="Please enter your email id" value="{{ old('email') }}"
-                                                    autocomplete="email" autofocus required>
+                                                    placeholder="Please enter your email id"
+                                                    value="{{ old('email') }}" autocomplete="email" autofocus
+                                                    required>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -169,7 +170,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                     <button id="js-login-btn" type="submit"
                                                         class="btn btn-success btn-block btn-sm">{{ __('Send OTP') }}</button>
                                                 </div>
-                                                <a href="{{ route('welcome') }}">Already a member! login here</a>
+                                                <div class="col-lg-12 text-center">
+                                                    <a href="{{ route('welcome') }}">Already a member! login here</a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

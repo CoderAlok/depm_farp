@@ -19,7 +19,7 @@ class tbl_exporters extends Authenticatable
     protected $guard = 'exporter';
 
     protected $fillable = [
-        'application_no', 'role_id', 'type', 'name', 'cheif_ex_name', 'email', 'username', 'password', 'phone',
+        'app_no', 'app_count_no', 'type', 'role_id', 'name', 'cheif_ex_name', 'email', 'username', 'password', 'phone',
         'gender', 'address_id', 'bank_id', 'other_code_id', 'regsitration_status', 'created_by', 'created_at',
     ];
 

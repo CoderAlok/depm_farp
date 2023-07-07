@@ -149,7 +149,7 @@
                                         <span data-i18n="drpdwn.reset_layout">Profile</span>
                                     </a>
                                 @endif
-                                <a href="{{ route('exporter.home') }}" class="dropdown-item"
+                                <a href="{{ route('exporter.reset.password.view') }}" class="dropdown-item"
                                     data-action="app-fullscreen">
                                     <span data-i18n="drpdwn.fullscreen">Reset Password</span>
                                 </a>
@@ -163,8 +163,7 @@
                                 </a>
                                 <div class="dropdown-divider m-0"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

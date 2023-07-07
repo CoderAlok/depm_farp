@@ -119,8 +119,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         class="form-select form-control form-control-sm"
                                         aria-label="Default select example" required>
                                         <option value="">Choose a type</option>
-                                        <option value="6">Merchant</option>
-                                        <option value="7">Manufacturer</option>
+                                        <option value="0">Merchant</option>
+                                        <option value="1">Manufacturer</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -262,7 +262,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4 mb-4">
                                         <h6>11. Udayam Registration No.</h6>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Udayam Registration No" name="export_urn" id="export_urn" required>
+                                            placeholder="Udayam Registration No" name="export_urn" id="export_urn"
+                                            required>
                                     </div>
                                     <div class="col-md-4">
                                         <h6>12. HSM Code</h6>
@@ -302,7 +303,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     @routes
     <script>
         $(document).ready((e) => {
-            
+
             $('.formSave').on('submit', function() {
                 var html =
                     '<button class="btn btn-info space-button" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...</button>';

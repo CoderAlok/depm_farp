@@ -25,7 +25,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -40,8 +40,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
     <style>
         .bg-login {
@@ -170,7 +170,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                             class="form-control" placeholder="OTP" value=""
                                                             required>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 text-right">
                                                         <a href="javascript:;" onclick="resend()"
                                                             class="btn btn-primary text-right text-resend">Resend</a>
                                                     </div>
@@ -185,9 +185,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 {{-- </div> --}}
                                                 <div class="col-lg-12 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
-                                                        class="btn btn-success btn-block btn-sm">Verify OTP</button>
+                                                    class="btn btn-success btn-block btn-sm">Verify OTP</button>
                                                 </div>
-                                                <a href="{{ route('welcome') }}">Back</a>
+                                                
+                                                <div class="col-lg-12 text-center">
+                                                    <a href="{{ route('welcome') }}" class="text-center">Already a member! login here</a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

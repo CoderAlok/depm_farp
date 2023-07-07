@@ -19,11 +19,11 @@
         respective account. --}}
     </p>
     <p>
-        Credentials are as follows: 
-        Email    : <b>{{ $data->email }}</b>
-        PAssword : <b>12345678</b>
+        Credentials are as follows: <br />
+        Email : <b>{{ $data->email }}</b><br />
+        Password : <b>12345678</b>
 
-        <br/>
+        <br /><br />
         Please, change your password once from reset password option.
         {{-- Please, check your email to get notified regarding the further process. --}}
     </p>
