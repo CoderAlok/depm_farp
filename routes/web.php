@@ -31,20 +31,21 @@ Auth::routes();
 // Exporter register and login
 Route::get('/exporter-register', [TblExportersController::class, 'create'])->name('exporter.register');
 Route::post('/exporter-login', [TblExportersController::class, 'login'])->name('exporter.login');
+Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
+
+Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->name('exporter.check.mobile');
+Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
+Route::get('/profile', [TblExportersController::class, 'profile'])->name('exporter.profile');
 
 // All the routes for exporters
 Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function () {
     Route::get('/show/{id}', [TblExportersController::class, 'show'])->name('exporter.details');
-    Route::post('/register', [TblExportersController::class, 'store'])->name('exporter.register.create');
+
     Route::post('/check-user-name', [TblExportersController::class, 'checkUserName'])->name('exporter.check.username');
     Route::get('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password_view'])->name('exporter.reset.password.view');
     Route::post('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.reset.password');
 
     Route::get('/test', [TblExportersController::class, 'test'])->name('exporter.test');
-
-    Route::post('/check-mobile', [TblExportersController::class, 'checkMobile'])->name('exporter.check.mobile');
-    Route::post('/check-email', [TblExportersController::class, 'checkEmail'])->name('exporter.check.email');
-    Route::get('/profile', [TblExportersController::class, 'profile'])->name('exporter.profile');
 
     Route::group(['prefix' => 'otp'], function () {
         Route::get('/send-otp', [TblExportersController::class, 'otp_view'])->name('exporter.view.otp');

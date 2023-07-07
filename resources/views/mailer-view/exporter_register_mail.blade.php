@@ -14,12 +14,18 @@
     <p>
         Congratulations, You have been successfully registered in the portal with application no :
         <b>{{ $data->app_no ?? '' }}</b>
-        Please, wait for the scrutiny process to complete by the authority. After completion of scrutiny process
+        {{-- Please, wait for the scrutiny process to complete by the authority. After completion of scrutiny process
         you will recieve an email with your email and password and a link to login to your
-        respective account.
+        respective account. --}}
     </p>
     <p>
-        Please, check your email to get notified regarding the further process.
+        Credentials are as follows: 
+        Email    : <b>{{ $data->email }}</b>
+        PAssword : <b>12345678</b>
+
+        <br/>
+        Please, change your password once from reset password option.
+        {{-- Please, check your email to get notified regarding the further process. --}}
     </p>
 
     <br>

@@ -149,6 +149,10 @@
                                         <span data-i18n="drpdwn.reset_layout">Profile</span>
                                     </a>
                                 @endif
+                                <a href="{{ route('exporter.home') }}" class="dropdown-item"
+                                    data-action="app-fullscreen">
+                                    <span data-i18n="drpdwn.fullscreen">Reset Password</span>
+                                </a>
                                 <a href="#" class="dropdown-item" data-action="app-fullscreen">
                                     <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
                                     <i class="float-right text-muted fw-n">F11</i>

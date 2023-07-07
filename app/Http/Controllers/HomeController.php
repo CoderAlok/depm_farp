@@ -39,20 +39,25 @@ class HomeController extends Controller
             ])
             ->first();
 
-        if ($exporter->regsitration_status == 2) {
-            Session::flash('message', 'Sorry, this user doesnot exist. already rejected');
-            return redirect()->route('welcome');
-        } else {
-            if ($exporter->track_status == 1) {
-                $data['page_title'] = 'Exporter Dashboard';
-                $data['schemes']    = Schemes::get();
-                return view('home')->with($data);
-            } else {
-                $otpStatus          = Otp::where('email', $exporter->track_status)->latest()->first()->status;
-                $data['page_title'] = 'Exporter|Verify OTP';
-                return view('send-otp')->with($data);
-            }
-        }
+        $data['page_title'] = 'Exporter Dashboard';
+        $data['schemes']    = Schemes::get();
+        return view('home')->with($data);
+
+        // -----IF logic changes THEN----
+        // if ($exporter->regsitration_status == 2) {
+        //     Session::flash('message', 'Sorry, this user doesnot exist. already rejected');
+        //     return redirect()->route('welcome');
+        // } else {
+        //     if ($exporter->track_status == 1) {
+        //         $data['page_title'] = 'Exporter Dashboard';
+        //         $data['schemes']    = Schemes::get();
+        //         return view('home')->with($data);
+        //     } else {
+        //         $otpStatus          = Otp::where('email', $exporter->track_status)->latest()->first()->status;
+        //         $data['page_title'] = 'Exporter|Verify OTP';
+        //         return view('send-otp')->with($data);
+        //     }
+        // }
     }
 
 }

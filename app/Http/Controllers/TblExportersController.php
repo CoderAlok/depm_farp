@@ -185,7 +185,7 @@ class TblExportersController extends Controller
                         // Send mail
                         Mail::to($to)->send(new SendMail($data));
 
-                        Session::flash('message', 'Exporter registered successfully. Ref.No: ' . $application_no['applicaton_no'] . '.Please, wait for authority approval. You will be notified through mail.');
+                        Session::flash('message', 'Exporter registered successfully with Ref.No: ' . $application_no['applicaton_no'] . '.Please, check your email for your credentials to log into your account.');
                         return view('registration_success');
 
                         // return redirect()->route('welcome');
@@ -325,44 +325,41 @@ class TblExportersController extends Controller
                 if ($exporterData->exists()) {
                     $exporterData = $exporterData->first();
 
-                    // if ($exporterData->regsitration_status === 0) {
-                    if (in_array($exporterData->regsitration_status, [0, 2])) {
-                        $reg_status_message = ($exporterData->regsitration_status == 0 ? 'Sorry, you are not eligible yet to login. Let the scrutiny process finish.' : 'Sorry, your application has already been rejected you have been notified in your mail.');
-                        Session::flash('message', $reg_status_message);
-                        return redirect()->route('welcome'); //->with('message', 'Your are scrutiny is still under process.');
-                    } else {
-                        // if ($exporterData->is_email_verified == 0) {
+                    if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                        session()->put('exporter', $exporterData);
+                        $data['page_title'] = 'Exporter | Home';
 
-                        //     // Send otp
-                        //     if ($this->send_exporter_otp($request->email)) {
-                        //         $sess_data = [
-                        //             'email'    => $this->app->encrypt($request->email),
-                        //             'password' => $this->app->encrypt($request->password),
-                        //         ];
-                        //         $request->session()->put('data', $sess_data);
-
-                        //         return redirect()->route('exporter.view.verify.otp', $this->app->encrypt($request->email));
-                        //         // return redirect()->route('exporter.view.otp');
-                        //     } else {
-                        //         return back();
-                        //     }
+                        // if ($exporterData->track_status == 1) {
+                        return redirect()->route('exporter.home');
+                        // } else {
+                        //     return redirect()->route('exporter.reset.password.view');
                         // }
 
-                        if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                            session()->put('exporter', $exporterData);
-                            $data['page_title'] = 'Exporter | Home';
-
-                            if ($exporterData->track_status == 1) {
-                                return redirect()->route('exporter.home');
-                            } else {
-                                return redirect()->route('exporter.reset.password.view');
-                            }
-
-                        } else {
-                            Session::flash('message', 'Invalid credentials. Enter valid email id & password.');
-                            return redirect()->route('welcome');
-                        }
+                    } else {
+                        Session::flash('message', 'Invalid credentials. Enter valid email id & password.');
+                        return redirect()->route('welcome');
                     }
+
+                    // if (in_array($exporterData->regsitration_status, [0, 2])) {
+                    //     $reg_status_message = ($exporterData->regsitration_status == 0 ? 'Sorry, you are not eligible yet to login. Let the scrutiny process finish.' : 'Sorry, your application has already been rejected you have been notified in your mail.');
+                    //     Session::flash('message', $reg_status_message);
+                    //     return redirect()->route('welcome'); //->with('message', 'Your are scrutiny is still under process.');
+                    // } else {
+                    //     if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                    //         session()->put('exporter', $exporterData);
+                    //         $data['page_title'] = 'Exporter | Home';
+
+                    //         if ($exporterData->track_status == 1) {
+                    //             return redirect()->route('exporter.home');
+                    //         } else {
+                    //             return redirect()->route('exporter.reset.password.view');
+                    //         }
+
+                    //     } else {
+                    //         Session::flash('message', 'Invalid credentials. Enter valid email id & password.');
+                    //         return redirect()->route('welcome');
+                    //     }
+                    // }
 
                 } else {
                     Session::flash('message', 'Sorry, exporter doesn\'t exists.');
@@ -518,7 +515,7 @@ class TblExportersController extends Controller
     public function annexure2_submit(Request $request)
     {
         dd($request->all());
-        
+
         try {
             $validator = Validator::make($request->all(), [
                 'form_type'              => 'required|string',
