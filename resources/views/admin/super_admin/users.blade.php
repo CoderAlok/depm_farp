@@ -450,7 +450,7 @@
                                 </table>
                                 <!-- datatable end -->
                             </div>
-                        </div>  
+                        </div>
                         <!-- Main content ends here -->
                     </div>
                 </div>
