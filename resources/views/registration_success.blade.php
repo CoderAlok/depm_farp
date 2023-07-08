@@ -118,10 +118,14 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <strong>Application No: </strong> {{ $session_data['appl_id'] ?? '' }}
                                 </div>
                                 <a href="{{ route('welcome') }}" class="h4">
-                                    <i class="fal fa-chevron-right mr-2"></i> Login through your email id here?
+                                    Login through your email id here?
                                 </a>
                             </div>
                         </div>
+
+                        @php
+                            Illuminate\Support\Facades\Session::forget('message');
+                        @endphp
 
 
                         {{-- <div class="col-md-12 card p-4 rounded-plus bg-faded">

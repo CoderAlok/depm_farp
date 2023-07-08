@@ -434,23 +434,23 @@
                                             @foreach ($exporters as $key => $item)
                                                 <tr>
                                                     <td width="5%">{{ ++$key }}</td>
-                                                    <td width="10%"><a
-                                                            href="{{ route('admin.publicity.officer.pending.exporter.details', ['id' => $item->id]) }}"
-                                                            class="" target="_blank">{{ $item->app_no }}</a></td>
-                                                    <td width="10%">{{ $type[$item->role_id] }}
+                                                    <td width="10%">
+                                                        <a href="{{ route('admin.publicity.officer.pending.exporter.details', ['id' => $item->id]) }}"
+                                                            class="" target="_blank">{{ $item->app_no ?? '' }}</a>
                                                     </td>
+                                                    <td width="10%">{{ $type[$item->role_id] ?? '' }}</td>
                                                     <td width="20%">
                                                         <span>
-                                                            {{ $item->get_category_details->name }}
+                                                            {{ $item->get_category_details->name ?? '' }}
                                                         </span>
                                                     </td>
                                                     <td width="20%">
                                                         <span>
-                                                            {{ $item->name }}
+                                                            {{ $item->name ?? '' }}
                                                         </span>
                                                     </td>
-                                                    <td width="20%">{{ $item->email }}</td>
-                                                    <td width="20%">{{ $item->phone }}</td>
+                                                    <td width="20%">{{ $item->email ?? '' }}</td>
+                                                    <td width="20%">{{ $item->phone ?? '' }}</td>
                                                     <td width="20%">
                                                         <span
                                                             class="text-white badge bg-{{ $reg_status_color[$item->regsitration_status] }}">{{ $reg_status[$item->regsitration_status] }}

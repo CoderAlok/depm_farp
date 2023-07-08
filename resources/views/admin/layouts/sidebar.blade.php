@@ -2,7 +2,8 @@
     <div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative"
             data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp" aria-roledescription="logo" style="width:10%"/>
+            <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp" aria-roledescription="logo"
+                style="width:10%" />
             <span class="page-logo-text mr-1">FARP</span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
@@ -25,31 +26,31 @@
         @switch(Auth::user()->role_id)
             @case(1)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.schemes' ? 'active' : '' }}">
                         <a href="{{ route('admin.schemes') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Schemes</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.users' ? 'active' : '' }}">
                         <a href="{{ route('admin.users') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">User</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.roles' ? 'active' : '' }}">
                         <a href="{{ route('admin.roles') }}" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Roles</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.category' ? 'active' : '' }}">
                         <a href="{{ route('admin.category') }}" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Category</span>
@@ -60,13 +61,14 @@
 
             @case(2)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    <li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
@@ -78,7 +80,7 @@
 
             @case(3)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
@@ -93,10 +95,10 @@
                     </li> --}}
                 </ul>
             @break
-            
+
             @case(4)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
@@ -111,10 +113,10 @@
                     </li> --}}
                 </ul>
             @break
-            
+
             @case(5)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
@@ -129,10 +131,10 @@
                     </li> --}}
                 </ul>
             @break
-            
+
             @case(7)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
@@ -147,10 +149,10 @@
                     </li> --}}
                 </ul>
             @break
-            
+
             @case(10)
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
@@ -168,25 +170,25 @@
 
             @default
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li>
+                    <li class="{{ Route::currentRouteName() === 'admin.home' ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="">
                         <a href="#" title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Application</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="">
                         <a href="#" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="">
                         <a href="#" title="Package Info" data-filter-tags="package info">
                             <i class="fal fa-tag text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.package_info">Login</span>

@@ -104,6 +104,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 </div>
             </nav>
 
+            {{-- <pre>{{ print_r($errors->toArray()) }}</pre> --}}
             <div class="w-100 bg-register d-flex align-items-center position-relative">
                 <div class="bg-overlay"></div>
                 <div class="container">
@@ -117,27 +118,42 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <h6>1. Type of Exporter</h6>
                                     <select id="type" name="type"
                                         class="form-select form-control form-control-sm"
-                                        aria-label="Default select example" required>
+                                        aria-label="Default select example">
                                         <option value="">Choose a type</option>
                                         <option value="0">Merchant</option>
                                         <option value="1">Manufacturer</option>
                                     </select>
+                                    @if ($errors->has('type'))
+                                        <span class="invalid feedback text-danger"role="alert">
+                                            <strong>{{ $errors->first('type') }}.</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="col-md-4">
                                     <h6>2. Choose Category</h6>
                                     <select id="category" name="category"
                                         class="form-select form-control form-control-sm"
-                                        aria-label="Default select example" required>
+                                        aria-label="Default select example">
                                         <option value="">Choose a category</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
+                                    @if ($errors->has('category'))
+                                        <span class="invalid feedback text-danger"role="alert">
+                                            <strong>{{ $errors->first('category') }}.</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="col-md-4">
                                     <h6>3. Name of Exporter</h6>
                                     <input type="text" class="form-control form-control-sm"
-                                        placeholder="Exporter Name" name="exporter_name" id="exporter_name" required>
+                                        placeholder="Exporter Name" name="exporter_name" id="exporter_name">
+                                    @if ($errors->has('exporter_name'))
+                                        <span class="invalid feedback text-danger"role="alert">
+                                            <strong>{{ $errors->first('exporter_name') }}.</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
 
@@ -147,17 +163,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">Name</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="CEO Name" name="ceo_name" id="ceo_name" required>
+                                            placeholder="CEO Name" name="ceo_name" id="ceo_name">
+                                        @if ($errors->has('ceo_name'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('ceo_name') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Mobile</label>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Mobile " name="mobile" id="mobile" required>
+                                            placeholder="Mobile " name="mobile" id="mobile">
+                                        @if ($errors->has('mobile'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('mobile') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">E-Mail</label>
                                         <input type="email" class="form-control form-control-sm"
-                                            placeholder="E-Mail" name="email" id="email" required>
+                                            placeholder="E-Mail" name="email" id="email">
+                                        @if ($errors->has('email'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('email') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -168,18 +199,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">At </label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="At/Village/Building..." name="address_at" id="address_at"
-                                            required>
+                                            placeholder="At/Village/Building..." name="address_at" id="address_at">
+                                        @if ($errors->has('address_at'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_at') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Post</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Post Office" name="address_post" id="address_post" required>
+                                            placeholder="Post Office" name="address_post" id="address_post">
+                                        @if ($errors->has('address_post'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_post') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">City</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="City/Block" name="address_city" id="address_city" required>
+                                            placeholder="City/Block" name="address_city" id="address_city">
+                                        @if ($errors->has('address_city'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_city') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row">
@@ -187,18 +232,28 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         <label class="form-label">District</label>
                                         <select id="address_district" name="address_district"
                                             class="form-select form-control form-control-sm"
-                                            aria-label="Default select example" required>
-                                            <option selected="">Select a district</option>
+                                            aria-label="Default select example">
+                                            <option value="">Select a district</option>
                                             @foreach ($districts as $key => $item)
                                                 <option value="{{ $key }}">{{ $item }}</option>
                                             @endforeach
                                         </select>
+                                        @if ($errors->has('address_district'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_district') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">PIN</label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="PIN Code" name="address_pin" id="address_pin"
-                                            max="6" min="6" required>
+                                            max="6" min="6">
+                                        @if ($errors->has('address_pin'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_pin') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         &nbsp;
@@ -211,7 +266,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="Banker Name" name="bank_name" id="bank_name" required>
+                                            placeholder="Banker Name" name="bank_name" id="bank_name">
+                                        @if ($errors->has('bank_name'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('bank_name') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -221,18 +281,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">Account No.</label>
                                         <input type="number" class="form-control form-control-sm"
-                                            placeholder="Bank account no" name="bank_ac_no" id="bank_ac_no" required>
+                                            placeholder="Bank account no" name="bank_ac_no" id="bank_ac_no">
+                                        @if ($errors->has('bank_ac_no'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('bank_ac_no') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">IFSC Code</label>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="IFSC Code" name="bank_ifsc_code" id="bank_ifsc_code"
-                                            required>
+                                            placeholder="IFSC Code" name="bank_ifsc_code" id="bank_ifsc_code">
+                                        @if ($errors->has('bank_ifsc_code'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('bank_ifsc_code') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Cancelled Cheque</label>
                                         <input class="form-control form-control-sm" name="bank_cheque"
                                             id="bank_cheque" type="file">
+                                        @if ($errors->has('bank_cheque'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('bank_cheque') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -242,17 +316,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4 mb-4">
                                         <h6>8. IEC (Import Export Code)</h6>
                                         <input type="text" class="form-control form-control-sm" placeholder="IEC"
-                                            name="export_iec" id="export_iec" required>
+                                            name="export_iec" id="export_iec">
+                                        @if ($errors->has('export_iec'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('export_iec') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <h6>9. RCMC NO.</h6>
                                         <input type="number" class="form-control form-control-sm"
-                                            placeholder="RCMC No" name="export_rcmc_no" id="export_epc" required>
+                                            placeholder="RCMC No" name="export_rcmc_no" id="export_epc">
+                                        @if ($errors->has('export_rcmc_no'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('export_rcmc_no') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4 mb-4">
                                         <h6>10. Name of the EPC</h6>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="EPC Name" name="export_epc" id="export_epc" required>
+                                            placeholder="EPC Name" name="export_epc" id="export_epc">
+                                        @if ($errors->has('export_epc'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('export_epc') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -262,13 +351,22 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4 mb-4">
                                         <h6>11. Udayam Registration No.</h6>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Udayam Registration No" name="export_urn" id="export_urn"
-                                            required>
+                                            placeholder="Udayam Registration No" name="export_urn" id="export_urn">
+                                        @if ($errors->has('export_urn'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('export_urn') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="col-md-4">
                                         <h6>12. HSM Code</h6>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="HSM Code" name="export_hsm" id="export_hsm" required>
+                                            placeholder="HSM Code" name="export_hsm" id="export_hsm">
+                                        @if ($errors->has('export_hsm'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('export_hsm') }}.</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

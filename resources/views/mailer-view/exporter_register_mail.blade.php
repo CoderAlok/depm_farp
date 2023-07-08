@@ -26,7 +26,9 @@
         <br /><br />
         Please, change your password once from reset password option.
         {{-- Please, check your email to get notified regarding the further process. --}}
-    </p>
+    </p><br/>
+
+    <p>You can login through this Link <a href="{{ route('welcome') }}">Login here</a></p>
 
     <br>
     <br>
