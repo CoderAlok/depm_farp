@@ -74,17 +74,17 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Post : </label>
-                                    {{ $data->get_address_details->post ?? '' }}
+                                    <b>{{ $data->get_address_details->post ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">City : </label>
-                                    {{ $data->get_address_details->city ?? '' }}
+                                    <b>{{ $data->get_address_details->city ?? '' }}</b>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">District : </label>
-                                    {{ $data->get_address_details->get_district_details->name ?? '' }}
+                                    <b>{{ $data->get_address_details->get_district_details->name ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">PIN : </label>
@@ -117,7 +117,7 @@
                                     <b>{{ $data->get_bank_details->ifsc ?? '' }}</b>
                                 </div>
                                 <div class="col-md-4" id="js-lightgallery">
-                                    <label class="form-label">Consult Cheque : </label>
+                                    <label class="form-label">Cancelled Cheque : </label>
                                     <br />
                                     {{-- <a class=""
                                         href="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img) }}"
@@ -126,8 +126,10 @@
                                             alt="Cheque image" class="img-responsive" alt="image" width="15%">
                                     </a> --}}
 
+
+
                                     <a href="javascript:void(0);"
-                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img ?? '') }}')">
+                                        onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_bank_details->cheque_img ?? '')) }}')">
                                         <span class="text-warning badge bg-dark p-1">View file</span>
                                     </a>
                                 </div>
@@ -221,6 +223,8 @@
             </div>
         </div>
     </main>
+
+    {{-- <embed src="{{ asset('public/storage/images/exporters/' . $data->get_bank_details->cheque_img ?? '') }}" width="800px" height="2100px" /> --}}
 @endsection
 
 @section('scripts')
@@ -228,15 +232,32 @@
     @routes
     <script defer>
         function view_file(url) {
+            // Swal.fire({
+            //     imageUrl: url,
+            //     width: 1200,
+            //     imageWidth: 1200,
+            //     imageHeight: 800,
+            //     imageAlt: 'Custom image',
+            //     showConfirmButton: false,
+            //     showCancelButton: false,
+            //     showCloseButton: true
+            // })
+
             Swal.fire({
-                imageUrl: url,
+                title: '<strong>Cancelled Cheque</strong>',
+                icon: 'info',
+                html: '<embed src="{{ asset('public/storage/images/exporters/' . ($data->get_bank_details->cheque_img ?? '')) }}" width="100%" height="800px" />',
                 width: 1200,
                 imageWidth: 1200,
                 imageHeight: 800,
-                imageAlt: 'Custom image',
-                showConfirmButton: false,
+                showCloseButton: false,
                 showCancelButton: false,
-                showCloseButton: true
+                focusConfirm: false,
+                showConfirmButton: false,
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+                cancelButtonAriaLabel: 'Thumbs down'
             })
         }
 

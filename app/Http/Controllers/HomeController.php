@@ -39,7 +39,7 @@ class HomeController extends Controller
             ])
             ->first();
 
-        $data['page_title'] = 'Exporter Dashboard';
+        $data['page_title'] = 'Exporter\'s Dashboard';
         $data['schemes']    = Schemes::get();
         return view('home')->with($data);
 

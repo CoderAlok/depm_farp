@@ -91,14 +91,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <p><b>Scheme : </b> <span class="fifty-chars">{{ $scheme->long_name ?? '' }}</span></p>
+                                <div class="col-md-12 text-center">
+                                    <p style="font-size: 25px !important"><b>Scheme : </b> <span
+                                            class="fifty-chars">{{ $scheme->long_name ?? '' }}</span></p>
+                                    <p style="font-size: 15px !important"><b></b> <span class="fifty-chars">Financial
+                                            support for participating in National/International Events </span></p>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <h6>Choose Form Type:</h6>
+                                    {{-- <h6>Choose Form Type:</h6>
                                     <select class="form-select form-control form-control-sm"
                                         aria-label="Default select example" name="form_type" id="form_type">
                                         <option selected>Form Types</option>
@@ -113,7 +116,7 @@
                                         <span class="invalid feedback text-danger"role="alert">
                                             <strong>{{ $errors->first('form_type') }}.</strong>
                                         </span>
-                                    @endif
+                                    @endif --}}
                                 </div>
                                 <div class="col-md-4 mb-3"></div>
                                 <div class="col-md-4 mb-3"></div>
@@ -144,7 +147,7 @@
                                                     <h6>1. IEC Number Issued by DGFT:</h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter IEC No." name="iec" id="iec"
-                                                        value="{{ $data->get_other_code_details->iec ?? '' }}" />
+                                                        value="{{ $data->get_other_code_details->iec ?? '' }}" readonly />
                                                     @if ($errors->has('iec'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('iec') }}.</strong>
@@ -156,9 +159,9 @@
                                                         2. Name of the Exporting Orgatization:
                                                     </h6>
                                                     <input type="text" class="form-control form-control-sm"
-                                                        placeholder="Exporting Orgatization "
-                                                        name="exporting_organization" id="exporting_organization"
-                                                        value="{{ $data->name ?? '' }}" />
+                                                        placeholder="Exporting Orgatization " name="exporting_organization"
+                                                        id="exporting_organization" value="{{ $data->name ?? '' }}"
+                                                        readonly />
                                                     @if ($errors->has('exporting_organization'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('exporting_organization') }}.</strong>
@@ -171,7 +174,8 @@
                                                     </h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter Proprietor/Director/CEO" name="dir_ceo"
-                                                        id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}" />
+                                                        id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}"
+                                                        readonly />
                                                     @if ($errors->has('dir_ceo'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('dir_ceo') }}.</strong>
@@ -210,7 +214,7 @@
                                                     <label class="form-label h6">(a).Exporter's Email :</label>
                                                     <input type="email" class="form-control form-control-sm"
                                                         placeholder="Enter Exporter Email id" name="exptr_email"
-                                                        id="exptr_email" value="{{ $data->email ?? '' }}" />
+                                                        id="exptr_email" value="{{ $data->email ?? '' }}" readonly />
                                                     @if ($errors->has('exptr_email'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('exptr_email') }}.</strong>
@@ -221,7 +225,7 @@
                                                     <label class="form-label h6">(b).Contact No. :</label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="Enter Exporter Contact No." name="exptr_phone"
-                                                        id="exptr_phone" value="{{ $data->phone ?? '' }}" />
+                                                        id="exptr_phone" value="{{ $data->phone ?? '' }}" readonly />
                                                     @if ($errors->has('exptr_phone'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('exptr_phone') }}.</strong>
@@ -260,7 +264,7 @@
                                                     <label class="form-label h6">(a). Name Of the Bank</label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Bank name" name="bank_name" id="bank_name"
-                                                        value="{{ $data->get_bank_details->name ?? '' }}" />
+                                                        value="{{ $data->get_bank_details->name ?? '' }}" readonly />
                                                     @if ($errors->has('bank_name'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('bank_name') }}.</strong>
@@ -271,7 +275,8 @@
                                                     <label class="form-label h6">(b). Details A/c No.</label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Account No." name="bank_ac" id="bank_ac"
-                                                        value="{{ $data->get_bank_details->account_no ?? '' }}" />
+                                                        value="{{ $data->get_bank_details->account_no ?? '' }}"
+                                                        readonly />
                                                     @if ($errors->has('bank_ac'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('bank_ac') }}.</strong>
@@ -282,7 +287,7 @@
                                                     <label class="form-label h6">(c). IFSC Code</label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="IFSC code" name="bank_ifsc" id="bank_ifsc"
-                                                        value="{{ $data->get_bank_details->ifsc ?? '' }}" />
+                                                        value="{{ $data->get_bank_details->ifsc ?? '' }}" readonly />
                                                     @if ($errors->has('bank_ifsc'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('bank_ifsc') }}.</strong>
@@ -293,7 +298,7 @@
                                                     <label class="form-label h6">(d). Udayam Regd No.</label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="IFSC code" name="exptr_urn" id="exptr_urn"
-                                                        value="{{ $data->get_other_code_details->urn ?? '' }}" />
+                                                        value="{{ $data->get_other_code_details->urn ?? '' }}" readonly />
                                                     @if ($errors->has('exptr_urn'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('exptr_urn') }}.</strong>

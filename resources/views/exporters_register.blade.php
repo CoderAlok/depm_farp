@@ -115,7 +115,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             @csrf
                             <div class="mb-4 row">
                                 <div class="col-md-4">
-                                    <h6>1. Type of Exporter</h6>
+                                    <h6>1. Type of Exporter <span class="text-danger" title="Type of exporters">*</span>
+                                    </h6>
                                     <select id="type" name="type"
                                         class="form-select form-control form-control-sm"
                                         aria-label="Default select example">
@@ -130,7 +131,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <h6>2. Choose Category</h6>
+                                    <h6>2. Choose Category <span class="text-danger"
+                                            title="Categories of exporting sectors.">*</span></h6>
                                     <select id="category" name="category"
                                         class="form-select form-control form-control-sm"
                                         aria-label="Default select example">
@@ -146,7 +148,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <h6>3. Name of Exporter</h6>
+                                    <h6>3. Name of Exporting Agency <span class="text-danger"
+                                            title="Name of the exporting agency who is applying for this reimbursement scheme.">*</span>
+                                    </h6>
                                     <input type="text" class="form-control form-control-sm"
                                         placeholder="Exporter Name" name="exporter_name" id="exporter_name">
                                     @if ($errors->has('exporter_name'))
@@ -158,10 +162,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </div>
 
                             <div class="mb-4">
-                                <h6>4. Name of the chief executive</h6>
+                                <h6>4. Name of the Chief Executive Officer (CEO)</h6>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="form-label">Name</label>
+                                        <label class="form-label">Name <span class="text-danger"
+                                                title="Name of the cheif executive officer">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="CEO Name" name="ceo_name" id="ceo_name">
                                         @if ($errors->has('ceo_name'))
@@ -171,17 +176,22 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Mobile</label>
+                                        <label class="form-label">Mobile <span class="text-danger"
+                                                title="Exporters mobile >number">*</span></label>
                                         <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Mobile " name="mobile" id="mobile">
+                                            placeholder="Mobile " name="mobile" id="mobile"
+                                            pattern="[7-9]{1}[0-9]{9}"
+                                            title="Phone number with 7-9 and remaing 9 digit with 0-9" />
                                         @if ($errors->has('mobile'))
+                                            <span id="validation_status"></span>
                                             <span class="invalid feedback text-danger"role="alert">
                                                 <strong>{{ $errors->first('mobile') }}.</strong>
                                             </span>
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">E-Mail</label>
+                                        <label class="form-label">E-Mail <span class="text-danger"
+                                                title="Exporters email address. It can be his personal or shops email address.">*</span></label>
                                         <input type="email" class="form-control form-control-sm"
                                             placeholder="E-Mail" name="email" id="email">
                                         @if ($errors->has('email'))
@@ -197,7 +207,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 <h6>5. Registered Office Address</h6>
                                 <div class="row mb-2">
                                     <div class="col-md-4">
-                                        <label class="form-label">At </label>
+                                        <label class="form-label">At <span class="text-danger"
+                                                title="">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="At/Village/Building..." name="address_at" id="address_at">
                                         @if ($errors->has('address_at'))
@@ -207,7 +218,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Post</label>
+                                        <label class="form-label">Post <span class="text-danger"
+                                                title="Postal Address">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="Post Office" name="address_post" id="address_post">
                                         @if ($errors->has('address_post'))
@@ -217,7 +229,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">City</label>
+                                        <label class="form-label">City <span class="text-danger"
+                                                title="City address">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="City/Block" name="address_city" id="address_city">
                                         @if ($errors->has('address_city'))
@@ -229,11 +242,13 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="form-label">District</label>
+                                        <label class="form-label">District <span class="text-danger"
+                                                title="District">*</span></label>
                                         <select id="address_district" name="address_district"
                                             class="form-select form-control form-control-sm"
                                             aria-label="Default select example">
-                                            <option value="">Select a district</option>
+                                            <option value="">Select a district <span
+                                                    class="text-danger">*</span></option>
                                             @foreach ($districts as $key => $item)
                                                 <option value="{{ $key }}">{{ $item }}</option>
                                             @endforeach
@@ -245,7 +260,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">PIN</label>
+                                        <label class="form-label">PIN <span class="text-danger"
+                                                title="Pincode of that area.">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="PIN Code" name="address_pin" id="address_pin"
                                             max="6" min="6">
@@ -261,10 +277,86 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 </div>
                             </div>
 
-                            <div class="mb-4">
-                                <h6>6. Name Of the Bank</h6>
+                            {{-- <div class="mb-4">
+                                <h6>6. Registered Factory Office Address</h6>
+                                <div class="row mb-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">At <span class="text-danger"
+                                                title="Type of exporters">*</span></label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="At/Village/Building..." name="address_at" id="address_at">
+                                        @if ($errors->has('address_at'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_at') }}.</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Post <span class="text-danger"
+                                                title="Type of exporters">*</span></label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Post Office" name="address_post" id="address_post">
+                                        @if ($errors->has('address_post'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_post') }}.</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">City <span class="text-danger"
+                                                title="Type of exporters">*</span></label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="City/Block" name="address_city" id="address_city">
+                                        @if ($errors->has('address_city'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_city') }}.</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4">
+                                        <label class="form-label">District <span class="text-danger"
+                                                title="Type of exporters">*</span></label>
+                                        <select id="address_district" name="address_district"
+                                            class="form-select form-control form-control-sm"
+                                            aria-label="Default select example">
+                                            <option value="">Select a district <span
+                                                    class="text-danger">*</span></option>
+                                            @foreach ($districts as $key => $item)
+                                                <option value="{{ $key }}">{{ $item }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('address_district'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_district') }}.</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">PIN <span class="text-danger"
+                                                title="Type of exporters">*</span></label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="PIN Code" name="address_pin" id="address_pin"
+                                            max="6" min="6">
+                                        @if ($errors->has('address_pin'))
+                                            <span class="invalid feedback text-danger"role="alert">
+                                                <strong>{{ $errors->first('address_pin') }}.</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                            <div class="mb-4">
+                                <h6>7. Bank Account Details </h6>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Bank name <span class="text-danger"
+                                                title="Name of the bank">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="Banker Name" name="bank_name" id="bank_name">
                                         @if ($errors->has('bank_name'))
@@ -273,13 +365,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             </span>
                                         @endif
                                     </div>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <h6>7. Bank Account Details </h6>
-                                <div class="row">
                                     <div class="col-md-4">
-                                        <label class="form-label">Account No.</label>
+                                        <label class="form-label">Account No. <span class="text-danger"
+                                                title="Bank account number">*</span></label>
                                         <input type="number" class="form-control form-control-sm"
                                             placeholder="Bank account no" name="bank_ac_no" id="bank_ac_no">
                                         @if ($errors->has('bank_ac_no'))
@@ -289,7 +377,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">IFSC Code</label>
+                                        <label class="form-label">IFSC Code <span class="text-danger"
+                                                title="ifsc code of that bank account">*</span></label>
                                         <input type="text" class="form-control form-control-sm"
                                             placeholder="IFSC Code" name="bank_ifsc_code" id="bank_ifsc_code">
                                         @if ($errors->has('bank_ifsc_code'))
@@ -299,7 +388,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Cancelled Cheque</label>
+                                        <label class="form-label">Cancelled Cheque <span class="text-danger"
+                                                title="Image of the respective cancelled cheque.">*</span></label>
                                         <input class="form-control form-control-sm" name="bank_cheque"
                                             id="bank_cheque" type="file">
                                         @if ($errors->has('bank_cheque'))
@@ -314,7 +404,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             <div class="mb-0">
                                 <div class="row">
                                     <div class="col-md-4 mb-4">
-                                        <h6>8. IEC (Import Export Code)</h6>
+                                        <h6>8. IEC (Import Export Code) <span class="text-danger"
+                                                title="Import Export Code">*</span></h6>
                                         <input type="text" class="form-control form-control-sm" placeholder="IEC"
                                             name="export_iec" id="export_iec">
                                         @if ($errors->has('export_iec'))
@@ -349,7 +440,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             <div class="mb-4">
                                 <div class="row">
                                     <div class="col-md-4 mb-4">
-                                        <h6>11. Udayam Registration No.</h6>
+                                        <h6>11. Udayam Registration No. <span class="text-danger"
+                                                title="Udayam registration no.">*</span></h6>
                                         <input type="tel" class="form-control form-control-sm"
                                             placeholder="Udayam Registration No" name="export_urn" id="export_urn">
                                         @if ($errors->has('export_urn'))
@@ -359,9 +451,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         @endif
                                     </div>
                                     <div class="col-md-4">
-                                        <h6>12. HSM Code</h6>
+                                        <h6>12. HSN Code</h6>
                                         <input type="text" class="form-control form-control-sm"
-                                            placeholder="HSM Code" name="export_hsm" id="export_hsm">
+                                            placeholder="HSN Code" name="export_hsm" id="export_hsm">
                                         @if ($errors->has('export_hsm'))
                                             <span class="invalid feedback text-danger"role="alert">
                                                 <strong>{{ $errors->first('export_hsm') }}.</strong>
@@ -428,6 +520,16 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                     $('.sbmt').removeClass('disabled');
                 }
             })
+
+            $('#mobile').blur(function(e) {
+                if (validatePhone('phone_number')) {
+                    $('#validation_status').html('Valid');
+                    $('#validation_status').css('color', 'green');
+                } else {
+                    $('#validation_status').html('Invalid');
+                    $('#validation_status').css('color', 'red');
+                }
+            });
 
             $('#mobile').on('blur', (e) => {
                 let mobile = $('#mobile').val();
@@ -505,6 +607,17 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 }
             });
         });
+
+
+        function validatePhone(phone_number) {
+            var a = document.getElementById(phone_number).value;
+            var filter = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+            if (filter.test(a)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     </script>
 </body>
 

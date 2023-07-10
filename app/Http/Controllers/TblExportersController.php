@@ -76,10 +76,10 @@ class TblExportersController extends Controller
                 "bank_ifsc_code"   => "required|string",
                 "bank_cheque"      => "required|file|max:4096|mimes:jpeg,jpg,png,pdf",
                 "export_iec"       => "required|string",
-                "export_rcmc_no"   => "required|string",
-                "export_epc"       => "required|string",
+                // "export_rcmc_no"   => "string",
+                // "export_epc"       => "string",
                 "export_urn"       => "required|string",
-                "export_hsm"       => "required|string",
+                // "export_hsm"       => "string",
             ]
             , [
                 "type.required"             => "Please, enter the type",
@@ -99,10 +99,10 @@ class TblExportersController extends Controller
                 "bank_ifsc_code.required"   => "Please, enter the bank_ifsc_code",
                 "bank_cheque.required"      => "Please, enter a bank cheque image",
                 "export_iec.required"       => "Please, enter the export_iec",
-                "export_rcmc_no.required"   => "Please, enter the export_epc",
-                "export_epc.required"       => "Please, enter the export_epc",
+                // "export_rcmc_no"            => "Please, enter the export_epc",
+                // "export_epc"                => "Please, enter the export_epc",
                 "export_urn.required"       => "Please, enter the export_urn",
-                "export_hsm.required"       => "Please, enter the export_hsm",
+                // "export_hsm"                => "Please, enter the export_hsm",
             ]
         );
 
@@ -169,10 +169,10 @@ class TblExportersController extends Controller
                     $code_data = [
                         'exporter_id' => $exporter_id,
                         'iec'         => $request->export_iec,
-                        'rcmc'        => $request->export_rcmc_no,
-                        'epc'         => $request->export_epc,
+                        'rcmc'        => $request->export_rcmc_no ?? '',
+                        'epc'         => $request->export_epc ?? '',
                         'urn'         => $request->export_urn,
-                        'hsm'         => $request->export_hsm,
+                        'hsm'         => $request->export_hsm ?? '',
                         'created_by'  => $exporter_id,
                         'created_at'  => Carbon::now(),
                     ];

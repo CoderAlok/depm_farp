@@ -53,6 +53,7 @@ class AdminController extends Controller
      */
     public function pending_exporters(Request $request)
     {
+        $data['page_title'] = 'Pending exporters';
         $data['exporters'] = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
         return view('admin.publicity_officer.pending_exporters')->with($data);
     }
@@ -113,7 +114,7 @@ class AdminController extends Controller
             $exporters          = Exporter::where('id', $id)->with(['get_role_details', 'get_category_details', 'get_address_details.get_district_details', 'get_bank_details', 'get_other_code_details', 'get_remarks_details'])->first();
             $data['data']       = $exporters;
             $data['message']    = 'Exporters data loaded successfully.';
-            $data['page_title'] = '';
+            $data['page_title'] = 'Pending exporter details';
 
             // return response($data, 200);
             return view('admin.publicity_officer.pending_exporters_details')->with($data);
