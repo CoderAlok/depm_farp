@@ -178,9 +178,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                     <div class="col-md-4">
                                         <label class="form-label">Mobile <span class="text-danger"
                                                 title="Exporters mobile >number">*</span></label>
-                                        <input type="tel" class="form-control form-control-sm"
-                                            placeholder="Mobile " name="mobile" id="mobile"
-                                            pattern="[7-9]{1}[0-9]{9}"
+                                        <input type="number" class="form-control form-control-sm"
+                                            placeholder="Mobile number" name="mobile" id="mobile"
+                                            {{-- pattern="[7-9]{1}[0-9]{9}" --}}
+                                            onkeypress="return /^[0-9]+$/i.test(event.key)" data-maxlength="10"
+                                            oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                             title="Phone number with 7-9 and remaing 9 digit with 0-9" />
                                         @if ($errors->has('mobile'))
                                             <span id="validation_status"></span>
