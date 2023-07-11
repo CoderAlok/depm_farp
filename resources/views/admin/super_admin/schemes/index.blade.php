@@ -1,6 +1,11 @@
 @extends('admin.layouts.app')
 
 @section('content')
+    <style type="text/css">
+        .color-input {
+            height: 80px;
+        }
+    </style>
 
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
@@ -408,7 +413,7 @@
                                 </div>
 
                                 <!-- datatable start -->
-                                <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                <table id="dt-basic" class="table table-bordered table-hover table-striped w-100">
                                     <thead>
                                         <th>ID</th>
                                         <th>Short name</th>
@@ -425,6 +430,8 @@
                                                     <td>{{ $value->short_name ?? '' }}</td>
                                                     <td>{{ $value->long_name ?? '' }}</td>
                                                     <td>{{ $value->logo ?? '' }}</td>
+                                                    <td style="background: {{ $value->color ?? '' }}">
+                                                        {{ $value->color ?? '' }}</td>
                                                     <td>{{ $value->amount ?? '' }}</td>
                                                     <td>
                                                         <a class="btn btn-warning btn-sm text-dark btn-lg edit-user"
@@ -505,6 +512,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="color">Color</label>
+                            <input type="color" name="color" id="color"
+                                class="form-control form-control-color color-input" value="rgb(255, 128, 0)"
+                                height="30px" placeholder="Scheme color name" />
+                        </div>
+
+                        <div class="form-group">
                             <label for="amount">Amount</label>
                             <input type="number" name="amount" id="amount" class="form-control" value=""
                                 placeholder="Scheme amount" />
@@ -562,6 +576,12 @@
                             <label for="edit_logo">Logo</label>
                             <input type="text" name="edit_logo" id="edit_logo" class="form-control" value=""
                                 placeholder="Scheme logo" />
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_color">Color</label>
+                            <input type="color" name="edit_color" id="edit_color"
+                                class="form-control form-control-color color-input" value=""
+                                placeholder="Scheme color" />
                         </div>
                         <div class="form-group">
                             <label for="edit_amount">Amount</label>
@@ -634,6 +654,7 @@
                         $('#edit_long_name').val(data.data.long_name);
                         $('#edit_route_name').val(data.data.route_name);
                         $('#edit_logo').val(data.data.logo);
+                        $('#edit_color').val(data.data.color);
                         $('#edit_amount').val(data.data.amount);
                         $('#edit_status').val(data.data.status);
                     },

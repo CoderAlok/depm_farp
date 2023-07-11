@@ -60,6 +60,7 @@ class SchemesController extends Controller
                 'short_name' => $request->short_name,
                 'long_name'  => $request->long_name,
                 'logo'       => $request->logo,
+                'color'      => $request->color ?? '#ffffff',
                 'amount'     => $request->amount,
                 'status'     => $request->status,
             ];
@@ -108,14 +109,16 @@ class SchemesController extends Controller
             'edit_route_name' => 'required',
             'edit_long_name'  => 'required',
             'edit_logo'       => 'required',
+            'edit_color'      => 'required',
             'edit_amount'     => 'required',
             'edit_status'     => 'required',
         ], [
             'edit_id.required'         => 'Please enter the id',
-            'edit_route_name.required' => 'Please enter the short_name',
+            'edit_route_name.required' => 'Please enter the route_name',
             'edit_short_name.required' => 'Please enter the short_name',
             'edit_long_name.required'  => 'Please enter the long_name',
             'edit_logo.required'       => 'Please enter the logo',
+            'edit_color.required'      => 'Please enter the color',
             'edit_amount.required'     => 'Please enter the amount',
             'edit_status.required'     => 'Please enter the edit_status',
         ]);
@@ -127,6 +130,7 @@ class SchemesController extends Controller
                 'long_name'  => $request->edit_long_name,
                 'logo'       => $request->edit_logo,
                 'amount'     => $request->edit_amount,
+                'color'      => $request->edit_color,
                 'status'     => $request->edit_status,
             ];
             $user = Schemes::where('id', $request->edit_id)->update($update_data);

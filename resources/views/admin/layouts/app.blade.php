@@ -185,5 +185,3 @@
                 <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
                 <!-- END Page Content -->
                 @include('admin.layouts.footer')
-
-
