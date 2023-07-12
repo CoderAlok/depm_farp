@@ -95,7 +95,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(a). IEC Number Issued by DGFT</h6>
+                                                    <h6>(a). IEC Number Issued by DGFT <span class="text-danger">*</span></h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter IEC No." name="iec" id="iec"
                                                         value="{{ $data->get_other_code_details->iec ?? '' }}" readonly />
@@ -106,7 +106,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(b). Name of Exporter</h6>
+                                                    <h6>(b). Name of Exporter <span class="text-danger">*</span></h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Exporting Orgatization " name="exptr_name"
                                                         id="exptr_name" value="{{ $data->name ?? '' }}" readonly />
@@ -117,7 +117,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(c). Name Of Proprietor/Director/CEO</h6>
+                                                    <h6>(c). Name Of Proprietor/Director/CEO <span class="text-danger">*</span></h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter Proprietor/Director/CEO" name="dir_ceo"
                                                         id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}"
@@ -170,7 +170,7 @@
                                         <div class="card-body">
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(a). Exporter's Email</label>
+                                                    <label class="form-label h6">(a). Exporter's Email<span class="text-danger">*</span></label>
                                                     <input type="email" class="form-control form-control-sm"
                                                         placeholder="Enter Exporter Email id" name="exptr_email"
                                                         id="exptr_email" value="{{ $data->email ?? '' }}" readonly />
@@ -181,7 +181,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Contact No.</label>
+                                                    <label class="form-label h6">(b). Contact No.<span class="text-danger">*</span></label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="Enter Exporter Contact No." name="exptr_phone"
                                                         id="exptr_phone" value="{{ $data->phone ?? '' }}" readonly />
@@ -220,7 +220,7 @@
                                         <div class="card-body">
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(a). Name Of Bank</label>
+                                                    <label class="form-label h6">(a). Name Of Bank<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="State Bank of India" name="bank_name" id="bank_name"
                                                         value="{{ $data->get_bank_details->name ?? '' }}" readonly />
@@ -231,7 +231,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Details A/c No.</label>
+                                                    <label class="form-label h6">(b). Details A/c No.<span class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Account No." name="bank_ac" id="bank_ac"
                                                         value="{{ $data->get_bank_details->account_no ?? '' }}"
@@ -243,7 +243,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(c). IFSC Code</label>
+                                                    <label class="form-label h6">(c). IFSC Code<span class="text-danger">*</span></label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="IFSC code" name="bank_ifsc" id="bank_ifsc"
                                                         value="{{ $data->get_bank_details->ifsc ?? '' }}" readonly />
@@ -293,7 +293,7 @@
                                         <div class="card-body">
                                             <div class="row col-md-12">
                                                 <div class="col-md-12 mb-3">
-                                                    <label class="form-label h6">(a). Type of Certificate</label> <br>
+                                                    <label class="form-label h6">(a). Type of Certificate<span class="text-danger">*</span></label> <br>
 
                                                     @switch($id)
                                                         @case(7)
@@ -325,7 +325,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Name of Certificate. :</label>
+                                                    <label class="form-label h6">(b). Name of Certificate. :<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Certificate" name="certificate_name"
                                                         id="certificate_name" />
@@ -337,7 +337,7 @@
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(c). Certificate Issuing Authority
-                                                        :</label>
+                                                        :<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Certificate from" name="certificate_iss_auth"
                                                         id="certificate_iss_auth" />
@@ -348,7 +348,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d). Cost of Certificate (Rs) :</label>
+                                                    <label class="form-label h6">(d). Cost of Certificate (Rs) :<span class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Certificate Cost" name="certificate_cost"
                                                         id="certificate_cost" />
@@ -359,7 +359,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(e). Upload Payment Reciept :</label>
+                                                    <label class="form-label h6">(e). Upload Payment Reciept :<span class="text-danger">*</span></label>
                                                     <input type="file" class="form-control form-control-sm"
                                                         name="file_payment_reciept" id="file_payment_reciept" />
                                                     @if ($errors->has('file_payment_reciept'))
@@ -563,10 +563,6 @@
                                             full responsibility for its accuracy and authenticity.
                                         </label>
                                     </div>
-
-                                    {{-- Tested atoggle button --}}
-                                    {{-- <input type="checkbox" checked data-toggle="toggle" data-on="Ready"
-                                        data-off="Not Ready" data-onstyle="success" data-offstyle="danger"> --}}
                                 </div>
                                 <div class="col-md-10"></div>
                                 <div class="col-md-2">

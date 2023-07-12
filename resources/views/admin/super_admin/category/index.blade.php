@@ -425,8 +425,11 @@
                                                     <td>{{ $value->id ?? '' }}</td>
                                                     <td>{{ $value->name ?? '' }}</td>
                                                     <td>
-                                                        <span class="badge bg-{{ $status_color[$value->status] }}">
-                                                            {{ $value->status ? ($value->status == 1 ? 'Active' : 'Inactive') : '' }}
+                                                        <input type="checkbox" data-size="sm"
+                                                            {{ $value->status == 1 ? 'checked' : '' }} data-toggle="toggle"
+                                                            data-on="Active" data-off="Inactive" data-onstyle="success"
+                                                            data-offstyle="danger" name="status-list" id="status-list"
+                                                            class="status-list" />
                                                     </td>
                                                     </span>
                                                     <td>
@@ -637,6 +640,19 @@
                         swal("Cancelled", "Your data is safe :)", "error");
                     }
                 });
+            });
+
+            $('.status-list').on('change', (e) => {
+                let status = $('select.status-list option:selected').checked;
+                if (status == 1) {
+                    console.log('yes');
+                    // $('#class_of_travel').val('Flight');
+                    // $('.boarding_pass_div').removeClass('d-none');
+                } else {
+                    console.log('No'+status);
+                    // $('#class_of_travel').val('2nd AC');
+                    // $('.boarding_pass_div').addClass('d-none');
+                }
             });
         });
     </script>
