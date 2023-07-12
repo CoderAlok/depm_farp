@@ -38,7 +38,8 @@
         href="{{ asset('public/farp1_assets/css/notifications/toastr/toastr.css') }}" />
     <link rel="stylesheet" media="screen, print"
         href="{{ asset('public/farp1_assets/css/datagrid/datatables/datatables.bundle.css') }}">
-
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
 
     <!-- External Script libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
