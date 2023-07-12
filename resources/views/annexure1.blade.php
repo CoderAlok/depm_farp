@@ -55,27 +55,6 @@
                             <input type="hidden" name="scheme_id" id="scheme_id" value="{{ $scheme->id ?? '' }}" />
 
                             <div class="row">
-                                {{-- <div class="col-md-4 offset-md-4 mb-3"> --}}
-                                {{-- <img src="{{ asset('public/img/form-heading-image.png') }}" alt="SmartAdmin WebApp"
-                                        aria-roledescription="logo" width="100%"> --}}
-                                {{-- <div class="row"> --}}
-                                {{-- <div class="col-md-3">
-                                            <img src="{{ asset('public/img/form-heading-image.png') }}"
-                                                alt="SmartAdmin WebApp" aria-roledescription="logo" width="100%">
-                                        </div> --}}
-
-                                {{-- <div class="col-md-9">
-                                            <div class="mr-1 text-dark">
-                                                <div class="page-logo-text text-dark">Micro, Small & Medium Enterprise Department
-                                                </div>
-                                                <div class="page-logo-text-small mr-1">Government of Odisha</div>
-                                            </div>
-                                        </div> --}}
-                                {{-- </div> --}}
-                                {{-- </div> --}}
-                                {{-- <div class="col-md-12"> --}}
-                                {{-- <p><b>Scheme : </b> <span class="fifty-chars">{{ $scheme->long_name ?? '' }}</span></p> --}}
-                                {{-- </div> --}}
                                 <div class="col-md-6 my-3 mx-auto">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-md-3 text-right">
@@ -101,22 +80,6 @@
 
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    {{-- <h6>Choose Form Type:</h6>
-                                    <select class="form-select form-control form-control-sm"
-                                        aria-label="Default select example" name="form_type" id="form_type">
-                                        <option selected>Form Types</option>
-                                        <option value="organic">
-                                            National Events
-                                        </option>
-                                        <option value="quality">
-                                            International Events
-                                        </option>
-                                    </select>
-                                    @if ($errors->has('form_type'))
-                                        <span class="invalid feedback text-danger"role="alert">
-                                            <strong>{{ $errors->first('form_type') }}.</strong>
-                                        </span>
-                                    @endif --}}
                                 </div>
                                 <div class="col-md-4 mb-3"></div>
                                 <div class="col-md-4 mb-3"></div>
@@ -144,7 +107,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(a). IEC Number Issued by DGFT:</h6>
+                                                    <h6>(a). IEC Number Issued by DGFT: <span class="text-danger">*</span>
+                                                    </h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter IEC No." name="iec" id="iec"
                                                         value="{{ $data->get_other_code_details->iec ?? '' }}" readonly />
@@ -156,7 +120,8 @@
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
-                                                        (b). Name of the Exporting Orgatization:
+                                                        (b). Name of the Exporting Orgatization: <span
+                                                            class="text-danger">*</span>
                                                     </h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Exporting Orgatization " name="exporting_organization"
@@ -170,7 +135,8 @@
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
-                                                        (c). Name Of the Proprietor/Director/CEO:
+                                                        (c). Name Of the Proprietor/Director/CEO: <span
+                                                            class="text-danger">*</span>
                                                     </h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter Proprietor/Director/CEO" name="dir_ceo"
@@ -184,7 +150,8 @@
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
-                                                        (d). Import Export Code (IEC) Certificate:
+                                                        (d). Import Export Code (IEC) Certificate: <span
+                                                            class="text-danger">*</span>
                                                     </h6>
                                                     <input class="form-control form-control-sm" type="file"
                                                         id="file_iec" name="file_iec" />
@@ -223,7 +190,8 @@
                                         <div class="card-body">
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(a).Exporter's Email :</label>
+                                                    <label class="form-label h6">(a).Exporter's Email : <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="email" class="form-control form-control-sm"
                                                         placeholder="Enter Exporter Email id" name="exptr_email"
                                                         id="exptr_email" value="{{ $data->email ?? '' }}" readonly />
@@ -234,7 +202,8 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b).Contact No. :</label>
+                                                    <label class="form-label h6">(b).Contact No. : <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="Enter Exporter Contact No." name="exptr_phone"
                                                         id="exptr_phone" value="{{ $data->phone ?? '' }}" readonly />
@@ -273,7 +242,8 @@
                                         <div class="card-body">
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(a). Name Of the Bank</label>
+                                                    <label class="form-label h6">(a). Name Of the Bank : <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Bank name" name="bank_name" id="bank_name"
                                                         value="{{ $data->get_bank_details->name ?? '' }}" readonly />
@@ -284,7 +254,8 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Details A/c No.</label>
+                                                    <label class="form-label h6">(b). Details A/c No. : <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Account No." name="bank_ac" id="bank_ac"
                                                         value="{{ $data->get_bank_details->account_no ?? '' }}"
@@ -296,7 +267,8 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(c). IFSC Code</label>
+                                                    <label class="form-label h6">(c). IFSC Code : <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="tel" class="form-control form-control-sm"
                                                         placeholder="IFSC code" name="bank_ifsc" id="bank_ifsc"
                                                         value="{{ $data->get_bank_details->ifsc ?? '' }}" readonly />
@@ -310,25 +282,14 @@
                                                     <label class="form-label h6">(d). Cancelled Cheque. <span
                                                             class="text-danger"
                                                             title="Image of the respective cancelled cheque.">*</span></label>
-                                                    <input class="form-control form-control-sm" name="bank_cheque"
-                                                        id="bank_cheque" type="file">
+                                                    <input class="form-control form-control-sm" name="file_bank_cheque"
+                                                        id="file_bank_cheque" type="file">
                                                     @if ($errors->has('bank_cheque'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('bank_cheque') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
-                                                {{-- <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d). Udayam Regd No.</label>
-                                                    <input type="tel" class="form-control form-control-sm"
-                                                        placeholder="IFSC code" name="exptr_urn" id="exptr_urn"
-                                                        value="{{ $data->get_other_code_details->urn ?? '' }}" readonly />
-                                                    @if ($errors->has('exptr_urn'))
-                                                        <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('exptr_urn') }}.</strong>
-                                                        </span>
-                                                    @endif
-                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -358,7 +319,8 @@
                                         <div class="card-body">
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(a). Details</label>
+                                                    <label class="form-label h6">(a). Details <span
+                                                            class="text-danger">*</span></label>
                                                     <textarea class="form-control form-control-sm" rows="4" placeholder="Certificate Details " name="event_detail"
                                                         id="" value="{{ old('event_detail') }}"></textarea>
                                                     @if ($errors->has('event_detail'))
@@ -368,7 +330,7 @@
                                                     @endif
                                                 </div>
                                                 {{-- Tooltip will be here --}}
-                                                <div class="col-md-8">
+                                                <div class="col-md-8 mt-5">
                                                     <div class="alert alert-success" role="alert">
                                                         <i class="fa fa-info-circle"
                                                             style="
@@ -394,7 +356,8 @@
 
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Name of the event</label>
+                                                    <label class="form-label h6">(b). Name of the event <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Name" name="event_name" id="event_name" />
                                                     @if ($errors->has('event_name'))
@@ -405,7 +368,8 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(c). Type of event</label>
+                                                    <label class="form-label h6">(c). Type of event <span
+                                                            class="text-danger">*</span></label>
                                                     <br />
                                                     <div class="form-check form-check-inline mr-3">
                                                         <input class="form-check-input" type="radio" name="event_type"
@@ -432,8 +396,17 @@
                                                     @endif
                                                 </div>
 
+                                                <div class="col-md-4 mb-3 d-none other_event_details_div">
+                                                    <label class="form-label h6">Other events details <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" name="other_event_details"
+                                                        id="other_event_details" class="form-control"
+                                                        placeholder="Enter other event details...">
+                                                </div>
+
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d).Type of Participation</label>
+                                                    <label class="form-label h6">(d).Type of Participation <span
+                                                            class="text-danger">*</span></label>
                                                     <br />
                                                     <div class="form-check form-check-inline mr-3">
                                                         <input class="form-check-input" type="radio"
@@ -460,7 +433,8 @@
 
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(e). City of event</label>
+                                                    <label class="form-label h6">(e). City of event <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="City" name="event_city" id="event_city" />
                                                     @if ($errors->has('event_city'))
@@ -470,7 +444,8 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(f). Country</label>
+                                                    <label class="form-label h6">(f). Country <span
+                                                            class="text-danger">*</span></label>
                                                     <select name="event_country" id="event_country" class="form-control">
                                                         <option value="">Select a country</option>
                                                         @foreach (getCountry() as $item)
@@ -535,7 +510,8 @@
                                             {{-- Travel details div --}}
                                             <div class="row col-md-12 travel_details_div d-none">
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Travel Destination Type</label>
+                                                    <label class="form-label h6">(a). Travel Destination Type <span
+                                                            class="text-danger">*</span></label>
                                                     <br />
                                                     <select name="travel_destination_type" id="travel_destination_type"
                                                         class="form-control">
@@ -544,54 +520,56 @@
                                                         <option value="2">Outside India</option>
                                                     </select>
                                                     <br />
-                                                    @if ($errors->has('mode_of_travel'))
+                                                    @if ($errors->has('travel_destination_type'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('mode_of_travel') }}.</strong>
+                                                            <strong>{{ $errors->first('travel_destination_type') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
 
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Upload Visa Invitation Letter <span
+                                                    <label class="form-label h6">(b). Upload Visa Invitation Letter <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="file" name="visa_invitation_letter"
-                                                        id="visa_invitation_letter" class="form-control">
+                                                    <input type="file" name="file_visa_invitation_letter"
+                                                        id="file_visa_invitation_letter" class="form-control">
+                                                    @if ($errors->has('visa_invitation_letter'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('visa_invitation_letter') }}.</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Name of the Traveller <span
+                                                    <label class="form-label h6">(c). Name of the Traveller <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="text" name="traveller_name" id="tarveller_name"
+                                                    <input type="text" name="traveller_name" id="traveller_name"
                                                         class="form-control">
+                                                    @if ($errors->has('traveller_name'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('traveller_name') }}.</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Designation <span
+                                                    <label class="form-label h6">(d). Designation <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="text" name="designation" id="designation"
-                                                        class="form-control">
+                                                    <input type="text" name="traveller_designation"
+                                                        id="traveller_designation" class="form-control">
+                                                    @if ($errors->has('traveller_designation'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('traveller_designation') }}.</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
 
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Mode of Travel</label>
+                                                    <label class="form-label h6">(e). Mode of Travel <span
+                                                            class="text-danger">*</span></label>
                                                     <select name="mode_of_travel" id="mode_of_travel"
                                                         class="form-control">
                                                         <option value="">Choose a mode</option>
                                                         <option value="1">Flight</option>
                                                         <option value="2">Train</option>
                                                     </select>
-
-                                                    {{-- <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="mode_of_travel" id="mode_of_travel1" value="Flight">
-                                                        <label class="form-check-label"
-                                                            for="mode_of_travel1">Flight</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="mode_of_travel" id="mode_of_travel2" value="Train">
-                                                        <label class="form-check-label"
-                                                            for="mode_of_travel2">Train</label>
-                                                    </div>
-                                                    <br /> --}}
                                                     @if ($errors->has('mode_of_travel'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('mode_of_travel') }}.</strong>
@@ -600,46 +578,62 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Class of Travel <span
+                                                    <label class="form-label h6">(f). Class of Travel <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="class_of_tarvel" id="class_of_travel"
                                                         class="form-control" readonly>
-                                                </div>
-
-                                                <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Upload ticket <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="file" name="ticket" id="ticket"
-                                                        class="form-control">
-                                                </div>
-
-                                                <div class="col-md-4 mb-1 boarding_pass_div d-none">
-                                                    <label class="form-label h6">Upload boarding pass <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="file" name="boarding_pass" id="boarding_pass"
-                                                        class="form-control">
-                                                </div>
-
-
-                                                <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">Total expense made for travel
-                                                        (Rs)<br /></label>
-                                                    <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Rs" name="total_expense" id="total_expense" />
-                                                    @if ($errors->has('total_expense'))
+                                                    @if ($errors->has('class_of_tarvel'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('total_expense') }}.</strong>
+                                                            <strong>{{ $errors->first('class_of_tarvel') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">Incentive claimed towards travel
-                                                        (Rs)</label>
-                                                    <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Rs" name="incentive2" id="incentive2" />
-                                                    @if ($errors->has('incentive2'))
+
+                                                <div class="col-md-4 mb-1">
+                                                    <label class="form-label h6">(g). Upload ticket <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="file" name="file_ticket" id="file_ticket"
+                                                        class="form-control">
+                                                    @if ($errors->has('file_ticket'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('incentive2') }}.</strong>
+                                                            <strong>{{ $errors->first('file_ticket') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-md-4 mb-1 boarding_pass_div d-none">
+                                                    <label class="form-label h6">(h). Upload boarding pass <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="file" name="file_boarding_pass"
+                                                        id="file_boarding_pass" class="form-control">
+                                                    @if ($errors->has('file_boarding_pass'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('file_boarding_pass') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label h6">(i). Total expense made for travel
+                                                        (Rs) <span class="text-danger">*</span><br /></label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                        placeholder="Rs" name="total_travel_expense"
+                                                        id="total_travel_expense" />
+                                                    @if ($errors->has('total_travel_expense'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('total_travel_expense') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label h6">(j). Incentive claimed towards travel
+                                                        (Rs) <span class="text-danger">*</span></label>
+                                                    <input type="number" class="form-control form-control-sm"
+                                                        placeholder="Rs" name="travel_incentive" id="travel_incentive" />
+                                                    @if ($errors->has('travel_incentive'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('travel_incentive') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -648,7 +642,8 @@
                                             {{-- Stall Details div --}}
                                             <div class="row col-md-12 stall_details_div d-none">
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Name of the Event : </label>
+                                                    <label class="form-label h6">(a). Name of the Event : <span
+                                                            class="text-danger">*</span></label>
                                                     <br />
                                                     <input type="text" name="stall_event_name" id="stall_event_name"
                                                         class="form-control" placeholder="Name of the event">
@@ -659,49 +654,51 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Upload Stall Allotment / Registration
-                                                        Letter : </label>
+                                                    <label class="form-label h6">(b). Upload Stall Allotment / Registration
+                                                        Letter : <span class="text-danger">*</span></label>
                                                     <br />
-                                                    <input type="file" name="stall_allot_letter"
-                                                        id="stall_allot_letter" class="form-control">
-                                                    @if ($errors->has('stall_allot_letter'))
+                                                    <input type="file" name="file_stall_allot_letter"
+                                                        id="file_stall_allot_letter" class="form-control">
+                                                    @if ($errors->has('file_stall_allot_letter'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('stall_allot_letter') }}.</strong>
+                                                            <strong>{{ $errors->first('file_stall_allot_letter') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-1">
-                                                    <label class="form-label h6">Upload Stall Registration payment reciept
-                                                        : </label>
+                                                    <label class="form-label h6">(c). Upload Stall Registration payment
+                                                        reciept
+                                                        : <span class="text-danger">*</span></label>
                                                     <br />
-                                                    <input type="file" name="stall_allot_letter"
-                                                        id="stall_allot_letter" class="form-control">
-                                                    @if ($errors->has('stall_allot_letter'))
+                                                    <input type="file" name="file_stall_pay_recpt"
+                                                        id="file_stall_pay_recpt" class="form-control">
+                                                    @if ($errors->has('file_stall_pay_recpt'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('stall_allot_letter') }}.</strong>
+                                                            <strong>{{ $errors->first('file_stall_pay_recpt') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">Total stall registration cost
-                                                        (Rs)<br /></label>
+                                                    <label class="form-label h6">(d). Total stall registration cost
+                                                        (Rs) <span class="text-danger">*</span><br /></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Rs" name="incentive1" id="incentive1" />
-                                                    @if ($errors->has('incentive1'))
+                                                        placeholder="Rs" name="total_stall_reg_cost"
+                                                        id="total_stall_reg_cost" />
+                                                    @if ($errors->has('total_stall_reg_cost'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('incentive1') }}.</strong>
+                                                            <strong>{{ $errors->first('total_stall_reg_cost') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">Incentive claimed towards Stall
-                                                        registration (Rs)</label>
+                                                    <label class="form-label h6">(e). Incentive claimed towards Stall
+                                                        registration (Rs) <span class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Rs" name="incentive2" id="incentive2" />
-                                                    @if ($errors->has('incentive2'))
+                                                        placeholder="Rs" name="stall_incentive" id="stall_incentive" />
+                                                    @if ($errors->has('stall_incentive'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('incentive2') }}.</strong>
+                                                            <strong>{{ $errors->first('stall_incentive') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -736,38 +733,38 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(a). Upload Tour Dairy :</h6>
+                                                    <h6>(a). Upload Tour Dairy : <span class="text-danger">*</span></h6>
                                                     <input type="file" class="form-control form-control-sm"
-                                                        name="tour_dairy" id="tour_dairy" />
-                                                    @if ($errors->has('iec'))
+                                                        name="file_tour_dairy" id="file_tour_dairy" />
+                                                    @if ($errors->has('file_tour_dairy'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('iec') }}.</strong>
+                                                            <strong>{{ $errors->first('file_tour_dairy') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
 
 
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(b). Details of B2B / B2C meeteing held:</h6>
-                                                    <textarea class="form-control"></textarea>
-                                                    @if ($errors->has('iec'))
+                                                    <h6>(b). Details of B2B / B2C meeteing held: <span
+                                                            class="text-danger">*</span></h6>
+                                                    <textarea class="form-control" name="meeting_detail" id="meeting_detail"></textarea>
+                                                    @if ($errors->has('meeting_detail'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('iec') }}.</strong>
+                                                            <strong>{{ $errors->first('meeting_detail') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
                                                     <h6>(c). Details of Participation of event such as Sale of Products,
-                                                        Business deals made etc:</h6>
-                                                    <textarea class="form-control"></textarea>
-                                                    @if ($errors->has('iec'))
+                                                        Business deals made etc: <span class="text-danger">*</span></h6>
+                                                    <textarea class="form-control" name="participation_det" id="participation_det"></textarea>
+                                                    @if ($errors->has('participation_det'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('iec') }}.</strong>
+                                                            <strong>{{ $errors->first('participation_det') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
-
 
                                             </div>
                                         </div>
@@ -807,13 +804,13 @@
                                                                 time of the claim</label>
                                                         </div>
                                                         <div class="col-md-5">
-                                                            <input class="form-control form-control-sm" type="file"
-                                                                name="file_iec" id="file_iec" />
-                                                            @if ($errors->has('file_iec'))
+                                                            {{-- <input class="form-control form-control-sm" type="file"
+                                                                name="file_iec" id="file_iec" /> --}}
+                                                            {{-- @if ($errors->has('file_iec'))
                                                                 <span class="invalid feedback text-danger"role="alert">
                                                                     <strong>{{ $errors->first('file_iec') }}.</strong>
                                                                 </span>
-                                                            @endif
+                                                            @endif --}}
                                                         </div>
                                                     </div>
                                                 </li>
@@ -943,7 +940,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" id="terms">
+                                        <input class="form-check-input" type="checkbox" value="1" name="terms"
+                                            id="terms">
                                         <label class="form-check-label h6" for="travel_details">
                                             I solemnly declare that all the details given above are accurate,
                                             and I bear
@@ -1002,6 +1000,17 @@
                     $('#class_of_travel').val('2nd AC');
                     $('.boarding_pass_div').addClass('d-none');
                 }
+            })
+
+            // Condition for other event type details.
+            $('#event_type_1').on('click', (e) => {
+                $('.other_event_details_div').addClass('d-none');
+            })
+            $('#event_type_2').on('click', (e) => {
+                $('.other_event_details_div').addClass('d-none');
+            })
+            $('#event_type_3').on('click', (e) => {
+                $('.other_event_details_div').removeClass('d-none');
             })
 
         });
