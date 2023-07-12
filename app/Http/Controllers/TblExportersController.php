@@ -419,9 +419,8 @@ class TblExportersController extends Controller
      */
     public function annexure1(Request $request, $id = null)
     {
-
-        $data['page_title'] = 'Annexure 1';
         $data['scheme']     = Schemes::where('id', $id)->first();
+        $data['page_title'] = $data['scheme']->short_name; //'Annexure 1';
         $exporter           = Auth::guard('exporter')->user();
         $data['data']       = Exporter::where('id', $exporter->id)
             ->with([
@@ -516,8 +515,8 @@ class TblExportersController extends Controller
 
     public function annexure2(Request $request, $id = null)
     {
-        $data['page_title'] = 'Annexure 2';
         $data['scheme']     = Schemes::where('id', $id)->first();
+        $data['page_title'] = $data['page_title'] = $data['scheme']->short_name; //'Annexure 2';
         $exporter           = Auth::guard('exporter')->user();
         $data['data']       = Exporter::where('id', $exporter->id)
             ->with([

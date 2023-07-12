@@ -20,10 +20,10 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Annexure 2
-                <sup class="badge badge-primary fw-500">*</sup>
+                <i class="subheader-icon fal fa-"></i>
+                <sup class="badge badge-primary fw-500"></sup>
             </h1>
-            <div class="subheader-block">Application form for annexure 2</div>
+            <div class="subheader-block">Application form for scheme 2</div>
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -94,8 +94,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-center">
-                                    <p style="font-size: 18px !important"><b>Scheme : </b> <span
+                                    <p style="font-size: 25px !important"><b>Scheme : </b> <span
                                             class="fifty-chars">{{ $scheme->long_name ?? '' }}</span></p>
+                                    <p style="font-size: 15px !important"><b></b> <span class="fifty-chars">Financial
+                                            support for participating in National/International Events </span></p>
                                 </div>
                             </div>
 
@@ -145,7 +147,8 @@
                                                     <h6>3. Name Of Proprietor/Director/CEO</h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter Proprietor/Director/CEO" name="dir_ceo"
-                                                        id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}" readonly />
+                                                        id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}"
+                                                        readonly />
                                                     @if ($errors->has('dir_ceo'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('dir_ceo') }}.</strong>
