@@ -180,7 +180,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 title="Exporters mobile >number">*</span></label>
                                         <input type="number" class="form-control form-control-sm"
                                             placeholder="Mobile number" name="mobile" id="mobile"
-                                            {{-- pattern="[7-9]{1}[0-9]{9}" --}}
                                             onkeypress="return /^[0-9]+$/i.test(event.key)" data-maxlength="10"
                                             oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                             title="Phone number with 7-9 and remaing 9 digit with 0-9" />
@@ -517,21 +516,15 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                         message: 'File size must be less then 5mb.',
                         position: 'topRight',
                     });
-                    $('.sbmt').addClass('disabled');
                 } else {
-                    $('.sbmt').removeClass('disabled');
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'File size allowed.',
+                        position: 'topRight',
+                    });
                 }
             })
 
-            $('#mobile').blur(function(e) {
-                if (validatePhone('phone_number')) {
-                    $('#validation_status').html('Valid');
-                    $('#validation_status').css('color', 'green');
-                } else {
-                    $('#validation_status').html('Invalid');
-                    $('#validation_status').css('color', 'red');
-                }
-            });
 
             $('#mobile').on('blur', (e) => {
                 let mobile = $('#mobile').val();
@@ -556,7 +549,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 message: data.message,
                                 position: 'topRight',
                             });
-                            $('.sbmt').addClass('disabled');
                         } else {
                             form_submit_status = 1
                         }
@@ -611,15 +603,15 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         });
 
 
-        function validatePhone(phone_number) {
-            var a = document.getElementById(phone_number).value;
-            var filter = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-            if (filter.test(a)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        // function validatePhone(phone_number) {
+        //     var a = document.getElementById(phone_number).value;
+        //     var filter = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+        //     if (filter.test(a)) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
     </script>
 </body>
 
