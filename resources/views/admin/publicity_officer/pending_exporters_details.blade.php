@@ -32,9 +32,10 @@
                             <div class="col-md-4">
                                 <h6>1. Type of Exporter</h6>
                                 @php
-                                    $role_name = ['', 'Super Admin', 'Publicity Officer', 'Director of DEPM', 'MSME Department', 'Principal Secretary', 'Exporters, Merchant', 'Exporters, Manufacturer'];
+                                    $role_name = ['', 'Super Admin', 'Publicity Officer', 'Director of DEPM', 'MSME Department', 'Principal Secretary', 'Exporters', 'Exporters'];
+                                    $type = ['', 'Merchant', 'Manufacturer'];
                                 @endphp
-                                <b>{{ $role_name[$data->role_id] ?? '' }}</b>
+                                <b>{{ $role_name[$data->role_id] ?? '' }}, {{ $type[$data->type] ?? '' }}</b>
                             </div>
                             <div class="col-md-4">
                                 <h6>2. Choose Category</h6>
@@ -66,36 +67,44 @@
 
 
                         <div class="mb-4">
-                            <h6>5. Registered Office Address</h6>
-                            <div class="row mb-2">
-                                <div class="col-md-4">
-                                    <label class="form-label">At : </label>
-                                    <b>{{ $data->get_address_details->address ?? '' }}</b>
+                            <h6>5. Address</h6>
+                            @foreach ($data->get_address_details as $key => $item)
+                                <div class="col-md-12 mb-2">
+                                    <div class="col-md-12">
+                                        <b class="" style="margin-left: -15px;">
+                                            {{ $key == 0 ? 'Registered Office Address' : 'Registered Factory Office Address' }}
+                                        </b>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-md-4">
+                                            <label class="form-label">At : </label>
+                                            <b>{{ $item->address ?? '' }}</b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Post : </label>
+                                            <b>{{ $item->post ?? '' }}</b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">City : </label>
+                                            <b>{{ $item->city ?? '' }}</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-label">District : </label>
+                                            <b>{{ $item->get_district_details->name ?? '' }}</b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">PIN : </label>
+                                            <b>{{ $item->pincode ?? '' }}</b>
+                                        </div>
+                                        <div class="col-md-4">
+                                            &nbsp;
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Post : </label>
-                                    <b>{{ $data->get_address_details->post ?? '' }}</b>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">City : </label>
-                                    <b>{{ $data->get_address_details->city ?? '' }}</b>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="form-label">District : </label>
-                                    <b>{{ $data->get_address_details->get_district_details->name ?? '' }}</b>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">PIN : </label>
-                                    <b>{{ $data->get_address_details->pincode ?? '' }}</b>
-                                </div>
-                                <div class="col-md-4">
-                                    &nbsp;
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-
 
                         <div class="mb-4">
                             <h6>6. Name Of the Bank</h6>

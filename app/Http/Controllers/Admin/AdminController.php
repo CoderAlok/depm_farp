@@ -54,7 +54,7 @@ class AdminController extends Controller
     public function pending_exporters(Request $request)
     {
         $data['page_title'] = 'Pending exporters';
-        $data['exporters'] = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->get();
+        $data['exporters'] = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->latest()->get();
         return view('admin.publicity_officer.pending_exporters')->with($data);
     }
 
@@ -108,14 +108,13 @@ class AdminController extends Controller
      */
     public function showExporter(Request $request, $id = null)
     {
-        // $r = getExporterName($id);
-        // dd($r);
         try {
             $exporters          = Exporter::where('id', $id)->with(['get_role_details', 'get_category_details', 'get_address_details.get_district_details', 'get_bank_details', 'get_other_code_details', 'get_remarks_details'])->first();
             $data['data']       = $exporters;
             $data['message']    = 'Exporters data loaded successfully.';
             $data['page_title'] = 'Pending exporter details';
 
+            // dd($exporters->toArray(0));
             // return response($data, 200);
             return view('admin.publicity_officer.pending_exporters_details')->with($data);
         } catch (\Exception $e) {

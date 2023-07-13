@@ -564,7 +564,7 @@
                         <div class="form-group">
                             <label for="edit_username">Username</label>
                             <input type="text" name="edit_username" id="edit_username" class="form-control"
-                                value="" placeholder="Your user name" readonly />
+                                value="" placeholder="Your user name" />
                         </div>
                         {{-- <div class="form-group">
                             <label for="edit_password">Password</label>

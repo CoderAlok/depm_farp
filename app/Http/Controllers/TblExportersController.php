@@ -64,22 +64,22 @@ class TblExportersController extends Controller
                 "category"         => "required|integer",
                 "exporter_name"    => "required|string",
                 "ceo_name"         => "required|string",
-                "mobile"           => "required|digits:10",
+                "mobile"           => "required",
                 "email"            => "required|email|unique:tbl_exporters",
                 "address_at"       => "required|string",
                 "address_post"     => "required|string",
                 "address_city"     => "required|string",
                 "address_district" => "required|numeric",
-                "address_pin"      => "required|numeric|digit:6",
+                "address_pin"      => "required|numeric",
                 "bank_name"        => "required|string",
                 "bank_ac_no"       => "required|numeric",
                 "bank_ifsc_code"   => "required|string",
                 "bank_cheque"      => "required|file|max:4096|mimes:jpeg,jpg,png,pdf",
                 "export_iec"       => "required|string",
-                // "export_rcmc_no"   => "string",
-                // "export_epc"       => "string",
+                "export_rcmc_no"   => "",
+                "export_epc"       => "",
                 "export_urn"       => "required|string",
-                // "export_hsm"       => "string",
+                "export_hsm"       => "",
             ]
             , [
                 "type.required"             => "Please, enter the type",
@@ -99,15 +99,16 @@ class TblExportersController extends Controller
                 "bank_ifsc_code.required"   => "Please, enter the bank_ifsc_code",
                 "bank_cheque.required"      => "Please, enter a bank cheque image",
                 "export_iec.required"       => "Please, enter the export_iec",
-                // "export_rcmc_no"            => "Please, enter the export_epc",
-                // "export_epc"                => "Please, enter the export_epc",
+                "export_rcmc_no"            => "",
+                "export_epc"                => "",
                 "export_urn.required"       => "Please, enter the export_urn",
-                // "export_hsm"                => "Please, enter the export_hsm",
+                "export_hsm"                => "",
             ]
         );
 
         if ($validator->passes()) {
             try {
+
                 $username = explode(' ', $request->exporter_name);
                 $username = strtolower(trim($username[0])) . rand(111111, 999999);
 
@@ -148,6 +149,22 @@ class TblExportersController extends Controller
                     ];
                     $address_id = ExportersAddress::insert($address_data);
                     // dd($address_id);
+
+                    // Only insert when its a manufacturer
+                    if ($request->type == 1) {
+                        $address_data2 = [
+                            'exporter_id' => $exporter_id,
+                            'address'     => $request->address_at2,
+                            'post'        => $request->address_post2,
+                            'city'        => $request->address_city2,
+                            'district'    => $request->address_district2,
+                            'pincode'     => $request->address_pin2,
+                            'status'      => 0,
+                            'created_by'  => $exporter_id,
+                            'created_at'  => Carbon::now(),
+                        ];
+                        $address_id = ExportersAddress::insert($address_data2);
+                    }
 
                     // File uploading
                     $image            = $request->bank_cheque;
@@ -634,7 +651,7 @@ class TblExportersController extends Controller
         $validator = Validator::make($request->all(), [
             'old_pass' => 'required|string',
             'new_pass' => 'required|string',
-            'con_pass' => 'required|string',
+            'con_pass' => 'required|string', //|confirmed',
         ]);
 
         if ($validator->passes()) {
@@ -672,9 +689,10 @@ class TblExportersController extends Controller
                 return back()->with($data);
             }
         } else {
-            $data['data']    = [];
-            $data['message'] = $validator->errors();
-            return response($data, 406);
+            return redirect()->back()->withErrors($validator)->withInput();
+            // $data['data']    = [];
+            // $data['message'] = $validator->errors();
+            // return response($data, 406);
         }
     }
 

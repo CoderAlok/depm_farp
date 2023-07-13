@@ -427,7 +427,7 @@
                                     <tbody>
                                         @if (isset($exporters))
                                             @php
-                                                $type = ['', '', '', '', '', '', 'Merchant', 'Manufacturer'];
+                                                $type = ['Merchant', 'Manufacturer'];
                                                 $reg_status = ['Pending', 'Approved', 'Rejected'];
                                                 $reg_status_color = ['warning', 'success', 'danger'];
                                             @endphp
@@ -438,7 +438,7 @@
                                                         <a href="{{ route('admin.publicity.officer.pending.exporter.details', ['id' => $item->id]) }}"
                                                             class="" target="_blank">{{ $item->app_no ?? '' }}</a>
                                                     </td>
-                                                    <td width="10%">{{ $type[$item->role_id] ?? '' }}</td>
+                                                    <td width="10%">{{ $type[$item->type] ?? '' }}</td>
                                                     <td width="20%">
                                                         <span>
                                                             {{ $item->get_category_details->name ?? '' }}

@@ -33,16 +33,31 @@
                                 <label for="">Old password</label>
                                 <input type="password" class="form-control" name="old_pass" id="old_pass"
                                     placeholder="Enter old password">
+                                @if ($errors->has('old_pass'))
+                                    <span class="invalid feedback text-danger"role="alert">
+                                        <strong>{{ $errors->first('old_pass') }}.</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="">New password</label>
                                 <input type="password" class="form-control" name="new_pass" id="new_pass"
                                     placeholder="Enter new password">
+                                @if ($errors->has('new_pass'))
+                                    <span class="invalid feedback text-danger"role="alert">
+                                        <strong>{{ $errors->first('new_pass') }}.</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="">Confirm new password</label>
                                 <input type="password" class="form-control" name="con_pass" id="con_pass"
                                     placeholder="Confirm new password">
+                                @if ($errors->has('con_pass'))
+                                    <span class="invalid feedback text-danger"role="alert">
+                                        <strong>{{ $errors->first('con_pass') }}.</strong>
+                                    </span>
+                                @endif
                             </div>
 
                             <div class="form-group">

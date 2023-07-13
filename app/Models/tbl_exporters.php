@@ -35,7 +35,7 @@ class tbl_exporters extends Authenticatable
 
     public function get_address_details()
     {
-        return $this->hasOne(ExportersAddress::class, 'exporter_id', 'id');
+        return $this->hasMany(ExportersAddress::class, 'exporter_id', 'id');
     }
 
     public function get_bank_details()

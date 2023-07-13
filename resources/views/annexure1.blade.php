@@ -472,7 +472,7 @@
                                         <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
                                             data-target="#js_demo_accordion-3e" aria-expanded="true">
                                             <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                            Travel/Stall Details
+                                            Travel Details
                                             <span class="ml-auto">
                                                 <span class="collapsed-reveal">
                                                     <i class="fal fa-minus fs-xl"></i>
@@ -496,7 +496,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 mb-1">
+                                                {{-- <div class="col-md-4 mb-1">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value=""
                                                             id="stall_details">
@@ -504,7 +504,7 @@
                                                             Stall Details
                                                         </label>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                             {{-- Travel details div --}}
@@ -527,7 +527,7 @@
                                                     @endif
                                                 </div>
 
-                                                <div class="col-md-4 mb-1">
+                                                <div class="col-md-4 mb-1 d-none upload_visa_div">
                                                     <label class="form-label h6">(b). Upload Visa Invitation Letter <span
                                                             class="text-danger">*</span></label>
                                                     <input type="file" name="file_visa_invitation_letter"
@@ -636,6 +636,53 @@
                                                             <strong>{{ $errors->first('travel_incentive') }}.</strong>
                                                         </span>
                                                     @endif
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Stall details --}}
+                            <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                            data-target="#js_demo_accordion-3e1" aria-expanded="true">
+                                            <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                            Stall Details
+                                            <span class="ml-auto">
+                                                <span class="collapsed-reveal">
+                                                    <i class="fal fa-minus fs-xl"></i>
+                                                </span>
+                                                <span class="collapsed-hidden">
+                                                    <i class="fal fa-plus fs-xl"></i>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div id="js_demo_accordion-3e1" class="collapse show"
+                                        data-parent="#js_demo_accordion-3">
+                                        <div class="card-body">
+                                            <div class="row col-md-12">
+                                                {{-- <div class="col-md-4 mb-1">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="travel_details">
+                                                        <label class="form-check-label h6" for="travel_details">
+                                                            Travel Details
+                                                        </label>
+                                                    </div>
+                                                </div> --}}
+                                                <div class="col-md-4 mb-1">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="stall_details">
+                                                        <label class="form-check-label h6" for="stall_details">
+                                                            Stall Details
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -999,6 +1046,20 @@
                 } else {
                     $('#class_of_travel').val('2nd AC');
                     $('.boarding_pass_div').addClass('d-none');
+                }
+            })
+
+
+
+            // Display Economy if 20 = Flight else 2nd Ac for Train
+            $('#travel_destination_type').on('change', (e) => {
+                let mode = $('select#travel_destination_type option:selected').val();
+                if (mode == 1) {
+                    $('.upload_visa_div').addClass('d-none');
+                } else if (mode == 2) {
+                    $('.upload_visa_div').removeClass('d-none');
+                } else {
+                    $('.upload_visa_div').addClass('d-none');
                 }
             })
 
