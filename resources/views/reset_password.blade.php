@@ -41,21 +41,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="">New password</label>
-                                <input type="password" class="form-control" name="new_pass" id="new_pass"
+                                <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Enter new password">
-                                @if ($errors->has('new_pass'))
+                                @if ($errors->has('password'))
                                     <span class="invalid feedback text-danger"role="alert">
-                                        <strong>{{ $errors->first('new_pass') }}.</strong>
+                                        <strong>{{ $errors->first('password') }}.</strong>
                                     </span>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label for="">Confirm new password</label>
-                                <input type="password" class="form-control" name="con_pass" id="con_pass"
-                                    placeholder="Confirm new password">
-                                @if ($errors->has('con_pass'))
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    id="password_confirmation" placeholder="Confirm new password">
+                                @if ($errors->has('password_confirmation'))
                                     <span class="invalid feedback text-danger"role="alert">
-                                        <strong>{{ $errors->first('con_pass') }}.</strong>
+                                        <strong>{{ $errors->first('password_confirmation') }}.</strong>
                                     </span>
                                 @endif
                             </div>

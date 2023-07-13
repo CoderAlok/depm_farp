@@ -650,8 +650,7 @@ class TblExportersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'old_pass' => 'required|string',
-            'new_pass' => 'required|string',
-            'con_pass' => 'required|string', //|confirmed',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         if ($validator->passes()) {
@@ -660,22 +659,20 @@ class TblExportersController extends Controller
 
             if (Hash::check($request->old_pass, $exporter->password)) {
 
-                $reset = $exporter->where('id', $user->id)->update(['password' => Hash::make($request->new_pass), 'track_status' => 1]);
+                $reset = $exporter->where('id', $user->id)->update(['password' => Hash::make($request->password), 'track_status' => 1]);
                 if ($reset) {
 
                     $data['data']    = $exporter;
                     $data['status']  = 'success';
                     $data['message'] = 'Password changed successfully.';
-                    // return response($data, 200);
-                    // $request->session()->put('sess_data', $data);
+
                     Session::flash('message', 'Your password has been changed successfully.');
-                    // return redirect()->route('welcome')->with($data);
                     return redirect()->route('exporter.home')->with($data);
                 } else {
                     $data['data']    = $exporter;
                     $data['status']  = 'danger';
                     $data['message'] = 'Password didn\'t changed.';
-                    // return response($data, 500);
+
                     $request->session()->put('sess_data', $data);
                     return back();
                 }
