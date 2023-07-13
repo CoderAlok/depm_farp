@@ -242,6 +242,11 @@ return [
         'Otp'                  => App\Models\Otp::class,
         'District'             => App\Models\Districts::class,
         'Schemes'              => App\Models\Schemes::class,
+        'Applications'         => App\Models\tbl_application_details::class,
+        'ApplicationEvents'    => App\Models\tbl_application_event_details::class,
+        'ApplicationTravels'   => App\Models\tbl_application_travel_details::class,
+        'ApplicationStalls'    => App\Models\tbl_application_stall_details::class,
+        'ApplicationFiles'     => App\Models\tbl_application_files_details::class,
     ],
 
 ];

@@ -161,6 +161,31 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label h6">(a).Exporter's Email : <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="email" class="form-control form-control-sm"
+                                                        placeholder="Enter Exporter Email id" name="exptr_email"
+                                                        id="exptr_email" value="{{ $data->email ?? '' }}" readonly />
+                                                    @if ($errors->has('exptr_email'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('exptr_email') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label h6">(b).Contact No. : <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="tel" class="form-control form-control-sm"
+                                                        placeholder="Enter Exporter Contact No." name="exptr_phone"
+                                                        id="exptr_phone" value="{{ $data->phone ?? '' }}" readonly />
+                                                    @if ($errors->has('exptr_phone'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('exptr_phone') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -168,7 +193,7 @@
                             </div>
                             <!-- End Row -->
 
-                            <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                            {{-- <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                 <div class="card">
                                     <div class="card-header">
                                         <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
@@ -217,7 +242,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- End Row -->
 
                             <div class="accordion accordion-outline" id="js_demo_accordion-3">

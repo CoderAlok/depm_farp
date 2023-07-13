@@ -472,8 +472,12 @@
 
 <style>
     .page-sidebar {
-        background: linear-gradient(to top,
+        /* background: linear-gradient(to top,
                 #4ad4c5 0%,
-                #3772ff 100%) !important;
+                #3772ff 100%) !important; */
+
+        background: linear-gradient(to top,
+                #375551 0%,
+                #2a7652 100%) !important;
     }
 </style>

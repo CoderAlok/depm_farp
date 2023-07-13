@@ -535,12 +535,9 @@ class TblExportersController extends Controller
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
-
-                // $data['data']    = [];
-                // $data['message'] = $validator->errors();
-                // return response($data, 406);
             } else {
                 dd($validator->validated());
+                
             }
 
         } catch (\Exception $e) {

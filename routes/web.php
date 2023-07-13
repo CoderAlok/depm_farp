@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SchemesController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\TblExportersController;
@@ -60,7 +61,8 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
         Route::get('/list', [TblExportersController::class, 'application_list'])->name('exporter.application.list');
 
         Route::get('/annexure-1/{id?}', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
-        Route::post('/annexure-1', [TblExportersController::class, 'annexure1_submit'])->name('exporter.application.annexure1.submit');
+        // Route::post('/annexure-1', [TblExportersController::class, 'annexure1_submit'])->name('exporter.application.annexure1.submit');
+        Route::post('/annexure-1', [ApplicationController::class, 'submitApplication'])->name('exporter.application.annexure1.submit');
         Route::get('/annexure-2/{id?}', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
         Route::post('/annexure-2', [TblExportersController::class, 'annexure2_submit'])->name('exporter.application.annexure2.submit');
     });
