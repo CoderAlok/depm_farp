@@ -4,12 +4,14 @@ namespace App\Repositories;
 use App\Interfaces\CustomInterface;
 use App\Models\tbl_exporters;
 use Illuminate\Support\Facades\Crypt;
+use Applications;
 
 class CustomRepository implements CustomInterface
 {
     public function __construct()
     {
         define('APP_CODE', 'EXPREG');
+        define('SCH_CODE', 'EXPAPS');
     }
 
     public function generateExpApp($exist_app_no = '')
@@ -141,5 +143,53 @@ class CustomRepository implements CustomInterface
         }
 
         return strtolower($username . $random);
+    }
+
+    public function generateExpSchAppCode($exist_app_no = '')
+    {
+        $applicaton_no = '';
+        $appInfo       = array('applicaton_no' => '', 'app_count_no' => '');
+        if (!empty($exist_app_no)) {
+            $appnew   = Applications::where('app_no', $exist_app_no)->first();
+            $newCount = (int) $appnew->app_count_no;
+            if ($newCount < 999) {
+                $newCount = $this->getNumApp($newCount + 1);
+            } else {
+                $newCount = $newCount + 1;
+            }
+            $applicaton_no = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . $newCount;
+            $appnew        = Applications::where('app_no', $applicaton_no);
+            if (!$appnew->exists()) {
+                $appInfo['applicaton_no'] = $applicaton_no;
+                $appInfo['app_count_no']  = $newCount;
+                return $appInfo;
+            } else {
+                $this->generateExpApp($applicaton_no);
+            }
+        } else {
+            $app = Applications::orderBy('id', 'desc')->first();
+            if (!empty($app->app_no)) {
+                $newCount = (int) $app->app_count_no;
+                if ($newCount < 999) {
+                    $newCount = $this->getNumApp($newCount + 1);
+                } else {
+                    $newCount = $newCount + 1;
+                }
+                $applicaton_no = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . $newCount;
+                $check         = Applications::where('app_no', $applicaton_no);
+                if ($check->exists()) {
+                    $this->generateExpApp($applicaton_no);
+                } else {
+                    $appInfo['applicaton_no'] = $applicaton_no;
+                    $appInfo['app_count_no']  = $newCount;
+                    return $appInfo;
+                }
+            } else {
+                $applicaton_no            = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . '0001';
+                $appInfo['applicaton_no'] = $applicaton_no;
+                $appInfo['app_count_no']  = '0001';
+                return $appInfo;
+            }
+        }
     }
 }

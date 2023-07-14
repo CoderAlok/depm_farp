@@ -126,6 +126,9 @@
                     <div class="ml-auto d-flex">
                         <!-- app user menu -->
                         <div>
+                            <h4 class="mt-5">Welcome, {{ $data->name ?? '' }}</h4>
+                        </div>
+                        <div>
                             <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com"
                                 class="header-icon d-flex align-items-center justify-content-center ml-2 bg-success">
                                 <i class="fa fa-user rounded-circle profile-image"></i>

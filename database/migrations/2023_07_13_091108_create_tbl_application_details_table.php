@@ -15,6 +15,8 @@ class CreateTblApplicationDetailsTable extends Migration
     {
         Schema::create('tbl_application_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('app_no', 500)->nullable()->unique()->comment('Application number for refferal');
+            $table->string('app_count_no', 500)->nullable()->unique()->comment('Application number count');
             $table->integer('scheme_id')->unsigned()->nullable()->comment('PK of tbl_scheme_master');
             $table->bigInteger('exporter_id')->nullable()->comment('PK of tbl_exporter_table');
             $table->text('meeting_details')->nullable()->default('Details of B2B / B2C meeteing held');
