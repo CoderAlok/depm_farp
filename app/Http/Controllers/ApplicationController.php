@@ -82,7 +82,7 @@ class ApplicationController extends Controller
                         'bank_name'              => 'required',
                         'bank_ac'                => 'required',
                         'bank_ifsc'              => 'required',
-                        'event_detail'           => 'required',
+                        'event_detail'           => '',
                         'event_name'             => 'required',
                         'event_type'             => 'required',
                         'participation_type'     => 'required',
@@ -215,7 +215,7 @@ class ApplicationController extends Controller
                         // Event details will be added
                         $event_data = [
                             'appl_id'            => $appl_id,
-                            'details'            => $request->event_detail,
+                            'details'            => $request->event_detail ?? '',
                             'event_type'         => $request->event_type,
                             'other_event_type'   => $request->other_event_details,
                             'participation_type' => $request->participation_type,
@@ -328,6 +328,29 @@ class ApplicationController extends Controller
 
             // return redirect()->route('exporter.application.list')->with($data);
         }
+    }
+
+    public function pending_exporters_application(Request $request)
+    {
+        $data['page_title']   = 'Pending exporters applications';
+        $data['applications'] = Applications::get();
+        // dd($data['applications']->toArray());
+        return view('admin.publicity_officer.pending_schemes_application')->with($data);
+    }
+
+    public function pending_exporters_application_details(Request $request, $id = null)
+    {
+        $data['page_title']   = 'Pending exporters application details';
+        $data['applications'] = Applications::where('id', $id)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details',
+            'get_file_details',
+        ])->get();
+        dd($data['applications']->toArray());
+        return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 
 }

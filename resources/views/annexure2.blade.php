@@ -18,13 +18,13 @@
     </style>
 
     <main id="js-page-content" role="main" class="page-content">
-        <div class="subheader">
+        {{-- <div class="subheader">
             <h1 class="subheader-title">
                 <i class="subheader-icon fal fa-"></i>
                 <sup class="badge badge-primary fw-500"></sup>
             </h1>
             <div class="subheader-block">Application form for scheme 2</div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
@@ -45,7 +45,6 @@
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        {{-- <form method="POST" class="p-4" action="{{ route('exporter.application.annexure2.submit') }}" --}}
                         <form method="POST" class="p-4" action="{{ route('exporter.application.annexure1.submit') }}"
                             id="annexure2_form" name="annexure2_form" enctype="multipart/form-data">
                             @csrf
@@ -69,12 +68,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-center">
-                                    <p style="font-size: 25px !important"><b>Scheme : </b> <span
-                                            class="fifty-chars">{{ $scheme->long_name ?? '' }}</span></p>
-                                    <p style="font-size: 15px !important"><b></b> <span class="fifty-chars">Financial
-                                            support for participating in National/International Events </span></p>
+                                    <p style="font-size: 25px !important"><b> </b> <span
+                                            class="fifty-chars">{{ $scheme->short_name ?? '' }}</span></p>
                                 </div>
                             </div>
+                            <!-- End Row -->
 
                             <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                 <div class="card">
@@ -93,6 +91,7 @@
                                             </span>
                                         </a>
                                     </div>
+
                                     <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
                                         <div class="card-body">
                                             <div class="row">
@@ -108,8 +107,10 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(b). Name of Exporter <span class="text-danger">*</span></h6>
+                                                    <h6>(b). Name of Exporting Organisation <span
+                                                            class="text-danger">*</span></h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Exporting Orgatization " name="exptr_name"
                                                         id="exptr_name" value="{{ $data->name ?? '' }}" readonly />
@@ -119,6 +120,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
                                                 <div class="col-md-4 mb-3">
                                                     <h6>(c). Name Of Proprietor/Director/CEO <span
                                                             class="text-danger">*</span></h6>
@@ -132,10 +134,14 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
-                                                        (d). Import Export Code (IEC) Certificate: <span
-                                                            class="text-danger">*</span>
+                                                        (d). Upload IEC ( Valid Certificate): <span class="text-danger"
+                                                            title="Upload IEC ( Valid Certificate)">* <i
+                                                                data-toggle="tooltip" data-placement="right"
+                                                                title="Import export code certificate"
+                                                                class="fa fa-info-circle"></i></span>
                                                     </h6>
                                                     <input class="form-control form-control-sm" type="file"
                                                         id="file_iec" name="file_iec" />
@@ -145,34 +151,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Row -->
 
-                            <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                            data-target="#js_demo_accordion-3b" aria-expanded="true">
-                                            <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                            Exporter Contact Details
-                                            <span class="ml-auto">
-                                                <span class="collapsed-reveal">
-                                                    <i class="fal fa-minus fs-xl"></i>
-                                                </span>
-                                                <span class="collapsed-hidden">
-                                                    <i class="fal fa-plus fs-xl"></i>
-                                                </span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div id="js_demo_accordion-3b" class="collapse show"
-                                        data-parent="#js_demo_accordion-3">
-                                        <div class="card-body">
-                                            <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(a). Exporter's Email<span
                                                             class="text-danger">*</span></label>
@@ -238,7 +217,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Details A/c No.<span
+                                                    <label class="form-label h6">(b). Account No.<span
                                                             class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Account No." name="bank_ac" id="bank_ac"
@@ -263,7 +242,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d). Cancelled Cheque. <span
+                                                    <label class="form-label h6">(d). Upload Cancelled Cheque. <span
                                                             class="text-danger"
                                                             title="Image of the respective cancelled cheque.">*</span></label>
                                                     <input class="form-control form-control-sm" name="file_bank_cheque"
@@ -279,6 +258,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- End Row -->
 
                             <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                 <div class="card">
@@ -305,6 +285,7 @@
                                                     <label class="form-label h6">(a). Type of Certificate<span
                                                             class="text-danger">*</span></label> <br>
 
+                                                    {{-- {{ dd($certi_type) }} --}}
                                                     @switch($id)
                                                         @case(7)
                                                             <select name="type_of_certificate" id="type_of_certificate"
@@ -359,7 +340,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d). Cost of Certificate (Rs) (₹):<span
+                                                    <label class="form-label h6">(d). Cost of Certification (Rs) (₹):<span
                                                             class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Certificate Cost" name="certificate_cost"
@@ -386,183 +367,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- /end row -->
-                            {{-- 
-                            <div class="accordion accordion-outline d-none" id="js_demo_accordion-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                            data-target="#js_demo_accordion-3d" aria-expanded="true">
-                                            <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                            Documents Upload
-                                            <span class="ml-auto">
-                                                <span class="collapsed-reveal">
-                                                    <i class="fal fa-minus fs-xl"></i>
-                                                </span>
-                                                <span class="collapsed-hidden">
-                                                    <i class="fal fa-plus fs-xl"></i>
-                                                </span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div id="js_demo_accordion-3d" class="collapse show"
-                                        data-parent="#js_demo_accordion-3">
-                                        <div class="card-body">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Import Export Code
-                                                                (IEC)
-                                                                Certificate</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_iec" name="file_iec" />
-                                                            @if ($errors->has('file_iec'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_iec') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">RCMC</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_rcmc" name="file_rcmc" />
-                                                            @if ($errors->has('file_rcmc'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_rcmc') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Copy of
-                                                                Certificate and Proof
-                                                                of
-                                                                Payment For the certificate</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_payoc" name="file_payoc" />
-                                                            @if ($errors->has('file_payoc'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_payoc') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Copy of Shipping
-                                                                bill/bill of
-                                                                export
-                                                                lading</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_ship_bill"
-                                                                name="file_ship_bill" />
-                                                            @if ($errors->has('file_ship_bill'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_ship_bill') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Copy of
-                                                                certificate of origin
-                                                                of
-                                                                shipment of goods</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_shipment_origin"
-                                                                name="file_shipment_origin" />
-                                                            @if ($errors->has('file_shipment_origin'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_shipment_origin') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Copy of country
-                                                                specific
-                                                                Quality
-                                                                standard certificate with name of issuing authority</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_csqs" name="file_csqs" />
-                                                            @if ($errors->has('file_csqs'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_csqs') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Copy of name of
-                                                                the
-                                                                organization
-                                                                provides technology for upgrdation of product</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_org" name="file_org" />
-                                                            @if ($errors->has('file_org'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_org') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col-md-7">
-                                                            <label for="formFile" class="form-label h6">Proof of payment
-                                                                for the
-                                                                certificate</label>
-                                                        </div>
-                                                        <div class="col-md-5"><input class="form-control form-control-sm"
-                                                                type="file" id="file_popc" name="file_popc" />
-                                                            @if ($errors->has('file_popc'))
-                                                                <span class="invalid feedback text-danger"role="alert">
-                                                                    <strong>{{ $errors->first('file_popc') }}.</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end row --> --}}
+                            <!-- End Row -->
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -589,4 +394,11 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('public/farp1_assets/js/formplugins/select2/select2.bundle.js') }}"></script>
 @endsection

@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use ApplicationEvents;
+use ApplicationFiles;
+use ApplicationStalls;
+use ApplicationTravels;
 use Exporter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,4 +31,25 @@ class tbl_application_details extends Model
     {
         return $this->hasOne(Schemes::class, 'id', 'scheme_id');
     }
+
+    public function get_event_details()
+    {
+        return $this->hasMany(ApplicationEvents::class, 'appl_id', 'id');
+    }
+
+    public function get_travel_details()
+    {
+        return $this->hasMany(ApplicationTravels::class, 'appl_id', 'id');
+    }
+
+    public function get_stall_details()
+    {
+        return $this->hasMany(ApplicationStalls::class, 'appl_id', 'id');
+    }
+
+    public function get_file_details()
+    {
+        return $this->hasMany(ApplicationFiles::class, 'appl_id', 'id');
+    }
+
 }

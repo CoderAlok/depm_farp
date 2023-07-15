@@ -113,6 +113,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'publicity-officer'], function () {
         Route::get('/pending-exporters', [AdminController::class, 'pending_exporters'])->name('admin.publicity.officer.pending.exporters');
         Route::post('/update-pending-exporters-status', [AdminController::class, 'update_pending_exporters_status'])->name('admin.publicity.officer.pending.exporters.status');
+        
+        Route::get('/pending-exporters-application', [ApplicationController::class, 'pending_exporters_application'])->name('admin.publicity.officer.pending.exporters.applications');
+        Route::get('/pending-exporters-application-details/{id}', [ApplicationController::class, 'pending_exporters_application_details'])->name('admin.publicity.officer.pending.exporters.applications.details');
 
         Route::get('/exporter/show/{id}', [AdminController::class, 'showExporter'])->name('admin.publicity.officer.pending.exporter.details');
     });

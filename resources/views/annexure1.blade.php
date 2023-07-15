@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+
     <style>
         .page-logo-text {
             font-size: 20px;
@@ -18,13 +21,13 @@
     </style>
 
     <main id="js-page-content" role="main" class="page-content">
-        <div class="subheader">
+        {{-- <div class="subheader">
             <h1 class="subheader-title">
                 <i class="subheader-icon fal fa-"></i>
                 <sup class="badge badge-primary fw-500"></sup>
             </h1>
             <div class="subheader-block">Application form for scheme 1</div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
@@ -44,9 +47,6 @@
                     </div>
 
                     <div class="container-fluid">
-
-                        {{-- <pre>{{ print_r($errors->toArray()) }}</pre> --}}
-                        {{-- <pre>{{ print_r(Session::all()) }}</pre> --}}
                         <!-- Main content starts here -->
                         <form method="POST" class="p-4" action="{{ route('exporter.application.annexure1.submit') }}"
                             name="annexure1_form" id="annexure1_form" enctype="multipart/form-data">
@@ -71,10 +71,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-center">
-                                    <p style="font-size: 25px !important"><b>Scheme : </b> <span
-                                            class="fifty-chars">{{ $scheme->long_name ?? '' }}</span></p>
-                                    <p style="font-size: 15px !important"><b></b> <span class="fifty-chars">Financial
-                                            support for participating in National/International Events </span></p>
+                                    <p style="font-size: 25px !important">
+                                        <span class="fifty-chars">{{ $scheme->short_name ?? '' }}</span>
+                                    </p>
                                 </div>
                             </div>
 
@@ -103,6 +102,7 @@
                                             </span>
                                         </a>
                                     </div>
+
                                     <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
                                         <div class="card-body">
                                             <div class="row">
@@ -118,6 +118,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
                                                         (b). Name of the Exporting Orgatization: <span
@@ -133,6 +134,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
                                                         (c). Name Of the Proprietor/Director/CEO: <span
@@ -148,10 +150,14 @@
                                                         </span>
                                                     @endif
                                                 </div>
+
                                                 <div class="col-md-4 mb-3">
                                                     <h6>
-                                                        (d). Import Export Code (IEC) Certificate: <span
-                                                            class="text-danger">*</span>
+                                                        (d). Upload IEC ( Valid Certificate): <span class="text-danger"
+                                                            title="Upload IEC ( Valid Certificate)">* <i
+                                                                data-toggle="tooltip" data-placement="right"
+                                                                title="Import export code certificate"
+                                                                class="fa fa-info-circle"></i></span>
                                                     </h6>
                                                     <input class="form-control form-control-sm" type="file"
                                                         id="file_iec" name="file_iec" />
@@ -193,58 +199,6 @@
                             </div>
                             <!-- End Row -->
 
-                            {{-- <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                            data-target="#js_demo_accordion-3b" aria-expanded="true">
-                                            <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                            Exporter Contact Details
-                                            <span class="ml-auto">
-                                                <span class="collapsed-reveal">
-                                                    <i class="fal fa-minus fs-xl"></i>
-                                                </span>
-                                                <span class="collapsed-hidden">
-                                                    <i class="fal fa-plus fs-xl"></i>
-                                                </span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div id="js_demo_accordion-3b" class="collapse show"
-                                        data-parent="#js_demo_accordion-3">
-                                        <div class="card-body">
-                                            <div class="row col-md-12">
-                                                <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(a).Exporter's Email : <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="email" class="form-control form-control-sm"
-                                                        placeholder="Enter Exporter Email id" name="exptr_email"
-                                                        id="exptr_email" value="{{ $data->email ?? '' }}" readonly />
-                                                    @if ($errors->has('exptr_email'))
-                                                        <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('exptr_email') }}.</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b).Contact No. : <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="tel" class="form-control form-control-sm"
-                                                        placeholder="Enter Exporter Contact No." name="exptr_phone"
-                                                        id="exptr_phone" value="{{ $data->phone ?? '' }}" readonly />
-                                                    @if ($errors->has('exptr_phone'))
-                                                        <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('exptr_phone') }}.</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <!-- End Row -->
-
                             <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                 <div class="card">
                                     <div class="card-header">
@@ -279,7 +233,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Details A/c No. : <span
+                                                    <label class="form-label h6">(b). Account No. : <span
                                                             class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
                                                         placeholder="Account No." name="bank_ac" id="bank_ac"
@@ -304,7 +258,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d). Cancelled Cheque. <span
+                                                    <label class="form-label h6">(d). Upload cancelled Cheque. <span
                                                             class="text-danger"
                                                             title="Image of the respective cancelled cheque.">*</span></label>
                                                     <input class="form-control form-control-sm" name="file_bank_cheque"
@@ -342,7 +296,7 @@
                                     <div id="js_demo_accordion-3d" class="collapse show"
                                         data-parent="#js_demo_accordion-3">
                                         <div class="card-body">
-                                            <div class="row col-md-12">
+                                            {{-- <div class="row col-md-12 d-none">
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(a). Details <span
                                                             class="text-danger">*</span></label>
@@ -354,7 +308,6 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                                {{-- Tooltip will be here --}}
                                                 <div class="col-md-8 mt-5">
                                                     <div class="alert alert-success" role="alert">
                                                         <i class="fa fa-info-circle"
@@ -377,42 +330,18 @@
                                                         recognized/ India/State Govt.
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(b). Name of the event <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        placeholder="Name" name="event_name" id="event_name" />
-                                                    @if ($errors->has('event_name'))
-                                                        <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('event_name') }}.</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-
-                                                <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(c). Type of event <span
+                                                    <label class="form-label h6">(a). Type of event <span
                                                             class="text-danger">*</span></label>
                                                     <br />
-                                                    <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio" name="event_type"
-                                                            id="event_type_1" value="1">
-                                                        <label class="form-check-label"
-                                                            for="event_type_1">Exhibition</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio" name="event_type"
-                                                            id="event_type_2" value="2">
-                                                        <label class="form-check-label"
-                                                            for="event_type_2">Conference</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio" name="event_type"
-                                                            id="event_type_3" value="3">
-                                                        <label class="form-check-label" for="event_type_3">Others</label>
-                                                    </div>
+                                                    <select name="event_type" id="event_type" class="form-control">
+                                                        <option value="1">Exhibition</option>
+                                                        <option value="2">Conference</option>
+                                                        <option value="3">Others</option>
+                                                    </select>
                                                     <br />
                                                     @if ($errors->has('event_type'))
                                                         <span class="invalid feedback text-danger"role="alert">
@@ -430,23 +359,27 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d).Type of Participation <span
+                                                    <label class="form-label h6">(b). Name of the event <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        placeholder="Name" name="event_name" id="event_name" />
+                                                    @if ($errors->has('event_name'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('event_name') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label h6">(c).Type of Participation <span
                                                             class="text-danger">*</span></label>
                                                     <br />
-                                                    <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="participation_type" id="participation_type1"
-                                                            value="1">
-                                                        <label class="form-check-label"
-                                                            for="participation_type1">Delegate</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline mr-3">
-                                                        <input class="form-check-input" type="radio"
-                                                            name="participation_type" id="participation_type2"
-                                                            value="2">
-                                                        <label class="form-check-label"
-                                                            for="participation_type2">Exhibit</label>
-                                                    </div>
+
+                                                    <select name="participation_type" id="participation_type"
+                                                        class="form-control">
+                                                        <option value="1">Delegate</option>
+                                                        <option value="2">Exhibit</option>
+                                                    </select>
                                                     <br />
                                                     @if ($errors->has('participation_type'))
                                                         <span class="invalid feedback text-danger"role="alert">
@@ -458,7 +391,7 @@
 
                                             <div class="row col-md-12">
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(e). City of event <span
+                                                    <label class="form-label h6">(d). City of event <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="City" name="event_city" id="event_city" />
@@ -469,15 +402,23 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(f). Country <span
+                                                    <style>
+                                                        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+                                                            background-color: #306752;
+                                                            color: #fff;
+                                                        }
+                                                    </style>
+                                                    <label class="form-label h6">(e). Country <span
                                                             class="text-danger">*</span></label>
                                                     <select name="event_country" id="event_country" class="form-control">
-                                                        <option value="">Select a country</option>
+                                                        {{-- class="select2-placeholder form-control"> --}}
+                                                        {{-- <option value="">Select a country</option> --}}
                                                         @foreach (getCountry() as $key => $item)
                                                             <option value="{{ $key }}">{{ $item }}
                                                             </option>
                                                         @endforeach
                                                     </select>
+
                                                     @if ($errors->has('event_country'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('event_country') }}.</strong>
@@ -627,7 +568,7 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-1 boarding_pass_div d-none">
-                                                    <label class="form-label h6">(h). Upload boarding pass <span
+                                                    <label class="form-label h6">(h). Upload Boarding Pass <span
                                                             class="text-danger">*</span></label>
                                                     <input type="file" name="file_boarding_pass"
                                                         id="file_boarding_pass" class="form-control">
@@ -828,8 +769,12 @@
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <h6>(c). Details of Participation of event such as Sale of Products,
-                                                        Business deals made etc: <span class="text-danger">*</span></h6>
+                                                    <h6>(c). Details of Participation of event: <span class="text-danger"
+                                                            title="Upload IEC ( Valid Certificate)">* <i
+                                                                data-toggle="tooltip" data-placement="right"
+                                                                title="Details of Participation of event such as Sale of Products,
+                                                            Business deals made etc"
+                                                                class="fa fa-info-circle"></i></span></h6>
                                                     <textarea class="form-control" name="participation_det" id="participation_det"></textarea>
                                                     @if ($errors->has('participation_det'))
                                                         <span class="invalid feedback text-danger"role="alert">
@@ -880,6 +825,11 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('public/farp1_assets/js/formplugins/select2/select2.bundle.js') }}"></script>
+
     <script>
         $(document).ready((e) => {
             // To show the travel details form 
@@ -904,15 +854,13 @@
             $('#mode_of_travel').on('change', (e) => {
                 let mode = $('select#mode_of_travel option:selected').val();
                 if (mode == 1) {
-                    $('#class_of_travel').val('Flight');
+                    $('#class_of_travel').val('Economy class');
                     $('.boarding_pass_div').removeClass('d-none');
                 } else {
                     $('#class_of_travel').val('2nd AC');
                     $('.boarding_pass_div').addClass('d-none');
                 }
             })
-
-
 
             // Display Economy if 20 = Flight else 2nd Ac for Train
             $('#travel_destination_type').on('change', (e) => {
@@ -927,16 +875,37 @@
             })
 
             // Condition for other event type details.
-            $('#event_type_1').on('click', (e) => {
-                $('.other_event_details_div').addClass('d-none');
-            })
-            $('#event_type_2').on('click', (e) => {
-                $('.other_event_details_div').addClass('d-none');
-            })
-            $('#event_type_3').on('click', (e) => {
-                $('.other_event_details_div').removeClass('d-none');
-            })
+            // $('#event_type_1').on('click', (e) => {
+            //     $('.other_event_details_div').addClass('d-none');
+            // })
+            // $('#event_type_2').on('click', (e) => {
+            //     $('.other_event_details_div').addClass('d-none');
+            // })
+            // $('#event_type_3').on('click', (e) => {
+            //     $('.other_event_details_div').removeClass('d-none');
+            // })
 
+            $('#event_type').on('change', (e) => {
+                let mode = $('select#event_type option:selected').val();
+                if (mode == 1) {
+                    $('.other_event_details_div').addClass('d-none');
+                } else if (mode == 2) {
+                    $('.other_event_details_div').addClass('d-none');
+                } else {
+                    $('.other_event_details_div').removeClass('d-none');
+                }
+            });
+
+
+            $('[data-toggle="tooltip"]').tooltip()
+
+            $(".select2-placeholder").select2({
+                placeholder: "Select a country",
+                allowClear: true
+            });
         });
+
+        // $(document).ready(function() {
+        // });
     </script>
 @endsection

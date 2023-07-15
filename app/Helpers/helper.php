@@ -8,7 +8,7 @@ function getExporterName($id = null)
 function getCountry()
 {
     return [
-        "",
+        "Select a country",
         "Afghanistan", //"AF" => "Afghanistan",
         "Albania", //"AL" => "Albania",
         "Algeria", //"DZ" => "Algeria",
