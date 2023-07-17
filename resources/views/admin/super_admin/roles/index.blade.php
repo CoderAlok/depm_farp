@@ -442,13 +442,6 @@
                                             </tr>
                                         @endif
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                                 <!-- datatable end -->
                             </div>

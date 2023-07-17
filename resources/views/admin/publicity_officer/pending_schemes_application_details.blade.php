@@ -121,10 +121,12 @@
                                                             data-placement="right" title="Import export code certificate"
                                                             class="fa fa-info-circle"></i></span>
                                                 </h6>
-                                                <a href="javascript:void(0);"
-                                                    onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_file_details->iec_file ?? '')) }}')">
-                                                    <span class="text-warning badge bg-dark p-1">View file</span>
-                                                </a>
+                                                @if ($applications->get_file_details->iec_file)
+                                                    <a href="javascript:void(0);"
+                                                        onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/iec' . '/' . ($applications->get_file_details->iec_file ?? '')) }}')">
+                                                        <span class="text-warning badge bg-dark p-1">View file</span>
+                                                    </a>
+                                                @endif
                                             </div>
 
                                             <div class="col-md-4 mb-3">
@@ -236,9 +238,12 @@
                                                         <label class="form-label h6">(a). Type of event <span
                                                                 class="text-danger">*</span></label>
                                                         <br />
+                                                        @php
+                                                            $event_type = ['', 'Exhibition', 'Conference', 'Others'];
+                                                        @endphp
                                                         <input type="text" name="event_type" id="event_type"
                                                             class="form-control"
-                                                            value="{{ $applications->get_event_details->event_type ?? '' }}"
+                                                            value="{{ $applications->get_event_details->event_type ? $event_type[$applications->get_event_details->event_type] : '' }}"
                                                             readonly />
                                                     </div>
 
@@ -263,8 +268,11 @@
                                                         <label class="form-label h6">(c).Type of Participation <span
                                                                 class="text-danger">*</span></label>
                                                         <br />
+                                                        @php
+                                                            $participation_type = ['', 'Delegate', 'Exhibit'];
+                                                        @endphp
                                                         <input type="text" class="form-control form-control-sm"
-                                                            value="{{ $applications->get_event_details->participation_type ?? '' }}"
+                                                            value="{{ $applications->get_event_details->participation_type ? $participation_type[$applications->get_event_details->participation_type] : '' }}"
                                                             name="participation_type" id="participation_type" readonly />
                                                     </div>
                                                 </div>
@@ -281,8 +289,11 @@
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(e). Country <span
                                                                 class="text-danger">*</span></label>
+                                                        @php
+                                                            $country = getCountry();
+                                                        @endphp
                                                         <input type="text" class="form-control form-control-sm"
-                                                            value="{{ $applications->get_event_details->country_id ?? '' }}"
+                                                            value="{{ $applications->get_event_details->country_id ? $country[$applications->get_event_details->country_id] : '' }}"
                                                             name="event_country" id="event_country" readonly />
                                                     </div>
                                                 </div>
@@ -329,9 +340,12 @@
                                                         <label class="form-label h6">(a). Travel Destination Type <span
                                                                 class="text-danger">*</span></label>
                                                         <br />
+                                                        @php
+                                                            $destination_type = ['', 'Within India', 'Outside India'];
+                                                        @endphp
                                                         <input type="text" name="travel_destination_type"
                                                             id="travel_destination_type" class="form-control"
-                                                            value="{{ $applications->get_travel_details->destination_type ?? "'" }}"
+                                                            value="{{ $applications->get_travel_details->destination_type ? $destination_type[$applications->get_travel_details->destination_type] : '' }}"
                                                             readonly />
                                                     </div>
 
@@ -363,9 +377,12 @@
                                                     <div class="col-md-4 mb-1">
                                                         <label class="form-label h6">(e). Mode of Travel <span
                                                                 class="text-danger">*</span></label>
+                                                        @php
+                                                            $mode_of_travel = ['', 'Flight', 'Train'];
+                                                        @endphp
                                                         <input type="text" name="mode_of_travel" id="mode_of_travel"
                                                             class="form-control"
-                                                            value="{{ $applications->get_travel_details->mode_of_travel ?? '' }}"
+                                                            value="{{ $applications->get_travel_details->mode_of_travel ? $mode_of_travel[$applications->get_travel_details->mode_of_travel] : '' }}"
                                                             readonly />
                                                     </div>
 
@@ -470,7 +487,7 @@
                                                         <br />
                                                         <input type="text" name="stall_event_name" id="stall_event_name"
                                                             class="form-control" placeholder="Name of the event"
-                                                            value="{{ $applications->get_stall_details->event_id ?? '' }}"
+                                                            value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
                                                             readonly>
                                                     </div>
                                                     <div class="col-md-4 mb-1">
@@ -499,7 +516,7 @@
                                                         <input type="number" class="form-control form-control-sm"
                                                             placeholder="Rs" name="total_stall_reg_cost"
                                                             id="total_stall_reg_cost"
-                                                            value="{{ $applications->get_stall_details->event_id ?? '' }}"
+                                                            value="{{ $applications->get_stall_details->total_cost ?? '' }}"
                                                             readonly />
                                                     </div>
                                                     <div class="col-md-4 mb-3">
@@ -507,7 +524,7 @@
                                                             registration (Rs) <span class="text-danger">*</span></label>
                                                         <input type="number" class="form-control form-control-sm"
                                                             placeholder="Rs" name="stall_incentive" id="stall_incentive"
-                                                            value="{{ $applications->get_stall_details->event_id ?? '' }}"
+                                                            value="{{ $applications->get_stall_details->claimed_cost ?? '' }}"
                                                             readonly />
                                                     </div>
                                                 </div>
@@ -634,6 +651,79 @@
                                 <!-- End Certificate Details Row -->
                         @endswitch
 
+                        <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                        data-target="#js_demo_accordion-3a" aria-expanded="true">
+                                        <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                        Scrutiny Offier's Remarks
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-minus fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-plus fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+                                            <form
+                                                action="{{ route('admin.publicity.officer.pending.exporters.applications.details.update', $applications->id) }}"
+                                                class="form-group mb-3" id="status_approval_form"
+                                                name="status_approval_form" method="post">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="">Total Expense of Exporter <span
+                                                                class="text-danger">*</span>
+                                                            <i data-toggle="tooltip" data-placement="right"
+                                                                title="Total expenses of exporters"
+                                                                class="fa fa-info-circle"></i>
+                                                        </label>
+                                                        <input type="text" name="total_expenses"
+                                                            class="form-control amount_field" id="amount_field"
+                                                            value="0.00" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="">Incentive Amount <span
+                                                                class="text-danger">*</span>
+                                                            <i data-toggle="tooltip" data-placement="right"
+                                                                title="Incentive amount of exporters"
+                                                                class="fa fa-info-circle"></i>
+                                                        </label>
+                                                        <input type="text" name="incentive_amount"
+                                                            class="form-control amount_field" id="amount_field2"
+                                                            value="0.00" />
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="status">Status</label>
+                                                        <select name="status" id="status" class="form-control">
+                                                            <option value="1">Verified</option>
+                                                            {{-- <option value="2">Seeking Complaince</option> --}}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                        placeholder="Enter your remarks..."></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" class="btn btn-primary text-uppercase"
+                                                        value="Forward to Director, DEPM">
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {{-- Main content end here --}}
                     </div>
                 </div>
@@ -645,14 +735,41 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     @routes
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('public/farp1_assets/js/formplugins/select2/select2.bundle.js') }}"></script>
+    <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".amount_field, amount_field2").keyup(function() {
+                convertToINRFormat($(this).val(), $(this));
+            });
+            convertToINRFormat($("#amount_field").val(), $("#amount_field"));
+            convertToINRFormat($("#amount_field2").val(), $("#amount_field2"));
+        });
+
+        function convertToINRFormat(value, inputField) {
+            var number = Number(value.replace(/,/g, ""));
+            // India uses thousands/lakh/crore separators
+            $('#result').html(number.toLocaleString('en-IN'));
+
+            $('#result1').html(number.toLocaleString('en-IN', {
+                maximumFractionDigits: 2,
+                style: 'currency',
+                currency: 'INR'
+            }));
+
+            $(inputField).val(number.toLocaleString('en-IN'));
+        }
+    </script>
     <script defer>
         function view_file(url) {
             Swal.fire({
                 title: '<strong>Cancelled Cheque</strong>',
                 icon: 'info',
-                html: '<embed src="{{ asset('public/storage/images/exporters/' . ($applications->get_bank_details->cheque_img ?? '')) }}" width="100%" height="800px" />',
+                html: '<embed src="' + url + '" width="100%" height="800px" />',
                 width: 1200,
                 imageWidth: 1200,
                 imageHeight: 800,
@@ -678,6 +795,8 @@
                     $('#remarks').removeClass('d-none');
                 }
             });
+
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 @endsection

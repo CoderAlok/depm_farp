@@ -438,7 +438,7 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
+                                    {{-- <tfoot>
                                         <th>ID</th>
                                         <th>Role</th>
                                         <th>Username</th>
@@ -446,7 +446,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Action</th>
-                                    </tfoot>
+                                    </tfoot> --}}
                                 </table>
                                 <!-- datatable end -->
                             </div>

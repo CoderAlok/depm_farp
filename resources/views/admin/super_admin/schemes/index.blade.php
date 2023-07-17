@@ -453,14 +453,14 @@
                                             </tr>
                                         @endif
                                     </tbody>
-                                    <tfoot>
+                                    {{-- <tfoot>
                                         <th>ID</th>
                                         <th>Short name</th>
                                         <th>Long name</th>
                                         <th>Logo</th>
                                         <th>Amount</th>
                                         <th>Action</th>
-                                    </tfoot>
+                                    </tfoot> --}}
                                 </table>
                                 <!-- datatable end -->
                             </div>

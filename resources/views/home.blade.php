@@ -32,11 +32,11 @@
                         <div class="col p-4">
                             <div class="w-100">
 
-                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Please choose your Application</h1>
-                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm d-none"><i
                                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                                </div>
+                                </div> --}}
 
                                 {{-- <div class="row app-list-cards">
                                     @foreach ($schemes as $key => $item)

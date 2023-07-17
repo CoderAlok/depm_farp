@@ -362,7 +362,7 @@ class ApplicationController extends Controller
             'get_scheme_details',
             'get_event_details',
             'get_travel_details',
-            'get_stall_details',
+            'get_stall_details.get_event_details',
             'get_file_details',
             'get_address_details',
             'get_other_code_details',
@@ -380,7 +380,7 @@ class ApplicationController extends Controller
             'get_scheme_details',
             'get_event_details',
             'get_travel_details',
-            'get_stall_details',
+            'get_stall_details.get_event_details',
             'get_file_details',
             'get_address_details',
             'get_other_code_details',
@@ -388,6 +388,17 @@ class ApplicationController extends Controller
         ])->first();
         // dd($data['applications']->toArray());
         return view('application_status_details')->with($data);
+    }
+    
+    /**
+     * Method exporters_application_status_details_update
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function exporters_application_status_details_update(Request $request, $id = null)
+    {
+        dd([$request->all(), $id]);
     }
 
 }

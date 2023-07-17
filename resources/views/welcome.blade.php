@@ -60,7 +60,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                 <div class="container">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link text-white" href="#">Govt. of Odisha</a>
+                            <a class="nav-link text-white" href="https://odisha.gov.in/" target="_blank">Govt. of Odisha</a>
                         </li>
                     </ul>
                     <ul class="nav ml-auto">
@@ -84,13 +84,14 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp"
                                 aria-roledescription="logo" width="60">
                             <div class="mr-1 text-dark">
-                                <div class="page-logo-text">Micro, Small & Medium Enterprise Department</div>
+                                {{-- <div class="page-logo-text">Micro, Small & Medium Enterprise Department</div> --}}
+                                <div class="page-logo-text text-uppercase">Directorate of Export Promotion & Marketing</div>
                                 <div class="page-logo-text-small mr-1">Government of Odisha</div>
                             </div>
                         </a>
                     </div>
                     <a href="{{ route('exporter.register') }}"
-                        class="btn btn-sm bg-clr-1 text-white ml-auto">Register</a>
+                        class="btn btn-sm bg-clr-1 text-white ml-auto">Register as Exporter</a>
                 </div>
             </nav>
 
@@ -101,7 +102,8 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 
                         <div class="col col-md-6 col-lg-7 hidden-sm-down">
                             <h3 class="fs-xxl fw-500 mt-4 text-white mb-5">
-                                FARP : Financial Assistance Reimbursement Portal<br>
+                                {{-- FARP : Financial Assistance Reimbursement Portal<br> --}}
+                                EIRP : Exporter's Incentive Reimbursement Portal<br>
                                 <small class="h6 fw-300 mt-3 mb-5 text-white">Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -109,12 +111,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             </h3>
 
                             <div class="d-flex justify-content-start">
-                                <a href="#" class="btn bg-clr-1 text-white fs-lg fw-500 text-white mr-1">MSME</a>
-                                <a href="#" class="btn btn-danger fs-lg fw-500 text-white mx-1">DEPM</a>
-                                <a href="#" class="btn bg-clr-2 fs-lg fw-500 text-white mx-1">FARP</a>
+                                <a href="https://msme.odisha.gov.in/" target="_blank" class="btn bg-clr-1 text-white fs-lg fw-500 text-white mr-1">MSME Department</a>
+                                <a href="https://depmodisha.nic.in/website/index.htm" target="_blank" class="btn btn-danger fs-lg fw-500 text-white mx-1">Directorate of Export Promotion & Marketing</a>
+                                {{-- <a href="#" class="btn bg-clr-2 fs-lg fw-500 text-white mx-1">FARP</a> --}}
                             </div>
 
-                            <div
+                            {{-- <div
                                 class="d-sm-flex flex-column align-items-center justify-content-center d-md-block mb-3">
                                 <div class="px-0 py-1 mt-5 text-white fs-nano opacity-50">Find us on social media</div>
                                 <div class="d-flex flex-row opacity-70 login-socials">
@@ -131,7 +133,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                         <i class="fa fa-linkedin"></i>
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto">
@@ -140,6 +142,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                 @if (Session::has('message'))
                                     <p class="alert alert-warning">{{ Session::get('message') }}</p>
                                 @endif
+
+                                <h3 class="fs-xxl fw-500 mt-1 text-dark mb-3 text-center">                                
+                                    EIRP LOGIN
+                                </h3>
+                                {{-- <span class="text-center text-uppercase m-3">EIRP Login</span> --}}
 
                                 <ul class="nav nav-pills justify-content-center" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" data-toggle="tab"
@@ -199,7 +206,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 </div> --}}
                                                 <div class="col-lg-12 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
-                                                        class="btn btn-success btn-block btn-sm">{{ __('Login in') }}</button>
+                                                        class="btn btn-success btn-block btn-sm">{{ __('Click to Login') }}</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -213,7 +220,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                             <div class="form-group">
                                                 <label class="form-label" for="username">Username</label>
                                                 <input type="text" id="username" name="username"
-                                                    class="form-control" placeholder="your id or username"
+                                                    class="form-control" placeholder="your username"
                                                     value="" required>
                                                 <div class="invalid-feedback">No, you missedd this one.</div>
                                             </div>

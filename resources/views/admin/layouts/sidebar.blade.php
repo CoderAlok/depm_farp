@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li
-                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
+                        class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>

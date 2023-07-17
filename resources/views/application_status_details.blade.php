@@ -210,6 +210,7 @@
                         </div>
                         <!-- End Bank Details Row -->
 
+                        <!-- Start Condition for Travel and Stall Details Row -->
                         @switch($applications->scheme_id)
                             @case(1)
                                 <div class="accordion accordion-outline" id="js_demo_accordion-3">
@@ -633,6 +634,7 @@
                                 </div>
                                 <!-- End Certificate Details Row -->
                         @endswitch
+                        <!-- End Condition for Travel and Stall Details Row -->
 
                         {{-- Main content end here --}}
                     </div>
