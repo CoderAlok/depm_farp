@@ -1,10 +1,10 @@
 <?php
 namespace App\Repositories;
 
+use Applications;
 use App\Interfaces\CustomInterface;
 use App\Models\tbl_exporters;
 use Illuminate\Support\Facades\Crypt;
-use Applications;
 
 class CustomRepository implements CustomInterface
 {
@@ -191,5 +191,10 @@ class CustomRepository implements CustomInterface
                 return $appInfo;
             }
         }
+    }
+
+    public function getApplicationId($exporter_id)
+    {
+        return Applications::select('id')->where('exporter_id', $exporter_id)->first()->id;
     }
 }

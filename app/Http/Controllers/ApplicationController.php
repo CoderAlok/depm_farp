@@ -372,4 +372,22 @@ class ApplicationController extends Controller
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 
+    public function exporters_application_status_details(Request $request, $id = null)
+    {
+        $data['page_title']   = 'Pending exporters application details';
+        $data['applications'] = Applications::where('id', $id)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details',
+            'get_file_details',
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+        ])->first();
+        // dd($data['applications']->toArray());
+        return view('application_status_details')->with($data);
+    }
+
 }

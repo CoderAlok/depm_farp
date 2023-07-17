@@ -63,9 +63,10 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
         Route::get('/annexure-1/{id?}', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
         Route::get('/annexure-2/{id?}', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
         Route::post('/annexure-1', [ApplicationController::class, 'submitApplication'])->name('exporter.application.annexure1.submit');
-        
+
         // Route::post('/annexure-1', [TblExportersController::class, 'annexure1_submit'])->name('exporter.application.annexure1.submit');
         // Route::post('/annexure-2', [TblExportersController::class, 'annexure2_submit'])->name('exporter.application.annexure2.submit');
+        Route::get('/pending-exporters-application-details/{id}', [ApplicationController::class, 'exporters_application_status_details'])->name('exporter.application.details');
     });
 
     Route::group([], function () {
@@ -113,7 +114,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'publicity-officer'], function () {
         Route::get('/pending-exporters', [AdminController::class, 'pending_exporters'])->name('admin.publicity.officer.pending.exporters');
         Route::post('/update-pending-exporters-status', [AdminController::class, 'update_pending_exporters_status'])->name('admin.publicity.officer.pending.exporters.status');
-        
+
         Route::get('/pending-exporters-application', [ApplicationController::class, 'pending_exporters_application'])->name('admin.publicity.officer.pending.exporters.applications');
         Route::get('/pending-exporters-application-details/{id}', [ApplicationController::class, 'pending_exporters_application_details'])->name('admin.publicity.officer.pending.exporters.applications.details');
 
