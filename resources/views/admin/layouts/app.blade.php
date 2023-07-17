@@ -51,11 +51,59 @@
 
     <style>
         .page-sidebar {
-            background: linear-gradient(to top,
-                    #4ad4c5 0%,
-                    #3772ff 100%) !important;
+            @switch(Auth::user()->role_id)
+                @case(1)
+                background: linear-gradient(to top,
+                #4ad4c5 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @case(2)
+                background: linear-gradient(to top,
+                #996655 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @case(3)
+                background: linear-gradient(to top,
+                #996655 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @case(4)
+                background: linear-gradient(to top,
+                #996655 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @case(5)
+                background: linear-gradient(to top,
+                #996655 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @case(7)
+                background: linear-gradient(to top,
+                #996655 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @case(10)
+                background: linear-gradient(to top,
+                #996655 0%,
+                #3772ff 100%) !important;
+                @break
+
+                @default
+                background: linear-gradient(to top,
+                #4ad4c5 0%,
+                #3772ff 100%) !important;
+                @break
+            @endswitch
         }
     </style>
+
+
 
 
 </head>
