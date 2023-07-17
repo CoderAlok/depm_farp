@@ -25,7 +25,7 @@
 <!-- END Page Footer -->
 <!-- BEGIN Shortcuts -->
 <!-- modal shortcut -->
-<div class="modal fade modal-backdrop-transparent" id="modal-shortcut" tabindex="-1" role="dialog"
+{{-- <div class="modal fade modal-backdrop-transparent" id="modal-shortcut" tabindex="-1" role="dialog"
     aria-labelledby="modal-shortcut" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top modal-transparent" role="document">
         <div class="modal-content">
@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- END Shortcuts -->
 </div>
 </div>
@@ -78,7 +78,7 @@
 <!-- END Page Wrapper -->
 <!-- BEGIN Quick Menu -->
 <!-- to add more items, please make sure to change the variable '$menu-items: number;' in your _page-components-shortcut.scss -->
-<nav class="shortcut-menu d-none d-sm-block">
+{{-- <nav class="shortcut-menu d-none d-sm-block">
     <input type="checkbox" class="menu-open" name="menu-open" id="menu_open" />
     <label for="menu_open" class="menu-open-button">
         <span class="app-shortcut-icon d-block"></span>
@@ -101,7 +101,7 @@
         title="Voice command">
         <i class="fal fa-microphone"></i>
     </a>
-</nav>
+</nav> --}}
 <!-- END Quick Menu -->
 
 <!-- BEGIN Page Settings -->

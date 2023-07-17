@@ -433,20 +433,20 @@
                                                 <tr>
                                                     <td width="5%">{{ ++$key }}</td>
                                                     <td width="10%">
-                                                        <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item->id]) }}"
-                                                            class="" target="_blank">{{ $item->app_no ?? '' }}</a>
+                                                        <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
+                                                            class="" target="_blank">{{ $item['app_no'] ?? '' }}</a>
                                                     </td>
                                                     <td width="10%">
-                                                        <span>{{ $item->scheme_id ?? '' }}</span>
+                                                        <span>{{ $item['scheme'] ?? '' }}</span>
                                                     </td>
                                                     <td width="10%">
-                                                        <span>{{ $item->get_exporter_details->name ?? '' }}</span>
+                                                        <span>{{ $item['name'] ?? '' }}</span>
                                                     </td>
                                                     <td width="10%">
-                                                        <span>{{ $item->get_exporter_details->phone ?? '' }}</span>
+                                                        <span>{{ $item['contact_no'] ?? '' }}</span>
                                                     </td>
                                                     <td width="10%">
-                                                        <span>{{ $item->app_no ?? '' }}</span>
+                                                        <span>{{ $item['claimed_amt'] ?? '' }}</span>
                                                     </td>
 
                                                     <td width="10%">
@@ -457,7 +457,7 @@
                                                         </a> --}}
 
                                                         <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
-                                                            href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item->id]) }}">
+                                                            href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
                                                             <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                         </a>
                                                     </td>

@@ -7,6 +7,9 @@ use ApplicationFiles;
 use ApplicationStalls;
 use ApplicationTravels;
 use Exporter;
+use ExportersAddress;
+use ExportersBankDetails;
+use ExportersOtherCodes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,22 +37,37 @@ class tbl_application_details extends Model
 
     public function get_event_details()
     {
-        return $this->hasMany(ApplicationEvents::class, 'appl_id', 'id');
+        return $this->hasOne(ApplicationEvents::class, 'appl_id', 'id');
     }
 
     public function get_travel_details()
     {
-        return $this->hasMany(ApplicationTravels::class, 'appl_id', 'id');
+        return $this->hasOne(ApplicationTravels::class, 'appl_id', 'id');
     }
 
     public function get_stall_details()
     {
-        return $this->hasMany(ApplicationStalls::class, 'appl_id', 'id');
+        return $this->hasOne(ApplicationStalls::class, 'appl_id', 'id');
     }
 
     public function get_file_details()
     {
-        return $this->hasMany(ApplicationFiles::class, 'appl_id', 'id');
+        return $this->hasOne(ApplicationFiles::class, 'appl_id', 'id');
+    }
+
+    public function get_address_details()
+    {
+        return $this->hasOne(ExportersAddress::class, 'exporter_id', 'exporter_id');
+    }
+
+    public function get_other_code_details()
+    {
+        return $this->hasOne(ExportersOtherCodes::class, 'exporter_id', 'exporter_id');
+    }
+
+    public function get_bank_details()
+    {
+        return $this->hasOne(ExportersBankDetails::class, 'exporter_id', 'exporter_id');
     }
 
 }

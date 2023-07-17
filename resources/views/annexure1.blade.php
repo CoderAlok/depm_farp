@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-
     <style>
         .page-logo-text {
             font-size: 20px;
@@ -825,6 +822,7 @@
 @endsection
 
 @section('scripts')
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -902,6 +900,12 @@
             $(".select2-placeholder").select2({
                 placeholder: "Select a country",
                 allowClear: true
+            });
+
+            iziToast.success({
+                title: 'Success',
+                message: '{{ Session::get('message') }}',
+                position: 'topRight'
             });
         });
 

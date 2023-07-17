@@ -155,14 +155,16 @@ class ApplicationController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             } else {
+                // dd($request->all());
 
                 $user_id        = Auth::guard('exporter')->user()->id;
                 $application_no = $this->app->generateExpSchAppCode();
 
                 if ($request->scheme_id != 1) {
+                    //    dd([$request->all(), '!1']);
                     // Payment reciept upload
                     $payment_reciept_image     = $request->file_payment_reciept;
-                    $payment_reciept_file_name = sha1($payment_reciept_image . uniqid('', true)) . $payment_reciept_image->getClientOriginalName();
+                    $payment_reciept_file_name = 'PAYREC' . substr(sha1($payment_reciept_image . uniqid('', true)), 20, 5) . date('my') . $payment_reciept_image->getClientOriginalName();
                     $payment_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $payment_reciept_file_name);
 
                     $appl_data = [
@@ -180,6 +182,7 @@ class ApplicationController extends Controller
                         'created_at'                 => Carbon::now(),
                     ];
                 } else {
+                    // dd([$request->all(), '1']);
                     $appl_data = [
                         'app_no'                => $application_no['applicaton_no'],
                         'app_count_no'          => $application_no['app_count_no'],
@@ -194,23 +197,24 @@ class ApplicationController extends Controller
                 }
 
                 $appl_id = Applications::insertGetId($appl_data);
+                // dd([$appl_id, $appl_data, $request->all()]);
 
                 if ($appl_id) {
                     // IEC certificate upload
                     $iec_image     = $request->file_iec;
-                    $iec_file_name = sha1($iec_image . uniqid('', true)) . $iec_image->getClientOriginalName();
-                    $iec_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $iec_file_name);
+                    $iec_file_name = 'IEC_' . substr(sha1($iec_image . uniqid('', true)), 20, 5) . date('my') . $iec_image->getClientOriginalName();
+                    $iec_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'iec/', $iec_file_name);
 
                     // Bank cheque upload
                     $bank_cheque_image     = $request->file_bank_cheque;
-                    $bank_cheque_file_name = sha1($bank_cheque_image . uniqid('', true)) . $bank_cheque_image->getClientOriginalName();
-                    $bank_cheque_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $bank_cheque_file_name);
+                    $bank_cheque_file_name = 'BANK_CHEQUE_' . substr(sha1($bank_cheque_image . uniqid('', true)), 20, 5) . date('my') . $bank_cheque_image->getClientOriginalName();
+                    $bank_cheque_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'bank/', $bank_cheque_file_name);
 
                     if ($request->scheme_id == 1) {
                         // Tour Dairy upload
                         $tour_dairy_image     = $request->file_tour_dairy;
-                        $tour_dairy_file_name = sha1($tour_dairy_image . uniqid('', true)) . $tour_dairy_image->getClientOriginalName();
-                        $tour_dairy_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $tour_dairy_file_name);
+                        $tour_dairy_file_name = 'TOUR_DAIRY_' . substr(sha1($tour_dairy_image . uniqid('', true)), 20, 5) . date('my') . $tour_dairy_image->getClientOriginalName();
+                        $tour_dairy_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'tour_dairy/', $tour_dairy_file_name);
 
                         // Event details will be added
                         $event_data = [
@@ -231,18 +235,18 @@ class ApplicationController extends Controller
                     if ($request->travel_details == 1) {
                         // Visa upload
                         $visa_image     = $request->file_visa_invitation_letter;
-                        $visa_file_name = sha1($visa_image . uniqid('', true)) . $visa_image->getClientOriginalName();
-                        $visa_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $visa_file_name);
+                        $visa_file_name = 'VISA_' . substr(sha1($visa_image . uniqid('', true)), 20, 5) . date('my') . $visa_image->getClientOriginalName();
+                        $visa_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'visa_image/', $visa_file_name);
 
                         // Ticket upload
                         $ticket_image     = $request->file_ticket;
-                        $ticket_file_name = sha1($ticket_image . uniqid('', true)) . $ticket_image->getClientOriginalName();
-                        $ticket_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $ticket_file_name);
+                        $ticket_file_name = 'TICKET_' . substr(sha1($ticket_image . uniqid('', true)), 20, 5) . date('my') . $ticket_image->getClientOriginalName();
+                        $ticket_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'ticket/', $ticket_file_name);
 
                         // Boarding pass upload
                         $boarding_pass_image     = $request->file_boarding_pass;
-                        $boarding_pass_file_name = sha1($boarding_pass_image . uniqid('', true)) . $boarding_pass_image->getClientOriginalName();
-                        $boarding_pass_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $boarding_pass_file_name);
+                        $boarding_pass_file_name = 'BOARDING_PASS_' . substr(sha1($boarding_pass_image . uniqid('', true)), 20, 5) . date('my') . $boarding_pass_image->getClientOriginalName();
+                        $boarding_pass_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'boarding_pass/', $boarding_pass_file_name);
 
                         // Travel details
                         $travel_data = [
@@ -267,13 +271,13 @@ class ApplicationController extends Controller
                     if ($request->stall_details == 1) {
                         // Stall allotment upload
                         $stall_allotment_image     = $request->file_stall_allot_letter;
-                        $stall_allotment_file_name = sha1($stall_allotment_image . uniqid('', true)) . $stall_allotment_image->getClientOriginalName();
-                        $stall_allotment_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $stall_allotment_file_name);
+                        $stall_allotment_file_name = 'STALL_ALLOTMENT_' . substr(sha1($stall_allotment_image . uniqid('', true)), 20, 5) . date('my') . $stall_allotment_image->getClientOriginalName();
+                        $stall_allotment_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_allotment/', $stall_allotment_file_name);
 
                         // Stall registration payment reciept upload
                         $stall_pay_reciept_image     = $request->file_stall_pay_recpt;
-                        $stall_pay_reciept_file_name = sha1($stall_pay_reciept_image . uniqid('', true)) . $stall_pay_reciept_image->getClientOriginalName();
-                        $stall_pay_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $stall_pay_reciept_file_name);
+                        $stall_pay_reciept_file_name = 'STALL_PAY_RECIEPT_' . substr(sha1($stall_pay_reciept_image . uniqid('', true)), 20, 5) . date('my') . $stall_pay_reciept_image->getClientOriginalName();
+                        $stall_pay_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_pay_reciept/', $stall_pay_reciept_file_name);
 
                         // Stall details will be added
                         $stall_data = [
@@ -314,6 +318,7 @@ class ApplicationController extends Controller
                         'file_id'   => $file_id ?? '',
                     ];
                     $data['message'] = 'Application subbmitted successful.';
+                    $request->session()->flash('message', $data['message']);
                     return redirect()->back()->with($data);
                 } else {
                     $data['data']    = [];
@@ -333,8 +338,19 @@ class ApplicationController extends Controller
     public function pending_exporters_application(Request $request)
     {
         $data['page_title']   = 'Pending exporters applications';
-        $data['applications'] = Applications::get();
-        // dd($data['applications']->toArray());
+        $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->get()->map(function ($r) {
+            return [
+                // 'all'         => $r->toArray(),
+                'id'          => $r->id ?? '',
+                'app_no'      => $r->app_no ?? '',
+                'scheme'      => $r->get_scheme_details->short_name ?? '',
+                'name'        => $r->get_exporter_details->name ?? '',
+                'contact_no'  => $r->get_exporter_details->phone ?? '',
+                'claimed_amt' => $r->app_no,
+
+            ];
+        });
+        // dd($data['applications']);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);
     }
 
@@ -348,8 +364,11 @@ class ApplicationController extends Controller
             'get_travel_details',
             'get_stall_details',
             'get_file_details',
-        ])->get();
-        dd($data['applications']->toArray());
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+        ])->first();
+        // dd($data['applications']->toArray());
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 
