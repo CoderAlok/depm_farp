@@ -39,13 +39,15 @@
                     <span class="nav-link-text" data-i18n="nav.theme_settings">Application</span>
                 </a>
             </li>
-            <li class="{{ Route::currentRouteName() === 'exporter.application.details' ? 'active' : '' }}"">
-                <a href="{{ route('exporter.application.details', getApplicationId(Auth::guard('exporter')->user()->id)) }}"
-                    title="Theme Settings" data-filter-tags="theme settings">
-                    <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
-                </a>
-            </li>
+            @if (getApplicationId(Auth::guard('exporter')->user()->id))
+                <li class="{{ Route::currentRouteName() === 'exporter.application.details' ? 'active' : '' }}"">
+                    <a href="{{ route('exporter.application.details', getApplicationId(Auth::guard('exporter')->user()->id)) }}"
+                        title="Theme Settings" data-filter-tags="theme settings">
+                        <i class="fal fa-cog text-white"></i>
+                        <span class="nav-link-text" data-i18n="nav.theme_settings">Application Status</span>
+                    </a>
+                </li>
+            @endif
             <li class="">
                 <a href="{{ '#' }}" title="Theme Settings" data-filter-tags="theme settings">
                     <i class="fal fa-cog text-white"></i>

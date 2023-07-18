@@ -317,7 +317,7 @@ class ApplicationController extends Controller
                         'stall_id'  => $stall_id ?? '',
                         'file_id'   => $file_id ?? '',
                     ];
-                    $data['message'] = 'Application subbmitted successful.';
+                    $data['message'] = 'Application submission successful.';
                     $request->session()->flash('message', $data['message']);
                     return redirect()->back()->with($data);
                 } else {

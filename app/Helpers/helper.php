@@ -278,5 +278,5 @@ function getCountry()
 
 function getApplicationId($exporter_id)
 {
-    return \App\Models\tbl_application_details::select('id')->where('exporter_id', $exporter_id)->first()->id;
+    return \App\Models\tbl_application_details::select('id')->where('exporter_id', $exporter_id)->first()->id ?? '';
 }

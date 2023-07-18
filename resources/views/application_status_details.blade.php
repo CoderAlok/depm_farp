@@ -122,7 +122,7 @@
                                                             class="fa fa-info-circle"></i></span>
                                                 </h6>
                                                 <a href="javascript:void(0);"
-                                                    onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_file_details->iec_file ?? '')) }}')">
+                                                    onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/iec' . '/' . ($applications->get_file_details->iec_file ?? '')) }}')">
                                                     <span class="text-warning badge bg-dark p-1">View file</span>
                                                 </a>
                                             </div>
@@ -199,7 +199,7 @@
                                                         class="text-danger"
                                                         title="Image of the respective cancelled cheque.">*</span></label>
                                                 <a href="javascript:void(0);"
-                                                    onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_bank_details->cheque_img ?? '')) }}')">
+                                                    onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/bank' . '/' . ($applications->get_bank_details->cheque_img ?? '')) }}')">
                                                     <span class="text-warning badge bg-dark p-1">View file</span>
                                                 </a>
                                             </div>
@@ -237,9 +237,12 @@
                                                         <label class="form-label h6">(a). Type of event <span
                                                                 class="text-danger">*</span></label>
                                                         <br />
+                                                        @php
+                                                            $event_type = ['', 'Exhibition', 'Conference', 'Others'];
+                                                        @endphp
                                                         <input type="text" name="event_type" id="event_type"
                                                             class="form-control"
-                                                            value="{{ $applications->get_event_details->event_type ?? '' }}"
+                                                            value="{{ $applications->get_event_details->event_type ? $event_type[$applications->get_event_details->event_type] : '' }}"
                                                             readonly />
                                                     </div>
 
@@ -264,8 +267,11 @@
                                                         <label class="form-label h6">(c).Type of Participation <span
                                                                 class="text-danger">*</span></label>
                                                         <br />
+                                                        @php
+                                                            $participation_type = ['', 'Delegate', 'Exhibit'];
+                                                        @endphp
                                                         <input type="text" class="form-control form-control-sm"
-                                                            value="{{ $applications->get_event_details->participation_type ?? '' }}"
+                                                            value="{{ $applications->get_event_details->participation_type ? $participation_type[$applications->get_event_details->participation_type] : '' }}"
                                                             name="participation_type" id="participation_type" readonly />
                                                     </div>
                                                 </div>
@@ -282,8 +288,11 @@
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(e). Country <span
                                                                 class="text-danger">*</span></label>
+                                                        @php
+                                                            $country = getCountry();
+                                                        @endphp
                                                         <input type="text" class="form-control form-control-sm"
-                                                            value="{{ $applications->get_event_details->country_id ?? '' }}"
+                                                            value="{{ $applications->get_event_details->country_id ? $country[$applications->get_event_details->country_id] : '' }}"
                                                             name="event_country" id="event_country" readonly />
                                                     </div>
                                                 </div>
@@ -330,9 +339,12 @@
                                                         <label class="form-label h6">(a). Travel Destination Type <span
                                                                 class="text-danger">*</span></label>
                                                         <br />
+                                                        @php
+                                                            $destination_type = ['', 'Within India', 'Outside India'];
+                                                        @endphp
                                                         <input type="text" name="travel_destination_type"
                                                             id="travel_destination_type" class="form-control"
-                                                            value="{{ $applications->get_travel_details->destination_type ?? "'" }}"
+                                                            value="{{ $applications->get_travel_details->destination_type ? $destination_type[$applications->get_travel_details->destination_type] : '' }}"
                                                             readonly />
                                                     </div>
 
@@ -340,7 +352,7 @@
                                                         <label class="form-label h6">(b). Upload Visa Invitation Letter <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_visa ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($applications->get_travel_details->file_visa ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -364,9 +376,12 @@
                                                     <div class="col-md-4 mb-1">
                                                         <label class="form-label h6">(e). Mode of Travel <span
                                                                 class="text-danger">*</span></label>
+                                                        @php
+                                                            $mode_of_travel = ['', 'Flight', 'Train'];
+                                                        @endphp
                                                         <input type="text" name="mode_of_travel" id="mode_of_travel"
                                                             class="form-control"
-                                                            value="{{ $applications->get_travel_details->mode_of_travel ?? '' }}"
+                                                            value="{{ $applications->get_travel_details->mode_of_travel ? $mode_of_travel[$applications->get_travel_details->mode_of_travel] : '' }}"
                                                             readonly />
                                                     </div>
 
@@ -383,7 +398,7 @@
                                                         <label class="form-label h6">(g). Upload ticket <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_ticket ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/ticket' . '/' . ($applications->get_travel_details->file_ticket ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -392,7 +407,7 @@
                                                         <label class="form-label h6">(h). Upload Boarding Pass <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_travel_details->file_boarding_pass ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -471,7 +486,7 @@
                                                         <br />
                                                         <input type="text" name="stall_event_name" id="stall_event_name"
                                                             class="form-control" placeholder="Name of the event"
-                                                            value="{{ $applications->get_stall_details->event_id ?? '' }}"
+                                                            value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
                                                             readonly>
                                                     </div>
                                                     <div class="col-md-4 mb-1">
@@ -479,7 +494,7 @@
                                                             Letter : <span class="text-danger">*</span></label>
                                                         <br />
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_allotment' . '/' . ($applications->get_file_details->stall_allot_letter ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -489,7 +504,7 @@
                                                             : <span class="text-danger">*</span></label>
                                                         <br />
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_pay_reciept' . '/' . ($applications->get_file_details->stall_reg_pay_recipt ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -500,7 +515,7 @@
                                                         <input type="number" class="form-control form-control-sm"
                                                             placeholder="Rs" name="total_stall_reg_cost"
                                                             id="total_stall_reg_cost"
-                                                            value="{{ $applications->get_stall_details->event_id ?? '' }}"
+                                                            value="{{ $applications->get_stall_details->total_cost ?? '' }}"
                                                             readonly />
                                                     </div>
                                                     <div class="col-md-4 mb-3">
@@ -508,7 +523,7 @@
                                                             registration (Rs) <span class="text-danger">*</span></label>
                                                         <input type="number" class="form-control form-control-sm"
                                                             placeholder="Rs" name="stall_incentive" id="stall_incentive"
-                                                            value="{{ $applications->get_stall_details->event_id ?? '' }}"
+                                                            value="{{ $applications->get_stall_details->claimed_cost ?? '' }}"
                                                             readonly />
                                                     </div>
                                                 </div>
@@ -542,7 +557,7 @@
                                                     <div class="col-md-12 mb-3">
                                                         <h6>(a). Upload Tour Dairy : <span class="text-danger">*</span></h6>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/tour_dairy' . '/' . ($applications->get_travel_details->file_boarding_pass ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -622,7 +637,7 @@
                                                     <div class="col-md-4 mb-3">
                                                         <h6>(e). Payment Reciept : <span class="text-danger">*</span></h6>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($applications->certi_payment_reciept_file ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/tour_dairy' . '/' . ($applications->certi_payment_reciept_file ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -652,9 +667,9 @@
     <script defer>
         function view_file(url) {
             Swal.fire({
-                title: '<strong>Cancelled Cheque</strong>',
+                title: '<strong>Document</strong>',
                 icon: 'info',
-                html: '<embed src="{{ asset('public/storage/images/exporters/' . ($applications->get_bank_details->cheque_img ?? '')) }}" width="100%" height="800px" />',
+                html: url, //'<embed src="{{ asset('public/storage/images/exporters/' . ($applications->get_bank_details->cheque_img ?? '')) }}" width="100%" height="800px" />',
                 width: 1200,
                 imageWidth: 1200,
                 imageHeight: 800,

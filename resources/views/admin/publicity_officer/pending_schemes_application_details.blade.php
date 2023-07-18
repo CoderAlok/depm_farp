@@ -686,7 +686,7 @@
                                                                 class="fa fa-info-circle"></i>
                                                         </label>
                                                         <input type="text" name="total_expenses"
-                                                            class="form-control amount_field" id="amount_field"
+                                                            class="form-control amount_field" id="total_expenses"
                                                             value="0.00" />
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -697,7 +697,7 @@
                                                                 class="fa fa-info-circle"></i>
                                                         </label>
                                                         <input type="text" name="incentive_amount"
-                                                            class="form-control amount_field" id="amount_field2"
+                                                            class="form-control amount_field" id="incentive_amount"
                                                             value="0.00" />
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -743,11 +743,11 @@
     <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $(".amount_field, amount_field2").keyup(function() {
+            $(".amount_field").keyup(function() {
                 convertToINRFormat($(this).val(), $(this));
             });
-            convertToINRFormat($("#amount_field").val(), $("#amount_field"));
-            convertToINRFormat($("#amount_field2").val(), $("#amount_field2"));
+            convertToINRFormat($("#total_expenses").val(), $("#total_expenses"));
+            convertToINRFormat($("#incentive_amount").val(), $("#incentive_amount"));
         });
 
         function convertToINRFormat(value, inputField) {
