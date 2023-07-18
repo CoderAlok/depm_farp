@@ -158,7 +158,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                        data-target="#js_demo_accordion-3c" aria-expanded="true">
+                                        data-target="#js_demo_accordion-3b" aria-expanded="true">
                                         <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                         Bank Details
                                         <span class="ml-auto">
@@ -171,7 +171,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                <div id="js_demo_accordion-3c" class="collapse show" data-parent="#js_demo_accordion-3">
+                                <div id="js_demo_accordion-3b" class="collapse show" data-parent="#js_demo_accordion-3">
                                     <div class="card-body">
                                         <div class="row col-md-12">
                                             <div class="col-md-4 mb-3">
@@ -218,7 +218,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3d" aria-expanded="true">
+                                                data-target="#js_demo_accordion-3c" aria-expanded="true">
                                                 <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                                 Event Details
                                                 <span class="ml-auto">
@@ -231,7 +231,7 @@
                                                 </span>
                                             </a>
                                         </div>
-                                        <div id="js_demo_accordion-3d" class="collapse show" data-parent="#js_demo_accordion-3">
+                                        <div id="js_demo_accordion-3c" class="collapse show" data-parent="#js_demo_accordion-3">
                                             <div class="card-body">
                                                 <div class="row col-md-12">
                                                     <div class="col-md-4 mb-3">
@@ -307,7 +307,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3e" aria-expanded="true">
+                                                data-target="#js_demo_accordion-3d" aria-expanded="true">
                                                 <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                                 Travel Details
                                                 <span class="ml-auto">
@@ -320,7 +320,7 @@
                                                 </span>
                                             </a>
                                         </div>
-                                        <div id="js_demo_accordion-3e" class="collapse show" data-parent="#js_demo_accordion-3">
+                                        <div id="js_demo_accordion-3d" class="collapse show" data-parent="#js_demo_accordion-3">
                                             <div class="card-body">
                                                 {{-- <div class="row col-md-12">
                                                 <div class="col-md-4 mb-1">
@@ -443,7 +443,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3e1" aria-expanded="true">
+                                                data-target="#js_demo_accordion-3e" aria-expanded="true">
                                                 <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                                 Stall Details
                                                 <span class="ml-auto">
@@ -456,7 +456,7 @@
                                                 </span>
                                             </a>
                                         </div>
-                                        <div id="js_demo_accordion-3e1" class="collapse show" data-parent="#js_demo_accordion-3">
+                                        <div id="js_demo_accordion-3e" class="collapse show" data-parent="#js_demo_accordion-3">
                                             <div class="card-body">
                                                 <div class="row col-md-12">
                                                     {{-- <div class="col-md-4 mb-1">
@@ -581,7 +581,6 @@
                                                         </h6>
                                                         <p>{{ $applications->participation_details ?? '' }}</p>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -595,7 +594,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3f" aria-expanded="true">
+                                                data-target="#js_demo_accordion-3g" aria-expanded="true">
                                                 <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                                 Certificate Details
                                                 <span class="ml-auto">
@@ -608,7 +607,7 @@
                                                 </span>
                                             </a>
                                         </div>
-                                        <div id="js_demo_accordion-3f" class="collapse show" data-parent="#js_demo_accordion-3">
+                                        <div id="js_demo_accordion-3g" class="collapse show" data-parent="#js_demo_accordion-3">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4 mb-3">
@@ -654,7 +653,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                        data-target="#js_demo_accordion-3a" aria-expanded="true">
+                                        data-target="#js_demo_accordion-3h" aria-expanded="true">
                                         <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                         Remarks
                                         <span class="ml-auto">
@@ -668,14 +667,16 @@
                                     </a>
                                 </div>
 
-                                <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
+                                <div id="js_demo_accordion-3h" class="collapse show" data-parent="#js_demo_accordion-3">
                                     <div class="card-body">
                                         <table class="table table-responsive table-bordered">
                                             <thead>
                                                 <th></th>
                                                 <th></th>
                                                 {{-- SO --}}
-                                                <th class="text-center" colspan="3">SO</th>
+                                                @if ($applications->get_application_progress_master_details->created_by == Auth::user()->id)
+                                                    <th class="text-center" colspan="3">SO</th>
+                                                @endif
                                                 {{-- Director --}}
                                                 <th class="text-center" colspan="3">Director</th>
                                                 {{-- AddlSpl --}}
@@ -687,9 +688,11 @@
                                                 <th>Total Expenditure</th>
                                                 <th>Incentive Amount</th>
                                                 {{-- SO --}}
-                                                <th>Remarks By</th>
-                                                <th>Remarks On</th>
-                                                <th>Remarks Details</th>
+                                                @if ($applications->get_application_progress_master_details->created_by == Auth::user()->id)
+                                                    <th>Remarks By</th>
+                                                    <th>Remarks Details</th>
+                                                    <th>Remarks On</th>
+                                                @endif
                                                 {{-- Director --}}
                                                 <th>Remarks By</th>
                                                 <th>Remarks On</th>
@@ -709,9 +712,17 @@
                                                         {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</td>
                                                     <td class="text-right">
                                                         {{ '₹ ' . IND_money_format($incentive_amount) ?? '' }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+
+                                                    {{-- SO --}}
+                                                    @if ($applications->get_application_progress_master_details->created_by == Auth::user()->id)
+                                                        <td>{{ ($applications->get_application_progress_master_details->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details->get_user_details->last_name ?? '') }}
+                                                        </td>
+                                                        <td>{{ $applications->get_application_progress_master_details->remarks ?? '' }}
+                                                        </td>
+                                                        <td>{{ date('d-m-Y', strtotime($applications->get_application_progress_master_details->created_at)) ?? '' }}
+                                                        </td>
+                                                    @endif
+
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
@@ -733,7 +744,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                        data-target="#js_demo_accordion-3a" aria-expanded="true">
+                                        data-target="#js_demo_accordion-3i" aria-expanded="true">
                                         <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
                                         Scrutiny Offier's Remarks
                                         <span class="ml-auto">
@@ -747,11 +758,36 @@
                                     </a>
                                 </div>
 
-                                <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
+                                <div id="js_demo_accordion-3i" class="collapse show" data-parent="#js_demo_accordion-3">
                                     <div class="card-body">
                                         <div class="col-md-12">
-                                            <form
-                                                action="{{ route('admin.publicity.officer.pending.exporters.applications.details.update', $applications->id) }}"
+                                            @php
+                                                switch (Auth::user()->role_id) {
+                                                    case 2:
+                                                        $route_name = 'admin.publicity.officer.pending.exporters.applications.details.update';
+                                                        break;
+                                                
+                                                    case 3:
+                                                        $route_name = 'dir-depm.pending.application.update';
+                                                        break;
+                                                
+                                                    case 4:
+                                                        $route_name = 'spl-sectry.pending.application.update';
+                                                        break;
+                                                
+                                                    case 5:
+                                                        $route_name = 'dept-sectry.pending.application.update';
+                                                        break;
+                                                
+                                                    case 7:
+                                                        $route_name = 'dept-sectry.pending.application.update';
+                                                        break;
+                                                
+                                                    default:
+                                                        break;
+                                                }
+                                            @endphp
+                                            <form action="{{ route($route_name, $applications->id) }}"
                                                 class="form-group mb-3" id="status_approval_form"
                                                 name="status_approval_form" method="post">
                                                 @csrf
@@ -763,9 +799,11 @@
                                                                 title="Total expenses of exporters"
                                                                 class="fa fa-info-circle"></i>
                                                         </label>
-                                                        <input type="text" name="total_expenses"
+                                                        <input type="number" name="total_expenses" class="form-control"
+                                                            id="total_expenses" value="0.00" />
+                                                        {{-- <input type="text" name="total_expenses"
                                                             class="form-control amount_field" id="total_expenses"
-                                                            value="0.00" />
+                                                            value="0.00" /> --}}
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="">Incentive Amount <span
@@ -774,16 +812,52 @@
                                                                 title="Incentive amount of exporters"
                                                                 class="fa fa-info-circle"></i>
                                                         </label>
-                                                        <input type="text" name="incentive_amount"
+                                                        <input type="number" name="incentive_amount"
+                                                            class="form-control" id="incentive_amount" value="0.00" />
+                                                        {{-- <input type="text" name="incentive_amount"
                                                             class="form-control amount_field" id="incentive_amount"
-                                                            value="0.00" />
+                                                            value="0.00" /> --}}
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="status">Status</label>
-                                                        <select name="status" id="status" class="form-control">
-                                                            <option value="1">Verified</option>
-                                                            {{-- <option value="2">Seeking Complaince</option> --}}
-                                                        </select>
+                                                        @switch (Auth::user()->role_id)
+                                                            @case(2)
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="4">Verified</option>
+                                                                </select>
+                                                            @break
+
+                                                            @case(3)
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="1">Verified</option>
+                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
+                                                                </select>
+                                                            @break
+
+                                                            @case(4)
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="1">Verified</option>
+                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
+                                                                </select>
+                                                            @break
+
+                                                            @case(5)
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="1">Verified</option>
+                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
+                                                                </select>
+                                                            @break
+
+                                                            @case(7)
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="1">Verified</option>
+                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
+                                                                </select>
+                                                            @break
+
+                                                            @default
+                                                        @endswitch
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

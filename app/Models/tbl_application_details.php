@@ -4,7 +4,9 @@ namespace App\Models;
 
 use ApplicationEvents;
 use ApplicationFiles;
+use ApplicationProgressMaster;
 use ApplicationStalls;
+use ApplicationStatus;
 use ApplicationTravels;
 use Exporter;
 use ExportersAddress;
@@ -68,6 +70,16 @@ class tbl_application_details extends Model
     public function get_bank_details()
     {
         return $this->hasOne(ExportersBankDetails::class, 'exporter_id', 'exporter_id');
+    }
+
+    public function get_application_status_details()
+    {
+        return $this->hasOne(ApplicationStatus::class, 'id', 'status');
+    }
+
+    public function get_application_progress_master_details()
+    {
+        return $this->hasOne(ApplicationProgressMaster::class, 'appl_id', 'id');
     }
 
 }

@@ -121,4 +121,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
         Route::get('/exporter/show/{id}', [AdminController::class, 'showExporter'])->name('admin.publicity.officer.pending.exporter.details');
     });
+
+    Route::group(['prefix' => 'director-depm'], function () {
+        Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_dir_depm_update'])->name('dir-depm.pending.application.update');
+    });
+
+    Route::group(['prefix' => 'spl-sectry'], function () {
+        Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_spl_sectry_update'])->name('spl-sectry.pending.application.update');
+    });
+
+    Route::group(['prefix' => 'dept-sectry'], function () {
+        Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_dept_sectry_update'])->name('dept-sectry.pending.application.update');
+    });
 });

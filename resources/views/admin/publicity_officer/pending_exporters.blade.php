@@ -415,14 +415,14 @@
                                 <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
                                     <thead>
                                         <th>ID</th>
-                                        <th>Application No</th>
+                                        {{-- <th>Application No</th> --}}
                                         <th>Type</th>
                                         <th>Category</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        {{-- <th>Status</th>
+                                        <th>Action</th> --}}
                                     </thead>
                                     <tbody>
                                         @if (isset($exporters))
@@ -434,10 +434,10 @@
                                             @foreach ($exporters as $key => $item)
                                                 <tr>
                                                     <td width="5%">{{ ++$key }}</td>
-                                                    <td width="10%">
+                                                    {{-- <td width="10%">
                                                         <a href="{{ route('admin.publicity.officer.pending.exporter.details', ['id' => $item->id]) }}"
                                                             class="" target="_blank">{{ $item->app_no ?? '' }}</a>
-                                                    </td>
+                                                    </td> --}}
                                                     <td width="10%">{{ $type[$item->type] ?? '' }}</td>
                                                     <td width="20%">
                                                         <span>
@@ -451,23 +451,23 @@
                                                     </td>
                                                     <td width="20%">{{ $item->email ?? '' }}</td>
                                                     <td width="20%">{{ $item->phone ?? '' }}</td>
-                                                    <td width="20%">
+                                                    {{-- <td width="20%">
                                                         <span
                                                             class="text-white badge bg-{{ $reg_status_color[$item->regsitration_status] }}">{{ $reg_status[$item->regsitration_status] }}
                                                         </span>
-                                                    </td>
-                                                    <td width="10%">
+                                                    </td> --}}
+                                                    {{-- <td width="10%"> --}}
                                                         {{-- <a class="edit-user p-3 btn btn-info view_exporter"
                                                             data-toggle="modal" data-target="#viewmodal"
                                                             data-id="{{ $item->id }}">
                                                             <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                         </a> --}}
 
-                                                        <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                        {{-- <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
                                                             href="{{ route('admin.publicity.officer.pending.exporter.details', ['id' => $item->id]) }}">
                                                             <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                         </a>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         @else
@@ -478,7 +478,7 @@
                                             </tr>
                                         @endif
                                     </tbody>
-                                    <tfoot>
+                                    {{-- <tfoot>
                                         <th>ID</th>
                                         <th>Application No</th>
                                         <th>Type</th>
@@ -488,7 +488,7 @@
                                         <th>Phone</th>
                                         <th>Status</th>
                                         <th>Action</th>
-                                    </tfoot>
+                                    </tfoot> --}}
                                 </table>
                                 <!-- datatable end -->
                             </div>

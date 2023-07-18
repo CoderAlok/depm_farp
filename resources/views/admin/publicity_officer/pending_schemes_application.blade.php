@@ -420,6 +420,7 @@
                                         <th>Exporter name</th>
                                         <th>Contact No</th>
                                         <th>Claimed Amount</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -436,7 +437,7 @@
                                                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
                                                             class="" target="_blank">{{ $item['app_no'] ?? '' }}</a>
                                                     </td>
-                                                    <td width="10%">
+                                                    <td width="3    0%">
                                                         <span>{{ $item['scheme'] ?? '' }}</span>
                                                     </td>
                                                     <td width="10%">
@@ -447,6 +448,11 @@
                                                     </td>
                                                     <td width="10%">
                                                         <span>{{ $item['claimed_amt'] ?? '' }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-warning text-dark">
+                                                            Pending
+                                                        </span>
                                                     </td>
 
                                                     <td width="10%">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use ApplicationEvents;
 use ApplicationFiles;
+use ApplicationProgressMaster;
 use Applications;
 use ApplicationStalls;
 use ApplicationTravels;
@@ -340,17 +341,16 @@ class ApplicationController extends Controller
         $data['page_title']   = 'Pending exporters applications';
         $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->get()->map(function ($r) {
             return [
-                // 'all'         => $r->toArray(),
                 'id'          => $r->id ?? '',
                 'app_no'      => $r->app_no ?? '',
                 'scheme'      => $r->get_scheme_details->short_name ?? '',
                 'name'        => $r->get_exporter_details->name ?? '',
                 'contact_no'  => $r->get_exporter_details->phone ?? '',
                 'claimed_amt' => $r->app_no,
-
             ];
         });
-        // dd($data['applications']);
+        $data['pending'] = Applications::where('status', 1)->count();
+        // dd($data);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);
     }
 
@@ -367,13 +367,13 @@ class ApplicationController extends Controller
             'get_address_details',
             'get_other_code_details',
             'get_bank_details',
-        ])->first();
-        $data['applications'] = $applications;
-
-        // dd($data['applications']->toArray());
-
-        $data['total_expenditure'] = $applications->get_travel_details->total_expense + $applications->get_stall_details->total_cost;
-        $data['incentive_amount']  = $applications->get_travel_details->incentive_claimed + $applications->get_stall_details->claimed_cost;
+            'get_application_status_details',
+            'get_application_progress_master_details.get_user_details',
+        ])->first(); //->toArray();
+        $data['applications']      = $applications;
+        $data['total_expenditure'] = ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount']  = ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        // dd($data);
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 
@@ -396,14 +396,154 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Method exporters_application_status_details_update
+     * Method exporters_application_status_details_update by SO
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
      * @return void
      */
     public function exporters_application_status_details_update(Request $request, $id = null)
     {
-        dd([$request->all(), $id]);
+        try {
+
+            // dd([$da, $request->all(), $id, $request->status]);
+            $user          = Auth::user();
+            $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
+            if ($update_status) {
+
+                if (ApplicationProgressMaster::where('appl_id', $id)->first()) {
+                    $data['message'] = 'Application already exists.';
+                } else {
+                    $insert_data = [
+                        'appl_id'          => $id,
+                        'total_expense'    => $request->total_expenses,
+                        'incentive_amount' => $request->incentive_amount,
+                        'remarks'          => $request->remarks,
+                        'created_by'       => $user->id,
+                        'created_at'       => Carbon::now(),
+                    ];
+                    $status          = ApplicationProgressMaster::insert($insert_data);
+                    $data['message'] = 'Status updated successfully.';
+                }
+
+            } else {
+                $data['message'] = 'Failed to update the status from SO.';
+            }
+            return redirect()->back()->with($data);
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+            // return redirect()->back()->with($data);
+        }
+    }
+
+    /**
+     * Method exporters_application_dir_depm_update UPDATE BY Director DEPM
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function exporters_application_dir_depm_update(Request $request, $id = null)
+    {
+        try {
+            dd(['DIRDEPM', $request->all(), $id, $request->status]);
+
+            $update_status = Applications::where('id', $id)->update(['status' => $request->status]);
+            if ($update_status) {
+                $data['message'] = 'Status updated successfully.';
+            } else {
+                $data['message'] = 'Failed to update the status from SO.';
+            }
+            return redirect()->back()->with($data);
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+            // return redirect()->back()->with($data);
+        }
+    }
+
+    /**
+     * Method exporters_application_spl_sectry_update UPDATE BY Addl Spl Secretory
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function exporters_application_spl_sectry_update(Request $request, $id = null)
+    {
+        try {
+            dd(['SPLSCRTY', $request->all(), $id, $request->status]);
+
+            $update_status = Applications::where('id', $id)->update(['status' => $request->status]);
+            if ($update_status) {
+                $data['message'] = 'Status updated successfully.';
+            } else {
+                $data['message'] = 'Failed to update the status from SO.';
+            }
+            return redirect()->back()->with($data);
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+            // return redirect()->back()->with($data);
+        }
+    }
+
+    /**
+     * Method exporters_application_dept_sectry_update UPDATE BY Department Secretory
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function exporters_application_dept_sectry_update(Request $request, $id = null)
+    {
+        try {
+            dd(['DEPARTMENT SECRETORY', $request->all(), $id, $request->status]);
+
+            $update_status = Applications::where('id', $id)->update(['status' => $request->status]);
+            if ($update_status) {
+                $data['message'] = 'Status updated successfully.';
+            } else {
+                $data['message'] = 'Failed to update the status from SO.';
+            }
+            return redirect()->back()->with($data);
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+            // return redirect()->back()->with($data);
+        }
+    }
+
+    /**
+     * Method exporters_application_dept_sectry_update UPDATE BY DDO
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function exporters_application_ddo_update(Request $request, $id = null)
+    {
+        try {
+            dd(['DDO', $request->all(), $id, $request->status]);
+
+            $update_status = Applications::where('id', $id)->update(['status' => $request->status]);
+            if ($update_status) {
+                $data['message'] = 'Status updated successfully.';
+            } else {
+                $data['message'] = 'Failed to update the status from SO.';
+            }
+            return redirect()->back()->with($data);
+
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+            // return redirect()->back()->with($data);
+        }
     }
 
 }

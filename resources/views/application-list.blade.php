@@ -94,20 +94,21 @@
                                 </div>
                                 <hr>
 
+                                {{-- All the Applications will be listed --}}
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Application List</h1>
                                 </div>
 
                                 <div>
-                                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                    <table id="dt-basic-example"
+                                        class="table table-bordered table-hover table-striped w-100">
                                         <thead>
                                             <th>ID</th>
                                             <th>Application No</th>
                                             <th>Scheme</th>
-                                            <th>Exporter name</th>
-                                            <th>Contact No</th>
                                             <th>Claimed Amount</th>
-                                            <th>Action</th>
+                                            <th>Status</th>
+                                            {{-- <th>Action</th> --}}
                                         </thead>
                                         <tbody>
                                             @if (isset($applications))
@@ -119,34 +120,35 @@
                                                 @foreach ($applications as $key => $item)
                                                     <tr>
                                                         <td width="5%">{{ ++$key }}</td>
-                                                        <td width="10%">
-                                                            <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
-                                                                class="" target="_blank">{{ $item['app_no'] ?? '' }}</a>
+                                                        <td width="20%">
+                                                            {{ $item['app_no'] }}
+                                                            {{-- <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
+                                                                class="" target="_blank">{{ $item['app_no'] ?? '' }}</a> --}}
+                                                        </td>
+                                                        <td width="40%">
+                                                            <span>{{ $item['get_scheme_details']['short_name'] ?? '' }}</span>
                                                         </td>
                                                         <td width="10%">
-                                                            <span>{{ $item['scheme'] ?? '' }}</span>
+                                                            <span>{{ '₹ ' . IND_money_format(($item['get_stall_details']['claimed_cost'] ?? 0) + ($item['get_travel_details']['incentive_claimed'] ?? 0) ?? '') }}</span>
                                                         </td>
-                                                        <td width="10%">
-                                                            <span>{{ $item['name'] ?? '' }}</span>
+
+                                                        <td>
+                                                            <span class="badge badge-warning text-darl">
+                                                                {{ $item->get_application_status_details->name }}
+                                                            </span>
                                                         </td>
-                                                        <td width="10%">
-                                                            <span>{{ $item['contact_no'] ?? '' }}</span>
-                                                        </td>
-                                                        <td width="10%">
-                                                            <span>{{ $item['claimed_amt'] ?? '' }}</span>
-                                                        </td>
-    
+
                                                         <td width="10%">
                                                             {{-- <a class="edit-user p-3 btn btn-info view_exporter"
                                                                 data-toggle="modal" data-target="#viewmodal"
                                                                 data-id="{{ $item->id }}">
                                                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                             </a> --}}
-    
-                                                            <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+
+                                                            {{-- <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
                                                                 href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
                                                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>
-                                                            </a>
+                                                            </a> --}}
                                                         </td>
                                                     </tr>
                                                 @endforeach

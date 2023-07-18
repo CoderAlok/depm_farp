@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Applications;
 use App\Mail\SendMail;
 use App\Repositories\CustomRepository;
 use Auth;
@@ -423,8 +424,24 @@ class TblExportersController extends Controller
     public function application_list(Request $request)
     {
         $data['page_title'] = 'Application List';
-        $data['data']       = Auth::guard('exporter')->user();
+        $user               = Auth::guard('exporter')->user();
+        $data['data']       = $user;
         $data['schemes']    = Schemes::get();
+
+        $applications = Applications::where('exporter_id', $user->id)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details.get_event_details',
+            'get_file_details',
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+            'get_application_status_details',
+        ])->get();
+        $data['applications'] = $applications;
+        // dd($data);
         return view('application-list')->with($data);
     }
 
