@@ -578,9 +578,10 @@
 
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(i). Total expense made for travel
-                                                        (Rs) <span>&#8377;</span> <span class="text-danger">*</span><br /></label>
+                                                        <span>&#8377;</span> <span
+                                                            class="text-danger">*</span><br /></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="<span>&#8377;</span>" name="total_travel_expense"
+                                                        placeholder="₹" name="total_travel_expense"
                                                         id="total_travel_expense" />
                                                     @if ($errors->has('total_travel_expense'))
                                                         <span class="invalid feedback text-danger"role="alert">
@@ -591,9 +592,9 @@
 
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(j). Incentive claimed towards travel
-                                                        (Rs)(₹)<span>&#8377;</span><span class="text-danger">*</span></label>
+                                                        <span>&#8377;</span><span class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="<span>&#8377;</span>" name="travel_incentive" id="travel_incentive" />
+                                                        placeholder="₹" name="travel_incentive" id="travel_incentive" />
                                                     @if ($errors->has('travel_incentive'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('travel_incentive') }}.</strong>
@@ -691,9 +692,10 @@
 
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(d). Total stall registration cost
-                                                        (Rs) <span class="text-danger">*</span><br /></label>
+                                                        <span>&#8377;</span> <span
+                                                            class="text-danger">*</span><br /></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Rs" name="total_stall_reg_cost"
+                                                        placeholder="₹" name="total_stall_reg_cost"
                                                         id="total_stall_reg_cost" />
                                                     @if ($errors->has('total_stall_reg_cost'))
                                                         <span class="invalid feedback text-danger"role="alert">
@@ -703,9 +705,10 @@
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label class="form-label h6">(e). Incentive claimed towards Stall
-                                                        registration (Rs) <span class="text-danger">*</span></label>
+                                                        registration <span>&#8377;</span> <span
+                                                            class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Rs" name="stall_incentive" id="stall_incentive" />
+                                                        placeholder="₹" name="stall_incentive" id="stall_incentive" />
                                                     @if ($errors->has('stall_incentive'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('stall_incentive') }}.</strong>

@@ -340,11 +340,10 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label class="form-label h6">(d). Cost of Certification (Rs) (₹):<span
-                                                            class="text-danger">*</span></label>
+                                                    <label class="form-label h6">(d). Cost of Certification (Rs)
+                                                        <span>&#8377;</span> :<span class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="Certificate Cost" name="certificate_cost"
-                                                        id="certificate_cost" />
+                                                        placeholder="₹" name="certificate_cost" id="certificate_cost" />
                                                     @if ($errors->has('certificate_cost'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('certificate_cost') }}.</strong>

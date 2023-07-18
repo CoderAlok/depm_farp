@@ -199,6 +199,9 @@
                                             </div>
                                             <span
                                                 class="text-truncate text-truncate-md opacity-80">{{ Auth::user()->email ?? '' }}</span>
+                                            <span class="text-truncate text-truncate-md opacity-80">
+                                                <i>{{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}</i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

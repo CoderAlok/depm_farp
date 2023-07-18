@@ -201,7 +201,7 @@
                                                         class="text-danger"
                                                         title="Image of the respective cancelled cheque.">*</span></label>
                                                 <a href="javascript:void(0);"
-                                                    onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_bank_details->cheque_img ?? '')) }}')">
+                                                    onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/bank' . '/' . ($applications->get_file_details->cancelled_cheque_file ?? '')) }}')">
                                                     <span class="text-warning badge bg-dark p-1">View file</span>
                                                 </a>
                                             </div>
@@ -353,7 +353,7 @@
                                                         <label class="form-label h6">(b). Upload Visa Invitation Letter <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_visa ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($applications->get_travel_details->file_visa ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -399,7 +399,7 @@
                                                         <label class="form-label h6">(g). Upload ticket <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_ticket ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/ticket' . '/' . ($applications->get_file_details->file_ticket ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -408,27 +408,27 @@
                                                         <label class="form-label h6">(h). Upload Boarding Pass <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
 
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(i). Total expense made for travel
-                                                            (Rs) <span class="text-danger">*</span><br /></label>
+                                                            (₹) <span class="text-danger">*</span><br /></label>
 
                                                         <input type="text" name="total_travel_expense"
                                                             id="total_travel_expense" class="form-control"
-                                                            value="{{ $applications->get_travel_details->total_expense ?? '' }}"
+                                                            value="{{ '₹ ' . IND_money_format($applications->get_travel_details->total_expense) ?? '' }}"
                                                             readonly />
                                                     </div>
 
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(j). Incentive claimed towards travel
-                                                            (Rs)(₹)<span class="text-danger">*</span></label>
+                                                            (₹)<span class="text-danger">*</span></label>
                                                         <input type="text" name="travel_incentive" id="travel_incentive"
                                                             class="form-control"
-                                                            value="{{ $applications->get_travel_details->incentive_claimed ?? '' }}"
+                                                            value="{{ '₹ ' . IND_money_format($applications->get_travel_details->incentive_claimed) ?? '' }}"
                                                             readonly />
                                                     </div>
                                                 </div>
@@ -495,7 +495,7 @@
                                                             Letter : <span class="text-danger">*</span></label>
                                                         <br />
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_allotment' . '/' . ($applications->get_file_details->stall_allot_letter ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -505,26 +505,25 @@
                                                             : <span class="text-danger">*</span></label>
                                                         <br />
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_pay_reciept' . '/' . ($applications->get_file_details->stall_reg_pay_recipt ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
 
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(d). Total stall registration cost
-                                                            (Rs) <span class="text-danger">*</span><br /></label>
-                                                        <input type="number" class="form-control form-control-sm"
-                                                            placeholder="Rs" name="total_stall_reg_cost"
-                                                            id="total_stall_reg_cost"
-                                                            value="{{ $applications->get_stall_details->total_cost ?? '' }}"
+                                                            (₹) <span class="text-danger">*</span><br /></label>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            placeholder="₹" name="total_stall_reg_cost" id="total_stall_reg_cost"
+                                                            value="{{ '₹ ' . IND_money_format($applications->get_stall_details->total_cost) ?? '' }}"
                                                             readonly />
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(e). Incentive claimed towards Stall
-                                                            registration (Rs) <span class="text-danger">*</span></label>
-                                                        <input type="number" class="form-control form-control-sm"
-                                                            placeholder="Rs" name="stall_incentive" id="stall_incentive"
-                                                            value="{{ $applications->get_stall_details->claimed_cost ?? '' }}"
+                                                            registration (₹) <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            placeholder="₹" name="stall_incentive" id="stall_incentive"
+                                                            value="{{ '₹ ' . IND_money_format($applications->get_stall_details->claimed_cost) ?? '' }}"
                                                             readonly />
                                                     </div>
                                                 </div>
@@ -558,7 +557,7 @@
                                                     <div class="col-md-12 mb-3">
                                                         <h6>(a). Upload Tour Dairy : <span class="text-danger">*</span></h6>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($data->get_travel_details->file_boarding_pass ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/tour_dairy' . '/' . ($applications->get_file_details->tour_dairy ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -629,8 +628,8 @@
                                                             value="{{ $applications->certi_iss_auth ?? '' }}" readonly>
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        <h6>(d). Cost of Certification (Rs) (₹) : <span
-                                                                class="text-danger">*</span></h6>
+                                                        <h6>(d). Cost of Certification (₹) (₹) : <span class="text-danger">*</span>
+                                                        </h6>
                                                         <input type="text" name="" id="" class="form-control"
                                                             value="{{ $applications->certi_cost ?? '' }}" readonly>
                                                     </div>
@@ -638,7 +637,7 @@
                                                     <div class="col-md-4 mb-3">
                                                         <h6>(e). Payment Reciept : <span class="text-danger">*</span></h6>
                                                         <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/' . ($applications->certi_payment_reciept_file ?? '')) }}')">
+                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/certificate_payment_reciept' . '/' . ($applications->get_file_details->certi_payment_reciept_file ?? '')) }}')">
                                                             <span class="text-warning badge bg-dark p-1">View file</span>
                                                         </a>
                                                     </div>
@@ -650,6 +649,85 @@
                                 </div>
                                 <!-- End Certificate Details Row -->
                         @endswitch
+
+                        <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                        data-target="#js_demo_accordion-3a" aria-expanded="true">
+                                        <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                        Remarks
+                                        <span class="ml-auto">
+                                            <span class="collapsed-reveal">
+                                                <i class="fal fa-minus fs-xl"></i>
+                                            </span>
+                                            <span class="collapsed-hidden">
+                                                <i class="fal fa-plus fs-xl"></i>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
+                                    <div class="card-body">
+                                        <table class="table table-responsive table-bordered">
+                                            <thead>
+                                                <th></th>
+                                                <th></th>
+                                                {{-- SO --}}
+                                                <th class="text-center" colspan="3">SO</th>
+                                                {{-- Director --}}
+                                                <th class="text-center" colspan="3">Director</th>
+                                                {{-- AddlSpl --}}
+                                                <th class="text-center" colspan="3">Add/Spl</th>
+                                                {{-- DDO --}}
+                                                <th class="text-center" colspan="3">DDO</th>
+                                            </thead>
+                                            <thead>
+                                                <th>Total Expenditure</th>
+                                                <th>Incentive Amount</th>
+                                                {{-- SO --}}
+                                                <th>Remarks By</th>
+                                                <th>Remarks On</th>
+                                                <th>Remarks Details</th>
+                                                {{-- Director --}}
+                                                <th>Remarks By</th>
+                                                <th>Remarks On</th>
+                                                <th>Remarks Details</th>
+                                                {{-- AddlSpl --}}
+                                                <th>Remarks By</th>
+                                                <th>Remarks On</th>
+                                                <th>Remarks Details</th>
+                                                {{-- DDO --}}
+                                                <th>Remarks By</th>
+                                                <th>Remarks On</th>
+                                                <th>Remarks Details</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</td>
+                                                    <td class="text-right">
+                                                        {{ '₹ ' . IND_money_format($incentive_amount) ?? '' }}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="accordion accordion-outline" id="js_demo_accordion-3">
                             <div class="card">

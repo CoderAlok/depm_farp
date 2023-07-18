@@ -71,7 +71,8 @@
                                         <!-- Earnings (Monthly) Card Example -->
                                         <div class="col-xl-3 col-md-6 mb-4">
                                             <a href="{{ route($item->route_name ?? '', $item->id) }}">
-                                                <div class="card border-left-primary shadow h-100 py-2" style="background:{{ $item->color ?? '' }}">
+                                                <div class="card border-left-primary shadow h-100 py-2"
+                                                    style="background:{{ $item->color ?? '' }}">
                                                     <div class="card-body">
                                                         <div class="row no-gutters align-items-center">
                                                             <div class="col mr-2">
@@ -90,6 +91,82 @@
                                             </a>
                                         </div>
                                     @endforeach
+                                </div>
+                                <hr>
+
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Application List</h1>
+                                </div>
+
+                                <div>
+                                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                                        <thead>
+                                            <th>ID</th>
+                                            <th>Application No</th>
+                                            <th>Scheme</th>
+                                            <th>Exporter name</th>
+                                            <th>Contact No</th>
+                                            <th>Claimed Amount</th>
+                                            <th>Action</th>
+                                        </thead>
+                                        <tbody>
+                                            @if (isset($applications))
+                                                @php
+                                                    $type = ['Merchant', 'Manufacturer'];
+                                                    $reg_status = ['Pending', 'Approved', 'Rejected'];
+                                                    $reg_status_color = ['warning', 'success', 'danger'];
+                                                @endphp
+                                                @foreach ($applications as $key => $item)
+                                                    <tr>
+                                                        <td width="5%">{{ ++$key }}</td>
+                                                        <td width="10%">
+                                                            <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
+                                                                class="" target="_blank">{{ $item['app_no'] ?? '' }}</a>
+                                                        </td>
+                                                        <td width="10%">
+                                                            <span>{{ $item['scheme'] ?? '' }}</span>
+                                                        </td>
+                                                        <td width="10%">
+                                                            <span>{{ $item['name'] ?? '' }}</span>
+                                                        </td>
+                                                        <td width="10%">
+                                                            <span>{{ $item['contact_no'] ?? '' }}</span>
+                                                        </td>
+                                                        <td width="10%">
+                                                            <span>{{ $item['claimed_amt'] ?? '' }}</span>
+                                                        </td>
+    
+                                                        <td width="10%">
+                                                            {{-- <a class="edit-user p-3 btn btn-info view_exporter"
+                                                                data-toggle="modal" data-target="#viewmodal"
+                                                                data-id="{{ $item->id }}">
+                                                                <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                            </a> --}}
+    
+                                                            <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td>
+                                                        <p>No Data</p>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                        {{-- <tfoot>
+                                            <th>ID</th>
+                                            <th>Application No</th>
+                                            <th>Exporter name</th>
+                                            <th>Scheme</th>
+                                            <th>Claimed Amount</th>
+                                            <th>Action</th>
+                                        </tfoot> --}}
+                                    </table>
                                 </div>
 
                                 {{-- <div class="row">

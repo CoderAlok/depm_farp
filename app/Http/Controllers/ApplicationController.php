@@ -165,7 +165,7 @@ class ApplicationController extends Controller
                     // Payment reciept upload
                     $payment_reciept_image     = $request->file_payment_reciept;
                     $payment_reciept_file_name = 'PAYREC' . substr(sha1($payment_reciept_image . uniqid('', true)), 20, 5) . date('my') . $payment_reciept_image->getClientOriginalName();
-                    $payment_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'], $payment_reciept_file_name);
+                    $payment_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'certificate_payment_reciept/', $payment_reciept_file_name);
 
                     $appl_data = [
                         'app_no'                     => $application_no['applicaton_no'],
@@ -356,8 +356,8 @@ class ApplicationController extends Controller
 
     public function pending_exporters_application_details(Request $request, $id = null)
     {
-        $data['page_title']   = 'Pending exporters application details';
-        $data['applications'] = Applications::where('id', $id)->with([
+        $data['page_title'] = 'Pending exporters application details';
+        $applications       = Applications::where('id', $id)->with([
             'get_exporter_details',
             'get_scheme_details',
             'get_event_details',
@@ -368,7 +368,12 @@ class ApplicationController extends Controller
             'get_other_code_details',
             'get_bank_details',
         ])->first();
+        $data['applications'] = $applications;
+
         // dd($data['applications']->toArray());
+
+        $data['total_expenditure'] = $applications->get_travel_details->total_expense + $applications->get_stall_details->total_cost;
+        $data['incentive_amount']  = $applications->get_travel_details->incentive_claimed + $applications->get_stall_details->claimed_cost;
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 
@@ -389,7 +394,7 @@ class ApplicationController extends Controller
         // dd($data['applications']->toArray());
         return view('application_status_details')->with($data);
     }
-    
+
     /**
      * Method exporters_application_status_details_update
      * @param Request $request [explicite description]
