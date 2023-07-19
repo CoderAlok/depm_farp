@@ -752,7 +752,7 @@
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
                                         data-target="#js_demo_accordion-3i" aria-expanded="true">
                                         <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                        Offier's Remarks Details
+                                        Officer's Remarks Details
                                         <span class="ml-auto">
                                             <span class="collapsed-reveal">
                                                 <i class="fal fa-minus fs-xl"></i>
