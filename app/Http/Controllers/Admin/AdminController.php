@@ -10,6 +10,7 @@ use Exporter;
 use ExporterRemark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Schemes;
 use Spatie\Permission\Models\Role;
 use User;
 
@@ -26,6 +27,7 @@ class AdminController extends Controller
         $data['page_title'] = 'Admin Panel';
         $role_id            = Auth::user()->role_id;
         $data['role']       = Role::where('id', $role_id)->first()->name;
+        $data['schemes']    = Schemes::get();
         return view('admin.home')->with($data);
     }
 
@@ -54,7 +56,7 @@ class AdminController extends Controller
     public function pending_exporters(Request $request)
     {
         $data['page_title'] = 'Pending exporters';
-        $data['exporters'] = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->latest()->get();
+        $data['exporters']  = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->latest()->get();
         return view('admin.publicity_officer.pending_exporters')->with($data);
     }
 

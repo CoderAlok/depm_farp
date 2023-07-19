@@ -79,7 +79,7 @@ class tbl_application_details extends Model
 
     public function get_application_progress_master_details()
     {
-        return $this->hasOne(ApplicationProgressMaster::class, 'appl_id', 'id');
+        return $this->hasMany(ApplicationProgressMaster::class, 'appl_id', 'id');
     }
 
 }

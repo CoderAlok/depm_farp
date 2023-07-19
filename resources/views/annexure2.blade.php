@@ -60,8 +60,8 @@
                                                 width="50%">
                                         </div>
                                         <div class="col-md-9 text-left">
-                                            <div class="col-md-12 page-logo-text mb-2">Micro, Small & Medium Enterprise
-                                                Department
+                                            <div class="col-md-12 page-logo-text mb-2">Directorate of Export Promotion &
+                                                Marketing
                                             </div>
                                             <div class="col-md-12 page-logo-text-small mr-1 ml-2">Government of Odisha</div>
                                         </div>

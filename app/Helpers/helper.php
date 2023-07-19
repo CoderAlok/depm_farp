@@ -281,31 +281,146 @@ function getApplicationId($exporter_id)
     return \App\Models\tbl_application_details::select('id')->where('exporter_id', $exporter_id)->first()->id ?? '';
 }
 
-function IND_money_format($number){
-    $decimal = (string)($number - floor($number));
-    $money = floor($number);
-    $length = strlen($money);
+/**
+ * Method IND_money_format
+ *
+ * @param $number $number [explicite description]
+ *
+ * Usage
+ * $price = IND_money_format(500000000.26);
+ *  echo $price;
+ * @return void
+ */
+function IND_money_format($number)
+{
+    $decimal   = (string) ($number - floor($number));
+    $money     = floor($number);
+    $length    = strlen($money);
     $delimiter = '';
-    $money = strrev($money);
+    $money     = strrev($money);
 
-    for($i=0;$i<$length;$i++){
-        if(( $i==3 || ($i>3 && ($i-1)%2==0) )&& $i!=$length){
-            $delimiter .=',';
+    for ($i = 0; $i < $length; $i++) {
+        if (($i == 3 || ($i > 3 && ($i - 1) % 2 == 0)) && $i != $length) {
+            $delimiter .= ',';
         }
-        $delimiter .=$money[$i];
+        $delimiter .= $money[$i];
     }
 
-    $result = strrev($delimiter);
+    $result  = strrev($delimiter);
     $decimal = preg_replace("/0\./i", ".", $decimal);
     $decimal = substr($decimal, 0, 3);
 
-    if( $decimal != '0'){
-        $result = $result.$decimal;
+    if ($decimal != '0') {
+        $result = $result . $decimal;
     }
 
     return $result;
 }
 
-// Usage
-// $price = IND_money_format(500000000.26);
-//  echo $price;
+// function status_array($status_id)
+// {
+//     $arr = [
+//         '',
+//         'Pending',
+//         'Verified by Director DEPM',
+//         'Not Verified by Director DEPM',
+//         'Accepted by Addl Special Secretory',
+//         'Rejected by Addl Special Secretory',
+//         'Approved by Department Secretory',
+//         'Rejected By Department Secretory',
+//         'Sanctioned by DDO',
+//     ];
+//     return $arr[$status_id];
+// }
+
+function so_status_array($status_id)
+{
+    $arr = [
+        1 => 'Pending',
+        2 => 'Verified', //'Pending at Director Depm',
+        4 => 'Verified by director depm',
+        6 => 'Verified by Addl Specia sectroy',
+        8 => 'Approved',
+    ];
+    return $arr[$status_id];
+}
+
+function dir_status_array($status_id)
+{
+    $arr = [
+        1 => 'Applied',
+        2 => 'Pending',
+        4 => 'Verified',
+        6 => 'Verified by Addl Specia sectroy',
+        8 => 'Approved',
+    ];
+    return $arr[$status_id];
+}
+
+function addl_status_array($status_id)
+{
+    $arr = [
+        1 => 'Applied',
+        2 => 'Verified by SO',
+        4 => 'Pending',
+        6 => 'Verified',
+        8 => 'Approved',
+    ];
+    return $arr[$status_id];
+}
+
+function dept_sectry_status_array($status_id)
+{
+    $arr = [
+        1 => 'Applied',
+        2 => 'Verified by SO',
+        4 => 'Verified by Director, DEPM',
+        6 => 'Pending',
+        8 => 'Approved',
+    ];
+    return $arr[$status_id];
+}
+
+function ddo_status_array($status_id)
+{
+    $arr = [
+        1 => 'Applied',
+        2 => 'Verified by SO',
+        4 => 'Verified by Director, DEPM',
+        6 => 'Pending',
+        7 => '--',
+        8 => 'Approved',
+    ];
+    return $arr[$status_id];
+}
+
+function exporter_status_array($status_id)
+{
+    $arr = [
+        1 => 'Applied',
+        2 => 'Accepted',
+        4 => 'Under Process',
+        6 => 'Under Process',
+        8 => 'Approved',
+    ];
+    return $arr[$status_id];
+}
+
+function status_color_array($status)
+{
+    $color_code = '';
+
+    if (in_array($status, ['Applied', 'Verified by SO', 'Verified', 'Verified by director depm', 'Verified by Addl Specia sectroy', 'Verified by Director, DEPM'])) {
+        $color_code = '#f5f94a'; // Yellow
+    } else if (in_array($status, ['Approved'])) {
+        $color_code = '#0e5306'; // Green
+    } else if (in_array($status, ['Pending', 'Accepted'])) {
+        $color_code = '#e5a01e'; // Orange
+    } else if (in_array($status, ['Under Process'])) {
+        $color_code = '#34e7c8'; // Aqua-Green/Blue
+    } else {
+        $color_code = '#cd2323'; // Red
+    }
+
+    return $color_code;
+}

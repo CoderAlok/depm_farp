@@ -18,7 +18,12 @@
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>Application List</h2>
+                        <h2>
+                            Hi, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
+                            <b
+                                class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
+                        </h2>
+                        {{-- <h2>Application List</h2> --}}
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -426,9 +431,9 @@
                                     <tbody>
                                         @if (isset($applications))
                                             @php
-                                                $type = ['Merchant', 'Manufacturer'];
-                                                $reg_status = ['Pending', 'Approved', 'Rejected'];
-                                                $reg_status_color = ['warning', 'success', 'danger'];
+                                                // $type = ['Merchant', 'Manufacturer'];
+                                                // $reg_status = ['Pending', 'Approved', 'Rejected'];
+                                                // $reg_status_color = ['warning', 'success', 'danger'];
                                             @endphp
                                             @foreach ($applications as $key => $item)
                                                 <tr>
@@ -447,12 +452,52 @@
                                                         <span>{{ $item['contact_no'] ?? '' }}</span>
                                                     </td>
                                                     <td width="10%">
-                                                        <span>{{ $item['claimed_amt'] ?? '' }}</span>
+                                                        <span>{{ $item['claimed_amt'] ? '₹ ' . IND_money_format($item['claimed_amt']) : '' }}</span>
                                                     </td>
                                                     <td>
-                                                        <span class="badge badge-warning text-dark">
-                                                            Pending
-                                                        </span>
+                                                        @switch(Auth::user()->role_id)
+                                                            @case(2)
+                                                                <span class="badge text-white"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                    {{ $item['status'] ? so_status_array($item['status']) : '' }}
+                                                                </span>
+                                                            @break
+
+                                                            @case(3)
+                                                                <span class="badge text-white"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                    {{ $item['status'] ? dir_status_array($item['status']) : '' }}
+                                                                </span>
+                                                            @break
+
+                                                            @case(4)
+                                                                <span class="badge text-white"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                    {{ $item['status'] ? addl_status_array($item['status']) : '' }}
+                                                                </span>
+                                                            @break
+
+                                                            @case(5)
+                                                                <span class="badge text-white"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                    {{ $item['status'] ? dept_sectry_status_array($item['status']) : '' }}
+                                                                </span>
+                                                            @break
+
+                                                            @case(7)
+                                                                <span class="badge text-white"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                    {{ $item['status'] ? ddo_status_array($item['status']) : '' }}
+                                                                </span>
+                                                            @break
+
+                                                            @default
+                                                                <span class="badge text-white"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                    {{ $item['status'] ? exporter_status_array($item['status']) : '' }}
+                                                                </span>
+                                                        @endswitch
+
                                                     </td>
 
                                                     <td width="10%">
@@ -462,10 +507,69 @@
                                                             <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                         </a> --}}
 
+                                                        {{-- @switch(Auth::user()->role_id)
+                                                            @case(2)
+                                                                <!-- SO -->
+                                                                @if ($item['status'] > 0)
+                                                                    <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                        href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                                    </a>
+                                                                @endif
+                                                            @break
+
+                                                            @case(3)
+                                                                <!-- DIR DEPM -->
+                                                                @if ($item['status'] >= 2)
+                                                                    <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                        href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                                    </a>
+                                                                @endif
+                                                            @break
+
+                                                            @case(4)
+                                                                <!-- DIR DEPM -->
+                                                                @if ($item['status'] >= 4)
+                                                                    <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                        href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                                    </a>
+                                                                @endif
+                                                            @break
+
+                                                            @case(5)
+                                                                <!-- Addl Sectory -->
+                                                                @if ($item['status'] >= 6)
+                                                                    <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                        href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                                    </a>
+                                                                @endif
+                                                            @break
+
+                                                            @case(7)
+                                                                <!-- Dept Sectory -->
+                                                                @if ($item['status'] >= 8)
+                                                                    <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                        href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                        <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                                    </a>
+                                                                @endif
+                                                            @break
+
+                                                            @default
+                                                                <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                                    href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
+                                                                    <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                                                </a>
+                                                        @endswitch --}}
+
                                                         <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
                                                             href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
                                                             <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                         </a>
+
                                                     </td>
                                                 </tr>
                                             @endforeach

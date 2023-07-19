@@ -44,8 +44,7 @@
                                             width="50%">
                                     </div>
                                     <div class="col-md-9 text-left">
-                                        <div class="col-md-12 page-logo-text mb-2">Micro, Small & Medium Enterprise
-                                            Department
+                                        <div class="col-md-12 page-logo-text mb-2">Directorate of Export Promotion & Marketing
                                         </div>
                                         <div class="col-md-12 page-logo-text-small mr-1 ml-2">Government of Odisha</div>
                                     </div>
@@ -656,33 +655,11 @@
             </div>
         </div>
     </main>
-
-    {{-- <embed src="{{ asset('public/storage/images/exporters/' . $applications->get_bank_details->cheque_img ?? '') }}" width="800px" height="2100px" /> --}}
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     @routes
-    <script defer>
-        function view_file(url) {
-            Swal.fire({
-                title: '<strong>Document</strong>',
-                icon: 'info',
-                html: '<embed src="' + url + '" width="100%" height="800px" />',
-                width: 1200,
-                imageWidth: 1200,
-                imageHeight: 800,
-                showCloseButton: false,
-                showCancelButton: false,
-                focusConfirm: false,
-                showConfirmButton: false,
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
-                cancelButtonAriaLabel: 'Thumbs down'
-            })
-        }
-
+    <script>
         $(document).ready((e) => {
             $('#approval_status').on('change', (e) => {
                 let status = $('#approval_status').val();

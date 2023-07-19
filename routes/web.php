@@ -133,4 +133,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'dept-sectry'], function () {
         Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_dept_sectry_update'])->name('dept-sectry.pending.application.update');
     });
+
+    Route::group(['prefix' => 'ddo'], function () {
+        Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_ddo_update'])->name('ddo.pending.application.update');
+    });
 });

@@ -427,14 +427,20 @@
 <script>
     function view_file(url) {
         Swal.fire({
-            imageUrl: url,
+            title: '<strong>Document</strong>',
+            icon: 'info',
+            html: '<embed src="' + url + '" width="100%" height="800px" />',
             width: 1200,
             imageWidth: 1200,
             imageHeight: 800,
-            imageAlt: 'Custom image',
-            showConfirmButton: false,
+            showCloseButton: false,
             showCancelButton: false,
-            showCloseButton: true
+            focusConfirm: false,
+            showConfirmButton: false,
+            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+            cancelButtonAriaLabel: 'Thumbs down'
         })
     }
 

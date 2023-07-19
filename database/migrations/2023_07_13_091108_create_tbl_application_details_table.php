@@ -19,7 +19,7 @@ class CreateTblApplicationDetailsTable extends Migration
             $table->string('app_count_no', 500)->nullable()->unique()->comment('Application number count');
             $table->integer('scheme_id')->unsigned()->nullable()->comment('PK of tbl_scheme_master');
             $table->bigInteger('exporter_id')->nullable()->comment('PK of tbl_exporter_table');
-            $table->text('meeting_details')->nullable()->default('Details of B2B / B2C meeteing held');
+            $table->text('meeting_details')->nullable()->comment('Details of B2B / B2C meeteing held');
             $table->text('participation_details')->nullable()->comment('Details of Participation of event such as Sale of Products, Business deals made etc');
             $table->text('certi_type')->nullable()->comment('Only fillable accept scheme 1: certifaicate type');
             $table->text('certi_name')->nullable()->comment('Only fillable accept scheme 1: certificates name');

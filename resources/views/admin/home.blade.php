@@ -76,7 +76,59 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6 col-xl-3">
+
+                                <div class="row app-list-cards">
+                                    @foreach ($schemes as $key => $item)
+                                        <!-- Earnings (Monthly) Card Example -->
+                                        <div class="col-sm-6 col-xl-3">
+                                            <div style="background:{{ $item->color ?? '' }}"
+                                                class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+                                                <div class="">
+                                                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                                        30
+                                                        <small
+                                                            class="m-0 l-h-n text-dark">{{ $item->short_name ?? '' }}</small>
+                                                    </h3>
+                                                </div>
+                                                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
+                                                    style="font-size:6rem"></i>
+                                            </div>
+
+                                            {{-- <a href="{{ route($item->route_name ?? '', $item->id) }}">
+                                                <div class="card border-left-primary shadow h-100 py-2"
+                                                    style="background:{{ $item->color ?? '' }}">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div
+                                                                    class="text-xs text-dark fw-bold text-primary text-uppercase mb-1">
+                                                                    {{ $item->short_name ?? '' }}</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="{{ $item->logo ?? '' }} fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a> --}}
+                                        </div>
+                                    @endforeach
+                                </div>
+                                {{-- <div class="col-sm-6 col-xl-3">
+                                    <div
+                                        class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+                                        <div class="">
+                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                                21.5k
+                                                <small class="m-0 l-h-n">users signed up</small>
+                                            </h3>
+                                        </div>
+                                        <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
+                                            style="font-size:6rem"></i>
+                                    </div>
+                                </div> --}}
+
+                                {{-- <div class="col-sm-6 col-xl-3">
                                     <div
                                         class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                                         <div class="">
@@ -164,7 +216,7 @@
                                         <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4"
                                             style="font-size: 6rem;"></i>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -198,9 +250,9 @@
                                                                 class="float-right">60%</span>
                                                         </h4>
                                                         <div class="progress mb-4">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                style="width: 60%" aria-valuenow="60" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width: 60%"
+                                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
                                                         </div>
                                                         <h4 class="small fw-bold">Manufacturer <span
                                                                 class="float-right">80%</span>
@@ -524,9 +576,9 @@
                         render: function(data, type, full, meta) {
 
                             /*
-                                        -- ES6
-                                        -- convert using https://babeljs.io online transpiler
-                                        return `
+                                                            -- ES6
+                                                            -- convert using https://babeljs.io online transpiler
+                                                            return `
                         <a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>
                             <i class="fal fa-times"></i>
                         </a>
@@ -539,10 +591,10 @@
                                 <a class='dropdown-item' href='javascript:void(0);'>Generate Report</a>
                             </div>
                         </div>`;
-                                            
-                                        ES5 example below:	
+                                                                
+                                                            ES5 example below:	
 
-                                        */
+                                                            */
                             return "\n\t\t\t\t\t\t<a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>\n\t\t\t\t\t\t\t<i class=\"fal fa-times\"></i>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t\t<div class='dropdown d-inline-block dropleft'>\n\t\t\t\t\t\t\t<a href='#'' class='btn btn-sm btn-icon btn-outline-primary rounded-circle shadow-0' data-toggle='dropdown' aria-expanded='true' title='More options'>\n\t\t\t\t\t\t\t\t<i class=\"fal fa-ellipsis-v\"></i>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<div class='dropdown-menu'>\n\t\t\t\t\t\t\t\t<a class='dropdown-item' href='javascript:void(0);'>Change Status</a>\n\t\t\t\t\t\t\t\t<a class='dropdown-item' href='javascript:void(0);'>Generate Report</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>";
                         },
                     },

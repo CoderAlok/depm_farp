@@ -121,9 +121,11 @@
                                                     <tr>
                                                         <td width="5%">{{ ++$key }}</td>
                                                         <td width="20%">
-                                                            {{ $item['app_no'] }}
                                                             {{-- <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
                                                                 class="" target="_blank">{{ $item['app_no'] ?? '' }}</a> --}}
+                                                            <a href="{{ route('exporter.application.details', $item['id']) }}"
+                                                                class=""
+                                                                target="_blank">{{ $item['app_no'] ?? '' }}</a>
                                                         </td>
                                                         <td width="40%">
                                                             <span>{{ $item['get_scheme_details']['short_name'] ?? '' }}</span>
@@ -133,8 +135,8 @@
                                                         </td>
 
                                                         <td>
-                                                            <span class="badge badge-warning text-darl">
-                                                                {{ $item->get_application_status_details->name }}
+                                                            <span class="badge badge-warning text-dark">
+                                                                {{ $item->status ? exporter_status_array($item->status) : '' }}
                                                             </span>
                                                         </td>
 

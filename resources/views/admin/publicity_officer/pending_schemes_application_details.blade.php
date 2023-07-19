@@ -21,8 +21,13 @@
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
                     <div class="panel-hdr">
-                        <h2>Application No : <b
-                                class="text-uppercase font-size-600 ml-2">{{ $applications->app_no ?? '' }}</b></h2>
+                        <h2>
+                            Hi, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
+                            <b class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
+                        </h2>
+
+                        {{-- <h2>Application No : <b
+                                class="text-uppercase font-size-600 ml-2">{{ $applications->app_no ?? '' }}</b></h2> --}}
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -44,8 +49,8 @@
                                             width="50%">
                                     </div>
                                     <div class="col-md-9 text-left">
-                                        <div class="col-md-12 page-logo-text mb-2">Micro, Small & Medium Enterprise
-                                            Department
+                                        <div class="col-md-12 page-logo-text mb-2">Directorate of Export Promotion &
+                                            Marketing
                                         </div>
                                         <div class="col-md-12 page-logo-text-small mr-1 ml-2">Government of Odisha</div>
                                     </div>
@@ -211,7 +216,6 @@
                             </div>
                         </div>
                         <!-- End Bank Details Row -->
-
                         @switch($applications->scheme_id)
                             @case(1)
                                 <div class="accordion accordion-outline" id="js_demo_accordion-3">
@@ -349,7 +353,7 @@
                                                             readonly />
                                                     </div>
 
-                                                    <div class="col-md-4 mb-1 d-none upload_visa_div">
+                                                    <div class="col-md-4 mb-1 upload_visa_div">
                                                         <label class="form-label h6">(b). Upload Visa Invitation Letter <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
@@ -404,7 +408,7 @@
                                                         </a>
                                                     </div>
 
-                                                    <div class="col-md-4 mb-1 boarding_pass_div d-none">
+                                                    <div class="col-md-4 mb-1 boarding_pass_div">
                                                         <label class="form-label h6">(h). Upload Boarding Pass <span
                                                                 class="text-danger">*</span></label>
                                                         <a href="javascript:void(0);"
@@ -649,7 +653,7 @@
                                 <!-- End Certificate Details Row -->
                         @endswitch
 
-                        <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                        {{-- <div class="accordion accordion-outline" id="js_demo_accordion-3">
                             <div class="card">
                                 <div class="card-header">
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
@@ -673,35 +677,35 @@
                                             <thead>
                                                 <th></th>
                                                 <th></th>
-                                                {{-- SO --}}
+                                                <!-- SO -->
                                                 @if ($applications->get_application_progress_master_details->created_by == Auth::user()->id)
                                                     <th class="text-center" colspan="3">SO</th>
                                                 @endif
-                                                {{-- Director --}}
+                                                <!-- Director -->
                                                 <th class="text-center" colspan="3">Director</th>
-                                                {{-- AddlSpl --}}
+                                                <!-- AddlSpl -->
                                                 <th class="text-center" colspan="3">Add/Spl</th>
-                                                {{-- DDO --}}
+                                                <!-- DDO -->
                                                 <th class="text-center" colspan="3">DDO</th>
                                             </thead>
                                             <thead>
                                                 <th>Total Expenditure</th>
                                                 <th>Incentive Amount</th>
-                                                {{-- SO --}}
+                                                <!-- SO -->
                                                 @if ($applications->get_application_progress_master_details->created_by == Auth::user()->id)
                                                     <th>Remarks By</th>
                                                     <th>Remarks Details</th>
                                                     <th>Remarks On</th>
                                                 @endif
-                                                {{-- Director --}}
+                                                <!-- Director -->
                                                 <th>Remarks By</th>
                                                 <th>Remarks On</th>
                                                 <th>Remarks Details</th>
-                                                {{-- AddlSpl --}}
+                                                <!-- AddlSpl -->
                                                 <th>Remarks By</th>
                                                 <th>Remarks On</th>
                                                 <th>Remarks Details</th>
-                                                {{-- DDO --}}
+                                                <!-- DDO -->
                                                 <th>Remarks By</th>
                                                 <th>Remarks On</th>
                                                 <th>Remarks Details</th>
@@ -713,7 +717,7 @@
                                                     <td class="text-right">
                                                         {{ '₹ ' . IND_money_format($incentive_amount) ?? '' }}</td>
 
-                                                    {{-- SO --}}
+                                                    <!-- SO -->
                                                     @if ($applications->get_application_progress_master_details->created_by == Auth::user()->id)
                                                         <td>{{ ($applications->get_application_progress_master_details->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details->get_user_details->last_name ?? '') }}
                                                         </td>
@@ -738,15 +742,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
+                        {{-- Main form for approval started  --}}
                         <div class="accordion accordion-outline" id="js_demo_accordion-3">
                             <div class="card">
                                 <div class="card-header">
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
                                         data-target="#js_demo_accordion-3i" aria-expanded="true">
                                         <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                        Scrutiny Offier's Remarks
+                                        Offier's Remarks Details
                                         <span class="ml-auto">
                                             <span class="collapsed-reveal">
                                                 <i class="fal fa-minus fs-xl"></i>
@@ -762,119 +767,667 @@
                                     <div class="card-body">
                                         <div class="col-md-12">
                                             @php
+                                                $route_name = '';
+                                                $table_showing_status = '';
+                                                
                                                 switch (Auth::user()->role_id) {
                                                     case 2:
                                                         $route_name = 'admin.publicity.officer.pending.exporters.applications.details.update';
+                                                        $table_showing_status = !empty($applications->get_application_progress_master_details[0]) ?? false;
                                                         break;
                                                 
                                                     case 3:
                                                         $route_name = 'dir-depm.pending.application.update';
+                                                        $table_showing_status = !empty($applications->get_application_progress_master_details[1]) ?? false;
                                                         break;
                                                 
                                                     case 4:
                                                         $route_name = 'spl-sectry.pending.application.update';
+                                                        $table_showing_status = !empty($applications->get_application_progress_master_details[2]) ?? false;
                                                         break;
                                                 
                                                     case 5:
                                                         $route_name = 'dept-sectry.pending.application.update';
+                                                        $table_showing_status = !empty($applications->get_application_progress_master_details[3]) ?? false;
                                                         break;
                                                 
                                                     case 7:
-                                                        $route_name = 'dept-sectry.pending.application.update';
+                                                        $route_name = 'ddo.pending.application.update';
+                                                        $table_showing_status = !empty($applications->get_application_progress_master_details[4]) ?? false;
                                                         break;
                                                 
                                                     default:
                                                         break;
                                                 }
                                             @endphp
-                                            <form action="{{ route($route_name, $applications->id) }}"
-                                                class="form-group mb-3" id="status_approval_form"
-                                                name="status_approval_form" method="post">
-                                                @csrf
+
+                                            @if ($table_showing_status)
                                                 <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="">Total Expense of Exporter <span
-                                                                class="text-danger">*</span>
-                                                            <i data-toggle="tooltip" data-placement="right"
-                                                                title="Total expenses of exporters"
-                                                                class="fa fa-info-circle"></i>
-                                                        </label>
-                                                        <input type="number" name="total_expenses" class="form-control"
-                                                            id="total_expenses" value="0.00" />
-                                                        {{-- <input type="text" name="total_expenses"
-                                                            class="form-control amount_field" id="total_expenses"
-                                                            value="0.00" /> --}}
+                                                    <div class="col-md-12">
+
+                                                        <div class="row mt-5 mb-5">
+                                                            <div class="col-md-6">
+                                                                <label for="" class="text-uppercase">Total
+                                                                    expenses of Exporter : </label>
+                                                                <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="" class="text-uppercase">Incentive
+                                                                    amount by SO : </label>
+                                                                <b>{{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                            </div>
+                                                        </div>
+                                                        <table class="table table-responsive" width="100%">
+                                                            <thead>
+                                                                {{-- <th>Total expenses of Exporter</th>
+                                                                <th>Incentive amount by SO</th> --}}
+                                                                {{-- <th>Status</th> --}}
+                                                                <th>Remarks</th>
+                                                                <th>Remarks By</th>
+                                                                <th>Date</th>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                @switch(Auth::user()->role_id)
+                                                                    @case(2)
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? so_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[0]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[0]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @break
+
+                                                                    @case(3)
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? so_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[0]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[0]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @break
+
+                                                                    @case(4)
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? so_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[0]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[0]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[2]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[2]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? addl_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[2]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[2]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @break
+
+                                                                    @case(5)
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? so_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[0]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[0]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[2]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[2]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? addl_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[2]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[2]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[3]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[3]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dept_sectry_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[3]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[3]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[3]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @break
+
+                                                                    @case(7)
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? so_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[0]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[0]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[2]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[2]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? addl_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[2]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[2]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[3]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[3]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dept_sectry_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[3]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[3]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[3]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[4]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[4]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[4]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[4]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[4]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @break
+
+                                                                    @default
+                                                                        <tr>
+                                                                            {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[5]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[5]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                            {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                            <td width="30%">
+                                                                                {{ $applications->get_application_progress_master_details[5]->remarks ?? '' }}
+                                                                            </td>
+                                                                            <td width="10%">
+                                                                                {{-- {{ ($applications->get_application_progress_master_details[5]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[5]->get_user_details->last_name ?? '') }} --}}
+                                                                                ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[5]->created_at)) ?? '' }}
+                                                                            </td>
+                                                                        </tr>
+                                                                @endswitch
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="">Incentive Amount <span
-                                                                class="text-danger">*</span>
-                                                            <i data-toggle="tooltip" data-placement="right"
-                                                                title="Incentive amount of exporters"
-                                                                class="fa fa-info-circle"></i>
-                                                        </label>
-                                                        <input type="number" name="incentive_amount"
-                                                            class="form-control" id="incentive_amount" value="0.00" />
-                                                        {{-- <input type="text" name="incentive_amount"
-                                                            class="form-control amount_field" id="incentive_amount"
-                                                            value="0.00" /> --}}
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="status">Status</label>
+                                                </div>
+                                            @else
+                                                <form action="{{ route($route_name, $applications->id) }}"
+                                                    class="form-group mb-3" id="status_approval_form"
+                                                    name="status_approval_form" method="post">
+                                                    @csrf
+                                                    <div class="row">
                                                         @switch (Auth::user()->role_id)
                                                             @case(2)
-                                                                <select name="status" id="status" class="form-control">
-                                                                    <option value="4">Verified</option>
-                                                                </select>
-                                                            @break
-
-                                                            @case(3)
-                                                                <select name="status" id="status" class="form-control">
-                                                                    <option value="1">Verified</option>
-                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
-                                                                </select>
-                                                            @break
-
-                                                            @case(4)
-                                                                <select name="status" id="status" class="form-control">
-                                                                    <option value="1">Verified</option>
-                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
-                                                                </select>
-                                                            @break
-
-                                                            @case(5)
-                                                                <select name="status" id="status" class="form-control">
-                                                                    <option value="1">Verified</option>
-                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
-                                                                </select>
-                                                            @break
-
-                                                            @case(7)
-                                                                <select name="status" id="status" class="form-control">
-                                                                    <option value="1">Verified</option>
-                                                                    {{-- <option value="2">Seeking Complaince</option> --}}
-                                                                </select>
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="">Total Expense of Exporter <span
+                                                                            class="text-danger">*</span>
+                                                                        <i data-toggle="tooltip" data-placement="right"
+                                                                            title="Total expenses of travel + Total expenses of stall."
+                                                                            class="fa fa-info-circle"></i>
+                                                                    </label>
+                                                                    <input type="hidden" class="form-control"
+                                                                        name="total_expenses"
+                                                                        value="{{ $total_expenditure }}" />
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}"
+                                                                        readonly />
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="">Incentive Amount <span
+                                                                            class="text-danger">*</span>
+                                                                        <i data-toggle="tooltip" data-placement="right"
+                                                                            title="Incentive amount of exporters"
+                                                                            class="fa fa-info-circle"></i>
+                                                                    </label>
+                                                                    <input type="number" name="incentive_amount"
+                                                                        class="form-control" id="incentive_amount" value=""
+                                                                        placeholder="₹" />
+                                                                    {{-- <input type="text" name="incentive_amount"
+                                                                        class="form-control amount_field" id="incentive_amount"
+                                                                        value="0.00" /> --}}
+                                                                </div>
                                                             @break
 
                                                             @default
+                                                                <input type="hidden" class="form-control" name="total_expenses"
+                                                                    value="{{ $total_expenditure ?? 0 }}" />
+                                                                <input type="hidden" class="form-control"
+                                                                    name="incentive_amount"
+                                                                    value="{{ $applications->get_application_progress_master_details[0]->incentive_amount ?? 0 }}" />
                                                         @endswitch
 
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                        placeholder="Enter your remarks..."></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-primary text-uppercase"
-                                                        value="Forward to Director, DEPM">
-                                                </div>
-                                            </form>
 
+                                                        @switch (Auth::user()->role_id)
+                                                            @case(2)
+                                                                @if ($applications->status == 1)
+                                                                    {{-- SO --}}
+                                                                    <div class="row col-md-12">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="status">Status</label>
+                                                                            <select name="status" id="status"
+                                                                                class="form-control">
+                                                                                <option value="2">Verified by SO</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                                placeholder="Enter your remarks..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            @php
+                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                            @endphp
+                                                                            <input type="submit"
+                                                                                class="btn btn-primary text-uppercase"
+                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @break
+
+                                                            @case(3)
+                                                                {{-- DIR DEPM --}}
+                                                                @if ($applications->status == 2)
+                                                                    <div class="row col-md-12">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="status">Status</label>
+                                                                            <select name="status" id="status"
+                                                                                class="form-control mb-3">
+                                                                                <option value="4">Verified by Director DEPM
+                                                                                </option>
+                                                                                <option value="5">Not Verified by Director
+                                                                                    DEPM
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                                placeholder="Enter your remarks..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            @php
+                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                            @endphp
+                                                                            <input type="submit"
+                                                                                class="btn btn-primary text-uppercase"
+                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @break
+
+                                                            @case(4)
+                                                                {{-- ADL SCR STY --}}
+                                                                @if ($applications->status == 4)
+                                                                    <div class="row col-md-12">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="status">Status</label>
+                                                                            <select name="status" id="status"
+                                                                                class="form-control mb-3">
+                                                                                <option value="6">Accepted by Addl Special
+                                                                                    Secretory
+                                                                                </option>
+                                                                                <option value="7">Rejected by Addl Special
+                                                                                    Secretory
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                                placeholder="Enter your remarks..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            @php
+                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                            @endphp
+                                                                            <input type="submit"
+                                                                                class="btn btn-primary text-uppercase"
+                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @break
+
+                                                            @case(5)
+                                                                {{-- DEPT SECTRY --}}
+                                                                @if ($applications->status == 6)
+                                                                    <div class="row col-md-12">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="status">Status</label>
+                                                                            <select name="status" id="status"
+                                                                                class="form-control mb-3">
+                                                                                <option value="8">Approved by Department
+                                                                                    Secretory
+                                                                                </option>
+                                                                                <option value="9">Rejected By Department
+                                                                                    Secretory
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                                placeholder="Enter your remarks..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            @php
+                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                            @endphp
+                                                                            <input type="submit"
+                                                                                class="btn btn-primary text-uppercase"
+                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @break
+
+                                                            @case(7)
+                                                                {{-- DDO --}}
+                                                                @if ($applications->status == 8)
+                                                                    <div class="row col-md-12">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="status">Status</label>
+                                                                            <select name="status" id="status"
+                                                                                class="form-control mb-3">
+                                                                                <option value="7">Sanctioned by DDO</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-12">
+                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                                placeholder="Enter your remarks..."></textarea>
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            @php
+                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                            @endphp
+                                                                            <input type="submit"
+                                                                                class="btn btn-primary text-uppercase"
+                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @break
+
+                                                            @default
+                                                                <div></div>
+                                                        @endswitch
+                                                    </div>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {{-- Main form for approval Ended  --}}
 
                         {{-- Main content end here --}}
                     </div>
@@ -882,8 +1435,6 @@
             </div>
         </div>
     </main>
-
-    {{-- <embed src="{{ asset('public/storage/images/exporters/' . $applications->get_bank_details->cheque_img ?? '') }}" width="800px" height="2100px" /> --}}
 @endsection
 
 @section('scripts')
@@ -895,6 +1446,19 @@
     <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            iziToast.success({
+                title: 'Success',
+                message: {{ Session::get('message') }},
+                position: 'topRight'
+            });
+
+            // iziToast.error({
+            //     title: 'Error',
+            //     message: data.message,
+            //     position: 'topRight',
+            // });
+
             $(".amount_field").keyup(function() {
                 convertToINRFormat($(this).val(), $(this));
             });
@@ -918,6 +1482,7 @@
     </script>
     <script defer>
         function view_file(url) {
+            console.log(url);
             Swal.fire({
                 title: '<strong>Cancelled Cheque</strong>',
                 icon: 'info',
