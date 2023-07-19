@@ -317,30 +317,18 @@ function IND_money_format($number)
     return $result;
 }
 
-// function status_array($status_id)
-// {
-//     $arr = [
-//         '',
-//         'Pending',
-//         'Verified by Director DEPM',
-//         'Not Verified by Director DEPM',
-//         'Accepted by Addl Special Secretory',
-//         'Rejected by Addl Special Secretory',
-//         'Approved by Department Secretory',
-//         'Rejected By Department Secretory',
-//         'Sanctioned by DDO',
-//     ];
-//     return $arr[$status_id];
-// }
-
 function so_status_array($status_id)
 {
     $arr = [
         1 => 'Pending',
         2 => 'Verified', //'Pending at Director Depm',
+        3 => '',
         4 => 'Verified by director depm',
+        5 => '',
         6 => 'Verified by Addl Specia sectroy',
+        7 => '',
         8 => 'Approved',
+        9 => '',
     ];
     return $arr[$status_id];
 }
@@ -350,9 +338,13 @@ function dir_status_array($status_id)
     $arr = [
         1 => 'Applied',
         2 => 'Pending',
+        3 => '',
         4 => 'Verified',
+        5 => '',
         6 => 'Verified by Addl Specia sectroy',
+        7 => '',
         8 => 'Approved',
+        9 => '',
     ];
     return $arr[$status_id];
 }
@@ -362,9 +354,13 @@ function addl_status_array($status_id)
     $arr = [
         1 => 'Applied',
         2 => 'Verified by SO',
+        3 => '',
         4 => 'Pending',
+        5 => '',
         6 => 'Verified',
+        7 => '',
         8 => 'Approved',
+        9 => '',
     ];
     return $arr[$status_id];
 }
@@ -374,9 +370,13 @@ function dept_sectry_status_array($status_id)
     $arr = [
         1 => 'Applied',
         2 => 'Verified by SO',
+        3 => '',
         4 => 'Verified by Director, DEPM',
+        5 => '',
         6 => 'Pending',
+        7 => '',
         8 => 'Approved',
+        9 => '',
     ];
     return $arr[$status_id];
 }
@@ -386,10 +386,13 @@ function ddo_status_array($status_id)
     $arr = [
         1 => 'Applied',
         2 => 'Verified by SO',
+        3 => '',
         4 => 'Verified by Director, DEPM',
+        5 => '',
         6 => 'Pending',
-        7 => '--',
+        7 => '',
         8 => 'Approved',
+        9 => '',
     ];
     return $arr[$status_id];
 }
@@ -399,9 +402,13 @@ function exporter_status_array($status_id)
     $arr = [
         1 => 'Applied',
         2 => 'Accepted',
+        3 => '',
         4 => 'Under Process',
+        5 => '',
         6 => 'Under Process',
+        7 => '',
         8 => 'Approved',
+        9 => '',
     ];
     return $arr[$status_id];
 }
