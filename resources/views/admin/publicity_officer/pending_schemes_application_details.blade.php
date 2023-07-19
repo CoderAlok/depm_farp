@@ -23,7 +23,8 @@
                     <div class="panel-hdr">
                         <h2>
                             Hi, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
-                            <b class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
+                            <b
+                                class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
                         </h2>
 
                         {{-- <h2>Application No : <b
@@ -828,6 +829,84 @@
                                                             </thead>
 
                                                             <tbody>
+
+                                                                <tr>
+                                                                    <td width="30%">
+                                                                        {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
+                                                                    </td>
+                                                                    <td width="10%">
+                                                                        ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
+                                                                    </td>
+                                                                    <td width="20%">
+                                                                        {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                    </td>
+                                                                </tr>
+
+                                                                @if (isset($applications->get_application_progress_master_details[1]))
+                                                                    <tr>
+                                                                        <td width="30%">
+                                                                            {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            ({{ $applications->get_application_progress_master_details[1]->get_user_details->get_role_details->name ?? '' }})
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+
+                                                                @if (isset($applications->get_application_progress_master_details[2]))
+                                                                    <tr>
+                                                                        <td width="30%">
+                                                                            {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            ({{ $applications->get_application_progress_master_details[2]->get_user_details->get_role_details->name ?? '' }})
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+
+                                                                @if (isset($applications->get_application_progress_master_details[3]))
+                                                                    <tr>
+
+                                                                        <td width="30%">
+                                                                            {{ $applications->get_application_progress_master_details[3]->remarks ?? '' }}
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            ({{ $applications->get_application_progress_master_details[3]->get_user_details->get_role_details->name ?? '' }})
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+
+                                                                @if (isset($applications->get_application_progress_master_details[4]))
+                                                                    <tr>
+
+                                                                        <td width="30%">
+                                                                            {{ $applications->get_application_progress_master_details[4]->remarks ?? '' }}
+                                                                        </td>
+                                                                        <td width="10%">
+                                                                            ({{ $applications->get_application_progress_master_details[4]->get_user_details->get_role_details->name ?? '' }})
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+
+                                                                <tr>
+                                                                    <td colspan="3">
+                                                                        <hr>
+                                                                    </td>
+                                                                </tr>
+
+
                                                                 @switch(Auth::user()->role_id)
                                                                     @case(2)
                                                                         <tr>
@@ -853,6 +932,110 @@
                                                                                 {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
                                                                             </td>
                                                                         </tr>
+
+                                                                        @if (isset($applications->get_application_progress_master_details[1]))
+                                                                            <tr>
+                                                                                {{-- <td width="20%">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                                {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                                <td width="30%">
+                                                                                    {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                                </td>
+                                                                                <td width="10%">
+                                                                                    {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                    ({{ $applications->get_application_progress_master_details[1]->get_user_details->get_role_details->name ?? '' }})
+                                                                                </td>
+                                                                                <td width="20%">
+                                                                                    {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+
+                                                                        @if (isset($applications->get_application_progress_master_details[2]))
+                                                                            <tr>
+                                                                                {{-- <td width="20%a">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                                {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                                <td width="30%">
+                                                                                    {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
+                                                                                </td>
+                                                                                <td width="10%">
+                                                                                    {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                    ({{ $applications->get_application_progress_master_details[2]->get_user_details->get_role_details->name ?? '' }})
+                                                                                </td>
+                                                                                <td width="20%">
+                                                                                    {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+
+                                                                        @if (isset($applications->get_application_progress_master_details[3]))
+                                                                            <tr>
+                                                                                {{-- <td width="20%a">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                                {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                                <td width="30%">
+                                                                                    {{ $applications->get_application_progress_master_details[3]->remarks ?? '' }}
+                                                                                </td>
+                                                                                <td width="10%">
+                                                                                    {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                    ({{ $applications->get_application_progress_master_details[3]->get_user_details->get_role_details->name ?? '' }})
+                                                                                </td>
+                                                                                <td width="20%">
+                                                                                    {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
+
+                                                                        @if (isset($applications->get_application_progress_master_details[4]))
+                                                                            <tr>
+                                                                                {{-- <td width="20%a">
+                                                                                {{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}
+                                                                            </td>
+                                                                            <td width="20%">
+                                                                                {{ $applications->get_application_progress_master_details[1]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[1]->incentive_amount) : '' }}
+                                                                            </td> --}}
+                                                                                {{-- <td>
+                                                                                <span class="badge badge-warning text-dark">
+                                                                                    {{ $applications->status ? dir_status_array($applications->status) : '' }}
+                                                                                </span>
+                                                                            </td> --}}
+                                                                                <td width="30%">
+                                                                                    {{ $applications->get_application_progress_master_details[4]->remarks ?? '' }}
+                                                                                </td>
+                                                                                <td width="10%">
+                                                                                    {{-- {{ ($applications->get_application_progress_master_details[1]->get_user_details->first_name ?? '') . ' ' . ($applications->get_application_progress_master_details[1]->get_user_details->last_name ?? '') }} --}}
+                                                                                    ({{ $applications->get_application_progress_master_details[4]->get_user_details->get_role_details->name ?? '' }})
+                                                                                </td>
+                                                                                <td width="20%">
+                                                                                    {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
                                                                     @break
 
                                                                     @case(3)
