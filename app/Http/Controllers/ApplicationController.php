@@ -28,136 +28,426 @@ class ApplicationController extends Controller
     public function submitApplication(Request $request)
     {
         try {
+            $valid_rule  = [];
+            $valid_error = [];
+            // dd($request->all());
+            switch ($request->scheme_id) {
+                // Validation for scheme 1
+                case 1:
+                    if ($request->travel_details == 1 && $request->stall_details == 1) {
+                        // Both Travel & Stall detail ACTIVE
+                        $valid_rule = [
+                            'exporter_id'                 => 'required',
+                            'scheme_id'                   => 'required',
+                            'iec'                         => 'required',
+                            'exporting_organization'      => 'required',
+                            'dir_ceo'                     => 'required',
+                            'exptr_email'                 => 'required',
+                            'exptr_phone'                 => 'required',
+                            'bank_name'                   => 'required',
+                            'bank_ac'                     => 'required',
+                            'bank_ifsc'                   => 'required',
+                            'event_detail'                => '',
+                            'event_name'                  => 'required',
+                            'event_type'                  => 'required',
+                            'participation_type'          => 'required',
+                            'event_city'                  => 'required',
+                            'event_country'               => 'required',
+                            'file_iec'                    => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'            => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
 
-            if ($request->scheme_id != 1) {
-                $validator = Validator::make($request->all(),
-                    [
-                        'exporter_id'          => 'required',
-                        'iec'                  => 'required',
-                        'exptr_name'           => 'required',
-                        'dir_ceo'              => 'required',
-                        'exptr_email'          => 'required',
-                        'exptr_phone'          => 'required',
-                        'bank_name'            => 'required',
-                        'bank_ac'              => 'required',
-                        'bank_ifsc'            => 'required',
-                        'type_of_certificate'  => 'required',
-                        'certificate_name'     => 'required',
-                        'certificate_iss_auth' => 'required',
-                        'certificate_cost'     => 'required',
-                        'terms'                => '',
-                        'file_iec'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        'file_bank_cheque'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        'file_payment_reciept' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                    ],
-                    [
-                        'exporter_id.required'          => 'Please, fill the exporter_id',
-                        'iec.required'                  => 'Please, fill the iec',
-                        'exptr_name.required'           => 'Please, fill the exptr_name',
-                        'dir_ceo.required'              => 'Please, fill the dir_ceo',
-                        'exptr_email.required'          => 'Please, fill the exptr_email',
-                        'exptr_phone.required'          => 'Please, fill the exptr_phone',
-                        'bank_name.required'            => 'Please, fill the bank_name',
-                        'bank_ac.required'              => 'Please, fill the bank_ac',
-                        'bank_ifsc.required'            => 'Please, fill the bank_ifsc',
-                        'type_of_certificate.required'  => 'Please, fill the type_of_certificate',
-                        'certificate_name.required'     => 'Please, fill the certificate_name',
-                        'certificate_iss_auth.required' => 'Please, fill the certificate_iss_auth',
-                        'certificate_cost.required'     => 'Please, fill the certificate_cost',
-                        'terms.required'                => 'Please, check the terms',
-                        'file_iec.required'             => 'Please, fill the file_iec',
-                        'file_iec.max'                  => 'File must be less then 4MB',
-                        'file_bank_cheque.required'     => 'Please, fill the file_bank_cheque',
-                        'file_payment_reciept.required' => 'Please, fill the file_payment_reciept',
-                    ],
-                );
-            } else {
-                $validator = Validator::make($request->all(),
-                    [
-                        'exporter_id'            => 'required',
-                        'scheme_id'              => 'required',
-                        'iec'                    => 'required',
-                        'exporting_organization' => 'required',
-                        'dir_ceo'                => 'required',
-                        'exptr_email'            => 'required',
-                        'exptr_phone'            => 'required',
-                        'bank_name'              => 'required',
-                        'bank_ac'                => 'required',
-                        'bank_ifsc'              => 'required',
-                        'event_detail'           => '',
-                        'event_name'             => 'required',
-                        'event_type'             => 'required',
-                        'participation_type'     => 'required',
-                        'event_city'             => 'required',
-                        'event_country'          => 'required',
-                        // 'travel_destination_type'     => 'required',
-                        // 'traveller_name'              => 'required',
-                        // 'traveller_designation'       => 'required',
-                        // 'mode_of_travel'              => 'required',
-                        // 'class_of_tarvel'             => 'required',
-                        // 'total_travel_expense'        => 'required',
-                        // 'travel_incentive'            => 'required',
-                        // 'stall_event_name'            => 'required',
-                        // 'total_stall_reg_cost'        => 'required',
-                        // 'stall_incentive'             => 'required',
-                        'meeting_detail'         => 'required',
-                        'participation_det'      => 'required',
-                        'terms'                  => '',
-                        'file_iec'               => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        'file_bank_cheque'       => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        // 'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        // 'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        // 'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        // 'file_stall_allot_letter'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        // 'file_stall_pay_recpt'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                        'file_tour_dairy'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                    ],
-                    [
-                        'exporter_id'                 => 'Please, fill the exporter_id',
-                        'scheme_id'                   => 'Please, fill the scheme_id',
-                        'iec'                         => 'Please, fill the iec',
-                        'exporting_organization'      => 'Please, fill the exporting_organization',
-                        'dir_ceo'                     => 'Please, fill the dir_ceo',
-                        'exptr_email'                 => 'Please, fill the exptr_email',
-                        'exptr_phone'                 => 'Please, fill the exptr_phone',
-                        'bank_name'                   => 'Please, fill the bank_name',
-                        'bank_ac'                     => 'Please, fill the bank_ac',
-                        'bank_ifsc'                   => 'Please, fill the bank_ifsc',
-                        'event_detail'                => 'Please, fill the event_detail',
-                        'event_name'                  => 'Please, fill the event_name',
-                        'event_type'                  => 'Please, fill the event_type',
-                        'participation_type'          => 'Please, fill the participation_type',
-                        'event_city'                  => 'Please, fill the event_city',
-                        'event_country'               => 'Please, fill the event_country',
-                        'travel_destination_type'     => 'Please, fill the travel_destination_type',
-                        'traveller_name'              => 'Please, fill the traveller_name',
-                        'traveller_designation'       => 'Please, fill the traveller_designation',
-                        'mode_of_travel'              => 'Please, fill the mode_of_travel',
-                        'class_of_tarvel'             => 'Please, fill the class_of_tarvel',
-                        'total_travel_expense'        => 'Please, fill the total_travel_expense',
-                        'travel_incentive'            => 'Please, fill the travel_incentive',
-                        'stall_event_name'            => 'Please, fill the stall_event_name',
-                        'total_stall_reg_cost'        => 'Please, fill the total_stall_reg_cost',
-                        'stall_incentive'             => 'Please, fill the stall_incentive',
-                        'meeting_detail'              => 'Please, fill the meeting_detail',
-                        'participation_det'           => 'Please, fill the participation_det',
-                        'terms'                       => 'Please, fill the terms',
-                        'file_iec'                    => 'Please, fill the file_iec',
-                        'file_bank_cheque'            => 'Please, fill the file_bank_cheque',
-                        'file_visa_invitation_letter' => 'Please, fill the file_visa_invitation_letter',
-                        'file_ticket'                 => 'Please, fill the file_ticket',
-                        'file_boarding_pass'          => 'Please, fill the file_boarding_pass',
-                        'file_stall_allot_letter'     => 'Please, fill the file_stall_allot_letter',
-                        'file_stall_pay_recpt'        => 'Please, fill the file_stall_pay_recpt',
-                        'file_tour_dairy'             => 'Please, fill the file_tour_dairy',
-                    ]
-                );
+                            // Travel
+                            'travel_destination_type'     => 'required',
+                            'traveller_name'              => 'required',
+                            'traveller_designation'       => 'required',
+                            'mode_of_travel'              => '',
+                            'class_of_tarvel'             => 'required',
+                            'total_travel_expense'        => 'required',
+                            'travel_incentive'            => 'required',
+                            'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Stall
+                            'stall_event_name'            => 'required',
+                            'total_stall_reg_cost'        => 'required',
+                            'stall_incentive'             => 'required',
+                            'file_stall_allot_letter'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_stall_pay_recpt'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Additional
+                            'meeting_detail'              => 'required',
+                            'participation_det'           => 'required',
+                            'file_tour_dairy'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                        ];
+                        $valid_error = [
+                            'exporter_id.required'                 => 'Please, enter the exporter_id',
+                            'scheme_id.required'                   => 'Please, enter the scheme_id',
+                            'iec.required'                         => 'Please, enter the iec',
+                            'exporting_organization.required'      => 'Please, enter the exporting_organization',
+                            'dir_ceo.required'                     => 'Please, enter the dir_ceo',
+                            'exptr_email.required'                 => 'Please, enter the exptr_email',
+                            'exptr_phone.required'                 => 'Please, enter the exptr_phone',
+                            'bank_name.required'                   => 'Please, enter the bank_name',
+                            'bank_ac.required'                     => 'Please, enter the bank_ac',
+                            'bank_ifsc.required'                   => 'Please, enter the bank_ifsc',
+                            'event_detail'                         => '',
+                            'event_name.required'                  => 'Please, enter the event_name',
+                            'event_type.required'                  => 'Please, enter the event_type',
+                            'participation_type.required'          => 'Please, enter the participation_type',
+                            'event_city.required'                  => 'Please, enter the event_city',
+                            'event_country.required'               => 'Please, enter the event_country',
+                            'file_iec.required'                    => 'Please, fill the required file iec',
+                            'file_bank_cheque.required'            => 'Please, fill the required file bank cheque',
+
+                            // Travel
+                            'travel_destination_type.required'     => 'Please, enter the travel_destination_type',
+                            'traveller_name.required'              => 'Please, enter the traveller_name',
+                            'traveller_designation.required'       => 'Please, enter the traveller_designation',
+                            'mode_of_travel.required'              => 'Please, enter the mode_of_travel',
+                            'class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
+                            'total_travel_expense.required'        => 'Please, enter the total_travel_expense',
+                            'travel_incentive.required'            => 'Please, enter the travel_incentive',
+                            'file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
+                            'file_ticket.required'                 => 'Please, enter the file_ticket',
+                            'file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
+
+                            // Stall
+                            'stall_event_name.required'            => 'Please, enter the stall_event_name',
+                            'total_stall_reg_cost.required'        => 'Please, enter the total_stall_reg_cost',
+                            'stall_incentive.required'             => 'Please, enter the stall_incentive',
+                            'file_stall_allot_letter.required'     => 'Please, enter the file_stall_allot_letter',
+                            'file_stall_pay_recpt.required'        => 'Please, enter the file_stall_pay_recpt',
+
+                            // Additional
+                            'meeting_detail.required'              => 'Please, enter the meeting_detail',
+                            'participation_det.required'           => 'Please, enter the participation_det',
+                            'file_tour_dairy.required'             => 'Please, enter the file_tour_dairy',
+                        ];
+                    } elseif ($request->stall_details == 1) {
+                        // Stall detail ACTIVE
+                        $valid_rule = [
+                            'exporter_id'             => 'required',
+                            'scheme_id'               => 'required',
+                            'iec'                     => 'required',
+                            'exporting_organization'  => 'required',
+                            'dir_ceo'                 => 'required',
+                            'exptr_email'             => 'required',
+                            'exptr_phone'             => 'required',
+                            'bank_name'               => 'required',
+                            'bank_ac'                 => 'required',
+                            'bank_ifsc'               => 'required',
+                            'event_detail'            => '',
+                            'event_name'              => 'required',
+                            'event_type'              => 'required',
+                            'participation_type'      => 'required',
+                            'event_city'              => 'required',
+                            'event_country'           => 'required',
+                            'file_iec'                => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Travel
+                            // 'travel_destination_type'     => 'required',
+                            // 'traveller_name'              => 'required',
+                            // 'traveller_designation'       => 'required',
+                            // 'mode_of_travel'              => 'required',
+                            // 'class_of_tarvel'             => 'required',
+                            // 'total_travel_expense'        => 'required',
+                            // 'travel_incentive'            => 'required',
+                            // 'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            // 'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            // 'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Stall
+                            'stall_event_name'        => 'required',
+                            'total_stall_reg_cost'    => 'required',
+                            'stall_incentive'         => 'required',
+                            'file_stall_allot_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_stall_pay_recpt'    => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Additional
+                            'meeting_detail'          => 'required',
+                            'participation_det'       => 'required',
+                            'file_tour_dairy'         => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                        ];
+                        $valid_error = [
+                            'exporter_id.required'             => 'Please, enter the exporter_id',
+                            'scheme_id.required'               => 'Please, enter the scheme_id',
+                            'iec.required'                     => 'Please, enter the iec',
+                            'exporting_organization.required'  => 'Please, enter the exporting_organization',
+                            'dir_ceo.required'                 => 'Please, enter the dir_ceo',
+                            'exptr_email.required'             => 'Please, enter the exptr_email',
+                            'exptr_phone.required'             => 'Please, enter the exptr_phone',
+                            'bank_name.required'               => 'Please, enter the bank_name',
+                            'bank_ac.required'                 => 'Please, enter the bank_ac',
+                            'bank_ifsc.required'               => 'Please, enter the bank_ifsc',
+                            'event_detail'                     => '',
+                            'event_name.required'              => 'Please, enter the event_name',
+                            'event_type.required'              => 'Please, enter the event_type',
+                            'participation_type.required'      => 'Please, enter the participation_type',
+                            'event_city.required'              => 'Please, enter the event_city',
+                            'event_country.required'           => 'Please, enter the event_country',
+                            'file_iec.required'                => 'Please, fill the required file iec',
+                            'file_bank_cheque.required'        => 'Please, fill the required file bank cheque',
+
+                            // Travel
+                            // 'travel_destination_type.required'     => 'Please, enter the travel_destination_type',
+                            // 'traveller_name.required'              => 'Please, enter the traveller_name',
+                            // 'traveller_designation.required'       => 'Please, enter the traveller_designation',
+                            // 'mode_of_travel.required'              => 'Please, enter the mode_of_travel',
+                            // 'class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
+                            // 'total_travel_expense.required'        => 'Please, enter the total_travel_expense',
+                            // 'travel_incentive.required'            => 'Please, enter the travel_incentive',
+                            // 'file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
+                            // 'file_ticket.required'                 => 'Please, enter the file_ticket',
+                            // 'file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
+
+                            // Stall
+                            'stall_event_name.required'        => 'Please, enter the stall_event_name',
+                            'total_stall_reg_cost.required'    => 'Please, enter the total_stall_reg_cost',
+                            'stall_incentive.required'         => 'Please, enter the stall_incentive',
+                            'file_stall_allot_letter.required' => 'Please, enter the file_stall_allot_letter',
+                            'file_stall_pay_recpt.required'    => 'Please, enter the file_stall_pay_recpt',
+
+                            // Additional
+                            'meeting_detail.required'          => 'Please, enter the meeting_detail',
+                            'participation_det.required'       => 'Please, enter the participation_det',
+                            'file_tour_dairy.required'         => 'Please, enter the file_tour_dairy',
+                        ];
+                    } else if ($request->travel_details == 1) {
+                        // Travel Details Active
+                        $valid_rule = [
+                            'exporter_id'                 => 'required',
+                            'scheme_id'                   => 'required',
+                            'iec'                         => 'required',
+                            'exporting_organization'      => 'required',
+                            'dir_ceo'                     => 'required',
+                            'exptr_email'                 => 'required',
+                            'exptr_phone'                 => 'required',
+                            'bank_name'                   => 'required',
+                            'bank_ac'                     => 'required',
+                            'bank_ifsc'                   => 'required',
+                            'event_detail'                => '',
+                            'event_name'                  => 'required',
+                            'event_type'                  => 'required',
+                            'participation_type'          => 'required',
+                            'event_city'                  => 'required',
+                            'event_country'               => 'required',
+                            'file_iec'                    => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'            => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Travel
+                            'travel_destination_type'     => 'required',
+                            'traveller_name'              => 'required',
+                            'traveller_designation'       => 'required',
+                            'mode_of_travel'              => 'required',
+                            'class_of_tarvel'             => 'required',
+                            'total_travel_expense'        => 'required',
+                            'travel_incentive'            => 'required',
+                            'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Stall
+                            // 'stall_event_name'            => 'required',
+                            // 'total_stall_reg_cost'        => 'required',
+                            // 'stall_incentive'             => 'required',
+                            // 'file_stall_allot_letter'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            // 'file_stall_pay_recpt'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Additional
+                            'meeting_detail'              => 'required',
+                            'participation_det'           => 'required',
+                            'file_tour_dairy'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                        ];
+                        $valid_error = [
+                            'exporter_id.required'                 => 'Please, enter the exporter_id',
+                            'scheme_id.required'                   => 'Please, enter the scheme_id',
+                            'iec.required'                         => 'Please, enter the iec',
+                            'exporting_organization.required'      => 'Please, enter the exporting_organization',
+                            'dir_ceo.required'                     => 'Please, enter the dir_ceo',
+                            'exptr_email.required'                 => 'Please, enter the exptr_email',
+                            'exptr_phone.required'                 => 'Please, enter the exptr_phone',
+                            'bank_name.required'                   => 'Please, enter the bank_name',
+                            'bank_ac.required'                     => 'Please, enter the bank_ac',
+                            'bank_ifsc.required'                   => 'Please, enter the bank_ifsc',
+                            'event_detail'                         => '',
+                            'event_name.required'                  => 'Please, enter the event_name',
+                            'event_type.required'                  => 'Please, enter the event_type',
+                            'participation_type.required'          => 'Please, enter the participation_type',
+                            'event_city.required'                  => 'Please, enter the event_city',
+                            'event_country.required'               => 'Please, enter the event_country',
+                            'file_iec.required'                    => 'Please, fill the required file iec',
+                            'file_bank_cheque.required'            => 'Please, fill the required file bank cheque',
+
+                            // Travel
+                            'travel_destination_type.required'     => 'Please, enter the travel_destination_type',
+                            'traveller_name.required'              => 'Please, enter the traveller_name',
+                            'traveller_designation.required'       => 'Please, enter the traveller_designation',
+                            'mode_of_travel.required'              => 'Please, enter the mode_of_travel',
+                            'class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
+                            'total_travel_expense.required'        => 'Please, enter the total_travel_expense',
+                            'travel_incentive.required'            => 'Please, enter the travel_incentive',
+                            'file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
+                            'file_ticket.required'                 => 'Please, enter the file_ticket',
+                            'file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
+
+                            // Stall
+                            // 'stall_event_name.required'            => 'Please, enter the stall_event_name',
+                            // 'total_stall_reg_cost.required'        => 'Please, enter the total_stall_reg_cost',
+                            // 'stall_incentive.required'             => 'Please, enter the stall_incentive',
+                            // 'file_stall_allot_letter.required'     => 'Please, enter the file_stall_allot_letter',
+                            // 'file_stall_pay_recpt.required'        => 'Please, enter the file_stall_pay_recpt',
+
+                            // Additional
+                            'meeting_detail.required'              => 'Please, enter the meeting_detail',
+                            'participation_det.required'           => 'Please, enter the participation_det',
+                            'file_tour_dairy.required'             => 'Please, enter the file_tour_dairy',
+                        ];
+                    } else {
+                        // Both Travel & Stall Details are not selected
+                        $valid_rule = [
+                            'exporter_id'            => 'required',
+                            'scheme_id'              => 'required',
+                            'iec'                    => 'required',
+                            'exporting_organization' => 'required',
+                            'dir_ceo'                => 'required',
+                            'exptr_email'            => 'required',
+                            'exptr_phone'            => 'required',
+                            'bank_name'              => 'required',
+                            'bank_ac'                => 'required',
+                            'bank_ifsc'              => 'required',
+                            'event_detail'           => '',
+                            'event_name'             => 'required',
+                            'event_type'             => 'required',
+                            'participation_type'     => 'required',
+                            'event_city'             => 'required',
+                            'event_country'          => 'required',
+                            'file_iec'               => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'       => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // // Travel
+                            // 'travel_destination_type'     => 'required',
+                            // 'traveller_name'              => 'required',
+                            // 'traveller_designation'       => 'required',
+                            // 'mode_of_travel'              => 'required',
+                            // 'class_of_tarvel'             => 'required',
+                            // 'total_travel_expense'        => 'required',
+                            // 'travel_incentive'            => 'required',
+                            // 'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            // 'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            // 'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // // Stall
+                            // 'stall_event_name'        => 'required',
+                            // 'total_stall_reg_cost'    => 'required',
+                            // 'stall_incentive'         => 'required',
+                            // 'file_stall_allot_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            // 'file_stall_pay_recpt'    => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+
+                            // Additional
+                            'meeting_detail'         => 'required',
+                            'participation_det'      => 'required',
+                            'file_tour_dairy'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                        ];
+                        $valid_error = [
+                            'exporter_id.required'            => 'Please, enter the exporter_id',
+                            'scheme_id.required'              => 'Please, enter the scheme_id',
+                            'iec.required'                    => 'Please, enter the iec',
+                            'exporting_organization.required' => 'Please, enter the exporting_organization',
+                            'dir_ceo.required'                => 'Please, enter the dir_ceo',
+                            'exptr_email.required'            => 'Please, enter the exptr_email',
+                            'exptr_phone.required'            => 'Please, enter the exptr_phone',
+                            'bank_name.required'              => 'Please, enter the bank_name',
+                            'bank_ac.required'                => 'Please, enter the bank_ac',
+                            'bank_ifsc.required'              => 'Please, enter the bank_ifsc',
+                            'event_detail'                    => '',
+                            'event_name.required'             => 'Please, enter the event_name',
+                            'event_type.required'             => 'Please, enter the event_type',
+                            'participation_type.required'     => 'Please, enter the participation_type',
+                            'event_city.required'             => 'Please, enter the event_city',
+                            'event_country.required'          => 'Please, enter the event_country',
+                            'file_iec.required'               => 'Please, fill the required file iec',
+                            'file_bank_cheque.required'       => 'Please, fill the required file bank cheque',
+
+                            // // Travel
+                            // 'travel_destination_type.required'     => 'Please, enter the travel_destination_type',
+                            // 'traveller_name.required'              => 'Please, enter the traveller_name',
+                            // 'traveller_designation.required'       => 'Please, enter the traveller_designation',
+                            // 'mode_of_travel.required'              => 'Please, enter the mode_of_travel',
+                            // 'class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
+                            // 'total_travel_expense.required'        => 'Please, enter the total_travel_expense',
+                            // 'travel_incentive.required'            => 'Please, enter the travel_incentive',
+                            // 'file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
+                            // 'file_ticket.required'                 => 'Please, enter the file_ticket',
+                            // 'file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
+
+                            // // Stall
+                            // 'stall_event_name.required'        => 'Please, enter the stall_event_name',
+                            // 'total_stall_reg_cost.required'    => 'Please, enter the total_stall_reg_cost',
+                            // 'stall_incentive.required'         => 'Please, enter the stall_incentive',
+                            // 'file_stall_allot_letter.required' => 'Please, enter the file_stall_allot_letter',
+                            // 'file_stall_pay_recpt.required'    => 'Please, enter the file_stall_pay_recpt',
+
+                            // Additional
+                            'meeting_detail.required'         => 'Please, enter the meeting_detail',
+                            'participation_det.required'      => 'Please, enter the participation_det',
+                            'file_tour_dairy.required'        => 'Please, enter the file_tour_dairy',
+                        ];
+                    }
+                    $validator = Validator::make($request->all(), $valid_rule, $valid_error);
+                    break;
+
+                // Validation for Scheme(2-7)
+                default:
+                    $validator = Validator::make($request->all(),
+                        [
+                            'exporter_id'          => 'required',
+                            'iec'                  => 'required',
+                            'exptr_name'           => 'required',
+                            'dir_ceo'              => 'required',
+                            'exptr_email'          => 'required',
+                            'exptr_phone'          => 'required',
+                            'bank_name'            => 'required',
+                            'bank_ac'              => 'required',
+                            'bank_ifsc'            => 'required',
+                            'type_of_certificate'  => 'required',
+                            'certificate_name'     => 'required',
+                            'certificate_iss_auth' => 'required',
+                            'certificate_cost'     => 'required',
+                            'terms'                => '',
+                            'file_iec'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_payment_reciept' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                        ],
+                        [
+                            'exporter_id.required'          => 'Please, fill the exporter_id',
+                            'iec.required'                  => 'Please, fill the iec',
+                            'exptr_name.required'           => 'Please, fill the exptr_name',
+                            'dir_ceo.required'              => 'Please, fill the dir_ceo',
+                            'exptr_email.required'          => 'Please, fill the exptr_email',
+                            'exptr_phone.required'          => 'Please, fill the exptr_phone',
+                            'bank_name.required'            => 'Please, fill the bank_name',
+                            'bank_ac.required'              => 'Please, fill the bank_ac',
+                            'bank_ifsc.required'            => 'Please, fill the bank_ifsc',
+                            'type_of_certificate.required'  => 'Please, fill the type_of_certificate',
+                            'certificate_name.required'     => 'Please, fill the certificate_name',
+                            'certificate_iss_auth.required' => 'Please, fill the certificate_iss_auth',
+                            'certificate_cost.required'     => 'Please, fill the certificate_cost',
+                            'terms.required'                => 'Please, check the terms',
+                            'file_iec.required'             => 'Please, fill the file_iec',
+                            'file_iec.max'                  => 'File must be less then 4MB',
+                            'file_bank_cheque.required'     => 'Please, fill the file_bank_cheque',
+                            'file_payment_reciept.required' => 'Please, fill the file_payment_reciept',
+                        ],
+                    );
+                    break;
             }
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             } else {
-                dd($request->all());
+                // dd($request->all());
 
                 $user_id        = Auth::guard('exporter')->user()->id;
                 $application_no = $this->app->generateExpSchAppCode();
@@ -360,7 +650,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Method pending_exporters_application_details
+     * Method pending_exporters_application_details ------ FOR ADMINS -------
      * Application details page for all the users
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
@@ -385,12 +675,12 @@ class ApplicationController extends Controller
         $data['applications']      = $applications; //->toArray();
         $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
         $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
-        // dd($data);
+        // dd(['Admin', $data]);
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 
     /**
-     * Method exporters_application_status_details
+     * Method exporters_application_status_details ------ FOR EXPORTERS -------
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
      * @return void
@@ -409,7 +699,7 @@ class ApplicationController extends Controller
             'get_other_code_details',
             'get_bank_details',
         ])->first();
-        // dd($data['applications']->toArray());
+        // dd(['Exporteres .. ', $data['applications']->toArray()]);
         return view('application_status_details')->with($data);
     }
 

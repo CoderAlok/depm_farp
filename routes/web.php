@@ -32,6 +32,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('roles', RoleController::class);
+// Route:;get();
 
 // Exporter register and login
 Route::get('/exporter-register', [TblExportersController::class, 'create'])->name('exporter.register');

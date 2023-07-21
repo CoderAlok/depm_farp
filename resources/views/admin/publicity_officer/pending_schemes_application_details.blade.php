@@ -308,235 +308,230 @@
                                 </div>
                                 <!-- End Event Details Row -->
 
-                                <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3d" aria-expanded="true">
-                                                <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                                Travel Details
-                                                <span class="ml-auto">
-                                                    <span class="collapsed-reveal">
-                                                        <i class="fal fa-minus fs-xl"></i>
+                                @if ($applications->get_travel_details)
+                                    <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                                    data-target="#js_demo_accordion-3d" aria-expanded="true">
+                                                    <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                                    Travel Details
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus fs-xl"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus fs-xl"></i>
+                                                        </span>
                                                     </span>
-                                                    <span class="collapsed-hidden">
-                                                        <i class="fal fa-plus fs-xl"></i>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div id="js_demo_accordion-3d" class="collapse show" data-parent="#js_demo_accordion-3">
-                                            <div class="card-body">
-                                                {{-- <div class="row col-md-12">
-                                                <div class="col-md-4 mb-1">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="1"
-                                                            id="travel_details" name="travel_details">
-                                                        <label class="form-check-label h6" for="travel_details">
-                                                            Travel Details
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-
-                                                {{-- Travel details div --}}
-                                                <div class="row col-md-12 travel_details_div">
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(a). Travel Destination Type <span
-                                                                class="text-danger">*</span></label>
-                                                        <br />
-                                                        @php
-                                                            $destination_type = ['', 'Within India', 'Outside India'];
-                                                        @endphp
-                                                        <input type="text" name="travel_destination_type"
-                                                            id="travel_destination_type" class="form-control"
-                                                            value="{{ $applications->get_travel_details->destination_type ? $destination_type[$applications->get_travel_details->destination_type] : '' }}"
-                                                            readonly />
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-1 upload_visa_div">
-                                                        <label class="form-label h6">(b). Upload Visa Invitation Letter <span
-                                                                class="text-danger">*</span></label>
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($applications->get_travel_details->file_visa ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(c). Name of the Traveller <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="traveller_name" id="traveller_name"
-                                                            class="form-control"
-                                                            value="{{ $applications->get_travel_details->traveller_name ?? '' }}"
-                                                            reaonly />
-                                                    </div>
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(d). Designation <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="traveller_designation"
-                                                            id="traveller_designation" class="form-control"
-                                                            value="{{ $applications->get_travel_details->designation ?? '' }}"
-                                                            readonly />
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(e). Mode of Travel <span
-                                                                class="text-danger">*</span></label>
-                                                        @php
-                                                            $mode_of_travel = ['', 'Flight', 'Train'];
-                                                        @endphp
-                                                        <input type="text" name="mode_of_travel" id="mode_of_travel"
-                                                            class="form-control"
-                                                            value="{{ $applications->get_travel_details->mode_of_travel ? $mode_of_travel[$applications->get_travel_details->mode_of_travel] : '' }}"
-                                                            readonly />
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(f). Class of Travel <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="class_of_tarvel" id="class_of_tarvel"
-                                                            class="form-control"
-                                                            value="{{ $applications->get_travel_details->class_of_travel ?? '' }}"
-                                                            readonly />
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(g). Upload ticket <span
-                                                                class="text-danger">*</span></label>
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/ticket' . '/' . ($applications->get_file_details->file_ticket ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-1 boarding_pass_div">
-                                                        <label class="form-label h6">(h). Upload Boarding Pass <span
-                                                                class="text-danger">*</span></label>
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-3">
-                                                        <label class="form-label h6">(i). Total expense made for travel
-                                                            (₹) <span class="text-danger">*</span><br /></label>
-
-                                                        <input type="text" name="total_travel_expense"
-                                                            id="total_travel_expense" class="form-control"
-                                                            value="{{ '₹ ' . IND_money_format($applications->get_travel_details->total_expense) ?? '' }}"
-                                                            readonly />
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-3">
-                                                        <label class="form-label h6">(j). Incentive claimed towards travel
-                                                            (₹)<span class="text-danger">*</span></label>
-                                                        <input type="text" name="travel_incentive" id="travel_incentive"
-                                                            class="form-control"
-                                                            value="{{ '₹ ' . IND_money_format($applications->get_travel_details->incentive_claimed) ?? '' }}"
-                                                            readonly />
-                                                    </div>
-                                                </div>
-
+                                                </a>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Travel Details Row -->
-
-                                <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3e" aria-expanded="true">
-                                                <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                                Stall Details
-                                                <span class="ml-auto">
-                                                    <span class="collapsed-reveal">
-                                                        <i class="fal fa-minus fs-xl"></i>
-                                                    </span>
-                                                    <span class="collapsed-hidden">
-                                                        <i class="fal fa-plus fs-xl"></i>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div id="js_demo_accordion-3e" class="collapse show" data-parent="#js_demo_accordion-3">
-                                            <div class="card-body">
-                                                <div class="row col-md-12">
-                                                    {{-- <div class="col-md-4 mb-1">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="travel_details" name="travel_details">
-                                                            <label class="form-check-label h6" for="travel_details">
-                                                                Travel Details
-                                                            </label>
+                                            <div id="js_demo_accordion-3d" class="collapse show"
+                                                data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    {{-- Travel details div --}}
+                                                    <div class="row col-md-12 travel_details_div">
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(a). Travel Destination Type <span
+                                                                    class="text-danger">*</span></label>
+                                                            <br />
+                                                            @php
+                                                                $destination_type = ['', 'Within India', 'Outside India'];
+                                                            @endphp
+                                                            <input type="text" name="travel_destination_type"
+                                                                id="travel_destination_type" class="form-control"
+                                                                value="{{ $applications->get_travel_details->destination_type ? $destination_type[$applications->get_travel_details->destination_type] : '' }}"
+                                                                readonly />
                                                         </div>
-                                                    </div> --}}
-                                                    {{-- <div class="col-md-4 mb-1">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="1"
-                                                            id="stall_details" name="stall_details">
-                                                        <label class="form-check-label h6" for="stall_details">
-                                                            Stall Details
-                                                        </label>
+
+                                                        <div class="col-md-4 mb-1 upload_visa_div">
+                                                            <label class="form-label h6">(b). Upload Visa Invitation Letter <span
+                                                                    class="text-danger">*</span></label>
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($applications->get_travel_details->file_visa ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(c). Name of the Traveller <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="traveller_name" id="traveller_name"
+                                                                class="form-control"
+                                                                value="{{ $applications->get_travel_details->traveller_name ?? '' }}"
+                                                                reaonly />
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(d). Designation <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="traveller_designation"
+                                                                id="traveller_designation" class="form-control"
+                                                                value="{{ $applications->get_travel_details->designation ?? '' }}"
+                                                                readonly />
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(e). Mode of Travel <span
+                                                                    class="text-danger">*</span></label>
+                                                            @php
+                                                                $mode_of_travel = ['', 'Flight', 'Train'];
+                                                            @endphp
+                                                            <input type="text" name="mode_of_travel" id="mode_of_travel"
+                                                                class="form-control"
+                                                                value="{{ $applications->get_travel_details->mode_of_travel ? $mode_of_travel[$applications->get_travel_details->mode_of_travel] : '' }}"
+                                                                readonly />
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(f). Class of Travel <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="class_of_tarvel" id="class_of_tarvel"
+                                                                class="form-control"
+                                                                value="{{ $applications->get_travel_details->class_of_travel ?? '' }}"
+                                                                readonly />
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(g). Upload ticket <span
+                                                                    class="text-danger">*</span></label>
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/ticket' . '/' . ($applications->get_file_details->file_ticket ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-1 boarding_pass_div">
+                                                            <label class="form-label h6">(h). Upload Boarding Pass <span
+                                                                    class="text-danger">*</span></label>
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label h6">(i). Total expense made for travel
+                                                                (₹) <span class="text-danger">*</span><br /></label>
+
+                                                            <input type="text" name="total_travel_expense"
+                                                                id="total_travel_expense" class="form-control"
+                                                                value="{{ '₹ ' . IND_money_format($applications->get_travel_details->total_expense) ?? '' }}"
+                                                                readonly />
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label h6">(j). Incentive claimed towards travel
+                                                                (₹)<span class="text-danger">*</span></label>
+                                                            <input type="text" name="travel_incentive" id="travel_incentive"
+                                                                class="form-control"
+                                                                value="{{ '₹ ' . IND_money_format($applications->get_travel_details->incentive_claimed) ?? '' }}"
+                                                                readonly />
+                                                        </div>
                                                     </div>
-                                                </div> --}}
+
                                                 </div>
-
-                                                {{-- Stall Details div --}}
-                                                <div class="row col-md-12 stall_details_div">
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(a). Name of the Event : <span
-                                                                class="text-danger">*</span></label>
-                                                        <br />
-                                                        <input type="text" name="stall_event_name" id="stall_event_name"
-                                                            class="form-control" placeholder="Name of the event"
-                                                            value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
-                                                            readonly>
-                                                    </div>
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(b). Upload Stall Allotment / Registration
-                                                            Letter : <span class="text-danger">*</span></label>
-                                                        <br />
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_allotment' . '/' . ($applications->get_file_details->stall_allot_letter ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(c). Upload Stall Registration payment
-                                                            reciept
-                                                            : <span class="text-danger">*</span></label>
-                                                        <br />
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_pay_reciept' . '/' . ($applications->get_file_details->stall_reg_pay_recipt ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-3">
-                                                        <label class="form-label h6">(d). Total stall registration cost
-                                                            (₹) <span class="text-danger">*</span><br /></label>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            placeholder="₹" name="total_stall_reg_cost" id="total_stall_reg_cost"
-                                                            value="{{ '₹ ' . IND_money_format($applications->get_stall_details->total_cost) ?? '' }}"
-                                                            readonly />
-                                                    </div>
-                                                    <div class="col-md-4 mb-3">
-                                                        <label class="form-label h6">(e). Incentive claimed towards Stall
-                                                            registration (₹) <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            placeholder="₹" name="stall_incentive" id="stall_incentive"
-                                                            value="{{ '₹ ' . IND_money_format($applications->get_stall_details->claimed_cost) ?? '' }}"
-                                                            readonly />
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
+
+                                <!-- End Travel Details Row -->
+                                @if ($applications->get_stall_details)
+                                    <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                                    data-target="#js_demo_accordion-3e" aria-expanded="true">
+                                                    <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                                    Stall Details
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus fs-xl"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus fs-xl"></i>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3e" class="collapse show"
+                                                data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row col-md-12">
+                                                        {{-- <div class="col-md-4 mb-1">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                    id="travel_details" name="travel_details">
+                                                                <label class="form-check-label h6" for="travel_details">
+                                                                    Travel Details
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="1"
+                                                                    id="stall_details" name="stall_details">
+                                                                <label class="form-check-label h6" for="stall_details">
+                                                                    Stall Details
+                                                                </label>
+                                                            </div>
+                                                        </div> --}}
+                                                    </div>
+
+                                                    {{-- Stall Details div --}}
+                                                    <div class="row col-md-12 stall_details_div">
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(a). Name of the Event : <span
+                                                                    class="text-danger">*</span></label>
+                                                            <br />
+                                                            <input type="text" name="stall_event_name" id="stall_event_name"
+                                                                class="form-control" placeholder="Name of the event"
+                                                                value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(b). Upload Stall Allotment / Registration
+                                                                Letter : <span class="text-danger">*</span></label>
+                                                            <br />
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_allotment' . '/' . ($applications->get_file_details->stall_allot_letter ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(c). Upload Stall Registration payment
+                                                                reciept
+                                                                : <span class="text-danger">*</span></label>
+                                                            <br />
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_pay_reciept' . '/' . ($applications->get_file_details->stall_reg_pay_recipt ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label h6">(d). Total stall registration cost
+                                                                (₹) <span class="text-danger">*</span><br /></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                placeholder="₹" name="total_stall_reg_cost"
+                                                                id="total_stall_reg_cost"
+                                                                value="{{ '₹ ' . IND_money_format($applications->get_stall_details->total_cost) ?? '' }}"
+                                                                readonly />
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label h6">(e). Incentive claimed towards Stall
+                                                                registration (₹) <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                placeholder="₹" name="stall_incentive" id="stall_incentive"
+                                                                value="{{ '₹ ' . IND_money_format($applications->get_stall_details->claimed_cost) ?? '' }}"
+                                                                readonly />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 <!-- End Stall Details Row -->
 
                                 <div class="accordion accordion-outline" id="js_demo_accordion-3">
