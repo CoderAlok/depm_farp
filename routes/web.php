@@ -32,7 +32,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('roles', RoleController::class);
-// Route:;get();
+
+Route::get('expire-application/{id?}', [ApplicationController::class, 'expireApplication'])->name('expire.application');
 
 // Exporter register and login
 Route::get('/exporter-register', [TblExportersController::class, 'create'])->name('exporter.register');

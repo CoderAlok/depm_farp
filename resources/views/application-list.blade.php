@@ -136,8 +136,8 @@
 
                                                         <td>
                                                             {{-- Chenage the color --}}
-                                                            <span class="badge badge-warning text-white"
-                                                                style="background-color: {{ status_color_array(exporter_status_array($item->status)) }}">
+                                                            <span class="badge text-{{ status_color_array(exporter_status_array($item->status))[1] }}"
+                                                                style="background-color: {{ status_color_array(exporter_status_array($item->status))[0] }}">
                                                                 {{ $item->status ? exporter_status_array($item->status) : '' }}
                                                             </span>
                                                         </td>

@@ -457,43 +457,49 @@
                                                     <td>
                                                         @switch(Auth::user()->role_id)
                                                             @case(2)
-                                                                <span class="badge text-white p-1"
-                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                <span
+                                                                    class="badge text-{{ status_color_array(so_status_array($item['status']))[1] }} p-1"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status']))[0] }}">
                                                                     {{ $item['status'] ? so_status_array($item['status']) : '' }}
                                                                 </span>
                                                             @break
 
                                                             @case(3)
-                                                                <span class="badge text-white p-1"
-                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                <span
+                                                                    class="badge text-{{ status_color_array(so_status_array($item['status']))[1] }} p-1"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status']))[0] }}">
                                                                     {{ $item['status'] ? dir_status_array($item['status']) : '' }}
                                                                 </span>
                                                             @break
 
                                                             @case(4)
-                                                                <span class="badge text-white p-1"
-                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                <span
+                                                                    class="badge text-{{ status_color_array(so_status_array($item['status']))[1] }} p-1"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status']))[0] }}">
                                                                     {{ $item['status'] ? addl_status_array($item['status']) : '' }}
                                                                 </span>
                                                             @break
 
                                                             @case(5)
-                                                                <span class="badge text-white p-1"
-                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                <span
+                                                                    class="badge text-{{ status_color_array(so_status_array($item['status']))[1] }} p-1"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status']))[0] }}">
                                                                     {{ $item['status'] ? dept_sectry_status_array($item['status']) : '' }}
                                                                 </span>
                                                             @break
 
                                                             @case(7)
-                                                                <span class="badge text-white p-1"
-                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                <span
+                                                                    class="badge text-{{ status_color_array(so_status_array($item['status']))[1] }} p-1"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status']))[0] }}">
                                                                     {{ $item['status'] ? ddo_status_array($item['status']) : '' }}
                                                                 </span>
                                                             @break
 
                                                             @default
-                                                                <span class="badge text-white p-1"
-                                                                    style="background-color: {{ status_color_array(so_status_array($item['status'])) }}">
+                                                                <span
+                                                                    class="badge text-{{ status_color_array(so_status_array($item['status']))[1] }} p-1"
+                                                                    style="background-color: {{ status_color_array(so_status_array($item['status']))[0] }}">
                                                                     {{ $item['status'] ? exporter_status_array($item['status']) : '' }}
                                                                 </span>
                                                         @endswitch

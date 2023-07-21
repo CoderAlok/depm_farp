@@ -415,18 +415,18 @@ function exporter_status_array($status_id)
 
 function status_color_array($status)
 {
-    $color_code = '';
+    $color_code = [];
 
     if (in_array($status, ['Applied', 'Verified by SO', 'Verified',  'Verified', 'Verified by director depm', 'Verified by Addl Special secretory', 'Verified by Director, DEPM'])) {
-        $color_code = '#f5f94a'; // Yellow
+        $color_code = ['#f5f94a', 'dark']; // Yellow
     } else if (in_array($status, ['Approved'])) {
-        $color_code = '#0e5306'; // Green
+        $color_code = ['#0e5306', 'white']; // Green
     } else if (in_array($status, ['Pending', 'Accepted'])) {
-        $color_code = '#e5a01e'; // Orange
+        $color_code = ['#e5a01e', 'dark']; // Orange
     } else if (in_array($status, ['Under Process'])) {
-        $color_code = '#34e7c8'; // Aqua-Green/Blue
+        $color_code = ['#34e7c8', 'white']; // Aqua-Green/Blue
     } else {
-        $color_code = '#cd2323'; // Red
+        $color_code = ['#cd2323', 'white']; // Red
     }
 
     return $color_code;

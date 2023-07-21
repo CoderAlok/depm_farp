@@ -944,4 +944,20 @@ class ApplicationController extends Controller
         }
     }
 
+    public function expireApplication(Request $request, $id = null)
+    {
+        try {
+
+            // Get All the application and check their date and expire within given days
+            
+            $data['data']    = $this->app->AddDateWithDays('21-07-2023', 1)->format('h.i.s a'); //Applications::select('id', 'created_at')->get();
+            $data['message'] = 'All the application loaded';
+            return response($data, 200);
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
 }
