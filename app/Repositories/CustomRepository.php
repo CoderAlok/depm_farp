@@ -4,6 +4,7 @@ namespace App\Repositories;
 use Applications;
 use App\Interfaces\CustomInterface;
 use App\Models\tbl_exporters;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 
 class CustomRepository implements CustomInterface
@@ -196,5 +197,14 @@ class CustomRepository implements CustomInterface
     public function getApplicationId($exporter_id)
     {
         return Applications::select('id')->where('exporter_id', $exporter_id)->first()->id;
+    }
+
+    public function AddDateWithDays($premiumDate, $days)
+    {
+        $premiumDate = Carbon::parse($premiumDate)->format('Y.m.d');
+        $date        = Carbon::createFromFormat('Y.m.d', $premiumDate);
+        $daysAdd     = $days;
+        $date        = $date->addDays($daysAdd);
+        return $date;
     }
 }
