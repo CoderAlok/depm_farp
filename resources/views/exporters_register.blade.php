@@ -39,6 +39,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script src="{{ asset('public/js/aadhar_number_validation.js') }}"></script>
     <!-- bootstrap -->
 
 
@@ -499,6 +500,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     @routes
     <script>
         $(document).ready((e) => {
+
+            // Code to use aadhar numnber validation
+            // $('#export_hsm').on('blur', (e) => {
+            //     let num = $('#export_hsm').val();
+            //     console.log(validate_adhar(num));
+            // });
 
             $('.formSave').on('submit', function() {
                 var html =
