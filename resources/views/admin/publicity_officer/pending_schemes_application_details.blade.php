@@ -802,115 +802,163 @@
                                                 }
                                             @endphp
 
-                                            @if ($table_showing_status)
-                                                <div class="row">
-                                                    <div class="col-md-12">
+                                            {{-- {{ 'f'.($table_showing_status ? 'true' : 'fale') }} --}}
+                                            {{-- @if ($table_showing_status) --}}
+                                            <div class="row">
+                                                <div class="col-md-12">
 
-                                                        <div class="row mt-5 mb-5">
-                                                            <div class="col-md-6">
-                                                                <label for="" class="text-uppercase">Total
-                                                                    expenses of Exporter : </label>
-                                                                <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="" class="text-uppercase">Incentive
-                                                                    amount by SO : </label>
-                                                                <b>{{ $applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
-                                                            </div>
+                                                    <div class="row mt-5 mb-5">
+                                                        <div class="col-md-6">
+                                                            <label for="" class="text-uppercase">Total
+                                                                expenses of Exporter : </label>
+                                                            <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
                                                         </div>
-                                                        <table class="table table-responsive" width="100%">
+                                                        <div class="col-md-6">
+                                                            <label for="" class="text-uppercase">Incentive
+                                                                amount by SO : </label>
+                                                            <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table table-responsive table-bordered" width="100%">
+                                                        @if (isset($applications->get_application_progress_master_details[0]))
                                                             <thead>
-                                                                {{-- <th>Total expenses of Exporter</th>
-                                                                <th>Incentive amount by SO</th> --}}
-                                                                {{-- <th>Status</th> --}}
-                                                                <th>Remarks</th>
-                                                                <th>Remarks By</th>
+                                                                <th>SlNo</th>
+                                                                <th>Note</th>
+                                                                <th>Putup By</th>
                                                                 <th>Date</th>
                                                             </thead>
+                                                        @elseif (isset($applications->get_application_progress_master_details[1]))
+                                                            <thead>
+                                                                <th>SlNo</th>
+                                                                <th>Note</th>
+                                                                <th>Putup By</th>
+                                                                <th>Date</th>
+                                                            </thead>
+                                                        @elseif (isset($applications->get_application_progress_master_details[2]))
+                                                            <thead>
+                                                                <th>SlNo</th>
+                                                                <th>Note</th>
+                                                                <th>Putup By</th>
+                                                                <th>Date</th>
+                                                            </thead>
+                                                        @elseif (isset($applications->get_application_progress_master_details[3]))
+                                                            <thead>
+                                                                <th>SlNo</th>
+                                                                <th>Note</th>
+                                                                <th>Putup By</th>
+                                                                <th>Date</th>
+                                                            </thead>
+                                                        @elseif (isset($applications->get_application_progress_master_details[4]))
+                                                            <thead>
+                                                                <th>SlNo</th>
+                                                                <th>Note</th>
+                                                                <th>Putup By</th>
+                                                                <th>Date</th>
+                                                            </thead>
+                                                        @else
+                                                            {{-- blank  --}}
+                                                        @endif
 
-                                                            <tbody>
-
+                                                        <tbody>
+                                                            @if (isset($applications->get_application_progress_master_details[0]))
                                                                 <tr>
-                                                                    <td width="30%">
+                                                                    <td width="5%">
+                                                                        1
+                                                                    </td>
+                                                                    <td width="65%">
                                                                         {{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}
                                                                     </td>
                                                                     <td width="10%">
                                                                         ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
                                                                     </td>
                                                                     <td width="20%">
-                                                                        {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
                                                                     </td>
                                                                 </tr>
+                                                            @endif
 
-                                                                @if (isset($applications->get_application_progress_master_details[1]))
-                                                                    <tr>
-                                                                        <td width="30%">
-                                                                            {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
-                                                                        </td>
-                                                                        <td width="10%">
-                                                                            ({{ $applications->get_application_progress_master_details[1]->get_user_details->get_role_details->name ?? '' }})
-                                                                        </td>
-                                                                        <td width="20%">
-                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endif
+                                                            @if (isset($applications->get_application_progress_master_details[1]))
+                                                                <tr>
+                                                                    <td width="5%">
+                                                                        2
+                                                                    </td>
+                                                                    <td width="65%">
+                                                                        {{ $applications->get_application_progress_master_details[1]->remarks ?? '' }}
+                                                                    </td>
+                                                                    <td width="10%">
+                                                                        ({{ $applications->get_application_progress_master_details[1]->get_user_details->get_role_details->name ?? '' }})
+                                                                    </td>
+                                                                    <td width="20%">
+                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
 
-                                                                @if (isset($applications->get_application_progress_master_details[2]))
-                                                                    <tr>
-                                                                        <td width="30%">
-                                                                            {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
-                                                                        </td>
-                                                                        <td width="10%">
-                                                                            ({{ $applications->get_application_progress_master_details[2]->get_user_details->get_role_details->name ?? '' }})
-                                                                        </td>
-                                                                        <td width="20%">
-                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endif
+                                                            @if (isset($applications->get_application_progress_master_details[2]))
+                                                                <tr>
+                                                                    <td width="5%">
+                                                                        3
+                                                                    </td>
+                                                                    <td width="65%">
+                                                                        {{ $applications->get_application_progress_master_details[2]->remarks ?? '' }}
+                                                                    </td>
+                                                                    <td width="10%">
+                                                                        ({{ $applications->get_application_progress_master_details[2]->get_user_details->get_role_details->name ?? '' }})
+                                                                    </td>
+                                                                    <td width="20%">
+                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
 
-                                                                @if (isset($applications->get_application_progress_master_details[3]))
-                                                                    <tr>
+                                                            @if (isset($applications->get_application_progress_master_details[3]))
+                                                                <tr>
 
-                                                                        <td width="30%">
-                                                                            {{ $applications->get_application_progress_master_details[3]->remarks ?? '' }}
-                                                                        </td>
-                                                                        <td width="10%">
-                                                                            ({{ $applications->get_application_progress_master_details[3]->get_user_details->get_role_details->name ?? '' }})
-                                                                        </td>
-                                                                        <td width="20%">
-                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endif
+                                                                    <td width="5%">
+                                                                        4
+                                                                    </td>
+                                                                    <td width="65%">
+                                                                        {{ $applications->get_application_progress_master_details[3]->remarks ?? '' }}
+                                                                    </td>
+                                                                    <td width="10%">
+                                                                        ({{ $applications->get_application_progress_master_details[3]->get_user_details->get_role_details->name ?? '' }})
+                                                                    </td>
+                                                                    <td width="20%">
+                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
 
-                                                                @if (isset($applications->get_application_progress_master_details[4]))
-                                                                    <tr>
+                                                            @if (isset($applications->get_application_progress_master_details[4]))
+                                                                <tr>
 
-                                                                        <td width="30%">
-                                                                            {{ $applications->get_application_progress_master_details[4]->remarks ?? '' }}
-                                                                        </td>
-                                                                        <td width="10%">
-                                                                            ({{ $applications->get_application_progress_master_details[4]->get_user_details->get_role_details->name ?? '' }})
-                                                                        </td>
-                                                                        <td width="20%">
-                                                                            {{ date('d-m-Y', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endif
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                                    <td width="5%">
+                                                                        5
+                                                                    </td>
+                                                                    <td width="65%">
+                                                                        {{ $applications->get_application_progress_master_details[4]->remarks ?? '' }}
+                                                                    </td>
+                                                                    <td width="10%">
+                                                                        ({{ $applications->get_application_progress_master_details[4]->get_user_details->get_role_details->name ?? '' }})
+                                                                    </td>
+                                                                    <td width="20%">
+                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                            @else
-                                                <form action="{{ route($route_name, $applications->id) }}"
-                                                    class="form-group mb-3" id="status_approval_form"
-                                                    name="status_approval_form" method="post">
-                                                    @csrf
-                                                    <div class="row">
-                                                        @switch (Auth::user()->role_id)
-                                                            @case(2)
+                                            </div>
+                                            {{-- @else --}}
+                                            <form action="{{ route($route_name, $applications->id) }}"
+                                                class="form-group mb-3" id="status_approval_form"
+                                                name="status_approval_form" method="post">
+                                                @csrf
+                                                <div class="row">
+                                                    @switch (Auth::user()->role_id)
+                                                        @case(2)
+                                                            @if (!$table_showing_status)
                                                                 <div class="form-group col-md-3">
                                                                     <label for="">Total Expense of Exporter <span
                                                                             class="text-danger">*</span>
@@ -919,8 +967,7 @@
                                                                             class="fa fa-info-circle"></i>
                                                                     </label>
                                                                     <input type="hidden" class="form-control"
-                                                                        name="total_expenses"
-                                                                        value="{{ $total_expenditure }}" />
+                                                                        name="total_expenses" value="{{ $total_expenditure }}" />
                                                                     <input type="text" class="form-control"
                                                                         placeholder="{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}"
                                                                         readonly />
@@ -935,178 +982,175 @@
                                                                     <input type="number" name="incentive_amount"
                                                                         class="form-control" id="incentive_amount" value=""
                                                                         placeholder="₹" />
-                                                                    {{-- <input type="text" name="incentive_amount"
-                                                                        class="form-control amount_field" id="incentive_amount"
-                                                                        value="0.00" /> --}}
                                                                 </div>
-                                                            @break
+                                                            @endif
+                                                        @break
 
-                                                            @default
-                                                                <input type="hidden" class="form-control" name="total_expenses"
-                                                                    value="{{ $total_expenditure ?? 0 }}" />
-                                                                <input type="hidden" class="form-control"
-                                                                    name="incentive_amount"
-                                                                    value="{{ $applications->get_application_progress_master_details[0]->incentive_amount ?? 0 }}" />
-                                                        @endswitch
+                                                        @default
+                                                            <input type="hidden" class="form-control" name="total_expenses"
+                                                                value="{{ $total_expenditure ?? 0 }}" />
+                                                            <input type="hidden" class="form-control" name="incentive_amount"
+                                                                value="{{ $applications->get_application_progress_master_details[0]->incentive_amount ?? 0 }}" />
+                                                    @endswitch
 
 
-                                                        @switch (Auth::user()->role_id)
-                                                            @case(2)
-                                                                @if ($applications->status == 1)
-                                                                    {{-- SO --}}
-                                                                    <div class="row col-md-12">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="status">Status</label>
-                                                                            <select name="status" id="status"
-                                                                                class="form-control">
-                                                                                <option value="2">Verified by SO</option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                                placeholder="Enter your remarks..."></textarea>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            @php
-                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
-                                                                            @endphp
-                                                                            <input type="submit"
-                                                                                class="btn btn-primary text-uppercase"
-                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
-                                                                        </div>
+                                                    @switch (Auth::user()->role_id)
+                                                        @case(2)
+                                                            @if ($applications->status == 1)
+                                                                {{-- SO --}}
+                                                                <div class="row col-md-12">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="status">Status</label>
+                                                                        <select name="status" id="status"
+                                                                            class="form-control">
+                                                                            <option value="2">Verified by SO</option>
+                                                                        </select>
                                                                     </div>
-                                                                @endif
-                                                            @break
-
-                                                            @case(3)
-                                                                {{-- DIR DEPM --}}
-                                                                @if ($applications->status == 2)
-                                                                    <div class="row col-md-12">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="status">Status</label>
-                                                                            <select name="status" id="status"
-                                                                                class="form-control mb-3">
-                                                                                <option value="4">Verified by Director DEPM
-                                                                                </option>
-                                                                                <option value="5">Not Verified by Director
-                                                                                    DEPM
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                                placeholder="Enter your remarks..."></textarea>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            @php
-                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
-                                                                            @endphp
-                                                                            <input type="submit"
-                                                                                class="btn btn-primary text-uppercase"
-                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
-                                                                        </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                            placeholder="Enter your remarks..."></textarea>
                                                                     </div>
-                                                                @endif
-                                                            @break
-
-                                                            @case(4)
-                                                                {{-- ADL SCR STY --}}
-                                                                @if ($applications->status == 4)
-                                                                    <div class="row col-md-12">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="status">Status</label>
-                                                                            <select name="status" id="status"
-                                                                                class="form-control mb-3">
-                                                                                <option value="6">Accepted by Addl Special
-                                                                                    Secretory
-                                                                                </option>
-                                                                                <option value="7">Rejected by Addl Special
-                                                                                    Secretory
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                                placeholder="Enter your remarks..."></textarea>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            @php
-                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
-                                                                            @endphp
-                                                                            <input type="submit"
-                                                                                class="btn btn-primary text-uppercase"
-                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
-                                                                        </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        @php
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                        @endphp
+                                                                        <input type="submit"
+                                                                            class="btn btn-primary text-uppercase"
+                                                                            value="{{ $button_array[Auth::user()->role_id] }}">
                                                                     </div>
-                                                                @endif
-                                                            @break
+                                                                </div>
+                                                            @endif
+                                                        @break
 
-                                                            @case(5)
-                                                                {{-- DEPT SECTRY --}}
-                                                                @if ($applications->status == 6)
-                                                                    <div class="row col-md-12">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="status">Status</label>
-                                                                            <select name="status" id="status"
-                                                                                class="form-control mb-3">
-                                                                                <option value="8">Approved by Department
-                                                                                    Secretory
-                                                                                </option>
-                                                                                <option value="9">Rejected By Department
-                                                                                    Secretory
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                                placeholder="Enter your remarks..."></textarea>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            @php
-                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
-                                                                            @endphp
-                                                                            <input type="submit"
-                                                                                class="btn btn-primary text-uppercase"
-                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
-                                                                        </div>
+                                                        @case(3)
+                                                            {{-- DIR DEPM --}}
+                                                            @if ($applications->status == 2)
+                                                                <div class="row col-md-12">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="status">Status</label>
+                                                                        <select name="status" id="status"
+                                                                            class="form-control mb-3">
+                                                                            <option value="4">Verified by Director DEPM
+                                                                            </option>
+                                                                            <option value="5">Not Verified by Director
+                                                                                DEPM
+                                                                            </option>
+                                                                        </select>
                                                                     </div>
-                                                                @endif
-                                                            @break
-
-                                                            @case(7)
-                                                                {{-- DDO --}}
-                                                                @if ($applications->status == 8)
-                                                                    <div class="row col-md-12">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="status">Status</label>
-                                                                            <select name="status" id="status"
-                                                                                class="form-control mb-3">
-                                                                                <option value="7">Sanctioned by DDO</option>
-                                                                            </select>
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-12">
-                                                                            <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                                placeholder="Enter your remarks..."></textarea>
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            @php
-                                                                                $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secratory', 'Forward to Department Secretory', 'Forward to Director, DEPM', '', 'Sanction'];
-                                                                            @endphp
-                                                                            <input type="submit"
-                                                                                class="btn btn-primary text-uppercase"
-                                                                                value="{{ $button_array[Auth::user()->role_id] }}">
-                                                                        </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                            placeholder="Enter your remarks..."></textarea>
                                                                     </div>
-                                                                @endif
-                                                            @break
+                                                                    <div class="form-group col-md-12">
+                                                                        @php
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                        @endphp
+                                                                        <input type="submit"
+                                                                            class="btn btn-primary text-uppercase"
+                                                                            value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @break
 
-                                                            @default
-                                                                <div></div>
-                                                        @endswitch
-                                                    </div>
-                                                </form>
-                                            @endif
+                                                        @case(4)
+                                                            {{-- ADL SCR STY --}}
+                                                            @if ($applications->status == 4)
+                                                                <div class="row col-md-12">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="status">Status</label>
+                                                                        <select name="status" id="status"
+                                                                            class="form-control mb-3">
+                                                                            <option value="6">Accepted by Addl Special
+                                                                                Secretory
+                                                                            </option>
+                                                                            <option value="7">Rejected by Addl Special
+                                                                                Secretory
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        @php
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                        @endphp
+                                                                        <input type="submit"
+                                                                            class="btn btn-primary text-uppercase"
+                                                                            value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @break
+
+                                                        @case(5)
+                                                            {{-- DEPT SECTRY --}}
+                                                            @if ($applications->status == 6)
+                                                                <div class="row col-md-12">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="status">Status</label>
+                                                                        <select name="status" id="status"
+                                                                            class="form-control mb-3">
+                                                                            <option value="8">Approved by Department
+                                                                                Secretory
+                                                                            </option>
+                                                                            <option value="9">Rejected By Department
+                                                                                Secretory
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        @php
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                        @endphp
+                                                                        <input type="submit"
+                                                                            class="btn btn-primary text-uppercase"
+                                                                            value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @break
+
+                                                        @case(7)
+                                                            {{-- DDO --}}
+                                                            @if ($applications->status == 8)
+                                                                <div class="row col-md-12">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="status">Status</label>
+                                                                        <select name="status" id="status"
+                                                                            class="form-control mb-3">
+                                                                            <option value="7">Sanctioned by DDO</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-12">
+                                                                        <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        @php
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Approve', '', 'Sanction'];
+                                                                        @endphp
+                                                                        <input type="submit"
+                                                                            class="btn btn-primary text-uppercase"
+                                                                            value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @break
+
+                                                        @default
+                                                            <div></div>
+                                                    @endswitch
+                                                </div>
+                                            </form>
+                                            {{-- @endif --}}
                                         </div>
                                     </div>
                                 </div>

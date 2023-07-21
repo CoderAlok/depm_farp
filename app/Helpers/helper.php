@@ -325,7 +325,7 @@ function so_status_array($status_id)
         3 => '',
         4 => 'Verified by director depm',
         5 => '',
-        6 => 'Verified by Addl Specia sectroy',
+        6 => 'Verified by Addl Special secretory',
         7 => '',
         8 => 'Approved',
         9 => '',
@@ -341,7 +341,7 @@ function dir_status_array($status_id)
         3 => '',
         4 => 'Verified',
         5 => '',
-        6 => 'Verified by Addl Specia sectroy',
+        6 => 'Verified by Addl Special secretory',
         7 => '',
         8 => 'Approved',
         9 => '',
@@ -417,7 +417,7 @@ function status_color_array($status)
 {
     $color_code = '';
 
-    if (in_array($status, ['Applied', 'Verified by SO', 'Verified', 'Verified by director depm', 'Verified by Addl Specia sectroy', 'Verified by Director, DEPM'])) {
+    if (in_array($status, ['Applied', 'Verified by SO', 'Verified',  'Verified', 'Verified by director depm', 'Verified by Addl Special secretory', 'Verified by Director, DEPM'])) {
         $color_code = '#f5f94a'; // Yellow
     } else if (in_array($status, ['Approved'])) {
         $color_code = '#0e5306'; // Green
@@ -430,4 +430,8 @@ function status_color_array($status)
     }
 
     return $color_code;
+}
+
+function store_files($path, $file_name,$file){
+    return $file->move(public_path().'/'.'storage/'.$path, $file_name);
 }

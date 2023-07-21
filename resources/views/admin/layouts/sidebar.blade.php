@@ -50,6 +50,12 @@
                             <span class="nav-link-text" data-i18n="nav.theme_settings">Roles</span>
                         </a>
                     </li>
+                    {{-- <li class="{{ Route::currentRouteName() === 'admin.roles' ? 'active' : '' }}">
+                        <a href="{{ route('roles.index') }}" title="Theme Settings" data-filter-tags="theme settings">
+                            <i class="fal fa-cog text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.theme_settings">Rolesd</span>
+                        </a>
+                    </li> --}}
                     <li class="{{ Route::currentRouteName() === 'admin.category' ? 'active' : '' }}">
                         <a href="{{ route('admin.category') }}" title="Theme Settings" data-filter-tags="theme settings">
                             <i class="fal fa-cog text-white"></i>
@@ -114,7 +120,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
                         </a>
                     </li>
                 </ul>
@@ -148,7 +154,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
                         </a>
                     </li>
                 </ul>
@@ -182,7 +188,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
                         </a>
                     </li>
                 </ul>
@@ -216,7 +222,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
                         </a>
                     </li>
                 </ul>
@@ -250,7 +256,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
                         </a>
                     </li>
                 </ul>

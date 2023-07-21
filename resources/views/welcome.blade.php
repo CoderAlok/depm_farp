@@ -104,10 +104,13 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                             <h3 class="fs-xxl fw-500 mt-4 text-white mb-5">
                                 {{-- FARP : Financial Assistance Reimbursement Portal<br> --}}
                                 EIRP : Exporter's Incentive Reimbursement Portal<br>
-                                <small class="h6 fw-300 mt-3 mb-5 text-white">Lorem ipsum dolor sit amet, consectetur
+                                <small class="h6 fw-300 mt-3 mb-5 text-white">
+
+                                    {{-- Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                    ex ea commodo consequat..</small>
+                                    ex ea commodo consequat.. --}}
+                                </small>
                             </h3>
 
                             <div class="d-flex justify-content-start">
