@@ -45,7 +45,7 @@ class ApplicationController extends Controller
                         'certificate_name'     => 'required',
                         'certificate_iss_auth' => 'required',
                         'certificate_cost'     => 'required',
-                        'terms'                => 'required',
+                        'terms'                => '',
                         'file_iec'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
                         'file_bank_cheque'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
                         'file_payment_reciept' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
@@ -64,7 +64,7 @@ class ApplicationController extends Controller
                         'certificate_name.required'     => 'Please, fill the certificate_name',
                         'certificate_iss_auth.required' => 'Please, fill the certificate_iss_auth',
                         'certificate_cost.required'     => 'Please, fill the certificate_cost',
-                        'terms.required'                => 'Please, fill the terms',
+                        'terms.required'                => 'Please, check the terms',
                         'file_iec.required'             => 'Please, fill the file_iec',
                         'file_iec.max'                  => 'File must be less then 4MB',
                         'file_bank_cheque.required'     => 'Please, fill the file_bank_cheque',
@@ -157,7 +157,7 @@ class ApplicationController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             } else {
-                // dd($request->all());
+                dd($request->all());
 
                 $user_id        = Auth::guard('exporter')->user()->id;
                 $application_no = $this->app->generateExpSchAppCode();
@@ -353,7 +353,7 @@ class ApplicationController extends Controller
                 'claimed_amt' => ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0),
                 'status'      => $r->status,
             ];
-        });//->toArray();
+        }); //->toArray();
         $data['pending'] = Applications::where('status', 1)->count();
         // dd($data);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);

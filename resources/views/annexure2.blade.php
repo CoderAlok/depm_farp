@@ -247,9 +247,9 @@
                                                             title="Image of the respective cancelled cheque.">*</span></label>
                                                     <input class="form-control form-control-sm" name="file_bank_cheque"
                                                         id="file_bank_cheque" type="file">
-                                                    @if ($errors->has('bank_cheque'))
+                                                    @if ($errors->has('file_bank_cheque'))
                                                         <span class="invalid feedback text-danger"role="alert">
-                                                            <strong>{{ $errors->first('bank_cheque') }}.</strong>
+                                                            <strong>{{ $errors->first('file_bank_cheque') }}.</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -320,7 +320,8 @@
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Certificate" name="certificate_name"
-                                                        id="certificate_name" />
+                                                        id="certificate_name"
+                                                        value="{{ old('certificate_name') }}" />
                                                     @if ($errors->has('certificate_name'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('certificate_name') }}.</strong>
@@ -332,7 +333,8 @@
                                                         :<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Certificate from" name="certificate_iss_auth"
-                                                        id="certificate_iss_auth" />
+                                                        id="certificate_iss_auth"
+                                                        value="{{ old('certificate_iss_auth') }}" />
                                                     @if ($errors->has('certificate_iss_auth'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('certificate_iss_auth') }}.</strong>
@@ -343,7 +345,8 @@
                                                     <label class="form-label h6">(d). Cost of Certification (Rs)
                                                         <span>&#8377;</span> :<span class="text-danger">*</span></label>
                                                     <input type="number" class="form-control form-control-sm"
-                                                        placeholder="₹" name="certificate_cost" id="certificate_cost" />
+                                                        placeholder="₹" name="certificate_cost" id="certificate_cost"
+                                                        value="{{ old('certificate_cost') }}" />
                                                     @if ($errors->has('certificate_cost'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('certificate_cost') }}.</strong>
@@ -354,7 +357,8 @@
                                                     <label class="form-label h6">(e). Upload Payment Reciept :<span
                                                             class="text-danger">*</span></label>
                                                     <input type="file" class="form-control form-control-sm"
-                                                        name="file_payment_reciept" id="file_payment_reciept" />
+                                                        name="file_payment_reciept" id="file_payment_reciept"
+                                                        value="{{ old('certificate_iss_auth') }}" />
                                                     @if ($errors->has('file_payment_reciept'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('file_payment_reciept') }}.</strong>
