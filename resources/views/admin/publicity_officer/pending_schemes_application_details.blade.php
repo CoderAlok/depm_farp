@@ -801,18 +801,37 @@
                                             {{-- @if ($table_showing_status) --}}
                                             <div class="row">
                                                 <div class="col-md-12">
-
                                                     <div class="row mt-5 mb-5">
-                                                        <div class="col-md-6">
-                                                            <label for="" class="text-uppercase">Total
-                                                                expenses of Exporter : </label>
-                                                            <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="" class="text-uppercase">Incentive
-                                                                amount by SO : </label>
-                                                            <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
-                                                        </div>
+                                                        @switch($applications->scheme_id)
+                                                            @case(1)
+                                                                <div class="col-md-6">
+                                                                    <label for="" class="text-uppercase">Total
+                                                                        expenses of Exporter : </label>
+                                                                    <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="" class="text-uppercase">Incentive
+                                                                        amount by SO : </label>
+                                                                    <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div>
+                                                            @break
+
+                                                            @case(2)
+                                                                <div class="col-md-6">
+                                                                    <label for="" class="text-uppercase">Total
+                                                                        cost of certification : </label>
+                                                                    <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="" class="text-uppercase">Amount by SO :
+                                                                    </label>
+                                                                    <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div>
+                                                            @break
+
+                                                            @default
+                                                        @endswitch
+
                                                     </div>
                                                     <table class="table table-responsive table-bordered" width="100%">
                                                         @if (isset($applications->get_application_progress_master_details[0]))
@@ -953,37 +972,84 @@
                                                 <div class="row">
                                                     @switch (Auth::user()->role_id)
                                                         @case(2)
-                                                            @if (!$table_showing_status)
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="">Total Expense of Exporter <span
-                                                                            class="text-danger">*</span>
-                                                                        <i data-toggle="tooltip" data-placement="right"
-                                                                            title="Total expenses of travel + Total expenses of stall."
-                                                                            class="fa fa-info-circle"></i>
-                                                                    </label>
-                                                                    <input type="hidden" class="form-control"
-                                                                        name="total_expenses" value="{{ $total_expenditure }}" />
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}"
-                                                                        readonly />
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="">Incentive Amount <span
-                                                                            class="text-danger">*</span>
-                                                                        <i data-toggle="tooltip" data-placement="right"
-                                                                            title="Incentive amount of exporters"
-                                                                            class="fa fa-info-circle"></i>
-                                                                    </label>
-                                                                    <input type="number" name="incentive_amount"
-                                                                        class="form-control" id="incentive_amount" value=""
-                                                                        placeholder="₹" />
-                                                                </div>
-                                                            @endif
+                                                            @switch($applications->scheme_id)
+                                                                @case(1)
+                                                                    @if (!$table_showing_status)
+                                                                        <div class="form-group col-md-3">
+                                                                            <label for="">Total Expense of Exporter <span
+                                                                                    class="text-danger">*</span>
+                                                                                <i data-toggle="tooltip" data-placement="right"
+                                                                                    title="Total expenses of travel + Total expenses of stall."
+                                                                                    class="fa fa-info-circle"></i>
+                                                                            </label>
+                                                                            <input type="hidden" class="form-control"
+                                                                                name="total_expenses" value="{{ $total_expenditure }}" />
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}"
+                                                                                readonly />
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label for="">Incentive Amount <span
+                                                                                    class="text-danger">*</span>
+                                                                                <i data-toggle="tooltip" data-placement="right"
+                                                                                    title="Incentive amount of exporters"
+                                                                                    class="fa fa-info-circle"></i>
+                                                                            </label>
+                                                                            <input type="number" name="incentive_amount"
+                                                                                class="form-control" id="incentive_amount" value=""
+                                                                                placeholder="₹" />
+                                                                        </div>
+                                                                    @endif
+                                                                @break
+
+                                                                @case(2)
+                                                                    @if (!$table_showing_status)
+                                                                        <div class="form-group col-md-3">
+                                                                            <label for="">Total Certification cost of Exporter
+                                                                                <span class="text-danger">*</span>
+                                                                                <i data-toggle="tooltip" data-placement="right"
+                                                                                    title="Total expenses of travel + Total expenses of stall."
+                                                                                    class="fa fa-info-circle"></i>
+                                                                            </label>
+                                                                            <input type="hidden" class="form-control"
+                                                                                name="total_expenses"
+                                                                                value="{{ $applications->certi_cost }}" />
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}"
+                                                                                readonly />
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label for="">Amount by SO :<span
+                                                                                    class="text-danger">*</span>
+                                                                                <i data-toggle="tooltip" data-placement="right"
+                                                                                    title="Incentive amount of exporters"
+                                                                                    class="fa fa-info-circle"></i>
+                                                                            </label>
+                                                                            <input type="number" name="incentive_amount"
+                                                                                class="form-control" id="incentive_amount" value=""
+                                                                                placeholder="₹" />
+                                                                        </div>
+                                                                    @endif
+                                                                @break
+
+                                                                @default
+                                                            @endswitch
                                                         @break
 
                                                         @default
-                                                            <input type="hidden" class="form-control" name="total_expenses"
-                                                                value="{{ $total_expenditure ?? 0 }}" />
+                                                            @switch($applications->scheme_id)
+                                                                @case(1)
+                                                                    <input type="hidden" class="form-control" name="total_expenses"
+                                                                        value="{{ $total_expenditure ?? 0 }}" />
+                                                                @break
+
+                                                                @case(2)
+                                                                    <input type="hidden" class="form-control" name="total_expenses"
+                                                                        value="{{ $applications->certi_cost ?? 0 }}" />
+                                                                @break
+
+                                                                @default
+                                                            @endswitch
                                                             <input type="hidden" class="form-control" name="incentive_amount"
                                                                 value="{{ $applications->get_application_progress_master_details[0]->incentive_amount ?? 0 }}" />
                                                     @endswitch

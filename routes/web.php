@@ -64,6 +64,7 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
 
     Route::group(['prefix' => 'applications'], function () {
         Route::get('/list', [TblExportersController::class, 'application_list'])->name('exporter.application.list');
+        Route::get('/rejected-list', [TblExportersController::class, 'rejected_application_list'])->name('exporter.rejected.application.list');
 
         Route::get('/annexure-1/{id?}', [TblExportersController::class, 'annexure1'])->name('exporter.application.annexure1');
         Route::get('/annexure-2/{id?}', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');

@@ -324,11 +324,11 @@ function so_status_array($status_id)
         2 => 'Verified', //'Pending at Director Depm',
         3 => '',
         4 => 'Verified by director depm',
-        5 => '',
+        5 => 'Not Verified by DIRDEPM',  //--*
         6 => 'Verified by Addl Special secretory',
-        7 => '',
+        7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
-        9 => '',
+        9 => 'Rejected by Department Secretory', // --*
     ];
     return $arr[$status_id];
 }
@@ -340,11 +340,11 @@ function dir_status_array($status_id)
         2 => 'Pending',
         3 => '',
         4 => 'Verified',
-        5 => '',
+        5 => 'Not Verified',  //--*
         6 => 'Verified by Addl Special secretory',
-        7 => '',
+        7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
-        9 => '',
+        9 => 'Rejected by Department Secretory', // --*
     ];
     return $arr[$status_id];
 }
@@ -356,11 +356,11 @@ function addl_status_array($status_id)
         2 => 'Verified by SO',
         3 => '',
         4 => 'Pending',
-        5 => '',
+        5 => 'Not Verified by DIR DEPM',  //--*
         6 => 'Verified',
-        7 => '',
+        7 => 'Not verified', // --*
         8 => 'Approved',
-        9 => '',
+        9 => 'Rejected by Department Secretory', // --*
     ];
     return $arr[$status_id];
 }
@@ -372,11 +372,11 @@ function dept_sectry_status_array($status_id)
         2 => 'Verified by SO',
         3 => '',
         4 => 'Verified by Director, DEPM',
-        5 => '',
+        5 => 'Not Verified by DIR DEPM',  //--*
         6 => 'Pending',
-        7 => '',
+        7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
-        9 => '',
+        9 => 'Rejected', // --*
     ];
     return $arr[$status_id];
 }
@@ -388,11 +388,11 @@ function ddo_status_array($status_id)
         2 => 'Verified by SO',
         3 => '',
         4 => 'Verified by Director, DEPM',
-        5 => '',
+        5 => 'Not Verified by DIR DEPM',  //--*
         6 => 'Pending',
-        7 => '',
+        7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
-        9 => '',
+        9 => 'Rejected by Department Secretory', // --*
     ];
     return $arr[$status_id];
 }
@@ -404,11 +404,11 @@ function exporter_status_array($status_id)
         2 => 'Accepted',
         3 => '',
         4 => 'Under Process',
-        5 => '',
+        5 => 'Not Accepted by DIR DEPM', // --*
         6 => 'Under Process',
         7 => '',
         8 => 'Approved',
-        9 => '',
+        9 => 'Rejected by Department Secretory', // --*
     ];
     return $arr[$status_id];
 }

@@ -8,10 +8,12 @@ use ApplicationProgressMaster;
 use Applications;
 use ApplicationStalls;
 use ApplicationTravels;
+use App\Mail\SendMail;
 use App\Repositories\CustomRepository;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Session;
 
@@ -687,6 +689,8 @@ class ApplicationController extends Controller
      */
     public function exporters_application_status_details(Request $request, $id = null)
     {
+        $user                 = Auth::guard('exporter')->user();
+        $data['data']         = $user;
         $data['page_title']   = 'Pending exporters application details';
         $data['applications'] = Applications::where('id', $id)->with([
             'get_exporter_details',
@@ -767,10 +771,29 @@ class ApplicationController extends Controller
     {
         // dd([$request->all(), $id]);
         try {
-            $user          = Auth::user();
+            $user = Auth::user();
+            // dd();
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
+                if ($request->status == 5) {
+                    // Mail for those who will be rejected
+                    $data = [
+                        'mail_id'   => $user->email,
+                        'mail_type' => 6,
+                        'mail_data' => [
+                            'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
+                            'remarks'   => $request->remarks,
+                            'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                        ],
+                    ];
+
+                    $to      = $user->email;
+                    $subject = 'Exporters application rejection.';
+                    Mail::to($to)->send(new SendMail($data));
+                }
+
+                // Then update other associated tables
                 if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
                     $update_data = [
                         'total_expense'    => $request->total_expenses,
@@ -824,6 +847,24 @@ class ApplicationController extends Controller
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
+                if ($request->status == 7) {
+                    // Mail for those who will be rejected
+                    $data = [
+                        'mail_id'   => $user->email,
+                        'mail_type' => 6,
+                        'mail_data' => [
+                            'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
+                            'remarks'   => $request->remarks,
+                            'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                        ],
+                    ];
+
+                    $to      = $user->email;
+                    $subject = 'Exporters application rejection.';
+                    Mail::to($to)->send(new SendMail($data));
+                }
+
+                // Then update other associated tables
                 if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
                     $update_data = [
                         'total_expense'    => $request->total_expenses,
@@ -831,6 +872,7 @@ class ApplicationController extends Controller
                         'remarks'          => $request->remarks,
                         'updated_by'       => $user->id,
                     ];
+
                     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
                     $data['message'] = 'Application status updated successfully..';
                     Session::flash('message', $data['message']);
@@ -877,6 +919,24 @@ class ApplicationController extends Controller
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
+                if ($request->status == 9) {
+                    // Mail for those who will be rejected
+                    $data = [
+                        'mail_id'   => $user->email,
+                        'mail_type' => 6,
+                        'mail_data' => [
+                            'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
+                            'remarks'   => $request->remarks,
+                            'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                        ],
+                    ];
+        
+                    $to      = $user->email;
+                    $subject = 'Exporters application rejection.';
+                    Mail::to($to)->send(new SendMail($data));
+                }
+
+                // Then update other associated tables
                 if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
                     $update_data = [
                         'total_expense'    => $request->total_expenses,
@@ -884,6 +944,7 @@ class ApplicationController extends Controller
                         'remarks'          => $request->remarks,
                         'updated_by'       => $user->id,
                     ];
+
                     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
                     $data['message'] = 'Application status updated successfully..';
                     Session::flash('message', $data['message']);
@@ -944,12 +1005,49 @@ class ApplicationController extends Controller
         }
     }
 
+    /**
+     * Method expireApplication
+     *
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     *
+     * @return void
+     */
     public function expireApplication(Request $request, $id = null)
     {
         try {
 
+            // Just check ,the created_at date with The current date . If its greater then 60days just update the status
+            $days              = 2;
+            $checkAppliactions = Applications::select('id', 'created_at')->get()->map(function ($r) use ($days) {
+                // $createdAt = $r->created_at;
+                // $futureDate = $this->app->AddDateWithDays($r->created_at, $days)->format('d-m-Y H:i:s a');
+
+                // $result = [];
+                // $date1  = Carbon::createFromFormat('Y-m-d H:i:s', $r->created_at);
+                // $date2  = Carbon::createFromFormat('Y-m-d H:i:s', $this->app->AddDateWithDays($r->created_at, $days));
+                // if ($date1->eq($date2)) {
+                //     array_push($result, $r->id);
+                //     // change the status
+                //     // array_push($result, Applications::where('id', $r->id)->update('status', 12), $r->toArray());
+                // } else {
+                //     array_push($result, $r->created_at);
+                // }
+
+                // return $result;
+
+                return [
+                    $date1 = Carbon::createFromFormat('Y-m-d', $r->created_at),
+                    $date2 = Carbon::createFromFormat('Y-m-d', $this->app->AddDateWithDays($r->created_at, $days)),
+                    $date1->eq($date2),
+                    $date2->eq(Carbon::now()),
+                    Carbon::parse($r->created_at)->format('d-m-Y h:i:s a'),
+                    $this->app->AddDateWithDays($r->created_at, $days)->format('d-m-Y h:i:s a'),
+                ];
+            });
+            dd($checkAppliactions);
             // Get All the application and check their date and expire within given days
-            
+
             $data['data']    = $this->app->AddDateWithDays('21-07-2023', 1)->format('h.i.s a'); //Applications::select('id', 'created_at')->get();
             $data['message'] = 'All the application loaded';
             return response($data, 200);
@@ -961,3 +1059,14 @@ class ApplicationController extends Controller
     }
 
 }
+
+// 1    => 8
+// 3    => 8
+// 4    => 8
+// 5    => 8
+// 6    => 2
+// 7    => 1
+// 8    => 2
+// 9    => 1
+// 10    => 1
+// 11    => 1

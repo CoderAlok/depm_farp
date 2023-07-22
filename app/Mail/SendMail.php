@@ -63,6 +63,12 @@ class SendMail extends Mailable
                 $data['data']  = $this->data['password'];
                 break;
 
+            case 6:
+                $data['title'] = 'Rejection mail.';
+                $data['view']  = 'mailer-view.application_rejection_mail';
+                $data['data']  = $this->data['mail_data'];
+                break;
+
             default:
                 // $data['title'] = '';
                 // $data['view']  = '';

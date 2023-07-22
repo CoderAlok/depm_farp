@@ -36,7 +36,14 @@
                 <a href="{{ route('exporter.application.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">
                     <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application</span>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application List</span>
+                </a>
+            </li>
+            <li class="{{ Route::currentRouteName() === 'exporter.rejected.application.list' ? 'active' : '' }}">
+                <a href="{{ route('exporter.rejected.application.list') }}" title="Theme Settings"
+                    data-filter-tags="theme settings">
+                    <i class="fal fa-cog text-white"></i>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Rejected application list</span>
                 </a>
             </li>
             @if (getApplicationId(Auth::guard('exporter')->user()->id))
