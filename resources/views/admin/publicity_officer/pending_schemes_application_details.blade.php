@@ -837,7 +837,7 @@
                                                         @if (isset($applications->get_application_progress_master_details[0]))
                                                             <thead>
                                                                 <th>SlNo</th>
-                                                                <th>Note</th>
+                                                                <th>Notes</th>
                                                                 <th>Putup By</th>
                                                                 <th>Date</th>
                                                             </thead>
@@ -997,7 +997,7 @@
                                                                             </label>
                                                                             <input type="number" name="incentive_amount"
                                                                                 class="form-control" id="incentive_amount" value=""
-                                                                                placeholder="₹" />
+                                                                                placeholder="₹" required />
                                                                         </div>
                                                                     @endif
                                                                 @break
@@ -1027,7 +1027,7 @@
                                                                             </label>
                                                                             <input type="number" name="incentive_amount"
                                                                                 class="form-control" id="incentive_amount" value=""
-                                                                                placeholder="₹" />
+                                                                                placeholder="₹" required />
                                                                         </div>
                                                                     @endif
                                                                 @break
@@ -1063,13 +1063,13 @@
                                                                     <div class="form-group col-md-12">
                                                                         <label for="status">Status</label>
                                                                         <select name="status" id="status"
-                                                                            class="form-control">
-                                                                            <option value="2">Verified by SO</option>
+                                                                            class="form-control mb-3 col-md-2">
+                                                                            <option value="2">Forward</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                            placeholder="Enter your remarks..." required></textarea>
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         @php
@@ -1090,11 +1090,10 @@
                                                                     <div class="form-group col-md-12">
                                                                         <label for="status">Status</label>
                                                                         <select name="status" id="status"
-                                                                            class="form-control mb-3">
-                                                                            <option value="4">Verified by Director DEPM
+                                                                            class="form-control mb-3 col-md-2">
+                                                                            <option value="4">Forward
                                                                             </option>
-                                                                            <option value="5">Not Verified by Director
-                                                                                DEPM
+                                                                            <option value="5">Query
                                                                             </option>
                                                                         </select>
                                                                     </div>
@@ -1102,6 +1101,75 @@
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
                                                                             placeholder="Enter your remarks..."></textarea>
                                                                     </div>
+
+                                                                    {{-- add  more section starts --}}
+                                                                    {{-- <div class="form-group col-md-12 row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="form-control"
+                                                                                name="attachment[]" id="" placeholder="Enter the attachment's name." />
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="file" class="form-control"
+                                                                                name="" id="">
+                                                                        </div>
+                                                                    </div> --}}
+
+                                                                    <div class="form-group col-xs-12">
+                                                                        <div class="col-md-12">
+                                                                            <h3> Actions</h3>
+                                                                            <div id="field">
+                                                                                <div id="field0">
+                                                                                    <!-- Text input-->
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-md-4 control-label"
+                                                                                            for="action_id">Action Id</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input id="action_id" name="action_id"
+                                                                                                type="text" placeholder=""
+                                                                                                class="form-control input-md">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <br><br>
+                                                                                    <!-- Text input-->
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-md-4 control-label"
+                                                                                            for="action_name">Action Name</label>
+                                                                                        <div class="col-md-5">
+                                                                                            <input id="action_name"
+                                                                                                name="action_name" type="text"
+                                                                                                placeholder=""
+                                                                                                class="form-control input-md">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <br><br>
+                                                                                    <!-- File Button -->
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-md-4 control-label"
+                                                                                            for="action_json">Action JSON
+                                                                                            File</label>
+                                                                                        <div class="col-md-4">
+                                                                                            <input type="file" id="action_json"
+                                                                                                name="action_json"
+                                                                                                class="input-file"
+                                                                                                accept=".txt,.json">
+                                                                                            <div id="action_jsondisplay"></div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- Button -->
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-4">
+                                                                                    <button id="add-more" name="add-more"
+                                                                                        class="btn btn-primary">Add More</button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br><br>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{-- Add more section ends --}}
+
                                                                     <div class="form-group col-md-12">
                                                                         @php
                                                                             $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
@@ -1121,12 +1189,10 @@
                                                                     <div class="form-group col-md-12">
                                                                         <label for="status">Status</label>
                                                                         <select name="status" id="status"
-                                                                            class="form-control mb-3">
-                                                                            <option value="6">Accepted by Addl Special
-                                                                                Secretory
+                                                                            class="form-control mb-3 col-md-2">
+                                                                            <option value="6">Approve
                                                                             </option>
-                                                                            <option value="7">Rejected by Addl Special
-                                                                                Secretory
+                                                                            <option value="7">Query
                                                                             </option>
                                                                         </select>
                                                                     </div>
@@ -1153,12 +1219,10 @@
                                                                     <div class="form-group col-md-12">
                                                                         <label for="status">Status</label>
                                                                         <select name="status" id="status"
-                                                                            class="form-control mb-3">
-                                                                            <option value="8">Approved by Department
-                                                                                Secretory
+                                                                            class="form-control mb-3 col-md-2">
+                                                                            <option value="8">Approve
                                                                             </option>
-                                                                            <option value="9">Rejected By Department
-                                                                                Secretory
+                                                                            <option value="9">Query
                                                                             </option>
                                                                         </select>
                                                                     </div>
@@ -1304,6 +1368,36 @@
             });
 
             $('[data-toggle="tooltip"]').tooltip();
+        });
+
+
+        $(document).ready(function() {
+            //@naresh action dynamic childs
+            var next = 0;
+            $("#add-more").click(function(e) {
+                e.preventDefault();
+                var addto = "#field" + next;
+                var addRemove = "#field" + (next);
+                next = next + 1;
+                var newIn = ' <div id="field' + next + '" name="field' + next +
+                    '"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div><br><br> <!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><br><br><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
+                var newInput = $(newIn);
+                var removeBtn = '<button id="remove' + (next - 1) +
+                    '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
+                var removeButton = $(removeBtn);
+                $(addto).after(newInput);
+                $(addRemove).after(removeButton);
+                $("#field" + next).attr('data-source', $(addto).attr('data-source'));
+                $("#count").val(next);
+
+                $('.remove-me').click(function(e) {
+                    e.preventDefault();
+                    var fieldNum = this.id.charAt(this.id.length - 1);
+                    var fieldID = "#field" + fieldNum;
+                    $(this).remove();
+                    $(fieldID).remove();
+                });
+            });
         });
     </script>
 @endsection
