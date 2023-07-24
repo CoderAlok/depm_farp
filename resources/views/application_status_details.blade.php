@@ -442,27 +442,28 @@
                                 <!-- End Travel Details Row -->
 
                                 @if ($applications->get_stall_details)
-                                <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3e1" aria-expanded="true">
-                                                <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                                Stall Details
-                                                <span class="ml-auto">
-                                                    <span class="collapsed-reveal">
-                                                        <i class="fal fa-minus fs-xl"></i>
+                                    <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                                    data-target="#js_demo_accordion-3e1" aria-expanded="true">
+                                                    <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                                    Stall Details
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus fs-xl"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus fs-xl"></i>
+                                                        </span>
                                                     </span>
-                                                    <span class="collapsed-hidden">
-                                                        <i class="fal fa-plus fs-xl"></i>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div id="js_demo_accordion-3e1" class="collapse show" data-parent="#js_demo_accordion-3">
-                                            <div class="card-body">
-                                                <div class="row col-md-12">
-                                                    {{-- <div class="col-md-4 mb-1">
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3e1" class="collapse show"
+                                                data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row col-md-12">
+                                                        {{-- <div class="col-md-4 mb-1">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="travel_details" name="travel_details">
@@ -471,7 +472,7 @@
                                                             </label>
                                                         </div>
                                                     </div> --}}
-                                                    {{-- <div class="col-md-4 mb-1">
+                                                        {{-- <div class="col-md-4 mb-1">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value="1"
                                                             id="stall_details" name="stall_details">
@@ -480,61 +481,62 @@
                                                         </label>
                                                     </div>
                                                 </div> --}}
+                                                    </div>
+
+                                                    {{-- Stall Details div --}}
+                                                    <div class="row col-md-12 stall_details_div">
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(a). Name of the Event : <span
+                                                                    class="text-danger">*</span></label>
+                                                            <br />
+                                                            <input type="text" name="stall_event_name" id="stall_event_name"
+                                                                class="form-control" placeholder="Name of the event"
+                                                                value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(b). Upload Stall Allotment / Registration
+                                                                Letter : <span class="text-danger">*</span></label>
+                                                            <br />
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_allotment' . '/' . ($applications->get_file_details->stall_allot_letter ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-4 mb-1">
+                                                            <label class="form-label h6">(c). Upload Stall Registration payment
+                                                                reciept
+                                                                : <span class="text-danger">*</span></label>
+                                                            <br />
+                                                            <a href="javascript:void(0);"
+                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_pay_reciept' . '/' . ($applications->get_file_details->stall_reg_pay_recipt ?? '')) }}')">
+                                                                <span class="text-warning badge bg-dark p-1">View file</span>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label h6">(d). Total stall registration cost
+                                                                (₹) <span class="text-danger">*</span><br /></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                placeholder="₹" name="total_stall_reg_cost"
+                                                                id="total_stall_reg_cost"
+                                                                value="{{ '₹' . IND_money_format($applications->get_stall_details->total_cost) ?? '' }}"
+                                                                readonly />
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label h6">(e). Incentive claimed towards Stall
+                                                                registration (₹) <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                placeholder="₹" name="stall_incentive" id="stall_incentive"
+                                                                value="{{ '₹' . IND_money_format($applications->get_stall_details->claimed_cost) ?? '' }}"
+                                                                readonly />
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-
-                                                {{-- Stall Details div --}}
-                                                <div class="row col-md-12 stall_details_div">
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(a). Name of the Event : <span
-                                                                class="text-danger">*</span></label>
-                                                        <br />
-                                                        <input type="text" name="stall_event_name" id="stall_event_name"
-                                                            class="form-control" placeholder="Name of the event"
-                                                            value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
-                                                            readonly>
-                                                    </div>
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(b). Upload Stall Allotment / Registration
-                                                            Letter : <span class="text-danger">*</span></label>
-                                                        <br />
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_allotment' . '/' . ($applications->get_file_details->stall_allot_letter ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-4 mb-1">
-                                                        <label class="form-label h6">(c). Upload Stall Registration payment
-                                                            reciept
-                                                            : <span class="text-danger">*</span></label>
-                                                        <br />
-                                                        <a href="javascript:void(0);"
-                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/stall_pay_reciept' . '/' . ($applications->get_file_details->stall_reg_pay_recipt ?? '')) }}')">
-                                                            <span class="text-warning badge bg-dark p-1">View file</span>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-md-4 mb-3">
-                                                        <label class="form-label h6">(d). Total stall registration cost
-                                                            (₹) <span class="text-danger">*</span><br /></label>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            placeholder="₹" name="total_stall_reg_cost" id="total_stall_reg_cost"
-                                                            value="{{ '₹' . IND_money_format($applications->get_stall_details->total_cost) ?? '' }}"
-                                                            readonly />
-                                                    </div>
-                                                    <div class="col-md-4 mb-3">
-                                                        <label class="form-label h6">(e). Incentive claimed towards Stall
-                                                            registration (₹) <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            placeholder="₹" name="stall_incentive" id="stall_incentive"
-                                                            value="{{ '₹' . IND_money_format($applications->get_stall_details->claimed_cost) ?? '' }}"
-                                                            readonly />
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 @endif
                                 <!-- End Stall Details Row -->
 
@@ -591,6 +593,69 @@
                                     </div>
                                 </div>
                                 <!-- End Additional Details Row -->
+
+                                @if (in_array($applications->status, [3, 5, 7, 9]))
+                                    <h4>Complaince Form</h4>
+                                    <form action="{{ '' }}" class="form-group mb-3 complaince_form_body"
+                                        id="status_approval_form" name="status_approval_form" method="post"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="row col-md-12">
+                                                <div class="form-group col-md-12">
+                                                    <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                        placeholder="Enter your remarks..."></textarea>
+                                                </div>
+
+                                                {{-- add  more section starts --}}
+                                                <div class="form-group col-md-12 add_div" id="add_div0">
+                                                    <div class="row">
+                                                        <!-- form sections -->
+                                                        <div class="form-group col-md-4">
+                                                            <select name="complaince[0][section_name]" id="section_name0"
+                                                                class="form-control">
+                                                                <option value="">--- Select a section ---
+                                                                </option>
+                                                                <option value="1">Exporter Details
+                                                                </option>
+                                                                <option value="2">Bank Details</option>
+                                                                {{-- <option value="3">Event Details</option> --}}
+                                                                <option value="4">Travel Details</option>
+                                                                <option value="5">Stall Details</option>
+                                                                <option value="6">Additional Details
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- text -->
+                                                        <div class="form-group col-md-4">
+                                                            <input type="text" name="complaince[0][file_name]" id="file_name0"
+                                                                class="form-control" placeholder="Enter the file type"
+                                                                value="" />
+                                                        </div>
+                                                        <!-- file -->
+                                                        <div class="form-group col-md-3">
+                                                            <input type="file" name="complaince[0][comp_doc]" id="comp_doc0"
+                                                                class="form-control">
+                                                        </div>
+
+                                                        <!-- Button -->
+                                                        <div class="form-group col-md-1 text-right">
+                                                            <button type="button" id="add-more" name="add-more"
+                                                                onclick="addmore()" class="btn btn-primary">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- Add more section ends --}}
+
+                                                <div class="form-group col-md-12">
+                                                    <input type="submit" class="btn btn-primary text-uppercase"
+                                                        value="Resubmit Application">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
+                                <!-- Complaince Form  -->
                             @break
 
                             @default
@@ -678,5 +743,49 @@
                 }
             });
         });
+    </script>
+    <script>
+        function addmore() {
+            var lastId = $(".add_div").last().attr("id");
+            var res = lastId.split("add_div");
+            var counter = parseInt(res[1]) + 1;
+            var cols = "";
+            var newCols = $('<div class="form-group col-md-12 add_div" id="add_div' + counter + '">');
+            cols += '<div class="row">';
+
+            cols +=
+                `<div class="form-group col-md-4">
+                    <select name="complaince[${counter}][section_name]" id="section_name${counter}"
+                        class="form-control">
+                        <option value="">--- Select a section ---
+                        </option>
+                        <option value="1">Exporter Details
+                        </option>
+                        <option value="2">Bank Details</option>
+                        <option value="4">Travel Details</option>
+                        <option value="5">Stall Details</option>
+                        <option value="6">Additional Details
+                        </option>
+                    </select>
+                </div>`;
+            cols +=
+                '<div class="form-group col-md-4"><input type="text" name="complaince[' + counter +
+                '][file_name]" id="file_name' + counter +
+                '" class="form-control" placeholder="Enter the file type" value="" /></div>';
+            cols += '<div class="form-group col-md-3"><input type="file" name="complaince[' + counter +
+                '][comp_doc]" id="comp_doc' + counter + '" class="form-control"></div>';
+            cols +=
+                '<div class="form-group col-md-1 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
+                counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
+
+            cols += "</div>";
+            cols += "</div>";
+            newCols.append(cols);
+            $("#" + lastId).after(newCols);
+        }
+
+        function removeAdd(key) {
+            $("#add_div" + key).remove();
+        }
     </script>
 @endsection

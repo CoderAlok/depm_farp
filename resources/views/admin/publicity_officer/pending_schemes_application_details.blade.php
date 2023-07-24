@@ -967,7 +967,7 @@
                                             {{-- @else --}}
                                             <form action="{{ route($route_name, $applications->id) }}"
                                                 class="form-group mb-3" id="status_approval_form"
-                                                name="status_approval_form" method="post">
+                                                name="status_approval_form" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
                                                     @switch (Auth::user()->role_id)
@@ -1102,26 +1102,50 @@
                                                                     </div>
 
                                                                     {{-- add  more section starts --}}
-                                                                    <div class="form-group col-md-12 add_div" id="add_div0">
-                                                                        <div class="row">
-                                                                            <!-- text -->
-                                                                            <div class="form-group col-md-6">
-                                                                                <input type="text" name="complince[0][file_name]"
-                                                                                    id="" class="form-control"
-                                                                                    placeholder="Enter the file type"
-                                                                                    value="" />
-                                                                            </div>
-                                                                            <!-- file -->
-                                                                            <div class="form-group col-md-5">
-                                                                                <input type="file" name="complince[0][comp_doc]"
-                                                                                    id="" class="form-control">
-                                                                            </div>
+                                                                    <div class="add_div_div col-md-12 d-none">
+                                                                        <div class="form-group col-md-12 add_div" id="add_div0">
+                                                                            <div class="row">
+                                                                                <!-- form sections -->
+                                                                                <div class="form-group col-md-6">
+                                                                                    <select name="complaince[0][section_name]"
+                                                                                        id="section_name0" class="form-control">
+                                                                                        <option value="">--- Select a section
+                                                                                            ---
+                                                                                        </option>
+                                                                                        <option value="1">Exporter Details
+                                                                                        </option>
+                                                                                        <option value="2">Bank Details
+                                                                                        </option>
+                                                                                        {{-- <option value="3">Event Details</option> --}}
+                                                                                        <option value="4">Travel Details
+                                                                                        </option>
+                                                                                        <option value="5">Stall Details
+                                                                                        </option>
+                                                                                        <option value="6">Additional Details
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- text -->
+                                                                                <div class="form-group col-md-5">
+                                                                                    <input type="text"
+                                                                                        name="complaince[0][file_name]"
+                                                                                        id="file_name0" class="form-control"
+                                                                                        placeholder="Enter the file type"
+                                                                                        value="" />
+                                                                                </div>
+                                                                                <!-- file -->
+                                                                                {{-- <div class="form-group col-md-3">
+                                                                                    <input type="file"
+                                                                                        name="complaince[0][comp_doc]"
+                                                                                        id="comp_doc0" class="form-control">
+                                                                                </div> --}}
 
-                                                                            <!-- Button -->
-                                                                            <div class="form-group col-md-1 text-right">
-                                                                                <button type="button" id="add-more" name="add-more"
-                                                                                    onclick="addmore()"
-                                                                                    class="btn btn-primary">+</button>
+                                                                                <!-- Button -->
+                                                                                <div class="form-group col-md-1 text-right">
+                                                                                    <button type="button" id="add-more"
+                                                                                        name="add-more" onclick="addmore()"
+                                                                                        class="btn btn-primary">+</button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1157,6 +1181,55 @@
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
                                                                             placeholder="Enter your remarks..."></textarea>
                                                                     </div>
+                                                                    {{-- add  more section starts --}}
+                                                                    <div class="add_div_div col-md-12 d-none">
+                                                                        <div class="form-group col-md-12 add_div" id="add_div0">
+                                                                            <div class="row">
+                                                                                <!-- form sections -->
+                                                                                <div class="form-group col-md-6">
+                                                                                    <select name="complaince[0][section_name]"
+                                                                                        id="section_name0" class="form-control">
+                                                                                        <option value="">--- Select a section
+                                                                                            ---
+                                                                                        </option>
+                                                                                        <option value="1">Exporter Details
+                                                                                        </option>
+                                                                                        <option value="2">Bank Details
+                                                                                        </option>
+                                                                                        {{-- <option value="3">Event Details</option> --}}
+                                                                                        <option value="4">Travel Details
+                                                                                        </option>
+                                                                                        <option value="5">Stall Details
+                                                                                        </option>
+                                                                                        <option value="6">Additional Details
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- text -->
+                                                                                <div class="form-group col-md-5">
+                                                                                    <input type="text"
+                                                                                        name="complaince[0][file_name]"
+                                                                                        id="file_name0" class="form-control"
+                                                                                        placeholder="Enter the file type"
+                                                                                        value="" />
+                                                                                </div>
+                                                                                <!-- file -->
+                                                                                {{-- <div class="form-group col-md-3">
+                                                                                    <input type="file"
+                                                                                        name="complaince[0][comp_doc]"
+                                                                                        id="comp_doc0" class="form-control">
+                                                                                </div> --}}
+
+                                                                                <!-- Button -->
+                                                                                <div class="form-group col-md-1 text-right">
+                                                                                    <button type="button" id="add-more"
+                                                                                        name="add-more" onclick="addmore()"
+                                                                                        class="btn btn-primary">+</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{-- Add more section ends --}}
                                                                     <div class="form-group col-md-12">
                                                                         @php
                                                                             $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
@@ -1187,6 +1260,55 @@
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
                                                                             placeholder="Enter your remarks..."></textarea>
                                                                     </div>
+                                                                    {{-- add  more section starts --}}
+                                                                    <div class="add_div_div col-md-12 d-none">
+                                                                        <div class="form-group col-md-12 add_div" id="add_div0">
+                                                                            <div class="row">
+                                                                                <!-- form sections -->
+                                                                                <div class="form-group col-md-6">
+                                                                                    <select name="complaince[0][section_name]"
+                                                                                        id="section_name0" class="form-control">
+                                                                                        <option value="">--- Select a section
+                                                                                            ---
+                                                                                        </option>
+                                                                                        <option value="1">Exporter Details
+                                                                                        </option>
+                                                                                        <option value="2">Bank Details
+                                                                                        </option>
+                                                                                        {{-- <option value="3">Event Details</option> --}}
+                                                                                        <option value="4">Travel Details
+                                                                                        </option>
+                                                                                        <option value="5">Stall Details
+                                                                                        </option>
+                                                                                        <option value="6">Additional Details
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <!-- text -->
+                                                                                <div class="form-group col-md-5">
+                                                                                    <input type="text"
+                                                                                        name="complaince[0][file_name]"
+                                                                                        id="file_name0" class="form-control"
+                                                                                        placeholder="Enter the file type"
+                                                                                        value="" />
+                                                                                </div>
+                                                                                <!-- file -->
+                                                                                {{-- <div class="form-group col-md-3">
+                                                                                    <input type="file"
+                                                                                        name="complaince[0][comp_doc]"
+                                                                                        id="comp_doc0" class="form-control">
+                                                                                </div> --}}
+
+                                                                                <!-- Button -->
+                                                                                <div class="form-group col-md-1 text-right">
+                                                                                    <button type="button" id="add-more"
+                                                                                        name="add-more" onclick="addmore()"
+                                                                                        class="btn btn-primary">+</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    {{-- Add more section ends --}}
                                                                     <div class="form-group col-md-12">
                                                                         @php
                                                                             $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
@@ -1265,8 +1387,26 @@
             cols += '<div class="row">';
 
             cols +=
-                '<div class="form-group col-md-6"><input type="text" name="complince['+counter+'][file_name]" id="" class="form-control" placeholder="Enter the file type" value="" /></div>';
-            cols += '<div class="form-group col-md-5"><input type="file" name="complince['+counter+'][comp_doc]" id="" class="form-control"></div>';
+                `<div class="form-group col-md-6">
+                    <select name="complaince[${counter}][section_name]" id="section_name${counter}"
+                        class="form-control">
+                        <option value="">--- Select a section ---
+                        </option>
+                        <option value="1">Exporter Details
+                        </option>
+                        <option value="2">Bank Details</option>
+                        <option value="4">Travel Details</option>
+                        <option value="5">Stall Details</option>
+                        <option value="6">Additional Details
+                        </option>
+                    </select>
+                </div>`;
+            cols +=
+                '<div class="form-group col-md-5"><input type="text" name="complaince[' + counter +
+                '][file_name]" id="file_name' + counter +
+                '" class="form-control" placeholder="Enter the file type" value="" /></div>';
+            // cols += '<div class="form-group col-md-3"><input type="file" name="complaince[' + counter +
+            //     '][comp_doc]" id="comp_doc' + counter + '" class="form-control"></div>';
             cols +=
                 '<div class="form-group col-md-1 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
                 counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
@@ -1352,46 +1492,20 @@
             });
 
             $('[data-toggle="tooltip"]').tooltip();
+
+            // 
+            $('#status').on('change', (e) => {
+                var status = $('#status').val();
+                var array = [3, 5, 7, 9];
+
+                if (status == 3 || status == 5 || status == 7 || status == 9) {
+                    console.log('yes');
+                    $('.add_div_div').removeClass('d-none');
+                } else {
+                    console.log('no');
+                    $('.add_div_div').addClass('d-none');
+                }
+            });
         });
-
-
-        // $(document).ready(function() {
-        //     //@naresh action dynamic childs
-        //     var next = 0;
-        //     $("#add-more").click(function(e) {
-        //         e.preventDefault();
-        //         var addto = "#field" + next;
-        //         var addRemove = "#field" + (next);
-        //         next = next + 1;
-        //         // var newIn = ' <div id="field' + next + '" name="field' + next +
-        //         //     '"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div> <!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
-        //         var newIn = '<div id="field' + next + '" name="field' + next +
-        //             '" class="col-md-12 d-flex"><!-- Text input--><input type="text" class="form-control col-md-6" name="attachment[]" id="" placeholder="Enter the attachment'
-        //         s name.
-        //         " /> <!-- File Button --> <div class="
-        //         form - group col - md - 6 "> <input type="
-        //         file " id="
-        //         action_json " name="
-        //         action_json " class="
-        //         input - file form - control " accept=".txt, .json "> <div id="
-        //         action_jsondisplay "></div> </div></div>'
-        //         var newInput = $(newIn);
-        //         var removeBtn = '<button id="remove' + (next - 1) +
-        //             '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
-        //         var removeButton = $(removeBtn);
-        //         $(addto).after(newInput);
-        //         $(addRemove).after(removeButton);
-        //         $("#field" + next).attr('data-source', $(addto).attr('data-source'));
-        //         $("#count").val(next);
-
-        //         $('.remove-me').click(function(e) {
-        //             e.preventDefault();
-        //             var fieldNum = this.id.charAt(this.id.length - 1);
-        //             var fieldID = "#field" + fieldNum;
-        //             $(this).remove();
-        //             $(fieldID).remove();
-        //         });
-        //     });
-        // });
     </script>
 @endsection

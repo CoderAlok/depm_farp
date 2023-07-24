@@ -677,7 +677,7 @@ class ApplicationController extends Controller
         $data['applications']      = $applications; //->toArray();
         $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
         $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
-        $data['pending'] = Applications::where('status', 1)->count();
+        $data['pending']           = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
@@ -704,7 +704,7 @@ class ApplicationController extends Controller
             'get_other_code_details',
             'get_bank_details',
         ])->first();
-        $data['pending'] = Applications::where('status', 1)->count();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        $data['pending'] = Applications::where('status', 1)->count();
         // dd(['Exporteres .. ', $data['applications']->toArray()]);
         return view('application_status_details')->with($data);
     }
@@ -771,12 +771,12 @@ class ApplicationController extends Controller
      */
     public function exporters_application_dir_depm_update(Request $request, $id = null)
     {
-        $request->validate([
-            'complince.*.file_name'=>'required'
-        ], [
-            'complince.*.file_name.required'=>'Please, fill the file name'
-        ]);
-        dd([$request->all(), $id]);
+        // $request->validate([
+        //     'complince.*.file_name'=>'required'
+        // ], [
+        //     'complince.*.file_name.required'=>'Please, fill the file name'
+        // ]);
+        // dd([$request->all(), $id]);
         try {
             $user = Auth::user();
             // dd();
@@ -849,6 +849,7 @@ class ApplicationController extends Controller
      */
     public function exporters_application_spl_sectry_update(Request $request, $id = null)
     {
+        // dd([$request->all(), $id]);
         try {
             $user          = Auth::user();
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
@@ -921,6 +922,7 @@ class ApplicationController extends Controller
      */
     public function exporters_application_dept_sectry_update(Request $request, $id = null)
     {
+        // dd([$request->all(), $id]);
         try {
             $user          = Auth::user();
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
@@ -937,7 +939,7 @@ class ApplicationController extends Controller
                             'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
                         ],
                     ];
-        
+
                     $to      = $user->email;
                     $subject = 'Exporters application rejection.';
                     Mail::to($to)->send(new SendMail($data));
