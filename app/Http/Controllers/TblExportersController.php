@@ -376,27 +376,6 @@ class TblExportersController extends Controller
                         return redirect()->route('welcome');
                     }
 
-                    // if (in_array($exporterData->regsitration_status, [0, 2])) {
-                    //     $reg_status_message = ($exporterData->regsitration_status == 0 ? 'Sorry, you are not eligible yet to login. Let the scrutiny process finish.' : 'Sorry, your application has already been rejected you have been notified in your mail.');
-                    //     Session::flash('message', $reg_status_message);
-                    //     return redirect()->route('welcome'); //->with('message', 'Your are scrutiny is still under process.');
-                    // } else {
-                    //     if (Auth::guard('exporter')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                    //         session()->put('exporter', $exporterData);
-                    //         $data['page_title'] = 'Exporter | Home';
-
-                    //         if ($exporterData->track_status == 1) {
-                    //             return redirect()->route('exporter.home');
-                    //         } else {
-                    //             return redirect()->route('exporter.reset.password.view');
-                    //         }
-
-                    //     } else {
-                    //         Session::flash('message', 'Invalid credentials. Enter valid email id & password.');
-                    //         return redirect()->route('welcome');
-                    //     }
-                    // }
-
                 } else {
                     Session::flash('message', 'Sorry, exporter doesn\'t exists.');
                     return redirect()->route('welcome');
@@ -439,7 +418,7 @@ class TblExportersController extends Controller
             'get_other_code_details',
             'get_bank_details',
             'get_application_status_details',
-        ])->get();
+        ])->latest()->get();
         $data['applications'] = $applications;
         // dd($data);
         return view('application-list')->with($data);
@@ -625,78 +604,6 @@ class TblExportersController extends Controller
             ->first();
         return view('profile')->with($data);
     }
-
-    // public function otp_view(Request $request)
-    // {
-    //     $data['page_title'] = 'Exporter|Send OTP';
-    //     return view('send-otp')->with($data);
-    // }
-
-    // public function send_otp(Request $request)
-    // {
-    //     $email = $this->app->decrypt(session()->get('data')['email']);
-    //     try {
-    //         $data = [
-    //             'mail_id'   => $email,
-    //             'mail_type' => 4,
-    //         ];
-
-    //         $to      = $email;
-    //         $subject = 'Exporters OTP verification.';
-    //         Mail::to($to)->send(new SendMail($data));
-
-    //         return response()->json(['status' => 1]);
-    //     } catch (\Exception $e) {
-    //         $data['data']    = [];
-    //         $data['message'] = $e->getMessage();
-    //         return response($data, 500);
-    //     }
-    // }
-
-    // public function verify_otp_view(Request $request, $email = null)
-    // {
-    //     $data['page_title'] = 'Exporter|Verify OTP';
-    //     $data['email']      = $email;
-    //     return view('verify-otp')->with($data);
-    // }
-
-    // public function verify_otp(Request $request)
-    // {
-    //     if (empty($request->email) || empty($request->password)) {
-    //         return redirect()->route('welcome');
-    //     } else {
-    //         $email    = $this->app->decrypt($request->email);
-    //         $password = $this->app->decrypt($request->password);
-
-    //         try {
-    //             $checkOtp = Otp::where('email', $email)->latest()->first()->otp;
-    //             if (strcmp($checkOtp, $request->otp) == 0) {
-    //                 $checkStatus = Exporter::where('email', $email)->update(['is_email_verified' => 1]);
-
-    //                 if ($checkStatus) {
-    //                     $request->session()->flush();
-    //                     if (Auth::guard('exporter')->attempt(['email' => $email, 'password' => $password])) {
-    //                         return redirect()->route('exporter.reset.password.view');
-    //                     } else {
-    //                         Session::flash('message', 'Invalid username and password.');
-    //                         return redirect()->route('welcome');
-    //                     }
-    //                 } else {
-    //                     Session::flash('message', 'Track status was not updated.');
-    //                     return redirect()->route('welcome');
-    //                 }
-    //             } else {
-    //                 Session::flash('message', 'Otp didn\'t matched. Please, enter the sent otp.');
-    //                 return back();
-    //             }
-    //         } catch (\Exception $e) {
-    //             $data['data']    = [];
-    //             $data['message'] = $e->getMessage();
-    //             return response($data, 500);
-    //         }
-    //     }
-
-    // }
 
     public function send_exporter_otp($email)
     {

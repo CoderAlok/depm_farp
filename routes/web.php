@@ -117,7 +117,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         // Route::get('/delete/{id}', [SchemesController::class, 'delete'])->name('admin.schemes.delete');
     });
 
-    Route::group(['prefix' => 'publicity-officer'], function () {
+    Route::group(['prefix' => 'scrutiny-officer'], function () {
         Route::get('/pending-exporters', [AdminController::class, 'pending_exporters'])->name('admin.publicity.officer.pending.exporters');
         Route::post('/update-pending-exporters-status', [AdminController::class, 'update_pending_exporters_status'])->name('admin.publicity.officer.pending.exporters.status');
 

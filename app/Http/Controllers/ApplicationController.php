@@ -634,7 +634,7 @@ class ApplicationController extends Controller
     public function pending_exporters_application(Request $request)
     {
         $data['page_title']   = 'Pending exporters applications';
-        $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->get()->map(function ($r) {
+        $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
             return [
                 // 'r'          => $r,
                 'id'          => $r->id ?? '',

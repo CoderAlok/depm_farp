@@ -886,7 +886,7 @@
                                                                         ({{ $applications->get_application_progress_master_details[0]->get_user_details->get_role_details->name ?? '' }})
                                                                     </td>
                                                                     <td width="20%">
-                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
+                                                                        {{ date('d-m-Y h:i:s a', strtotime($applications->get_application_progress_master_details[0]->created_at)) ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                             @endif
@@ -903,7 +903,7 @@
                                                                         ({{ $applications->get_application_progress_master_details[1]->get_user_details->get_role_details->name ?? '' }})
                                                                     </td>
                                                                     <td width="20%">
-                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
+                                                                        {{ date('d-m-Y h:i:s a', strtotime($applications->get_application_progress_master_details[1]->created_at)) ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                             @endif
@@ -920,7 +920,7 @@
                                                                         ({{ $applications->get_application_progress_master_details[2]->get_user_details->get_role_details->name ?? '' }})
                                                                     </td>
                                                                     <td width="20%">
-                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
+                                                                        {{ date('d-m-Y h:i:s a', strtotime($applications->get_application_progress_master_details[2]->created_at)) ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                             @endif
@@ -938,7 +938,7 @@
                                                                         ({{ $applications->get_application_progress_master_details[3]->get_user_details->get_role_details->name ?? '' }})
                                                                     </td>
                                                                     <td width="20%">
-                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
+                                                                        {{ date('d-m-Y h:i:s a', strtotime($applications->get_application_progress_master_details[3]->created_at)) ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                             @endif
@@ -956,7 +956,7 @@
                                                                         ({{ $applications->get_application_progress_master_details[4]->get_user_details->get_role_details->name ?? '' }})
                                                                     </td>
                                                                     <td width="20%">
-                                                                        {{ date('d-m-Y H:i:s a', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
+                                                                        {{ date('d-m-Y h:i:s a', strtotime($applications->get_application_progress_master_details[4]->created_at)) ?? '' }}
                                                                     </td>
                                                                 </tr>
                                                             @endif
