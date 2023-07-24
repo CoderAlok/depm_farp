@@ -448,7 +448,7 @@ class TblExportersController extends Controller
             'get_other_code_details',
             'get_bank_details',
             'get_application_status_details',
-        ])->get();
+        ])->latest()->get();
         $data['applications'] = $applications;
         // dd($data);
         return view('application-list')->with($data);

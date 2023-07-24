@@ -406,7 +406,7 @@ function exporter_status_array($status_id)
         4 => 'Under Process',
         5 => 'Not Accepted by DIR DEPM', // --*
         6 => 'Under Process',
-        7 => '',
+        7 => 'Not Approved by Addl Spl Secretory',
         8 => 'Approved',
         9 => 'Rejected by Department Secretory', // --*
     ];

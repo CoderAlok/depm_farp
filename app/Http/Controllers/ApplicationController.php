@@ -677,6 +677,7 @@ class ApplicationController extends Controller
         $data['applications']      = $applications; //->toArray();
         $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
         $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['pending'] = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
@@ -703,6 +704,7 @@ class ApplicationController extends Controller
             'get_other_code_details',
             'get_bank_details',
         ])->first();
+        $data['pending'] = Applications::where('status', 1)->count();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
         // dd(['Exporteres .. ', $data['applications']->toArray()]);
         return view('application_status_details')->with($data);
     }
