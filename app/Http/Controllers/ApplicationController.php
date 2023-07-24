@@ -771,7 +771,12 @@ class ApplicationController extends Controller
      */
     public function exporters_application_dir_depm_update(Request $request, $id = null)
     {
-        // dd([$request->all(), $id]);
+        $request->validate([
+            'complince.*.file_name'=>'required'
+        ], [
+            'complince.*.file_name.required'=>'Please, fill the file name'
+        ]);
+        dd([$request->all(), $id]);
         try {
             $user = Auth::user();
             // dd();

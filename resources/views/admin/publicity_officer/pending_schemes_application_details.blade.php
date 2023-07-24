@@ -1054,7 +1054,6 @@
                                                                 value="{{ $applications->get_application_progress_master_details[0]->incentive_amount ?? 0 }}" />
                                                     @endswitch
 
-
                                                     @switch (Auth::user()->role_id)
                                                         @case(2)
                                                             @if ($applications->status == 1)
@@ -1103,69 +1102,27 @@
                                                                     </div>
 
                                                                     {{-- add  more section starts --}}
-                                                                    {{-- <div class="form-group col-md-12 row">
-                                                                        <div class="col-md-6">
-                                                                            <input type="text" class="form-control"
-                                                                                name="attachment[]" id="" placeholder="Enter the attachment's name." />
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <input type="file" class="form-control"
-                                                                                name="" id="">
-                                                                        </div>
-                                                                    </div> --}}
-
-                                                                    <div class="form-group col-xs-12">
-                                                                        <div class="col-md-12">
-                                                                            <h3> Actions</h3>
-                                                                            <div id="field">
-                                                                                <div id="field0">
-                                                                                    <!-- Text input-->
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-md-4 control-label"
-                                                                                            for="action_id">Action Id</label>
-                                                                                        <div class="col-md-5">
-                                                                                            <input id="action_id" name="action_id"
-                                                                                                type="text" placeholder=""
-                                                                                                class="form-control input-md">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <br><br>
-                                                                                    <!-- Text input-->
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-md-4 control-label"
-                                                                                            for="action_name">Action Name</label>
-                                                                                        <div class="col-md-5">
-                                                                                            <input id="action_name"
-                                                                                                name="action_name" type="text"
-                                                                                                placeholder=""
-                                                                                                class="form-control input-md">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <br><br>
-                                                                                    <!-- File Button -->
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-md-4 control-label"
-                                                                                            for="action_json">Action JSON
-                                                                                            File</label>
-                                                                                        <div class="col-md-4">
-                                                                                            <input type="file" id="action_json"
-                                                                                                name="action_json"
-                                                                                                class="input-file"
-                                                                                                accept=".txt,.json">
-                                                                                            <div id="action_jsondisplay"></div>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
+                                                                    <div class="form-group col-md-12 add_div" id="add_div0">
+                                                                        <div class="row">
+                                                                            <!-- text -->
+                                                                            <div class="form-group col-md-6">
+                                                                                <input type="text" name="complince[0][file_name]"
+                                                                                    id="" class="form-control"
+                                                                                    placeholder="Enter the file type"
+                                                                                    value="" />
                                                                             </div>
+                                                                            <!-- file -->
+                                                                            <div class="form-group col-md-5">
+                                                                                <input type="file" name="complince[0][comp_doc]"
+                                                                                    id="" class="form-control">
+                                                                            </div>
+
                                                                             <!-- Button -->
-                                                                            <div class="form-group">
-                                                                                <div class="col-md-4">
-                                                                                    <button id="add-more" name="add-more"
-                                                                                        class="btn btn-primary">Add More</button>
-                                                                                </div>
+                                                                            <div class="form-group col-md-1 text-right">
+                                                                                <button type="button" id="add-more" name="add-more"
+                                                                                    onclick="addmore()"
+                                                                                    class="btn btn-primary">+</button>
                                                                             </div>
-                                                                            <br><br>
                                                                         </div>
                                                                     </div>
                                                                     {{-- Add more section ends --}}
@@ -1299,6 +1256,33 @@
     <script src="{{ asset('public/farp1_assets/js/formplugins/select2/select2.bundle.js') }}"></script>
     <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     <script>
+        function addmore() {
+            var lastId = $(".add_div").last().attr("id");
+            var res = lastId.split("add_div");
+            var counter = parseInt(res[1]) + 1;
+            var cols = "";
+            var newCols = $('<div class="form-group col-md-12 add_div" id="add_div' + counter + '">');
+            cols += '<div class="row">';
+
+            cols +=
+                '<div class="form-group col-md-6"><input type="text" name="complince['+counter+'][file_name]" id="" class="form-control" placeholder="Enter the file type" value="" /></div>';
+            cols += '<div class="form-group col-md-5"><input type="file" name="complince['+counter+'][comp_doc]" id="" class="form-control"></div>';
+            cols +=
+                '<div class="form-group col-md-1 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
+                counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
+
+            cols += "</div>";
+            cols += "</div>";
+            newCols.append(cols);
+            $("#" + lastId).after(newCols);
+        }
+
+        function removeAdd(key) {
+            $("#add_div" + key).remove();
+        }
+    </script>
+
+    <script>
         $(document).ready(function() {
 
             iziToast.success({
@@ -1371,33 +1355,43 @@
         });
 
 
-        $(document).ready(function() {
-            //@naresh action dynamic childs
-            var next = 0;
-            $("#add-more").click(function(e) {
-                e.preventDefault();
-                var addto = "#field" + next;
-                var addRemove = "#field" + (next);
-                next = next + 1;
-                var newIn = ' <div id="field' + next + '" name="field' + next +
-                    '"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div><br><br> <!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><br><br><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
-                var newInput = $(newIn);
-                var removeBtn = '<button id="remove' + (next - 1) +
-                    '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
-                var removeButton = $(removeBtn);
-                $(addto).after(newInput);
-                $(addRemove).after(removeButton);
-                $("#field" + next).attr('data-source', $(addto).attr('data-source'));
-                $("#count").val(next);
+        // $(document).ready(function() {
+        //     //@naresh action dynamic childs
+        //     var next = 0;
+        //     $("#add-more").click(function(e) {
+        //         e.preventDefault();
+        //         var addto = "#field" + next;
+        //         var addRemove = "#field" + (next);
+        //         next = next + 1;
+        //         // var newIn = ' <div id="field' + next + '" name="field' + next +
+        //         //     '"><!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_id">Action Id</label> <div class="col-md-5"> <input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md"> </div></div> <!-- Text input--><div class="form-group"> <label class="col-md-4 control-label" for="action_name">Action Name</label> <div class="col-md-5"> <input id="action_name" name="action_name" type="text" placeholder="" class="form-control input-md"> </div></div><!-- File Button --> <div class="form-group"> <label class="col-md-4 control-label" for="action_json">Action JSON File</label> <div class="col-md-4"> <input id="action_json" name="action_json" class="input-file" type="file"> </div></div></div>';
+        //         var newIn = '<div id="field' + next + '" name="field' + next +
+        //             '" class="col-md-12 d-flex"><!-- Text input--><input type="text" class="form-control col-md-6" name="attachment[]" id="" placeholder="Enter the attachment'
+        //         s name.
+        //         " /> <!-- File Button --> <div class="
+        //         form - group col - md - 6 "> <input type="
+        //         file " id="
+        //         action_json " name="
+        //         action_json " class="
+        //         input - file form - control " accept=".txt, .json "> <div id="
+        //         action_jsondisplay "></div> </div></div>'
+        //         var newInput = $(newIn);
+        //         var removeBtn = '<button id="remove' + (next - 1) +
+        //             '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
+        //         var removeButton = $(removeBtn);
+        //         $(addto).after(newInput);
+        //         $(addRemove).after(removeButton);
+        //         $("#field" + next).attr('data-source', $(addto).attr('data-source'));
+        //         $("#count").val(next);
 
-                $('.remove-me').click(function(e) {
-                    e.preventDefault();
-                    var fieldNum = this.id.charAt(this.id.length - 1);
-                    var fieldID = "#field" + fieldNum;
-                    $(this).remove();
-                    $(fieldID).remove();
-                });
-            });
-        });
+        //         $('.remove-me').click(function(e) {
+        //             e.preventDefault();
+        //             var fieldNum = this.id.charAt(this.id.length - 1);
+        //             var fieldID = "#field" + fieldNum;
+        //             $(this).remove();
+        //             $(fieldID).remove();
+        //         });
+        //     });
+        // });
     </script>
 @endsection
