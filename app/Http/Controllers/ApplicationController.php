@@ -12,6 +12,7 @@ use App\Mail\SendMail;
 use App\Repositories\CustomRepository;
 use Auth;
 use Carbon\Carbon;
+use Complaince;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -710,6 +711,35 @@ class ApplicationController extends Controller
     }
 
     /**
+     * Method exporters_application_status_details ------ FOR EXPORTERS -------
+     * @param Request $request [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function exporters_application_status_details_complaince_submit(Request $request, $id = null)
+    {
+        dd([$request->all(), $id]);
+
+        // $user                 = Auth::guard('exporter')->user();
+        // $data['data']         = $user;
+        // $data['page_title']   = 'Pending exporters application details';
+        // $data['applications'] = Applications::where('id', $id)->with([
+        //     'get_exporter_details',
+        //     'get_scheme_details',
+        //     'get_event_details',
+        //     'get_travel_details',
+        //     'get_stall_details.get_event_details',
+        //     'get_file_details',
+        //     'get_address_details',
+        //     'get_other_code_details',
+        //     'get_bank_details',
+        // ])->first();
+        // $data['pending'] = Applications::where('status', 1)->count();
+        // // dd(['Exporteres .. ', $data['applications']->toArray()]);
+        // return view('application_status_details')->with($data);
+    }
+
+    /**
      * Method exporters_application_status_details_update by SO
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
@@ -929,20 +959,40 @@ class ApplicationController extends Controller
             if ($update_status) {
 
                 if ($request->status == 9) {
-                    // Mail for those who will be rejected
-                    $data = [
-                        'mail_id'   => $user->email,
-                        'mail_type' => 6,
-                        'mail_data' => [
-                            'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
-                            'remarks'   => $request->remarks,
-                            'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
-                        ],
-                    ];
+                    foreach ($request->complaince as $key => $value) {
+                        $complaince_data = [
+                            'appl_id'      => $id,
+                            'exporter_id'  => Applications::where('id', $id)->first()->exporter_id,
+                            'user_id'      => $user->id,
+                            'section_type' => $value->section_name,
+                            'description'  => $value->file_name,
+                            // 'file_name'    => '',
+                            'created_by'   => $user->id,
+                            'created_at'   => Carbon::now(),
+                        ];
+                        $complaince_status = Complaince::insert($complaince_data);
+                    }
 
-                    $to      = $user->email;
-                    $subject = 'Exporters application rejection.';
-                    Mail::to($to)->send(new SendMail($data));
+                    if ($complaince_status) {
+                        // Mail for those who will be rejected
+                        $data = [
+                            'mail_id'   => $user->email,
+                            'mail_type' => 6,
+                            'mail_data' => [
+                                'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
+                                'remarks'   => $request->remarks,
+                                'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                            ],
+                        ];
+
+                        $to      = $user->email;
+                        $subject = 'Exporters application rejection.';
+                        Mail::to($to)->send(new SendMail($data));
+                    } else {
+                        $data['message'] = 'Failed to register complaince.';
+                        Session::flash('message', $data['message']);
+                        return redirect()->back()->with($data);
+                    }
                 }
 
                 // Then update other associated tables

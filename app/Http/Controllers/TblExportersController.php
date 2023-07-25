@@ -274,28 +274,28 @@ class TblExportersController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\tbl_exporters  $tbl_exporters
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Exporter $tbl_exporters)
-    {
-        //
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  \App\Models\tbl_exporters  $tbl_exporters
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function edit(Exporter $tbl_exporters)
+    // {
+    //     //
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\tbl_exporters  $tbl_exporters
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Exporter $tbl_exporters)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \App\Models\tbl_exporters  $tbl_exporters
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, Exporter $tbl_exporters)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.

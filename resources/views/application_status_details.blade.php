@@ -596,9 +596,10 @@
 
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
                                     <h4>Complaince Form</h4>
-                                    <form action="{{ '' }}" class="form-group mb-3 complaince_form_body"
-                                        id="status_approval_form" name="status_approval_form" method="post"
-                                        enctype="multipart/form-data">
+                                    <form
+                                        action="{{ route('exporter.application.details.complaince.submit', $applications->id) }}"
+                                        class="form-group mb-3 complaince_form_body" id="status_approval_form"
+                                        name="status_approval_form" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
                                             <div class="row col-md-12">

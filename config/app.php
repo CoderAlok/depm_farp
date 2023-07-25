@@ -249,6 +249,7 @@ return [
         'ApplicationFiles'          => App\Models\tbl_application_files_details::class,
         'ApplicationStatus'         => App\Models\ApplicationStatus::class,
         'ApplicationProgressMaster' => App\Models\ApplicationProgressMaster::class,
+        'Complaince' => App\Models\TblComplaince::class,
     ],
 
 ];

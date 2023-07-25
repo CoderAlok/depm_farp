@@ -70,9 +70,8 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
         Route::get('/annexure-2/{id?}', [TblExportersController::class, 'annexure2'])->name('exporter.application.annexure2');
         Route::post('/annexure-1', [ApplicationController::class, 'submitApplication'])->name('exporter.application.annexure1.submit');
 
-        // Route::post('/annexure-1', [TblExportersController::class, 'annexure1_submit'])->name('exporter.application.annexure1.submit');
-        // Route::post('/annexure-2', [TblExportersController::class, 'annexure2_submit'])->name('exporter.application.annexure2.submit');
         Route::get('/pending-exporters-application-details/{id}', [ApplicationController::class, 'exporters_application_status_details'])->name('exporter.application.details');
+        Route::post('/pending-exporters-application-details/{id}', [ApplicationController::class, 'exporters_application_status_details_complaince_submit'])->name('exporter.application.details.complaince.submit');
     });
 
     Route::group([], function () {

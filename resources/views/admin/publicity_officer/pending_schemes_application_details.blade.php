@@ -1098,7 +1098,7 @@
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                            placeholder="Enter your remarks..." required></textarea>
                                                                     </div>
 
                                                                     {{-- add  more section starts --}}
@@ -1108,7 +1108,7 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control">
+                                                                                        id="section_name0" class="form-control" required>
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1131,7 +1131,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" />
+                                                                                        value="" required />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1179,7 +1179,7 @@
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                            placeholder="Enter your remarks..." required></textarea>
                                                                     </div>
                                                                     {{-- add  more section starts --}}
                                                                     <div class="add_div_div col-md-12 d-none">
@@ -1188,7 +1188,7 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control">
+                                                                                        id="section_name0" class="form-control" required>
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1211,7 +1211,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" />
+                                                                                        value="" required />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1258,7 +1258,7 @@
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
-                                                                            placeholder="Enter your remarks..."></textarea>
+                                                                            placeholder="Enter your remarks..." required></textarea>
                                                                     </div>
                                                                     {{-- add  more section starts --}}
                                                                     <div class="add_div_div col-md-12 d-none">
@@ -1267,7 +1267,7 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control">
+                                                                                        id="section_name0" class="form-control" required>
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1290,7 +1290,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" />
+                                                                                        value="" required />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1389,7 +1389,7 @@
             cols +=
                 `<div class="form-group col-md-6">
                     <select name="complaince[${counter}][section_name]" id="section_name${counter}"
-                        class="form-control">
+                        class="form-control" required>
                         <option value="">--- Select a section ---
                         </option>
                         <option value="1">Exporter Details
@@ -1404,7 +1404,7 @@
             cols +=
                 '<div class="form-group col-md-5"><input type="text" name="complaince[' + counter +
                 '][file_name]" id="file_name' + counter +
-                '" class="form-control" placeholder="Enter the file type" value="" /></div>';
+                '" class="form-control" placeholder="Enter the file type" value="" required/></div>';
             // cols += '<div class="form-group col-md-3"><input type="file" name="complaince[' + counter +
             //     '][comp_doc]" id="comp_doc' + counter + '" class="form-control"></div>';
             cols +=

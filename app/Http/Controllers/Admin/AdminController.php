@@ -57,6 +57,7 @@ class AdminController extends Controller
     {
         $data['page_title'] = 'Pending exporters';
         $data['exporters']  = Exporter::whereIn('regsitration_status', [0, 1, 2])->with(['get_category_details', 'get_address_details', 'get_bank_details', 'get_other_code_details'])->latest()->get();
+        // saasasa
         return view('admin.publicity_officer.pending_exporters')->with($data);
     }
 
