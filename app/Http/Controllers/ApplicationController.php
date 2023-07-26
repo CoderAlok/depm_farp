@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use ApplicationEvents;
 use ApplicationFiles;
+use ApplicationLog;
 use ApplicationProgressMaster;
 use Applications;
 use ApplicationStalls;
@@ -17,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use User;
 
 class ApplicationController extends Controller
 {
@@ -67,9 +69,9 @@ class ApplicationController extends Controller
                             'class_of_tarvel'             => 'required',
                             'total_travel_expense'        => 'required',
                             'travel_incentive'            => 'required',
-                            'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
                             'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Stall
                             'stall_event_name'            => 'required',
@@ -247,9 +249,9 @@ class ApplicationController extends Controller
                             'class_of_tarvel'             => 'required',
                             'total_travel_expense'        => 'required',
                             'travel_incentive'            => 'required',
-                            'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
                             'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_boarding_pass'          => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Stall
                             // 'stall_event_name'            => 'required',
@@ -605,6 +607,19 @@ class ApplicationController extends Controller
                     ];
                     $file_id = ApplicationFiles::insert($files_data);
 
+                    $insert_log_data = [
+                        'appl_id'        => $appl_id,
+                        'from_user_type' => 1,
+                        'from_user'      => $user_id,
+                        'to_user_type'   => 2,
+                        'to_user'        => User::where(['role_id' => 2])->first()->id,
+                        'status'         => 1,
+                        'remarks'        => '',
+                        'updated_date'   => Carbon::now(),
+                        'created_at'     => Carbon::now(),
+                    ];
+                    $log_status = ApplicationLog::insert($insert_log_data);
+
                     $data['data'] = [
                         'appl_id'   => $appl_id ?? '',
                         'event_id'  => $event_id ?? '',
@@ -705,8 +720,10 @@ class ApplicationController extends Controller
             'get_other_code_details',
             'get_bank_details',
         ])->first();
-        $data['pending'] = Applications::where('status', 1)->count();
-        // dd(['Exporteres .. ', $data['applications']->toArray()]);
+        $data['pending']    = Applications::where('status', 1)->count();
+        $data['complaince'] = Complaince::where('appl_id', $id)->where('insert_status', 1)->get();
+        // dd([$data['complaince']->toArray()]);
+
         return view('application_status_details')->with($data);
     }
 
@@ -718,25 +735,45 @@ class ApplicationController extends Controller
      */
     public function exporters_application_status_details_complaince_submit(Request $request, $id = null)
     {
-        dd([$request->all(), $id]);
+        // dd([$request->all(), $id]);
+        try {
+            $remarks    = $request->remarks;
+            $user       = Auth::guard('exporter')->user();
+            $app_no     = Applications::where('id', $id)->first()->app_no;
+            $status     = 0;
+            $complaince = new Complaince();
 
-        // $user                 = Auth::guard('exporter')->user();
-        // $data['data']         = $user;
-        // $data['page_title']   = 'Pending exporters application details';
-        // $data['applications'] = Applications::where('id', $id)->with([
-        //     'get_exporter_details',
-        //     'get_scheme_details',
-        //     'get_event_details',
-        //     'get_travel_details',
-        //     'get_stall_details.get_event_details',
-        //     'get_file_details',
-        //     'get_address_details',
-        //     'get_other_code_details',
-        //     'get_bank_details',
-        // ])->first();
-        // $data['pending'] = Applications::where('status', 1)->count();
-        // // dd(['Exporteres .. ', $data['applications']->toArray()]);
-        // return view('application_status_details')->with($data);
+            foreach ($request->complaince as $key => $value) {
+                $comp_docu = $request->complaince[$key]['comp_doc'];
+                $file_name = 'COMP_' . substr(sha1($comp_docu . uniqid('', true)), 10, 5) . date('my') . $comp_docu->getClientOriginalName();
+                $file_path = 'public/images/exporters/applications/' . $app_no . '/complaince' . $id . '/';
+                $comp_docu->storeAs($file_path, $file_name);
+                $status = $complaince::where(['id' => $value['id']])->update(['file_name' => $file_name, 'exporters_remarks' => $remarks, 'updated_by' => $user->id, 'insert_status' => 0]);
+            }
+
+            if ($status) {
+                // Insert into the Application log table
+                
+
+                // Updates the status to 1 again to be scrutinized.
+                Applications::where('id', $id)->update(['status' => 1]);
+
+                $data['message'] = 'Application updated successfully.';
+                $request->session()->flash('message', $data['message']);
+                // return redirect()->back()->with($data);
+                return redirect()->route('exporter.rejected.application.list')->with($data);
+            } else {
+                $data['message'] = 'Failed to updated.';
+                $request->session()->flash('message', $data['message']);
+                return redirect()->back()->with($data);
+                // return redirect()->route('exporter.application.list')->with($data);
+            }
+        } catch (\Exception $e) {
+            $data['data']    = ['error'];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+
     }
 
     /**
@@ -753,30 +790,44 @@ class ApplicationController extends Controller
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
-                if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
-                    $update_data = [
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'updated_by'       => $user->id,
-                    ];
-                    $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
-                    $data['message'] = 'Application status updated successfully..';
-                    Session::flash('message', $data['message']);
-                } else {
-                    $insert_data = [
-                        'appl_id'          => $id,
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'created_by'       => $user->id,
-                        'updated_by'       => $user->id,
-                        'created_at'       => Carbon::now(),
-                    ];
-                    $status          = ApplicationProgressMaster::insert($insert_data);
-                    $data['message'] = 'Application status updated successfully.';
-                    Session::flash('message', $data['message']);
-                }
+                // if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
+                //     $update_data = [
+                //         'total_expense'    => $request->total_expenses,
+                //         'incentive_amount' => $request->incentive_amount,
+                //         'remarks'          => $request->remarks,
+                //         'updated_by'       => $user->id,
+                //     ];
+                //     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
+                //     $data['message'] = 'Application status updated successfully..';
+                //     Session::flash('message', $data['message']);
+                // } else {
+                $insert_data = [
+                    'appl_id'          => $id,
+                    'total_expense'    => $request->total_expenses,
+                    'incentive_amount' => $request->incentive_amount,
+                    'remarks'          => $request->remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status          = ApplicationProgressMaster::insert($insert_data);
+                $data['message'] = 'Application status updated successfully.';
+                Session::flash('message', $data['message']);
+                // }
+
+                // Insert into Application log
+                $insert_log_data = [
+                    'appl_id'        => $id,
+                    'from_user_type' => 1,
+                    'from_user'      => $user->id,
+                    'to_user_type'   => 2,
+                    'to_user'        => null,
+                    'status'         => 1,
+                    'remarks'        => $request->remarks,
+                    'updated_date'   => Carbon::now(),
+                    'created_at'     => Carbon::now(),
+                ];
+                $log_status = ApplicationLog::insert($insert_log_data);
 
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
@@ -807,58 +858,87 @@ class ApplicationController extends Controller
         //     'complince.*.file_name.required'=>'Please, fill the file name'
         // ]);
         // dd([$request->all(), $id]);
+
         try {
-            $user = Auth::user();
-            // dd();
+            $user              = Auth::user();
+            $complaince        = new Complaince();
+            $occurence_counter = $complaince->where('appl_id', $id)->count(); //->first()->occurence;
+            $occurence_counter = $occurence_counter != 0 ? $complaince->where('appl_id', $id)->first()->occurence : 0;
+            $occurence_counter = $occurence_counter + 1;
+            // dd($occurence_counter);
+
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
                 if ($request->status == 5) {
-                    // Mail for those who will be rejected
-                    $data = [
-                        'mail_id'   => $user->email,
-                        'mail_type' => 6,
-                        'mail_data' => [
-                            'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
-                            'remarks'   => $request->remarks,
-                            'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
-                        ],
-                    ];
+                    // dd($occurence_counter);
+                    $insert_data       = [];
+                    $exporter_id       = Applications::where('id', $id)->first()->exporter_id;
+                    foreach ($request->complaince as $key => $value) {
+                        $insert_data[$key]['appl_id']       = $id;
+                        $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                        $insert_data[$key]['exporter_id']   = $exporter_id;
+                        $insert_data[$key]['user_id']       = $user->id;
+                        $insert_data[$key]['section_type']  = $value['section_name'];
+                        $insert_data[$key]['description']   = $value['file_name'];
+                        $insert_data[$key]['insert_status'] = true;
+                        $insert_data[$key]['created_by']    = $user->id;
+                        $insert_data[$key]['created_at']    = Carbon::now();
+                    }
+                    $comp_status = $complaince->insert($insert_data);
+                    if ($comp_status) {
+                        // Mail for those who will be rejected
+                        $data = [
+                            'mail_id'   => $user->email,
+                            'mail_type' => 6,
+                            'mail_data' => [
+                                'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
+                                'remarks'   => $request->remarks,
+                                'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                            ],
+                        ];
 
-                    $to      = $user->email;
-                    $subject = 'Exporters application rejection.';
-                    Mail::to($to)->send(new SendMail($data));
+                        $to      = $user->email;
+                        $subject = 'Exporters application rejection.';
+                        Mail::to($to)->send(new SendMail($data));
+                    } else {
+                        $data['message'] = 'Application status updated successfully.';
+                        Session::flash('message', $data['message']);
+                        return redirect()->back();
+                    }
+
                 }
 
                 // Then update other associated tables
-                if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
-                    $update_data = [
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'updated_by'       => $user->id,
-                    ];
-                    $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
-                    $data['message'] = 'Application status updated successfully..';
-                    Session::flash('message', $data['message']);
-                } else {
-                    $insert_data = [
-                        'appl_id'          => $id,
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'created_by'       => $user->id,
-                        'updated_by'       => $user->id,
-                        'created_at'       => Carbon::now(),
-                    ];
-                    $status          = ApplicationProgressMaster::insert($insert_data);
-                    $data['message'] = 'Application status updated successfully.';
-                    Session::flash('message', $data['message']);
-                }
+                // if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
+                //     $update_data = [
+                //         'total_expense'    => $request->total_expenses,
+                //         'incentive_amount' => $request->incentive_amount,
+                //         'remarks'          => $request->remarks,
+                //         'updated_by'       => $user->id,
+                //     ];
+                //     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
+                //     $data['message'] = 'Application status updated successfully..';
+                //     Session::flash('message', $data['message']);
+                // } else {
+                $insert_data = [
+                    'appl_id'          => $id,
+                    'total_expense'    => $request->total_expenses,
+                    'incentive_amount' => $request->incentive_amount,
+                    'remarks'          => $request->remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status          = ApplicationProgressMaster::insert($insert_data);
+                $data['message'] = 'Application status updated successfully.';
+                Session::flash('message', $data['message']);
+                // }
 
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
                 Session::flash('message', $data['message']);
+                return redirect()->back();
             }
             // return redirect()->back()->with($data);
             return redirect()->route('admin.publicity.officer.pending.exporters.applications')->with($data);
@@ -881,53 +961,78 @@ class ApplicationController extends Controller
     {
         // dd([$request->all(), $id]);
         try {
-            $user          = Auth::user();
+            $user              = Auth::user();
+            $complaince        = new Complaince();
+            $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
+            $occurence_counter = $occurence_counter + 1;
+            // dd($occurence_counter);
+
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
                 if ($request->status == 7) {
-                    // Mail for those who will be rejected
-                    $data = [
-                        'mail_id'   => $user->email,
-                        'mail_type' => 6,
-                        'mail_data' => [
-                            'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
-                            'remarks'   => $request->remarks,
-                            'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
-                        ],
-                    ];
+                    $insert_data = [];
+                    $exporter_id = Applications::where('id', $id)->first()->exporter_id;
+                    foreach ($request->complaince as $key => $value) {
+                        $insert_data[$key]['appl_id']       = $id;
+                        $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                        $insert_data[$key]['exporter_id']   = $exporter_id;
+                        $insert_data[$key]['user_id']       = $user->id;
+                        $insert_data[$key]['section_type']  = $value['section_name'];
+                        $insert_data[$key]['description']   = $value['file_name'];
+                        $insert_data[$key]['insert_status'] = true;
+                        $insert_data[$key]['created_by']    = $user->id;
+                        $insert_data[$key]['created_at']    = Carbon::now();
+                    }
+                    $comp_status = $complaince->insert($insert_data);
+                    if ($comp_status) {
+                        // Mail for those who will be rejected
+                        $data = [
+                            'mail_id'   => $user->email,
+                            'mail_type' => 6,
+                            'mail_data' => [
+                                'app_no'    => Applications::select('app_no')->where('id', $id)->first()->app_no,
+                                'remarks'   => $request->remarks,
+                                'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                            ],
+                        ];
 
-                    $to      = $user->email;
-                    $subject = 'Exporters application rejection.';
-                    Mail::to($to)->send(new SendMail($data));
+                        $to      = $user->email;
+                        $subject = 'Exporters application rejection.';
+                        Mail::to($to)->send(new SendMail($data));
+                    } else {
+                        $data['message'] = 'Application status updated successfully.';
+                        Session::flash('message', $data['message']);
+                        return redirect()->back();
+                    }
                 }
 
                 // Then update other associated tables
-                if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
-                    $update_data = [
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'updated_by'       => $user->id,
-                    ];
+                // if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
+                //     $update_data = [
+                //         'total_expense'    => $request->total_expenses,
+                //         'incentive_amount' => $request->incentive_amount,
+                //         'remarks'          => $request->remarks,
+                //         'updated_by'       => $user->id,
+                //     ];
 
-                    $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
-                    $data['message'] = 'Application status updated successfully..';
-                    Session::flash('message', $data['message']);
-                } else {
-                    $insert_data = [
-                        'appl_id'          => $id,
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'created_by'       => $user->id,
-                        'updated_by'       => $user->id,
-                        'created_at'       => Carbon::now(),
-                    ];
-                    $status          = ApplicationProgressMaster::insert($insert_data);
-                    $data['message'] = 'Application status updated successfully.';
-                    Session::flash('message', $data['message']);
-                }
+                //     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
+                //     $data['message'] = 'Application status updated successfully..';
+                //     Session::flash('message', $data['message']);
+                // } else {
+                $insert_data = [
+                    'appl_id'          => $id,
+                    'total_expense'    => $request->total_expenses,
+                    'incentive_amount' => $request->incentive_amount,
+                    'remarks'          => $request->remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status          = ApplicationProgressMaster::insert($insert_data);
+                $data['message'] = 'Application status inserted successfully.';
+                Session::flash('message', $data['message']);
+                // }
 
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
@@ -954,26 +1059,31 @@ class ApplicationController extends Controller
     {
         // dd([$request->all(), $id]);
         try {
-            $user          = Auth::user();
+            $user              = Auth::user();
+            $complaince        = new Complaince();
+            $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
+            $occurence_counter = $occurence_counter + 1;
+            // dd($occurence_counter);
+
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
 
                 if ($request->status == 9) {
+                    $insert_data = [];
+                    $exporter_id = Applications::where('id', $id)->first()->exporter_id;
                     foreach ($request->complaince as $key => $value) {
-                        $complaince_data = [
-                            'appl_id'      => $id,
-                            'exporter_id'  => Applications::where('id', $id)->first()->exporter_id,
-                            'user_id'      => $user->id,
-                            'section_type' => $value->section_name,
-                            'description'  => $value->file_name,
-                            // 'file_name'    => '',
-                            'created_by'   => $user->id,
-                            'created_at'   => Carbon::now(),
-                        ];
-                        $complaince_status = Complaince::insert($complaince_data);
+                        $insert_data[$key]['appl_id']       = $id;
+                        $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                        $insert_data[$key]['exporter_id']   = $exporter_id;
+                        $insert_data[$key]['user_id']       = $user->id;
+                        $insert_data[$key]['section_type']  = $value['section_name'];
+                        $insert_data[$key]['description']   = $value['file_name'];
+                        $insert_data[$key]['created_by']    = $user->id;
+                        $insert_data[$key]['insert_status'] = true;
+                        $insert_data[$key]['created_at']    = Carbon::now();
                     }
-
-                    if ($complaince_status) {
+                    $comp_status = Complaince::insert($insert_data);
+                    if ($comp_status) {
                         // Mail for those who will be rejected
                         $data = [
                             'mail_id'   => $user->email,
@@ -996,31 +1106,31 @@ class ApplicationController extends Controller
                 }
 
                 // Then update other associated tables
-                if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
-                    $update_data = [
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'updated_by'       => $user->id,
-                    ];
+                // if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
+                //     $update_data = [
+                //         'total_expense'    => $request->total_expenses,
+                //         'incentive_amount' => $request->incentive_amount,
+                //         'remarks'          => $request->remarks,
+                //         'updated_by'       => $user->id,
+                //     ];
 
-                    $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
-                    $data['message'] = 'Application status updated successfully..';
-                    Session::flash('message', $data['message']);
-                } else {
-                    $insert_data = [
-                        'appl_id'          => $id,
-                        'total_expense'    => $request->total_expenses,
-                        'incentive_amount' => $request->incentive_amount,
-                        'remarks'          => $request->remarks,
-                        'created_by'       => $user->id,
-                        'updated_by'       => $user->id,
-                        'created_at'       => Carbon::now(),
-                    ];
-                    $status          = ApplicationProgressMaster::insert($insert_data);
-                    $data['message'] = 'Application status updated successfully.';
-                    Session::flash('message', $data['message']);
-                }
+                //     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
+                //     $data['message'] = 'Application status updated successfully..';
+                //     Session::flash('message', $data['message']);
+                // } else {
+                $insert_data = [
+                    'appl_id'          => $id,
+                    'total_expense'    => $request->total_expenses,
+                    'incentive_amount' => $request->incentive_amount,
+                    'remarks'          => $request->remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status          = ApplicationProgressMaster::insert($insert_data);
+                $data['message'] = 'Application status updated successfully.';
+                Session::flash('message', $data['message']);
+                // }
 
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
@@ -1118,14 +1228,3 @@ class ApplicationController extends Controller
     }
 
 }
-
-// 1    => 8
-// 3    => 8
-// 4    => 8
-// 5    => 8
-// 6    => 2
-// 7    => 1
-// 8    => 2
-// 9    => 1
-// 10    => 1
-// 11    => 1

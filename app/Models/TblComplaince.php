@@ -13,7 +13,7 @@ class TblComplaince extends Model
     use HasFactory;
     protected $table = 'tbl_complaince';
 
-    protected $fillable = ['appl_id', 'exporter_id', 'user_id', 'section_type', 'description', 'file_name', 'created_by', 'updated_by', 'created_at'];
+    protected $fillable = ['appl_id', 'exporter_id', 'user_id', 'section_type', 'description', 'file_name', 'exporters_remarks', 'created_by', 'updated_by', 'created_at'];
 
     public function get_user_details()
     {

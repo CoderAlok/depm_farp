@@ -797,8 +797,6 @@
                                                 }
                                             @endphp
 
-                                            {{-- {{ 'f'.($table_showing_status ? 'true' : 'fale') }} --}}
-                                            {{-- @if ($table_showing_status) --}}
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="row mt-5 mb-5">
@@ -873,7 +871,31 @@
                                                             {{-- blank  --}}
                                                         @endif
 
-                                                        <tbody>
+                                                        {{-- Way 1 Start --}}
+                                                        <body>
+                                                            {{-- <pre>{{ print_r($applications->get_application_progress_master_details->toArray()) }}</pre> --}}
+                                                            @foreach ($applications->get_application_progress_master_details as $key => $item)
+                                                                <tr>
+                                                                    <td width="5%">
+                                                                        {{ ++$key }}
+                                                                    </td>
+                                                                    <td width="65%">
+                                                                        {{ $item->remarks ?? '' }}
+                                                                    </td>
+                                                                    <td width="10%">
+                                                                        ({{ $item->get_user_details->get_role_details->name ?? '' }})
+                                                                    </td>
+                                                                    <td width="20%">
+                                                                        {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </body>
+                                                        {{-- Way 1 end --}}
+
+                                                        {{-- Way 2 start --}}
+                                                        {{-- <tbody>
+
                                                             @if (isset($applications->get_application_progress_master_details[0]))
                                                                 <tr>
                                                                     <td width="5%">
@@ -960,7 +982,8 @@
                                                                     </td>
                                                                 </tr>
                                                             @endif
-                                                        </tbody>
+                                                        </tbody> --}}
+                                                        {{-- Way 2 End --}}
                                                     </table>
                                                 </div>
                                             </div>
@@ -1108,7 +1131,7 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control" required>
+                                                                                        id="section_name0" class="form-control">
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1131,7 +1154,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" required />
+                                                                                        value="" />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1181,6 +1204,7 @@
                                                                         <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
                                                                             placeholder="Enter your remarks..." required></textarea>
                                                                     </div>
+
                                                                     {{-- add  more section starts --}}
                                                                     <div class="add_div_div col-md-12 d-none">
                                                                         <div class="form-group col-md-12 add_div" id="add_div0">
@@ -1188,7 +1212,7 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control" required>
+                                                                                        id="section_name0" class="form-control">
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1211,7 +1235,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" required />
+                                                                                        value="" />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1267,7 +1291,8 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control" required>
+                                                                                        id="section_name0" class="form-control"
+                                                                                        >
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1290,7 +1315,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" required />
+                                                                                        value="" />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">

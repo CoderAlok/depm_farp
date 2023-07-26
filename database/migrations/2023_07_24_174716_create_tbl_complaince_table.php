@@ -21,6 +21,7 @@ class CreateTblComplainceTable extends Migration
             $table->integer('section_type')->unsigned()->nullable()->comment('Section type ids');
             $table->text('description')->nullable()->comment('Complaince description');
             $table->string('file_name', 255)->nullable()->comment('Name of the reverted file by the exporter');
+            $table->text('exporters_remarks')->nullable()->comment('Exporters remarks');
             $table->bigInteger('created_by')->nullable()->comment('PK of Users table');
             $table->bigInteger('updated_by')->nullable()->comment('PK of tbl_exporters');
             $table->timestamps();
