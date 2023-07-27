@@ -762,6 +762,7 @@
                                 <div id="js_demo_accordion-3i" class="collapse show" data-parent="#js_demo_accordion-3">
                                     <div class="card-body">
                                         <div class="col-md-12">
+
                                             @php
                                                 $route_name = '';
                                                 $table_showing_status = '';
@@ -828,6 +829,16 @@
                                                             @break
 
                                                             @default
+                                                                <div class="col-md-6">
+                                                                    <label for="" class="text-uppercase">Total
+                                                                        cost of certification : </label>
+                                                                    <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="" class="text-uppercase">Amount by SO :
+                                                                    </label>
+                                                                    <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div>
                                                         @endswitch
 
                                                     </div>
@@ -872,8 +883,12 @@
                                                         @endif
 
                                                         {{-- Way 1 Start --}}
+
                                                         <body>
                                                             {{-- <pre>{{ print_r($applications->get_application_progress_master_details->toArray()) }}</pre> --}}
+                                                            @php
+                                                                $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
+                                                            @endphp
                                                             @foreach ($applications->get_application_progress_master_details as $key => $item)
                                                                 <tr>
                                                                     <td width="5%">
@@ -882,8 +897,9 @@
                                                                     <td width="65%">
                                                                         {{ $item->remarks ?? '' }}
                                                                     </td>
-                                                                    <td width="10%">
-                                                                        ({{ $item->get_user_details->get_role_details->name ?? '' }})
+                                                                    <td width="10%" class="text-white"
+                                                                        style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}">
+                                                                        ({{ $item->get_user_details->get_role_details->name ?? 'Exporter' }})
                                                                     </td>
                                                                     <td width="20%">
                                                                         {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
@@ -997,6 +1013,7 @@
                                                         @case(2)
                                                             @switch($applications->scheme_id)
                                                                 @case(1)
+                                                                    LOLOL
                                                                     @if (!$table_showing_status)
                                                                         <div class="form-group col-md-3">
                                                                             <label for="">Total Expense of Exporter <span
@@ -1056,6 +1073,33 @@
                                                                 @break
 
                                                                 @default
+                                                                    @if (!$table_showing_status)
+                                                                        <div class="form-group col-md-3">
+                                                                            <label for="">Total Certification cost of Exporter
+                                                                                <span class="text-danger">*</span>
+                                                                                <i data-toggle="tooltip" data-placement="right"
+                                                                                    title="Total expenses of travel + Total expenses of stall."
+                                                                                    class="fa fa-info-circle"></i>
+                                                                            </label>
+                                                                            <input type="hidden" class="form-control"
+                                                                                name="total_expenses"
+                                                                                value="{{ $applications->certi_cost }}" />
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}"
+                                                                                readonly />
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label for="">Amount by SO :<span
+                                                                                    class="text-danger">*</span>
+                                                                                <i data-toggle="tooltip" data-placement="right"
+                                                                                    title="Incentive amount of exporters"
+                                                                                    class="fa fa-info-circle"></i>
+                                                                            </label>
+                                                                            <input type="number" name="incentive_amount"
+                                                                                class="form-control" id="incentive_amount" value=""
+                                                                                placeholder="₹" required />
+                                                                        </div>
+                                                                    @endif
                                                             @endswitch
                                                         @break
 
@@ -1291,8 +1335,7 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control"
-                                                                                        >
+                                                                                        id="section_name0" class="form-control">
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1414,7 +1457,7 @@
             cols +=
                 `<div class="form-group col-md-6">
                     <select name="complaince[${counter}][section_name]" id="section_name${counter}"
-                        class="form-control" required>
+                        class="form-control" >
                         <option value="">--- Select a section ---
                         </option>
                         <option value="1">Exporter Details
@@ -1429,7 +1472,7 @@
             cols +=
                 '<div class="form-group col-md-5"><input type="text" name="complaince[' + counter +
                 '][file_name]" id="file_name' + counter +
-                '" class="form-control" placeholder="Enter the file type" value="" required/></div>';
+                '" class="form-control" placeholder="Enter the file type" value="" /></div>';
             // cols += '<div class="form-group col-md-3"><input type="file" name="complaince[' + counter +
             //     '][comp_doc]" id="comp_doc' + counter + '" class="form-control"></div>';
             cols +=
@@ -1519,18 +1562,18 @@
             $('[data-toggle="tooltip"]').tooltip();
 
             // 
-            $('#status').on('change', (e) => {
-                var status = $('#status').val();
-                var array = [3, 5, 7, 9];
+            // $('#status').on('change', (e) => {
+            //     var status = $('#status').val();
+            //     var array = [3, 5, 7, 9];
 
-                if (status == 3 || status == 5 || status == 7 || status == 9) {
-                    console.log('yes');
-                    $('.add_div_div').removeClass('d-none');
-                } else {
-                    console.log('no');
-                    $('.add_div_div').addClass('d-none');
-                }
-            });
+            //     if (status == 3 || status == 5 || status == 7 || status == 9) {
+            //         console.log('yes');
+            //         $('.add_div_div').removeClass('d-none');
+            //     } else {
+            //         console.log('no');
+            //         $('.add_div_div').addClass('d-none');
+            //     }
+            // });
         });
     </script>
 @endsection

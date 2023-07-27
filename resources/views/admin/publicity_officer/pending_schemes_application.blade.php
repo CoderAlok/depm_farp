@@ -452,7 +452,8 @@
                                                         <span>{{ $item['contact_no'] ?? '' }}</span>
                                                     </td>
                                                     <td width="10%">
-                                                        <span>{{ $item['claimed_amt'] ? '₹ ' . IND_money_format($item['claimed_amt']) : '' }}</span>
+                                                        <span>{{ '₹ ' . IND_money_format($item['claimed_amt']) }}</span>
+                                                        {{-- <span>{{ $item['claimed_amt'] ? '₹ ' . IND_money_format($item['claimed_amt']) : '' }}</span> --}}
                                                     </td>
                                                     <td>
                                                         @switch(Auth::user()->role_id)

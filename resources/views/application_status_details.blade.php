@@ -350,14 +350,18 @@
                                                                 readonly />
                                                         </div>
 
-                                                        <div class="col-md-4 mb-1 upload_visa_div">
-                                                            <label class="form-label h6">(b). Upload Visa Invitation Letter <span
-                                                                    class="text-danger">*</span></label>
-                                                            <a href="javascript:void(0);"
-                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($applications->get_travel_details->file_visa ?? '')) }}')">
-                                                                <span class="text-warning badge bg-dark p-1">View file</span>
-                                                            </a>
-                                                        </div>
+                                                        {{-- {{ dd($applications->toArray()) }}   --}}
+                                                        @if ($applications->get_travel_details->file_visa)
+                                                            <div class="col-md-4 mb-1 upload_visa_div">
+                                                                <label class="form-label h6">(b). Upload Visa Invitation Letter
+                                                                    <span class="text-danger">*</span></label>
+                                                                <a href="javascript:void(0);"
+                                                                    onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($applications->get_travel_details->file_visa ?? '')) }}')">
+                                                                    <span class="text-warning badge bg-dark p-1">View file</span>
+                                                                </a>
+                                                            </div>
+                                                        @endif
+
                                                         <div class="col-md-4 mb-1">
                                                             <label class="form-label h6">(c). Name of the Traveller <span
                                                                     class="text-danger">*</span></label>
@@ -405,14 +409,16 @@
                                                             </a>
                                                         </div>
 
-                                                        <div class="col-md-4 mb-1 boarding_pass_div">
-                                                            <label class="form-label h6">(h). Upload Boarding Pass <span
-                                                                    class="text-danger">*</span></label>
-                                                            <a href="javascript:void(0);"
-                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
-                                                                <span class="text-warning badge bg-dark p-1">View file</span>
-                                                            </a>
-                                                        </div>
+                                                        @if ($applications->get_file_details->file_boarding_pass)
+                                                            <div class="col-md-4 mb-1 boarding_pass_div">
+                                                                <label class="form-label h6">(h). Upload Boarding Pass <span
+                                                                        class="text-danger">*</span></label>
+                                                                <a href="javascript:void(0);"
+                                                                    onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
+                                                                    <span class="text-warning badge bg-dark p-1">View file</span>
+                                                                </a>
+                                                            </div>
+                                                        @endif
 
                                                         <div class="col-md-4 mb-3">
                                                             <label class="form-label h6">(i). Total expense made for travel
@@ -608,10 +614,65 @@
                                                         placeholder="Enter your remarks..." required>{{ $complaince[0]->exporters_remarks ?? '' }}</textarea>
                                                 </div>
 
+                                                <div class="form-group col-md-12">
+                                                    <div class="form-check">
+                                                        <input type='checkbox' class="form-check-input" value='1'
+                                                            id='chkjs' name='chkjs' />
+                                                        <label class="form-check-label h6" for="upload_file_check">
+                                                            Do you want to upload your files
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Add more section again for temporary logic starts-->
+                                                <div class="add_div_div col-md-12 d-none">
+                                                    <div class="form-group col-md-12 add_div" id="add_div0">
+                                                        <div class="row">
+                                                            <!-- form sections -->
+                                                            <div class="form-group col-md-4">
+                                                                <select name="complaince[0][section_name]" id="section_name0"
+                                                                    class="form-control">
+                                                                    <option value="">--- Select a section
+                                                                        ---
+                                                                    </option>
+                                                                    <option value="1">Exporter Details
+                                                                    </option>
+                                                                    <option value="2">Bank Details
+                                                                    </option>
+                                                                    {{-- <option value="3">Event Details</option> --}}
+                                                                    <option value="4">Travel Details
+                                                                    </option>
+                                                                    <option value="5">Stall Details
+                                                                    </option>
+                                                                    <option value="6">Additional Details
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <!-- text -->
+                                                            <div class="form-group col-md-4">
+                                                                <input type="text" name="complaince[0][file_name]"
+                                                                    id="file_name0" class="form-control"
+                                                                    placeholder="Enter the file type" value="" />
+                                                            </div>
+                                                            <!-- file -->
+                                                            <div class="form-group col-md-3">
+                                                                <input type="file" name="complaince[0][comp_doc]"
+                                                                    id="comp_doc0" class="form-control">
+                                                            </div>
+
+                                                            <!-- Button -->
+                                                            <div class="form-group col-md-1 text-right">
+                                                                <button type="button" id="add-more" name="add-more"
+                                                                    onclick="addmore()" class="btn btn-primary">+</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Add more section again for temporary logic ends-->
 
                                                 {{-- <pre>{{ print_r($complaince->toArray()) }}</pre> --}}
-                                                @foreach ($complaince as $key => $value)
-                                                    {{-- add  more section starts --}}
+                                                {{-- add  more section starts --}}
+                                                {{-- @foreach ($complaince as $key => $value)
                                                     <input type="hidden" name="complaince[{{ $key }}][id]"
                                                         value="{{ $value->id }}">
                                                     <input type="hidden" name="complaince[{{ $key }}][section_type]"
@@ -632,7 +693,7 @@
                                                                     <option value="2"
                                                                         {{ $value->section_type == 2 ? 'selected' : '' }}>
                                                                         Bank Details</option>
-                                                                    {{-- <option value="3">Event Details</option> --}}
+                                                                    <!-- <option value="3">Event Details</option> -->
                                                                     <option value="4"
                                                                         {{ $value->section_type == 4 ? 'selected' : '' }}>
                                                                         Travel Details</option>
@@ -670,14 +731,14 @@
                                                             </div>
 
                                                             <!-- Button -->
-                                                            {{-- <div class="form-group col-md-1 text-right">
-                                                                <button type="button" id="add-more" name="add-more"
-                                                                    onclick="addmore()" class="btn btn-primary">+</button>
-                                                            </div> --}}
+                                                            <!--<div class="form-group col-md-1 text-right">
+                                                                        <button type="button" id="add-more" name="add-more"
+                                                                            onclick="addmore()" class="btn btn-primary">+</button>
+                                                                    </div> -->
                                                         </div>
                                                     </div>
-                                                    {{-- Add more section ends --}}
-                                                @endforeach
+                                                @endforeach --}}
+                                                {{-- Add more section ends --}}
 
                                                 {{-- {{ $complaince->isEmpty().'asa' }} --}}
                                                 {{-- @if ($complaince->isEmpty()) --}}
@@ -777,50 +838,63 @@
                     $('#remarks').removeClass('d-none');
                 }
             });
+
+            $('#chkjs').change(function() {
+                if (this.checked) {
+                    $(".add_div_div").removeClass('d-none');
+                } else {
+                    $(".add_div_div").addClass('d-none');
+                }
+            });
+
         });
+
+        function checkDetails(ele) {
+            console.log('Value: ' + ele.value + ' ID: ' + ele.id);
+        }
     </script>
     <script>
-        // function addmore() {
-        //     var lastId = $(".add_div").last().attr("id");
-        //     var res = lastId.split("add_div");
-        //     var counter = parseInt(res[1]) + 1;
-        //     var cols = "";
-        //     var newCols = $('<div class="form-group col-md-12 add_div" id="add_div' + counter + '">');
-        //     cols += '<div class="row">';
+        function addmore() {
+            var lastId = $(".add_div").last().attr("id");
+            var res = lastId.split("add_div");
+            var counter = parseInt(res[1]) + 1;
+            var cols = "";
+            var newCols = $('<div class="form-group col-md-12 add_div" id="add_div' + counter + '">');
+            cols += '<div class="row">';
 
-        //     cols +=
-        //         `<div class="form-group col-md-4">
-    //             <select name="complaince[${counter}][section_name]" id="section_name${counter}"
-    //                 class="form-control">
-    //                 <option value="">--- Select a section ---
-    //                 </option>
-    //                 <option value="1">Exporter Details
-    //                 </option>
-    //                 <option value="2">Bank Details</option>
-    //                 <option value="4">Travel Details</option>
-    //                 <option value="5">Stall Details</option>
-    //                 <option value="6">Additional Details
-    //                 </option>
-    //             </select>
-    //         </div>`;
-        //     cols +=
-        //         '<div class="form-group col-md-4"><input type="text" name="complaince[' + counter +
-        //         '][file_name]" id="file_name' + counter +
-        //         '" class="form-control" placeholder="Enter the file type" value="" /></div>';
-        //     cols += '<div class="form-group col-md-3"><input type="file" name="complaince[' + counter +
-        //         '][comp_doc]" id="comp_doc' + counter + '" class="form-control"></div>';
-        //     cols +=
-        //         '<div class="form-group col-md-1 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
-        //         counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
+            cols +=
+                `<div class="form-group col-md-4">
+                <select name="complaince[${counter}][section_name]" id="section_name${counter}"
+                    class="form-control">
+                    <option value="">--- Select a section ---
+                    </option>
+                    <option value="1">Exporter Details
+                    </option>
+                    <option value="2">Bank Details</option>
+                    <option value="4">Travel Details</option>
+                    <option value="5">Stall Details</option>
+                    <option value="6">Additional Details
+                    </option>
+                </select>
+            </div>`;
+            cols +=
+                '<div class="form-group col-md-4"><input type="text" name="complaince[' + counter +
+                '][file_name]" id="file_name' + counter +
+                '" class="form-control" placeholder="Enter the file type" value="" /></div>';
+            cols += '<div class="form-group col-md-3"><input type="file" name="complaince[' + counter +
+                '][comp_doc]" id="comp_doc' + counter + '" class="form-control"></div>';
+            cols +=
+                '<div class="form-group col-md-1 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
+                counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
 
-        //     cols += "</div>";
-        //     cols += "</div>";
-        //     newCols.append(cols);
-        //     $("#" + lastId).after(newCols);
-        // }
+            cols += "</div>";
+            cols += "</div>";
+            newCols.append(cols);
+            $("#" + lastId).after(newCols);
+        }
 
-        // function removeAdd(key) {
-        //     $("#add_div" + key).remove();
-        // }
+        function removeAdd(key) {
+            $("#add_div" + key).remove();
+        }
     </script>
 @endsection

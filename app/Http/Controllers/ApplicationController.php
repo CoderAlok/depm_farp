@@ -70,7 +70,7 @@ class ApplicationController extends Controller
                             'total_travel_expense'        => 'required',
                             'travel_incentive'            => 'required',
                             'file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_ticket'                 => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
                             'file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Stall
@@ -250,7 +250,7 @@ class ApplicationController extends Controller
                             'total_travel_expense'        => 'required',
                             'travel_incentive'            => 'required',
                             'file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_ticket'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_ticket'                 => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
                             'file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Stall
@@ -531,19 +531,31 @@ class ApplicationController extends Controller
 
                     if ($request->travel_details == 1) {
                         // Visa upload
-                        $visa_image     = $request->file_visa_invitation_letter;
-                        $visa_file_name = 'VISA_' . substr(sha1($visa_image . uniqid('', true)), 20, 5) . date('my') . $visa_image->getClientOriginalName();
-                        $visa_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'visa_image/', $visa_file_name);
+                        if ($request->file_visa_invitation_letter) {
+                            $visa_image     = $request->file_visa_invitation_letter;
+                            $visa_file_name = 'VISA_' . substr(sha1($visa_image . uniqid('', true)), 20, 5) . date('my') . $visa_image->getClientOriginalName();
+                            $visa_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'visa_image/', $visa_file_name);
+                        } else {
+                            $visa_file_name = '';
+                        }
 
                         // Ticket upload
-                        $ticket_image     = $request->file_ticket;
-                        $ticket_file_name = 'TICKET_' . substr(sha1($ticket_image . uniqid('', true)), 20, 5) . date('my') . $ticket_image->getClientOriginalName();
-                        $ticket_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'ticket/', $ticket_file_name);
+                        if ($request->file_ticket) {
+                            $ticket_image     = $request->file_ticket;
+                            $ticket_file_name = 'TICKET_' . substr(sha1($ticket_image . uniqid('', true)), 20, 5) . date('my') . $ticket_image->getClientOriginalName();
+                            $ticket_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'ticket/', $ticket_file_name);
+                        } else {
+                            $ticket_image = '';
+                        }
 
                         // Boarding pass upload
-                        $boarding_pass_image     = $request->file_boarding_pass;
-                        $boarding_pass_file_name = 'BOARDING_PASS_' . substr(sha1($boarding_pass_image . uniqid('', true)), 20, 5) . date('my') . $boarding_pass_image->getClientOriginalName();
-                        $boarding_pass_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'boarding_pass/', $boarding_pass_file_name);
+                        if ($request->file_boarding_pass) {
+                            $boarding_pass_image     = $request->file_boarding_pass;
+                            $boarding_pass_file_name = 'BOARDING_PASS_' . substr(sha1($boarding_pass_image . uniqid('', true)), 20, 5) . date('my') . $boarding_pass_image->getClientOriginalName();
+                            $boarding_pass_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'boarding_pass/', $boarding_pass_file_name);
+                        } else {
+                            $boarding_pass_image = '';
+                        }
 
                         // Travel details
                         $travel_data = [
@@ -567,14 +579,22 @@ class ApplicationController extends Controller
 
                     if ($request->stall_details == 1) {
                         // Stall allotment upload
-                        $stall_allotment_image     = $request->file_stall_allot_letter;
-                        $stall_allotment_file_name = 'STALL_ALLOTMENT_' . substr(sha1($stall_allotment_image . uniqid('', true)), 20, 5) . date('my') . $stall_allotment_image->getClientOriginalName();
-                        $stall_allotment_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_allotment/', $stall_allotment_file_name);
+                        if ($request->file_stall_allot_letter) {
+                            $stall_allotment_image     = $request->file_stall_allot_letter;
+                            $stall_allotment_file_name = 'STALL_ALLOTMENT_' . substr(sha1($stall_allotment_image . uniqid('', true)), 20, 5) . date('my') . $stall_allotment_image->getClientOriginalName();
+                            $stall_allotment_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_allotment/', $stall_allotment_file_name);
+                        } else {
+                            $stall_allotment_image = $request->file_stall_allot_letter;
+                        }
 
                         // Stall registration payment reciept upload
-                        $stall_pay_reciept_image     = $request->file_stall_pay_recpt;
-                        $stall_pay_reciept_file_name = 'STALL_PAY_RECIEPT_' . substr(sha1($stall_pay_reciept_image . uniqid('', true)), 20, 5) . date('my') . $stall_pay_reciept_image->getClientOriginalName();
-                        $stall_pay_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_pay_reciept/', $stall_pay_reciept_file_name);
+                        if ($request->file_stall_pay_recpt) {
+                            $stall_pay_reciept_image     = $request->file_stall_pay_recpt;
+                            $stall_pay_reciept_file_name = 'STALL_PAY_RECIEPT_' . substr(sha1($stall_pay_reciept_image . uniqid('', true)), 20, 5) . date('my') . $stall_pay_reciept_image->getClientOriginalName();
+                            $stall_pay_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_pay_reciept/', $stall_pay_reciept_file_name);
+                        } else {
+                            $stall_pay_reciept_image = $request->file_stall_pay_recpt;
+                        }
 
                         // Stall details will be added
                         $stall_data = [
@@ -652,16 +672,16 @@ class ApplicationController extends Controller
         $data['page_title']   = 'Pending exporters applications';
         $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
             return [
-                // 'r'          => $r,
+                // 'r'           => $r->toArray(),
                 'id'          => $r->id ?? '',
                 'app_no'      => $r->app_no ?? '',
                 'scheme'      => $r->get_scheme_details->short_name ?? '',
                 'name'        => $r->get_exporter_details->name ?? '',
                 'contact_no'  => $r->get_exporter_details->phone ?? '',
-                'claimed_amt' => ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0),
+                'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0) : $r->certi_cost,
                 'status'      => $r->status,
             ];
-        }); //->toArray();
+        })->toArray();
         $data['pending'] = Applications::where('status', 1)->count();
         // dd($data);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);
@@ -736,24 +756,72 @@ class ApplicationController extends Controller
     public function exporters_application_status_details_complaince_submit(Request $request, $id = null)
     {
         // dd([$request->all(), $id]);
-        try {
-            $remarks    = $request->remarks;
-            $user       = Auth::guard('exporter')->user();
-            $app_no     = Applications::where('id', $id)->first()->app_no;
-            $status     = 0;
-            $complaince = new Complaince();
 
-            foreach ($request->complaince as $key => $value) {
-                $comp_docu = $request->complaince[$key]['comp_doc'];
-                $file_name = 'COMP_' . substr(sha1($comp_docu . uniqid('', true)), 10, 5) . date('my') . $comp_docu->getClientOriginalName();
-                $file_path = 'public/images/exporters/applications/' . $app_no . '/complaince' . $id . '/';
-                $comp_docu->storeAs($file_path, $file_name);
-                $status = $complaince::where(['id' => $value['id']])->update(['file_name' => $file_name, 'exporters_remarks' => $remarks, 'updated_by' => $user->id, 'insert_status' => 0]);
+        try {
+            $remarks           = $request->remarks;
+            $user              = Auth::guard('exporter')->user();
+            $app_no            = Applications::where('id', $id)->first()->app_no;
+            $exporter_id       = Applications::where('id', $id)->first()->exporter_id;
+            $status            = 0;
+            $complaince        = new Complaince();
+            $occurence_counter = $complaince->where('appl_id', $id)->count(); //->first()->occurence;
+            $occurence_counter = $occurence_counter != 0 ? $complaince->where('appl_id', $id)->first()->occurence : 0;
+            $occurence_counter = $occurence_counter + 1;
+
+            if ($request->chkjs) {
+                foreach ($request->complaince as $key => $value) {
+                    $comp_docu = $request->complaince[$key]['comp_doc'];
+                    $file_name = 'COMP_' . substr(sha1($comp_docu . uniqid('', true)), 10, 5) . date('my') . $comp_docu->getClientOriginalName();
+                    $file_path = 'public/images/exporters/applications/' . $app_no . '/complaince' . $id . '/';
+                    $comp_docu->storeAs($file_path, $file_name);
+
+                    // Temporary feature
+                    $insert_comp_data = [
+                        'occurence'         => $occurence_counter,
+                        'appl_id'           => $id,
+                        'exporter_id'       => $exporter_id,
+                        'user_id'           => $user->id,
+                        'section_type'      => $value['section_name'],
+                        'description'       => $value['file_name'],
+                        'file_name'         => $file_name,
+                        'exporters_remarks' => $remarks,
+                        'insert_status'     => 0,
+                        'created_by'        => $user->id,
+                        'updated_by'        => $user->id,
+                        'created_at'        => Carbon::now(),
+                    ];
+                    $status = $complaince::insert($insert_comp_data);
+                }
+            } else {
+                $insert_comp_data = [
+                    'occurence'         => $occurence_counter,
+                    'appl_id'           => $id,
+                    'exporter_id'       => $exporter_id,
+                    'user_id'           => $user->id,
+                    'section_type'      => null,
+                    'description'       => null,
+                    'file_name'         => null,
+                    'exporters_remarks' => $remarks,
+                    'insert_status'     => 0,
+                    'created_by'        => $user->id,
+                    'updated_by'        => $user->id,
+                    'created_at'        => Carbon::now(),
+                ];
+                $status = $complaince::insert($insert_comp_data);
             }
 
             if ($status) {
                 // Insert into the Application log table
-                
+                $insert_data = [
+                    'appl_id'          => $id,
+                    'total_expense'    => 0,
+                    'incentive_amount' => 0,
+                    'remarks'          => $request->remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status = ApplicationProgressMaster::insert($insert_data);
 
                 // Updates the status to 1 again to be scrutinized.
                 Applications::where('id', $id)->update(['status' => 1]);
@@ -773,6 +841,53 @@ class ApplicationController extends Controller
             $data['message'] = $e->getMessage();
             return response($data, 500);
         }
+
+        // try {
+        //     $remarks    = $request->remarks;
+        //     $user       = Auth::guard('exporter')->user();
+        //     $app_no     = Applications::where('id', $id)->first()->app_no;
+        //     $status     = 0;
+        //     $complaince = new Complaince();
+
+        //     foreach ($request->complaince as $key => $value) {
+        //         $comp_docu = $request->complaince[$key]['comp_doc'];
+        //         $file_name = 'COMP_' . substr(sha1($comp_docu . uniqid('', true)), 10, 5) . date('my') . $comp_docu->getClientOriginalName();
+        //         $file_path = 'public/images/exporters/applications/' . $app_no . '/complaince' . $id . '/';
+        //         $comp_docu->storeAs($file_path, $file_name);
+        //         // $status = $complaince::where(['id' => $value['id']])->update(['file_name' => $file_name, 'exporters_remarks' => $remarks, 'updated_by' => $user->id, 'insert_status' => 0]);
+        //     }
+
+        //     if ($status) {
+        //         // Insert into the Application log table
+        //         $insert_data = [
+        //             'appl_id'          => $id,
+        //             'total_expense'    => 0,
+        //             'incentive_amount' => 0,
+        //             'remarks'          => $request->remarks,
+        //             'created_by'       => $user->id,
+        //             'updated_by'       => $user->id,
+        //             'created_at'       => Carbon::now(),
+        //         ];
+        //         $status = ApplicationProgressMaster::insert($insert_data);
+
+        //         // Updates the status to 1 again to be scrutinized.
+        //         Applications::where('id', $id)->update(['status' => 1]);
+
+        //         $data['message'] = 'Application updated successfully.';
+        //         $request->session()->flash('message', $data['message']);
+        //         // return redirect()->back()->with($data);
+        //         return redirect()->route('exporter.rejected.application.list')->with($data);
+        //     } else {
+        //         $data['message'] = 'Failed to updated.';
+        //         $request->session()->flash('message', $data['message']);
+        //         return redirect()->back()->with($data);
+        //         // return redirect()->route('exporter.application.list')->with($data);
+        //     }
+        // } catch (\Exception $e) {
+        //     $data['data']    = ['error'];
+        //     $data['message'] = $e->getMessage();
+        //     return response($data, 500);
+        // }
 
     }
 
@@ -852,14 +967,8 @@ class ApplicationController extends Controller
      */
     public function exporters_application_dir_depm_update(Request $request, $id = null)
     {
-        // $request->validate([
-        //     'complince.*.file_name'=>'required'
-        // ], [
-        //     'complince.*.file_name.required'=>'Please, fill the file name'
-        // ]);
-        // dd([$request->all(), $id]);
-
         try {
+            // dd([$request->all()]);
             $user              = Auth::user();
             $complaince        = new Complaince();
             $occurence_counter = $complaince->where('appl_id', $id)->count(); //->first()->occurence;
@@ -872,16 +981,16 @@ class ApplicationController extends Controller
 
                 if ($request->status == 5) {
                     // dd($occurence_counter);
-                    $insert_data       = [];
-                    $exporter_id       = Applications::where('id', $id)->first()->exporter_id;
+                    $insert_data = [];
+                    $exporter_id = Applications::where('id', $id)->first()->exporter_id;
                     foreach ($request->complaince as $key => $value) {
                         $insert_data[$key]['appl_id']       = $id;
                         $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
                         $insert_data[$key]['exporter_id']   = $exporter_id;
                         $insert_data[$key]['user_id']       = $user->id;
-                        $insert_data[$key]['section_type']  = $value['section_name'];
-                        $insert_data[$key]['description']   = $value['file_name'];
-                        $insert_data[$key]['insert_status'] = true;
+                        $insert_data[$key]['section_type']  = null; //$value['section_name'];  //-- feature inactive just for now
+                        $insert_data[$key]['description']   = null; //$value['file_name'];  // -- feature inactive just for now
+                        $insert_data[$key]['insert_status'] = false; //true  // -- feature inactive just for now
                         $insert_data[$key]['created_by']    = $user->id;
                         $insert_data[$key]['created_at']    = Carbon::now();
                     }
@@ -959,12 +1068,15 @@ class ApplicationController extends Controller
      */
     public function exporters_application_spl_sectry_update(Request $request, $id = null)
     {
-        // dd([$request->all(), $id]);
+        // dd([$request ->all(), $id]);
         try {
             $user              = Auth::user();
             $complaince        = new Complaince();
-            $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
+            $occurence_counter = $complaince->where('appl_id', $id)->count(); //->first()->occurence;
+            $occurence_counter = $occurence_counter != 0 ? $complaince->where('appl_id', $id)->first()->occurence : 0;
             $occurence_counter = $occurence_counter + 1;
+            // $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
+            // $occurence_counter = $occurence_counter + 1;
             // dd($occurence_counter);
 
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
@@ -1061,9 +1173,11 @@ class ApplicationController extends Controller
         try {
             $user              = Auth::user();
             $complaince        = new Complaince();
-            $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
+            $occurence_counter = $complaince->where('appl_id', $id)->count(); //->first()->occurence;
+            $occurence_counter = $occurence_counter != 0 ? $complaince->where('appl_id', $id)->first()->occurence : 0;
             $occurence_counter = $occurence_counter + 1;
-            // dd($occurence_counter);
+            // $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
+            // $occurence_counter = $occurence_counter + 1;
 
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {

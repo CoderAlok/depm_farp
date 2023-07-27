@@ -772,7 +772,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="1" name="terms"
                                             id="terms">
-                                        <label class="form-check-label h6" for="travel_details">
+                                        <label class="form-check-label h6" for="terms">
                                             I solemnly declare that all the details given above are accurate,
                                             and I bear
                                             the responsibility for any variation from them in the future. I hereby confirm

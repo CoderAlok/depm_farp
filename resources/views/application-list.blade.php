@@ -131,12 +131,16 @@
                                                             <span>{{ $item['get_scheme_details']['short_name'] ?? '' }}</span>
                                                         </td>
                                                         <td width="10%">
-                                                            <span>{{ '₹ ' . IND_money_format(($item['get_stall_details']['claimed_cost'] ?? 0) + ($item['get_travel_details']['incentive_claimed'] ?? 0) ?? '') }}</span>
+                                                            {{-- {{ $item['scheme_id'] }} --}}
+                                                            <span>{{ $item['scheme_id'] == 1 ? '₹ ' . IND_money_format(($item['get_stall_details']['claimed_cost'] ?? 0) + ($item['get_travel_details']['incentive_claimed'] ?? 0)) : '₹ ' . IND_money_format($item['certi_cost']) }}</span>
+
+                                                            {{-- <span>{{ '₹ ' . IND_money_format(($item['get_stall_details']['claimed_cost'] ?? 0) + ($item['get_travel_details']['incentive_claimed'] ?? 0) ?? '') }}</span> --}}
                                                         </td>
 
                                                         <td>
                                                             {{-- Chenage the color --}}
-                                                            <span class="badge text-{{ status_color_array(exporter_status_array($item->status))[1] }}"
+                                                            <span
+                                                                class="badge text-{{ status_color_array(exporter_status_array($item->status))[1] }}"
                                                                 style="background-color: {{ status_color_array(exporter_status_array($item->status))[0] }}">
                                                                 {{ $item->status ? exporter_status_array($item->status) : '' }}
                                                             </span>
