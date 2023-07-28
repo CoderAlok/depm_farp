@@ -680,6 +680,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- Add more section again for temporary logic ends-->
 
                                                 {{-- <pre>{{ print_r($complaince->toArray()) }}</pre> --}}
@@ -764,6 +765,55 @@
                                     </form>
                                 @endif
                                 <!-- Complaince Form  -->
+
+                                {{-- {{ dd($applications->toArray(0)) }} --}}
+                                <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                                data-target="#js_demo_accordion-3g" aria-expanded="true">
+                                                <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                                Appeal Form
+                                                <span class="ml-auto">
+                                                    <span class="collapsed-reveal">
+                                                        <i class="fal fa-minus fs-xl"></i>
+                                                    </span>
+                                                    <span class="collapsed-hidden">
+                                                        <i class="fal fa-plus fs-xl"></i>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div id="js_demo_accordion-3g" class="collapse show" data-parent="#js_demo_accordion-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    @if ($applications->appeal_facility == 1)
+                                                        <form
+                                                            action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
+                                                            method="post" name="exporter_appeal_form" id="exporter_appeal_form"
+                                                            class="form-group col-md-12">
+                                                            @csrf
+                                                            <div class="col-md-12">
+                                                                <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"
+                                                                    class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
+                                                                {{-- Put a condition of 500 charracters using javascript --}}
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input type="submit" value="Submit"
+                                                                    class="btn btn-primary mt-3">
+                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <div class="col-md-12">
+                                                            <span>Appeal remarks :
+                                                                <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @break
 
                             @default
@@ -858,6 +908,17 @@
                     $(".add_div_div").addClass('d-none');
                 }
             });
+
+            $('textarea').keypress(function(e) {
+                var tval = $('textarea').val(),
+                    tlength = tval.length,
+                    set = 500,
+                    remain = parseInt(set - tlength);
+                $('p').text(remain);
+                if (remain <= 0 && e.which !== 0 && e.charCode !== 0) {
+                    $('textarea').val((tval).substring(0, tlength - 1))
+                }
+            })
 
         });
 

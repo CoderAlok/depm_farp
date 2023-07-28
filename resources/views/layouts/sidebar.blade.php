@@ -50,7 +50,7 @@
                 <a href="{{ route('exporter.appeal.application.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">
                     <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Appeal Process List</span>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Appeals</span>
                 </a>
             </li>
             @if (getApplicationId(Auth::guard('exporter')->user()->id))

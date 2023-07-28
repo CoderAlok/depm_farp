@@ -14,7 +14,7 @@ class AddColumnAppealFacilityInTblApplicationDetailsTable extends Migration
     public function up()
     {
         Schema::table('tbl_application_details', function (Blueprint $table) {
-            $table->boolean('appeal_facility')->nullable()->default(false)->after('status')->comment('Application can be reapplied after rejection through Department secretory. And, can be reapplied only within 60days.');
+            $table->tinyInteger('appeal_facility')->nullable()->default(0)->after('status')->comment('0 not approve, 1 Appeal can be done 2 appealed 3 Appeal approved 4 Appeal rejected');
         });
     }
 

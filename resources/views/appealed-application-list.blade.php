@@ -137,10 +137,14 @@
 
                                                         <td>
                                                             {{-- Change the color --}}
+                                                            {{-- {{ $item->get_applied_details->confirmed }} --}}
+                                                            @php
+                                                                $status_color = ['warning', 'success', 'danger'];
+                                                                $status_text = ['Pending', 'Approved', 'Rejected'];
+                                                            @endphp
                                                             <span
-                                                                class="badge text-{{ status_color_array(exporter_status_array($item->status))[1] }}"
-                                                                style="background-color: {{ status_color_array(exporter_status_array($item->status))[0] }}">
-                                                                {{ $item->status ? exporter_status_array($item->status) : '' }}
+                                                                class="badge badge-{{ $status_color[$item->get_applied_details->confirmed ?? 0] }}">
+                                                                {{ $status_text[$item->get_applied_details->confirmed ?? 0] }}
                                                             </span>
                                                         </td>
 

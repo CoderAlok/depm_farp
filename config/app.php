@@ -251,7 +251,7 @@ return [
         'ApplicationProgressMaster' => App\Models\ApplicationProgressMaster::class,
         'Complaince'                => App\Models\TblComplaince::class,
         'ApplicationLog'            => App\Models\TblApplicationLog::class,
-
+        'AppliedApplication'        => App\Models\AppliedApplications::class,
     ],
 
 ];

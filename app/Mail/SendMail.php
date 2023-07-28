@@ -69,6 +69,12 @@ class SendMail extends Mailable
                 $data['data']  = $this->data['mail_data'];
                 break;
 
+            case 7:
+                $data['title'] = 'Appealed Application Mail.';
+                $data['view']  = 'mailer-view.appeal_application_mail';
+                $data['data']  = $this->data['mail_data'];
+                break;
+
             default:
                 // $data['title'] = '';
                 // $data['view']  = '';

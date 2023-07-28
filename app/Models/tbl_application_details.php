@@ -8,6 +8,7 @@ use ApplicationProgressMaster;
 use ApplicationStalls;
 use ApplicationStatus;
 use ApplicationTravels;
+use AppliedApplication;
 use Complaince;
 use Exporter;
 use ExportersAddress;
@@ -86,6 +87,11 @@ class tbl_application_details extends Model
     public function get_complaince_details()
     {
         return $this->hasMany(Complaince::class, 'appl_id', 'id');
+    }
+
+    public function get_applied_details()
+    {
+        return $this->hasOne(AppliedApplication::class, 'appl_id', 'id');
     }
 
 }

@@ -467,7 +467,7 @@ class TblExportersController extends Controller
         $data['data']       = $user;
         $data['schemes']    = Schemes::get();
 
-        $applications = Applications::where('exporter_id', $user->id)->where('appeal_facility', 1)->with([
+        $applications = Applications::where('exporter_id', $user->id)->whereNotIn('appeal_facility', [0])->with([
             'get_exporter_details',
             'get_scheme_details',
             'get_event_details',
@@ -478,10 +478,11 @@ class TblExportersController extends Controller
             'get_other_code_details',
             'get_bank_details',
             'get_application_status_details',
+            'get_applied_details'
         ])->latest()->get();
         $data['applications'] = $applications;
         // dd($data);
-        return view('application-list')->with($data);
+        return view('appealed-application-list')->with($data);
     }
 
     /**

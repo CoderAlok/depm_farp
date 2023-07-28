@@ -9,6 +9,7 @@ use ApplicationProgressMaster;
 use Applications;
 use ApplicationStalls;
 use ApplicationTravels;
+use AppliedApplication;
 use App\Mail\SendMail;
 use App\Repositories\CustomRepository;
 use Auth;
@@ -30,6 +31,12 @@ class ApplicationController extends Controller
         $this->app = $app;
     }
 
+    /**
+     * Method submitApplication
+     * @param Request $request [explicite description]
+     * @author AlokDas
+     * @return void
+     */
     public function submitApplication(Request $request)
     {
         try {
@@ -667,6 +674,12 @@ class ApplicationController extends Controller
         }
     }
 
+    /**
+     * Method pending_exporters_application
+     * @param Request $request [explicite description]
+     * @author AlokDas
+     * @return void
+     */
     public function pending_exporters_application(Request $request)
     {
         $data['page_title']   = 'Pending exporters applications';
@@ -692,6 +705,7 @@ class ApplicationController extends Controller
      * Application details page for all the users
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function pending_exporters_application_details(Request $request, $id = null)
@@ -725,6 +739,7 @@ class ApplicationController extends Controller
      * Method exporters_application_status_details ------ FOR EXPORTERS -------
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_status_details(Request $request, $id = null)
@@ -745,6 +760,7 @@ class ApplicationController extends Controller
             'get_application_progress_master_details' => function ($r) {
                 $r->latest()->first();
             },
+            'get_applied_details',
         ])->first();
         $data['pending']    = Applications::where('status', 1)->count();
         $data['complaince'] = Complaince::where('appl_id', $id)->where('insert_status', 1)->get();
@@ -757,6 +773,7 @@ class ApplicationController extends Controller
      * Method exporters_application_status_details ------ FOR EXPORTERS -------
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_status_details_complaince_submit(Request $request, $id = null)
@@ -901,6 +918,7 @@ class ApplicationController extends Controller
      * Method exporters_application_status_details_update by SO
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_status_details_update(Request $request, $id = null)
@@ -1038,6 +1056,7 @@ class ApplicationController extends Controller
      * Method exporters_application_dir_depm_update UPDATE BY Director DEPM
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_dir_depm_update(Request $request, $id = null)
@@ -1144,6 +1163,7 @@ class ApplicationController extends Controller
      * Method exporters_application_spl_sectry_update UPDATE BY Addl Spl Secretory
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_spl_sectry_update(Request $request, $id = null)
@@ -1251,6 +1271,7 @@ class ApplicationController extends Controller
      * Method exporters_application_dept_sectry_update UPDATE BY Department Secretory
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_dept_sectry_update(Request $request, $id = null)
@@ -1356,6 +1377,7 @@ class ApplicationController extends Controller
      * Method exporters_application_dept_sectry_update UPDATE BY DDO
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
+     * @author AlokDas
      * @return void
      */
     public function exporters_application_ddo_update(Request $request, $id = null)
@@ -1384,7 +1406,7 @@ class ApplicationController extends Controller
      *
      * @param Request $request [explicite description]
      * @param $id $id [explicite description]
-     *
+     * @author AlokDas
      * @return void
      */
     public function expireApplication(Request $request, $id = null)
@@ -1420,6 +1442,314 @@ class ApplicationController extends Controller
 
         } catch (\Exception $e) {
             $data['data']    = 'Error';
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    public function exporters_appeal_submit(Request $request, $appl_id)
+    {
+        try {
+            $user        = Auth::guard('exporter')->user();
+            $applyStatus = AppliedApplication::firstOrCreate(['appl_id' => $appl_id, 'description' => $request->exporter_appeal_remarks, 'created_by' => $user->id, 'created_at' => Carbon::now()]);
+
+            if ($applyStatus) {
+                Applications::where('id', $appl_id)->update(['appeal_facility' => 2]);
+
+                // Mail for those who will be rejected
+                $data = [
+                    'mail_id'   => $user->email,
+                    'mail_type' => 7,
+                    'mail_data' => [
+                        'app_no'        => Applications::select('app_no')->where('id', $appl_id)->first()->app_no,
+                        'exporter_name' => Applications::where('id', $appl_id)->with('get_exporter_details')->first(),
+                        'remarks'       => '', //$request->remarks,
+                        'user_role' => \Spatie\Permission\Models\Role::select('name')->where('id', $user->role_id)->first()->name,
+                    ],
+                ];
+
+                $to      = $user->email;
+                $subject = 'Exporters appeal application.';
+                Mail::to($to)->send(new SendMail($data));
+
+                $request->session()->flash('message', 'Appeal submitted successfully.');
+                return redirect()->route('exporter.appeal.application.list');
+            } else {
+                $request->session()->flash('message', 'Failed to submit.');
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    public function pending_exporters_applied_application_for_dept_sect(Request $request)
+    {
+        try {
+            $data['page_title'] = 'Appealed Application List';
+            $user               = Auth::user();
+            $data['data']       = $user;
+
+            $applications = AppliedApplication::where('confirmed', 0)->with([
+                'get_application_details' => function ($q) {
+                    $q->with([
+                        'get_exporter_details',
+                        'get_scheme_details',
+                        'get_event_details',
+                        'get_travel_details',
+                        'get_stall_details',
+                        'get_file_details',
+                        'get_address_details',
+                        'get_other_code_details',
+                        'get_bank_details',
+                        'get_application_status_details',
+                        'get_application_progress_master_details',
+                        'get_complaince_details',
+                        'get_applied_details',
+                    ]);
+                },
+            ])
+                ->latest()
+                ->get()
+                ->map(function ($r) {
+                    return [
+                        // 'yy'             => $r->toArray(0),
+                        'id'             => $r->id,
+                        'appl_id'        => $r->get_application_details->id,
+                        'app_code'       => $r->get_application_details->app_no ?? '',
+                        'scheme'         => $r->get_application_details->get_scheme_details->short_name ?? '',
+                        'claimed_amount' => $r->get_application_details->scheme_id == 1 ? (($r->get_application_details->get_travel_details->total_expense ?? 0) + ($r->get_application_details->get_stall_details->total_cost ?? 0)) : ($r->get_application_details->certi_cost ?? 0),
+                        'status'         => $r->get_application_details->get_applied_details->confirmed ?? 0,
+                    ];
+                });
+            $data['applications'] = $applications;
+            // dd($data);
+            return view('admin.dept_secretory.appealed-application-list')->with($data);
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    /**
+     * Method pending_exporters_applied_application_for_dept_sect_details
+     * @param Request $request [explicite description]
+     * @return void
+     */
+    public function pending_exporters_applied_application_for_dept_sect_details(Request $request, $id = null)
+    {
+        $data['page_title'] = 'Pending exporters application details';
+        $applications       = Applications::where('id', $id)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details.get_event_details',
+            'get_file_details',
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+            'get_application_status_details',
+            'get_application_progress_master_details.get_user_details.get_role_details',
+            'get_complaince_details' => function ($r) {
+                $r->where('insert_status', 1);
+            },
+            'get_applied_details',
+        ])->first(); //->toArray();
+        $data['applications']      = $applications; //->toArray();
+        $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['pending']           = Applications::where('status', 1)->count();
+        // dd(['Admin', $data]);
+        return view('admin.dept_secretory.pending_schemes_application_details')->with($data);
+    }
+
+    /**
+     * Method pending_exporters_applied_application_for_dept_sect_details_update
+     * @param Request $reques [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function pending_exporters_applied_application_for_dept_sect_details_update(Request $request, $id = null)
+    {
+        // dd([$request->all(), $id]);
+
+        try {
+            $appliedApplication = new AppliedApplication();
+            $confirmed          = $request->confirmed;
+            if ($confirmed != null) {
+                $status = $appliedApplication->where('id', $id)->update(['confirmed' => $confirmed]);
+
+                if ($confirmed == 1) {
+                    Applications::where('id', $request->appl_id)->update(['appeal_facility' => 3]);
+                } else {
+                    Applications::where('id', $request->appl_id)->update(['appeal_facility' => 4]);
+                }
+            } else {
+                $status = $appliedApplication->where('id', $id)->update(['confirmed' => 0]);
+            }
+
+            if ($status) {
+                $request->session()->flash('message', 'Status updated successfully.');
+                return redirect()->route('dept-sectry.pending.applied.application');
+            } else {
+                $request->session()->flash('message', 'Failed to update status.');
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    /**
+     * Method pending_exporters_applied_application_for_dir_depm
+     * @param Request $request [explicite description]
+     * @return void
+     */
+    public function pending_exporters_applied_application_for_dir_depm(Request $request)
+    {
+        try {
+            $data['page_title'] = 'Appealed Application List';
+            $user               = Auth::user();
+            $data['data']       = $user;
+
+            $applications = Applications::where('appeal_facility', 3)->with([
+                'get_exporter_details',
+                'get_scheme_details',
+                'get_event_details',
+                'get_travel_details',
+                'get_stall_details',
+                'get_file_details',
+                'get_address_details',
+                'get_other_code_details',
+                'get_bank_details',
+                'get_application_status_details',
+                'get_application_progress_master_details',
+                'get_complaince_details',
+                'get_applied_details',
+            ])
+                ->latest()
+                ->get()
+                ->map(function ($r) {
+                    return [
+                        // 'yy'             => $r->toArray(0),
+                        'id'             => $r->id,
+                        'appl_id'        => $r->id,
+                        'app_code'       => $r->app_no ?? '',
+                        'scheme'         => $r->get_scheme_details->short_name ?? '',
+                        'claimed_amount' => $r->scheme_id == 1 ? (($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0)) : ($r->certi_cost ?? 0),
+                        'status'         => $r->get_applied_details->confirmed ?? 0,
+                    ];
+                });
+            // $applications = AppliedApplication::where('confirmed', 0)->with([
+            //     'get_application_details' => function ($q) {
+            //         $q->with([
+            //             'get_exporter_details',
+            //             'get_scheme_details',
+            //             'get_event_details',
+            //             'get_travel_details',
+            //             'get_stall_details',
+            //             'get_file_details',
+            //             'get_address_details',
+            //             'get_other_code_details',
+            //             'get_bank_details',
+            //             'get_application_status_details',
+            //             'get_application_progress_master_details',
+            //             'get_complaince_details',
+            //             'get_applied_details',
+            //         ]);
+            //     },
+            // ])
+            //     ->latest()
+            //     ->get()
+            //     ->map(function ($r) {
+            //         return [
+            //             // 'yy'             => $r->toArray(0),
+            //             'id'             => $r->id,
+            //             'appl_id'        => $r->get_application_details->id,
+            //             'app_code'       => $r->get_application_details->app_no ?? '',
+            //             'scheme'         => $r->get_application_details->get_scheme_details->short_name ?? '',
+            //             'claimed_amount' => $r->get_application_details->scheme_id == 1 ? (($r->get_application_details->get_travel_details->total_expense ?? 0) + ($r->get_application_details->get_stall_details->total_cost ?? 0)) : ($r->get_application_details->certi_cost ?? 0),
+            //             'status'         => $r->get_application_details->get_applied_details->confirmed ?? 0,
+            //         ];
+            //     });
+            $data['applications'] = $applications;
+            // dd($data);
+            return view('admin.director_depm.appealed-application-list')->with($data);
+        } catch (\Exception $e) {
+            $data['data']    = [];
+            $data['message'] = $e->getMessage();
+            return response($data, 500);
+        }
+    }
+
+    /**
+     * Method pending_exporters_applied_application_for_dir_depm_details
+     * @param Request $request [explicite description]
+     * @return void
+     */
+    public function pending_exporters_applied_application_for_dir_depm_details(Request $request, $id = null)
+    {
+        // dd([$request->all(), $id]);
+        $data['page_title'] = 'Pending exporters applied application details';
+        $applications       = Applications::where('id', $id)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details.get_event_details',
+            'get_file_details',
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+            'get_application_status_details',
+            'get_application_progress_master_details.get_user_details.get_role_details',
+            'get_complaince_details' => function ($r) {
+                $r->where('insert_status', 1);
+            },
+            'get_applied_details',
+        ])->first(); //->toArray();
+        $data['applications']      = $applications; //->toArray();
+        $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['pending']           = Applications::where('status', 1)->count();
+        // dd(['Admin', $data]);
+        return view('admin.director_depm.pending_schemes_application_details')->with($data);
+    }
+
+    /**
+     * Method pending_exporters_applied_application_for_dir_depm_details_update
+     * @param Request $reques [explicite description]
+     * @param $id $id [explicite description]
+     * @return void
+     */
+    public function pending_exporters_applied_application_for_dir_depm_details_update(Request $request, $id = null)
+    {
+        // dd([$request->all(), $id]);
+        try {
+
+            $applications = new Applications();
+            $confirmed    = $request->confirmed;
+            if ($confirmed != null) {
+                $status = $applications->where('id', $id)->update(['status' => $confirmed]);
+            } else {
+                $status = $applications->where('id', $id)->update(['status' => 0]);
+            }
+
+            if ($status) {
+                $request->session()->flash('message', 'Status updated successfully.');
+                return redirect()->route('dir-depm.pending.applied.application');
+            } else {
+                $request->session()->flash('message', 'Failed to update status.');
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            $data['data']    = [];
             $data['message'] = $e->getMessage();
             return response($data, 500);
         }

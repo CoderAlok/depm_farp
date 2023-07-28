@@ -86,7 +86,8 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List </span><b class="text-dark badge badge-warning">{{ $pending ?? '' }}</b>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List </span><b
+                                class="text-dark badge badge-warning">{{ $pending ?? '' }}</b>
                         </a>
                     </li>
                 </ul>
@@ -121,6 +122,13 @@
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::currentRouteName() === 'dir-depm.pending.applied.application' ? 'active' : '' }}">
+                        <a href="{{ route('dir-depm.pending.applied.application') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Approved applied applications</span>
                         </a>
                     </li>
                 </ul>
@@ -189,6 +197,13 @@
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
+                        </a>
+                    </li>
+                    <li class="{{ Route::currentRouteName() === 'dept-sectry.pending.applied.application' ? 'active' : '' }}">
+                        <a href="{{ route('dept-sectry.pending.applied.application') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending applied list</span>
                         </a>
                     </li>
                 </ul>

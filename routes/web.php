@@ -73,6 +73,8 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
 
         Route::get('/pending-exporters-application-details/{id}', [ApplicationController::class, 'exporters_application_status_details'])->name('exporter.application.details');
         Route::post('/pending-exporters-application-details/{id}', [ApplicationController::class, 'exporters_application_status_details_complaince_submit'])->name('exporter.application.details.complaince.submit');
+
+        Route::post('/appeal/{id}', [ApplicationController::class, 'exporters_appeal_submit'])->name('exporter.application.appeal.submit');
     });
 
     Route::group([], function () {
@@ -130,6 +132,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'director-depm'], function () {
         Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_dir_depm_update'])->name('dir-depm.pending.application.update');
+        Route::get('/applied-application', [ApplicationController::class, 'pending_exporters_applied_application_for_dir_depm'])->name('dir-depm.pending.applied.application');
+        Route::get('/applied-application-details/{id}', [ApplicationController::class, 'pending_exporters_applied_application_for_dir_depm_details'])->name('dir-depm.pending.applied.application.details');
+        Route::post('/applied-application-details/{id}', [ApplicationController::class, 'pending_exporters_applied_application_for_dir_depm_details_update'])->name('dir-depm.pending.applied.application.details.update');
     });
 
     Route::group(['prefix' => 'spl-sectry'], function () {
@@ -137,7 +142,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'dept-sectry'], function () {
+        Route::get('/applied-application', [ApplicationController::class, 'pending_exporters_applied_application_for_dept_sect'])->name('dept-sectry.pending.applied.application');
         Route::post('/pending-exporters-application-details-status/{id}', [ApplicationController::class, 'exporters_application_dept_sectry_update'])->name('dept-sectry.pending.application.update');
+        Route::get('/applied-application-details/{id}', [ApplicationController::class, 'pending_exporters_applied_application_for_dept_sect_details'])->name('dept-sectry.pending.applied.application.details');
+        Route::post('/applied-application-details/{id}', [ApplicationController::class, 'pending_exporters_applied_application_for_dept_sect_details_update'])->name('dept-sectry.pending.applied.application.details.update');
     });
 
     Route::group(['prefix' => 'ddo'], function () {
