@@ -460,6 +460,36 @@ class TblExportersController extends Controller
      * @author AlokDas
      * @return void
      */
+    public function appeal_application_list(Request $request)
+    {
+        $data['page_title'] = 'Appealed Application List';
+        $user               = Auth::guard('exporter')->user();
+        $data['data']       = $user;
+        $data['schemes']    = Schemes::get();
+
+        $applications = Applications::where('exporter_id', $user->id)->where('appeal_facility', 1)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details.get_event_details',
+            'get_file_details',
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+            'get_application_status_details',
+        ])->latest()->get();
+        $data['applications'] = $applications;
+        // dd($data);
+        return view('application-list')->with($data);
+    }
+
+    /**
+     * Method annexure1
+     * @param Request $request [explicite description]
+     * @author AlokDas
+     * @return void
+     */
     public function annexure1(Request $request, $id = null)
     {
         $data['scheme']     = Schemes::where('id', $id)->first();

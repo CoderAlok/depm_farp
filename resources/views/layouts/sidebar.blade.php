@@ -46,6 +46,13 @@
                     <span class="nav-link-text" data-i18n="nav.theme_settings">Complaince / Query List</span>
                 </a>
             </li>
+            <li class="{{ Route::currentRouteName() === 'exporter.appeal.application.list' ? 'active' : '' }}">
+                <a href="{{ route('exporter.appeal.application.list') }}" title="Theme Settings"
+                    data-filter-tags="theme settings">
+                    <i class="fal fa-cog text-white"></i>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Appeal Process List</span>
+                </a>
+            </li>
             @if (getApplicationId(Auth::guard('exporter')->user()->id))
                 {{-- <li class="{{ Route::currentRouteName() === 'exporter.application.details' ? 'active' : '' }}"">
                     <a href="{{ route('exporter.application.details', getApplicationId(Auth::guard('exporter')->user()->id)) }}"

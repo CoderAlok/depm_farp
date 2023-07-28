@@ -1013,7 +1013,6 @@
                                                         @case(2)
                                                             @switch($applications->scheme_id)
                                                                 @case(1)
-                                                                    LOLOL
                                                                     @if (!$table_showing_status)
                                                                         <div class="form-group col-md-3">
                                                                             <label for="">Total Expense of Exporter <span
@@ -1125,6 +1124,80 @@
                                                         @case(2)
                                                             @if ($applications->status == 1)
                                                                 {{-- SO --}}
+                                                                {{-- Enter the uploaded file In a table here for the departmental users --}}
+                                                                @if ($applications->get_complaince_details->isNotEmpty())
+                                                                    <div class="row col-md-12">
+                                                                        <span class="m-3">Exporter remarks :
+                                                                            <b>{{ $applications->get_complaince_details[0]->exporters_remarks ?? '' }}</b></span>
+                                                                        <table
+                                                                            class="table table-responsive table-bordered w-100 col-md-12">
+                                                                            <thead class="bg-dark text-white">
+                                                                                <th width="10%">SlNo</th>
+                                                                                <th width="40%">Document Related To</th>
+                                                                                <th width="40%">Remarks</th>
+                                                                                <th width="60%">Document file view</th>
+                                                                            </thead>
+
+                                                                            {{-- loop with the latest complaince table data  --}}
+                                                                            <tbody>
+                                                                                @foreach ($applications->get_complaince_details as $key => $item)
+                                                                                    <tr>
+                                                                                        <td>{{ ++$key }}</td>
+                                                                                        <td>
+                                                                                            <select name="" id=""
+                                                                                                class="form-control" disabled>
+                                                                                                <option value="">--- Select a
+                                                                                                    section
+                                                                                                    ---
+                                                                                                </option>
+                                                                                                <option value="1"
+                                                                                                    {{ $item->section_type == 1 ? 'selected' : '' }}>
+                                                                                                    Exporter Details
+                                                                                                </option>
+                                                                                                <option value="2"
+                                                                                                    {{ $item->section_type == 2 ? 'selected' : '' }}>
+                                                                                                    Bank Details
+                                                                                                </option>
+                                                                                                {{-- <option value="3" {{ $item->section_type == 3 ? 'selected':'' }}>Event Details</option> --}}
+                                                                                                <option value="4"
+                                                                                                    {{ $item->section_type == 4 ? 'selected' : '' }}>
+                                                                                                    Travel Details
+                                                                                                </option>
+                                                                                                <option value="5"
+                                                                                                    {{ $item->section_type == 5 ? 'selected' : '' }}>
+                                                                                                    Stall Details
+                                                                                                </option>
+                                                                                                <option value="6"
+                                                                                                    {{ $item->section_type == 6 ? 'selected' : '' }}>
+                                                                                                    Additional Details
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td>{{ $item->description ?? '' }}</td>
+                                                                                        <td>
+                                                                                            <a href="javascript:void(0);"
+                                                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/complaince' . $applications->id . '/' . ($item->file_name ?? '')) }}')">
+                                                                                                <span
+                                                                                                    class="text-warning badge bg-dark p-1">View
+                                                                                                    file</span>
+                                                                                            </a>
+
+                                                                                            {{-- {{ $item->file_name ?? '' }} --}}
+                                                                                            {{-- {{ $item->insert_status }} --}}
+                                                                                            <input type="hidden"
+                                                                                                name="complaince[status][]"
+                                                                                                value="{{ $item->insert_status }}">
+                                                                                            <input type="hidden"
+                                                                                                name="complaince[id][]"
+                                                                                                value="{{ $item->id }}">
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                @endif
+
                                                                 <div class="row col-md-12">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="status">Status</label>
@@ -1175,7 +1248,8 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control">
+                                                                                        id="section_name0" class="form-control"
+                                                                                        disabled>
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1198,7 +1272,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" />
+                                                                                        value="" disabled />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1256,7 +1330,8 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control">
+                                                                                        id="section_name0" class="form-control"
+                                                                                        disabled>
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1279,7 +1354,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" />
+                                                                                        value="" disabled />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1335,7 +1410,8 @@
                                                                                 <!-- form sections -->
                                                                                 <div class="form-group col-md-6">
                                                                                     <select name="complaince[0][section_name]"
-                                                                                        id="section_name0" class="form-control">
+                                                                                        id="section_name0" class="form-control"
+                                                                                        disabled>
                                                                                         <option value="">--- Select a section
                                                                                             ---
                                                                                         </option>
@@ -1358,7 +1434,7 @@
                                                                                         name="complaince[0][file_name]"
                                                                                         id="file_name0" class="form-control"
                                                                                         placeholder="Enter the file type"
-                                                                                        value="" />
+                                                                                        value="" disabled />
                                                                                 </div>
                                                                                 <!-- file -->
                                                                                 {{-- <div class="form-group col-md-3">
@@ -1562,18 +1638,24 @@
             $('[data-toggle="tooltip"]').tooltip();
 
             // 
-            // $('#status').on('change', (e) => {
-            //     var status = $('#status').val();
-            //     var array = [3, 5, 7, 9];
+            $('#status').on('change', (e) => {
+                var status = $('#status').val();
+                var array = [3, 5, 7, 9];
 
-            //     if (status == 3 || status == 5 || status == 7 || status == 9) {
-            //         console.log('yes');
-            //         $('.add_div_div').removeClass('d-none');
-            //     } else {
-            //         console.log('no');
-            //         $('.add_div_div').addClass('d-none');
-            //     }
-            // });
+                if (status == 3 || status == 5 || status == 7 || status == 9) {
+                    console.log('yes');
+                    // $('.add_div_div').removeClass('d-none');
+
+                    $('#section_name0').removeAttr('disabled');
+                    $('#file_name0').removeAttr('disabled');
+                } else {
+                    console.log('no');
+                    // $('.add_div_div').addClass('d-none');
+
+                    $('#section_name0').attr('disabled', 'disabled');
+                    $('#file_name0').attr('disabled', 'disabled');
+                }
+            });
         });
     </script>
 @endsection

@@ -599,9 +599,21 @@
                                     </div>
                                 </div>
                                 <!-- End Additional Details Row -->
-                                {{-- {{ dd($complaince->toArray()) }} --}}
+                                {{-- {{ dd($applications->toArray()) }} --}}
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
                                     <h4>Complaince Form</h4>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-9">
+                                            Exporters Remarks : <span
+                                                class="text-danger font-weight-bold">{{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}</span>
+                                        </div>
+                                        <div class="col-md-3 justify-content-end">
+                                            Application status : <span
+                                                class="text-danger font-weight-bold">{{ exporter_status_array($applications->status) }}</span>
+                                        </div>
+                                    </div>
+
                                     <form
                                         action="{{ route('exporter.application.details.complaince.submit', $applications->id) }}"
                                         class="form-group mb-3 complaince_form_body" id="status_approval_form"

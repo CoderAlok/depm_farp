@@ -709,6 +709,9 @@ class ApplicationController extends Controller
             'get_bank_details',
             'get_application_status_details',
             'get_application_progress_master_details.get_user_details.get_role_details',
+            'get_complaince_details' => function ($r) {
+                $r->where('insert_status', 1);
+            },
         ])->first(); //->toArray();
         $data['applications']      = $applications; //->toArray();
         $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
@@ -739,10 +742,13 @@ class ApplicationController extends Controller
             'get_address_details',
             'get_other_code_details',
             'get_bank_details',
+            'get_application_progress_master_details' => function ($r) {
+                $r->latest()->first();
+            },
         ])->first();
         $data['pending']    = Applications::where('status', 1)->count();
         $data['complaince'] = Complaince::where('appl_id', $id)->where('insert_status', 1)->get();
-        // dd([$data['complaince']->toArray()]);
+        // dd([$data['applications']->toArray()]);
 
         return view('application_status_details')->with($data);
     }
@@ -785,8 +791,8 @@ class ApplicationController extends Controller
                         'description'       => $value['file_name'],
                         'file_name'         => $file_name,
                         'exporters_remarks' => $remarks,
-                        'insert_status'     => 0,
-                        'created_by'        => $user->id,
+                        'insert_status'     => 1, //0, // -- for now its 1 to keep the track Of latest uploaded files and showing them to the departmental
+                        'created_by' => $user->id,
                         'updated_by'        => $user->id,
                         'created_at'        => Carbon::now(),
                     ];
@@ -899,8 +905,8 @@ class ApplicationController extends Controller
      */
     public function exporters_application_status_details_update(Request $request, $id = null)
     {
+        // dd([$request->all()]);
         try {
-            // dd([$request->all()]);
             $user          = Auth::user();
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
             if ($update_status) {
@@ -930,7 +936,7 @@ class ApplicationController extends Controller
                 Session::flash('message', $data['message']);
                 // }
 
-                // Insert into Application log
+                // Insert into Application log -- This code is useless just maintaining the application log file
                 $insert_log_data = [
                     'appl_id'        => $id,
                     'from_user_type' => 1,
@@ -943,6 +949,16 @@ class ApplicationController extends Controller
                     'created_at'     => Carbon::now(),
                 ];
                 $log_status = ApplicationLog::insert($insert_log_data);
+
+                // Also, update the complaince table insert_status to zoro of those pericular files
+                if ($request->complaince) {
+                    foreach ($request->complaince['id'] as $key => $value) {
+                        $complaince_status = Complaince::where('id', $value)->update(['insert_status' => 0]);
+
+                        // Also, this files must be replaced with the old once in their respective folder.
+                        # TODO CODE ...
+                    }
+                }
 
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
@@ -957,6 +973,65 @@ class ApplicationController extends Controller
             return response($data, 500);
             // return redirect()->back()->with($data);
         }
+
+        // try {
+        //     // dd([$request->all()]);
+        //     $user          = Auth::user();
+        //     $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
+        //     if ($update_status) {
+
+        //         // if (ApplicationProgressMaster::where(['appl_id' => $id, 'created_by' => $user->id])->first()) {
+        //         //     $update_data = [
+        //         //         'total_expense'    => $request->total_expenses,
+        //         //         'incentive_amount' => $request->incentive_amount,
+        //         //         'remarks'          => $request->remarks,
+        //         //         'updated_by'       => $user->id,
+        //         //     ];
+        //         //     $status          = ApplicationProgressMaster::where('appl_id', $id)->update($update_data);
+        //         //     $data['message'] = 'Application status updated successfully..';
+        //         //     Session::flash('message', $data['message']);
+        //         // } else {
+        //         $insert_data = [
+        //             'appl_id'          => $id,
+        //             'total_expense'    => $request->total_expenses,
+        //             'incentive_amount' => $request->incentive_amount,
+        //             'remarks'          => $request->remarks,
+        //             'created_by'       => $user->id,
+        //             'updated_by'       => $user->id,
+        //             'created_at'       => Carbon::now(),
+        //         ];
+        //         $status          = ApplicationProgressMaster::insert($insert_data);
+        //         $data['message'] = 'Application status updated successfully.';
+        //         Session::flash('message', $data['message']);
+        //         // }
+
+        //         // Insert into Application log
+        //         $insert_log_data = [
+        //             'appl_id'        => $id,
+        //             'from_user_type' => 1,
+        //             'from_user'      => $user->id,
+        //             'to_user_type'   => 2,
+        //             'to_user'        => null,
+        //             'status'         => 1,
+        //             'remarks'        => $request->remarks,
+        //             'updated_date'   => Carbon::now(),
+        //             'created_at'     => Carbon::now(),
+        //         ];
+        //         $log_status = ApplicationLog::insert($insert_log_data);
+
+        //     } else {
+        //         $data['message'] = 'Failed to update the status from SO.';
+        //         Session::flash('message', $data['message']);
+        //     }
+        //     // return redirect()->back()->with($data);
+        //     return redirect()->route('admin.publicity.officer.pending.exporters.applications')->with($data);
+
+        // } catch (\Exception $e) {
+        //     $data['data']    = [];
+        //     $data['message'] = $e->getMessage();
+        //     return response($data, 500);
+        //     // return redirect()->back()->with($data);
+        // }
     }
 
     /**
@@ -983,18 +1058,23 @@ class ApplicationController extends Controller
                     // dd($occurence_counter);
                     $insert_data = [];
                     $exporter_id = Applications::where('id', $id)->first()->exporter_id;
-                    foreach ($request->complaince as $key => $value) {
-                        $insert_data[$key]['appl_id']       = $id;
-                        $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
-                        $insert_data[$key]['exporter_id']   = $exporter_id;
-                        $insert_data[$key]['user_id']       = $user->id;
-                        $insert_data[$key]['section_type']  = null; //$value['section_name'];  //-- feature inactive just for now
-                        $insert_data[$key]['description']   = null; //$value['file_name'];  // -- feature inactive just for now
-                        $insert_data[$key]['insert_status'] = false; //true  // -- feature inactive just for now
-                        $insert_data[$key]['created_by']    = $user->id;
-                        $insert_data[$key]['created_at']    = Carbon::now();
+                    if ($request->complaince[0]['section_name'] != null) {
+                        foreach ($request->complaince as $key => $value) {
+                            $insert_data[$key]['appl_id']       = $id;
+                            $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                            $insert_data[$key]['exporter_id']   = $exporter_id;
+                            $insert_data[$key]['user_id']       = $user->id;
+                            $insert_data[$key]['section_type']  = null; //$value['section_name'];  //-- feature inactive just for now
+                            $insert_data[$key]['description']   = null; //$value['file_name'];  // -- feature inactive just for now
+                            $insert_data[$key]['insert_status'] = false; //true  // -- feature inactive just for now
+                            $insert_data[$key]['created_by']    = $user->id;
+                            $insert_data[$key]['created_at']    = Carbon::now();
+                        }
+                        $comp_status = $complaince->insert($insert_data);
+                    } else {
+                        $comp_status = 1;
                     }
-                    $comp_status = $complaince->insert($insert_data);
+
                     if ($comp_status) {
                         // Mail for those who will be rejected
                         $data = [
@@ -1068,7 +1148,7 @@ class ApplicationController extends Controller
      */
     public function exporters_application_spl_sectry_update(Request $request, $id = null)
     {
-        // dd([$request ->all(), $id]);
+        // dd([$request->all(), $id]);
         try {
             $user              = Auth::user();
             $complaince        = new Complaince();
@@ -1085,18 +1165,24 @@ class ApplicationController extends Controller
                 if ($request->status == 7) {
                     $insert_data = [];
                     $exporter_id = Applications::where('id', $id)->first()->exporter_id;
-                    foreach ($request->complaince as $key => $value) {
-                        $insert_data[$key]['appl_id']       = $id;
-                        $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
-                        $insert_data[$key]['exporter_id']   = $exporter_id;
-                        $insert_data[$key]['user_id']       = $user->id;
-                        $insert_data[$key]['section_type']  = $value['section_name'];
-                        $insert_data[$key]['description']   = $value['file_name'];
-                        $insert_data[$key]['insert_status'] = true;
-                        $insert_data[$key]['created_by']    = $user->id;
-                        $insert_data[$key]['created_at']    = Carbon::now();
+
+                    if ($request->complaince[0]['section_name'] != null) {
+                        foreach ($request->complaince as $key => $value) {
+                            $insert_data[$key]['appl_id']       = $id;
+                            $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                            $insert_data[$key]['exporter_id']   = $exporter_id;
+                            $insert_data[$key]['user_id']       = $user->id;
+                            $insert_data[$key]['section_type']  = $value['section_name'];
+                            $insert_data[$key]['description']   = $value['file_name'];
+                            $insert_data[$key]['insert_status'] = true;
+                            $insert_data[$key]['created_by']    = $user->id;
+                            $insert_data[$key]['created_at']    = Carbon::now();
+                        }
+                        $comp_status = $complaince->insert($insert_data);
+                    } else {
+                        $comp_status = 1;
                     }
-                    $comp_status = $complaince->insert($insert_data);
+
                     if ($comp_status) {
                         // Mail for those who will be rejected
                         $data = [
@@ -1179,24 +1265,29 @@ class ApplicationController extends Controller
             // $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
             // $occurence_counter = $occurence_counter + 1;
 
-            $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
+            $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
             if ($update_status) {
 
                 if ($request->status == 9) {
                     $insert_data = [];
                     $exporter_id = Applications::where('id', $id)->first()->exporter_id;
-                    foreach ($request->complaince as $key => $value) {
-                        $insert_data[$key]['appl_id']       = $id;
-                        $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
-                        $insert_data[$key]['exporter_id']   = $exporter_id;
-                        $insert_data[$key]['user_id']       = $user->id;
-                        $insert_data[$key]['section_type']  = $value['section_name'];
-                        $insert_data[$key]['description']   = $value['file_name'];
-                        $insert_data[$key]['created_by']    = $user->id;
-                        $insert_data[$key]['insert_status'] = true;
-                        $insert_data[$key]['created_at']    = Carbon::now();
+                    if ($request->complaince[0]['section_name'] != null) {
+                        foreach ($request->complaince as $key => $value) {
+                            $insert_data[$key]['appl_id']       = $id;
+                            $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                            $insert_data[$key]['exporter_id']   = $exporter_id;
+                            $insert_data[$key]['user_id']       = $user->id;
+                            $insert_data[$key]['section_type']  = $value['section_name'];
+                            $insert_data[$key]['description']   = $value['file_name'];
+                            $insert_data[$key]['created_by']    = $user->id;
+                            $insert_data[$key]['insert_status'] = true;
+                            $insert_data[$key]['created_at']    = Carbon::now();
+                        }
+                        $comp_status = Complaince::insert($insert_data);
+                    } else {
+                        $comp_status = 1;
                     }
-                    $comp_status = Complaince::insert($insert_data);
+
                     if ($comp_status) {
                         // Mail for those who will be rejected
                         $data = [
@@ -1298,44 +1389,37 @@ class ApplicationController extends Controller
      */
     public function expireApplication(Request $request, $id = null)
     {
+        // dd($id);
+
         try {
+            $chk         = 0;
+            $application = new Applications();
+            $appl_date   = $application->select('id', 'created_at')->where('id', $id)->first()->created_at;
 
-            // Just check ,the created_at date with The current date . If its greater then 60days just update the status
-            $days              = 2;
-            $checkAppliactions = Applications::select('id', 'created_at')->get()->map(function ($r) use ($days) {
-                // $createdAt = $r->created_at;
-                // $futureDate = $this->app->AddDateWithDays($r->created_at, $days)->format('d-m-Y H:i:s a');
+            $toDate   = Carbon::parse($appl_date);
+            $fromDate = Carbon::now();
+            $days     = $toDate->diffInDays($fromDate);
+            // $d['months'] = $toDate->diffInMonths($fromDate);
+            // $d['years']  = $toDate->diffInYears($fromDate);
 
-                // $result = [];
-                // $date1  = Carbon::createFromFormat('Y-m-d H:i:s', $r->created_at);
-                // $date2  = Carbon::createFromFormat('Y-m-d H:i:s', $this->app->AddDateWithDays($r->created_at, $days));
-                // if ($date1->eq($date2)) {
-                //     array_push($result, $r->id);
-                //     // change the status
-                //     // array_push($result, Applications::where('id', $r->id)->update('status', 12), $r->toArray());
-                // } else {
-                //     array_push($result, $r->created_at);
-                // }
+            if ($days > 60) {
+                $chk = $application->where('id', $id)->update(['appeal_facility' => 2]);
+            }
 
-                // return $result;
+            if ($chk) {
+                $data['appd']    = date('d-m-Y', strtotime($appl_date));
+                $data['data']    = $days;
+                $data['message'] = 'Updated successfully.';
+                return response($data, 200);
+            } else {
+                $data['appd']    = date('d-m-Y', strtotime($appl_date));
+                $data['data']    = $days;
+                $data['message'] = 'Failed to update. As date has not reached.';
+                return response($data, 300);
+            }
 
-                return [
-                    $date1 = Carbon::createFromFormat('Y-m-d', $r->created_at),
-                    $date2 = Carbon::createFromFormat('Y-m-d', $this->app->AddDateWithDays($r->created_at, $days)),
-                    $date1->eq($date2),
-                    $date2->eq(Carbon::now()),
-                    Carbon::parse($r->created_at)->format('d-m-Y h:i:s a'),
-                    $this->app->AddDateWithDays($r->created_at, $days)->format('d-m-Y h:i:s a'),
-                ];
-            });
-            dd($checkAppliactions);
-            // Get All the application and check their date and expire within given days
-
-            $data['data']    = $this->app->AddDateWithDays('21-07-2023', 1)->format('h.i.s a'); //Applications::select('id', 'created_at')->get();
-            $data['message'] = 'All the application loaded';
-            return response($data, 200);
         } catch (\Exception $e) {
-            $data['data']    = [];
+            $data['data']    = 'Error';
             $data['message'] = $e->getMessage();
             return response($data, 500);
         }
