@@ -9,8 +9,7 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i>
-                {{ $ddo_array_flag == 7 ? 'Sanctioned Application' : 'Pending applications' }}
+                <i class="subheader-icon fal fa-"></i> Senction applications
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
             <div class="subheader-block d-none">All the pending applications for approval process.</div>
@@ -33,7 +32,7 @@
                                 data-original-title="Close"></button>
                         </div>
                     </div> --}}
-                    {{-- ALOK --}}
+
                     <div class="container-fluid">
                         {{-- Main content start here --}}
                         <div class="panel-container show">
@@ -635,7 +634,7 @@
 @section('scripts')
     <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.export.js') }}"></script>
-
+    
     @routes
     <script>
         $(document).ready((e) => {

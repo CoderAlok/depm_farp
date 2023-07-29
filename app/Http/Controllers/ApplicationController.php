@@ -680,10 +680,10 @@ class ApplicationController extends Controller
      * @author AlokDas
      * @return void
      */
-    public function pending_exporters_application(Request $request)
+    public function sanctioned_exporters_application(Request $request)
     {
-        $data['page_title']   = 'Pending exporters applications';
-        $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
+        $data['page_title']   = 'Sanctioned exporters applications';
+        $data['applications'] = Applications::where('status', 8)->with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
             return [
                 // 'r'           => $r->toArray(),
                 'id'          => $r->id ?? '',
@@ -695,8 +695,54 @@ class ApplicationController extends Controller
                 'status'      => $r->status,
             ];
         })->toArray();
-        $data['pending'] = Applications::where('status', 1)->count();
-        // dd($data);
+        $data['pending'] = Applications::where('status', 2)->count();
+
+        //dd($data);
+        return view('admin.ddo.pending_schemes_application')->with($data);
+    }
+
+    /**
+     * Method pending_exporters_application
+     * @param Request $request [explicite description]
+     * @author AlokDas
+     * @return void
+     */
+    public function pending_exporters_application(Request $request)
+    {
+        $data['page_title'] = 'Pending exporters applications';
+        if (Auth::user()->role_id == 7) {
+            $data['applications'] = Applications::where('status', 8)->with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
+                return [
+                    // 'r'           => $r->toArray(),
+                    'id'          => $r->id ?? '',
+                    'app_no'      => $r->app_no ?? '',
+                    'scheme'      => $r->get_scheme_details->short_name ?? '',
+                    'name'        => $r->get_exporter_details->name ?? '',
+                    'contact_no'  => $r->get_exporter_details->phone ?? '',
+                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0) : $r->certi_cost,
+                    'status'      => $r->status,
+                ];
+            })->toArray();
+            $data['pending']        = Applications::where('status', 2)->count();
+            $data['ddo_array_flag'] = 7;
+        } else {
+            $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
+                return [
+                    // 'r'           => $r->toArray(),
+                    'id'          => $r->id ?? '',
+                    'app_no'      => $r->app_no ?? '',
+                    'scheme'      => $r->get_scheme_details->short_name ?? '',
+                    'name'        => $r->get_exporter_details->name ?? '',
+                    'contact_no'  => $r->get_exporter_details->phone ?? '',
+                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0) : $r->certi_cost,
+                    'status'      => $r->status,
+                ];
+            })->toArray();
+            $data['pending']        = Applications::where('status', 2)->count();
+            $data['ddo_array_flag'] = 0;
+        }
+
+        //dd($data);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);
     }
 
@@ -1560,9 +1606,10 @@ class ApplicationController extends Controller
             'get_applied_details',
         ])->first(); //->toArray();
         $data['applications']      = $applications; //->toArray();
-        $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
-        $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
-        $data['pending']           = Applications::where('status', 1)->count();
+        $data['total_expenditure'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount']  = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        // $data['considered_amount'] = ($applications->get_application_progress_master_details[0]->incentive_amount ?? 0);
+        $data['pending'] = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);
         return view('admin.dept_secretory.pending_schemes_application_details')->with($data);
     }
@@ -1575,7 +1622,11 @@ class ApplicationController extends Controller
      */
     public function pending_exporters_applied_application_for_dept_sect_details_update(Request $request, $id = null)
     {
-        // dd([$request->all(), $id]);
+        dd([$request->all(), $id]);
+
+        $dif_amount       = $request->dif_amount;
+        $order_file       = $request->order_file;
+        $dept_sec_remarks = $request->dept_sec_remarks;
 
         try {
             $appliedApplication = new AppliedApplication();

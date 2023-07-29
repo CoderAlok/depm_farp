@@ -20,12 +20,15 @@
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    {{-- <div class="panel-hdr">
+                    <div class="panel-hdr">
                         <h2>
                             Hi, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                             <b
                                 class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
                         </h2>
+
+                        {{-- <h2>Application No : <b
+                                class="text-uppercase font-size-600 ml-2">{{ $applications->app_no ?? '' }}</b></h2> --}}
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -34,7 +37,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <div class="container-fluid">
                         {{-- Main content start here --}}
@@ -1434,17 +1437,17 @@
                                 <div id="js_demo_accordion-3i" class="collapse show" data-parent="#js_demo_accordion-3">
                                     <div class="card-body">
                                         <form
-                                            action="{{ route('dir-depm.pending.applied.application.details.update', $applications->id) }}"
+                                            action="{{ route('dept-sectry.pending.applied.application.details.update', $applications->get_applied_details->id) }}"
                                             method="post" class="form-group col-md-12">
                                             @csrf
+                                            <input type="hidden" name="appl_id" value="{{ $applications->id }}">
                                             <div class="col-md-12">
                                                 <select name="confirmed" id="confirmed" class="form-control">
                                                     <option value="">--- Select an option ---</option>
-                                                    <option value="8">Approve - senction fund with DDO</option>
-                                                    {{-- <option value="2">Reject</option> --}}
+                                                    <option value="1">Approve</option>
+                                                    <option value="2">Reject</option>
                                                 </select>
                                             </div>
-
                                             <div class="col-md-12 mt-3">
                                                 <button class="btn btn-primary" type="submit">Submit</button>
                                             </div>

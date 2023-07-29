@@ -4,7 +4,7 @@
             data-toggle="modal" data-target="#modal-shortcut">
             <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp" aria-roledescription="logo"
                 style="width:10%" />
-            <span class="page-logo-text mr-1">FARP</span>
+            <span class="page-logo-text mr-1">EIRP</span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
@@ -86,8 +86,21 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List </span><b
-                                class="text-dark badge badge-warning">{{ $pending ?? '' }}</b>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List </span>
+                            @if (get_pending_list_count_for_admin(2) > 0)
+                                <b class="badge badge-danger">{{ get_pending_list_count_for_admin(2) }}</b>
+                            @endif
+                        </a>
+                    </li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.sanctioned.exporters' ? 'active' : '' }}">
+                        <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            @if (get_sanctioned_applied_list_count_for_admin(2) > 0)
+                                <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(2) }}</b>
+                            @endif
                         </a>
                     </li>
                 </ul>
@@ -101,13 +114,14 @@
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    {{-- <li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
@@ -121,7 +135,10 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List </span>
+                            @if (get_pending_list_count_for_admin(3) > 0)
+                                <b class="badge badge-danger">{{ get_pending_list_count_for_admin(3) }}</b>
+                            @endif
                         </a>
                     </li>
                     <li class="{{ Route::currentRouteName() === 'dir-depm.pending.applied.application' ? 'active' : '' }}">
@@ -129,6 +146,17 @@
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Approved applied applications</span>
+                        </a>
+                    </li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.sanctioned.exporters' ? 'active' : '' }}">
+                        <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            @if (get_sanctioned_applied_list_count_for_admin(3) > 0)
+                                <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(3) }}</b>
+                            @endif
                         </a>
                     </li>
                 </ul>
@@ -142,13 +170,13 @@
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
@@ -163,6 +191,20 @@
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
+                            @if (get_pending_list_count_for_admin(4) > 0)
+                                <b class="badge badge-danger">{{ get_pending_list_count_for_admin(4) }}</b>
+                            @endif
+                        </a>
+                    </li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.sanctioned.exporters' ? 'active' : '' }}">
+                        <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            @if (get_sanctioned_applied_list_count_for_admin(4) > 0)
+                                <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(4) }}</b>
+                            @endif
                         </a>
                     </li>
                 </ul>
@@ -176,13 +218,13 @@
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
@@ -197,6 +239,9 @@
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
+                            @if (get_pending_list_count_for_admin(5) > 0)
+                                <b class="badge badge-danger">{{ get_pending_list_count_for_admin(5) }}</b>
+                            @endif
                         </a>
                     </li>
                     <li class="{{ Route::currentRouteName() === 'dept-sectry.pending.applied.application' ? 'active' : '' }}">
@@ -204,6 +249,18 @@
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending applied list</span>
+                            {{-- <b>{{ get_pending_applied_list_count_for_admin }}</b> --}}
+                        </a>
+                    </li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.sanctioned.exporters' ? 'active' : '' }}">
+                        <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
+                            data-filter-tags="application intel">
+                            <i class="fal fa-info-circle text-white"></i>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            @if (get_sanctioned_applied_list_count_for_admin(5) > 0)
+                                <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(5) }}</b>
+                            @endif
                         </a>
                     </li>
                 </ul>
@@ -237,7 +294,10 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
                             title="Application Intel" data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Applications List</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanctioned Applications</span>
+                            @if (get_sanctioned_applied_list_count_for_admin(7) > 0)
+                                <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(7) }}</b>
+                            @endif
                         </a>
                     </li>
                 </ul>

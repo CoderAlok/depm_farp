@@ -324,7 +324,7 @@ function so_status_array($status_id)
         2 => 'Verified', //'Pending at Director Depm',
         3 => '',
         4 => 'Verified by director depm',
-        5 => 'Not Verified by DIRDEPM',  //--*
+        5 => 'Not Verified by DIRDEPM', //--*
         6 => 'Verified by Addl Special secretory',
         7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
@@ -340,7 +340,7 @@ function dir_status_array($status_id)
         2 => 'Pending',
         3 => '',
         4 => 'Verified',
-        5 => 'Not Verified',  //--*
+        5 => 'Not Verified', //--*
         6 => 'Verified by Addl Special secretory',
         7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
@@ -356,7 +356,7 @@ function addl_status_array($status_id)
         2 => 'Verified by SO',
         3 => '',
         4 => 'Pending',
-        5 => 'Not Verified by DIR DEPM',  //--*
+        5 => 'Not Verified by DIR DEPM', //--*
         6 => 'Verified',
         7 => 'Not verified', // --*
         8 => 'Approved',
@@ -372,7 +372,7 @@ function dept_sectry_status_array($status_id)
         2 => 'Verified by SO',
         3 => '',
         4 => 'Verified by Director, DEPM',
-        5 => 'Not Verified by DIR DEPM',  //--*
+        5 => 'Not Verified by DIR DEPM', //--*
         6 => 'Pending',
         7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
@@ -388,7 +388,7 @@ function ddo_status_array($status_id)
         2 => 'Verified by SO',
         3 => '',
         4 => 'Verified by Director, DEPM',
-        5 => 'Not Verified by DIR DEPM',  //--*
+        5 => 'Not Verified by DIR DEPM', //--*
         6 => 'Pending',
         7 => 'Not verified by Addl / Spl Secretory', // --*
         8 => 'Approved',
@@ -417,7 +417,7 @@ function status_color_array($status)
 {
     $color_code = [];
 
-    if (in_array($status, ['Applied', 'Verified by SO', 'Verified',  'Verified', 'Verified by director depm', 'Verified by Addl Special secretory', 'Verified by Director, DEPM'])) {
+    if (in_array($status, ['Applied', 'Verified by SO', 'Verified', 'Verified', 'Verified by director depm', 'Verified by Addl Special secretory', 'Verified by Director, DEPM'])) {
         $color_code = ['#f5f94a', 'dark']; // Yellow
     } else if (in_array($status, ['Approved'])) {
         $color_code = ['#0e5306', 'white']; // Green
@@ -432,6 +432,100 @@ function status_color_array($status)
     return $color_code;
 }
 
-function store_files($path, $file_name,$file){
-    return $file->move(public_path().'/'.'storage/'.$path, $file_name);
+function store_files($path, $file_name, $file)
+{
+    return $file->move(public_path() . '/' . 'storage/' . $path, $file_name);
+}
+
+// make a pending list as per the roles and call in one side bar
+function get_pending_list_count_for_admin($role_id)
+{
+    // $role_id       = Auth::user()->role_id;
+    $pending_count = 0;
+    switch ($role_id) {
+        case 2:$pending_count = App\Models\tbl_application_details::where('status', 1)->count();
+            break;
+
+        case 3:$pending_count = App\Models\tbl_application_details::where('status', 2)->count();
+            break;
+
+        case 4:$pending_count = App\Models\tbl_application_details::where('status', 4)->count();
+            break;
+
+        case 5:$pending_count = App\Models\tbl_application_details::where('status', 6)->count();
+            break;
+
+        case 7:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        default:'';
+            break;
+    }
+
+    // $r = ['', '', 'SO', 'DIRDEPM', 'ADDL SPL SCRTY', 'DEPT SERCTY', '', 'DDO'];
+    // dd([$r[$role_id], $pending_count]);
+    return $pending_count;
+}
+
+
+
+// make a pending list as per the roles and call in one side bar
+function get_pending_applied_list_count_for_admin($role_id)
+{
+    // $role_id       = Auth::user()->role_id;
+    $pending_count = 0;
+    switch ($role_id) {
+        case 2:$pending_count = App\Models\tbl_application_details::where('status', 1)->count();
+            break;
+
+        case 3:$pending_count = App\Models\tbl_application_details::where('status', 2)->count();
+            break;
+
+        case 4:$pending_count = App\Models\tbl_application_details::where('status', 4)->count();
+            break;
+
+        case 5:$pending_count = App\Models\tbl_application_details::where('status', 6)->count();
+            break;
+
+        case 7:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        default:'';
+            break;
+    }
+
+    // $r = ['', '', 'SO', 'DIRDEPM', 'ADDL SPL SCRTY', 'DEPT SERCTY', '', 'DDO'];
+    // dd([$r[$role_id], $pending_count]);
+    return $pending_count;
+}
+
+
+// make a pending list as per the roles and call in one side bar
+function get_sanctioned_applied_list_count_for_admin($role_id)
+{
+    // $role_id       = Auth::user()->role_id;
+    $pending_count = 0;
+    switch ($role_id) {
+        case 2:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        case 3:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        case 4:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        case 5:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        case 7:$pending_count = App\Models\tbl_application_details::where('status', 8)->count();
+            break;
+
+        default:'';
+            break;
+    }
+
+    // $r = ['', '', 'SO', 'DIRDEPM', 'ADDL SPL SCRTY', 'DEPT SERCTY', '', 'DDO'];
+    // dd([$r[$role_id], $pending_count]);
+    return $pending_count;
 }

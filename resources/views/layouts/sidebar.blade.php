@@ -32,6 +32,13 @@
                     <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                 </a>
             </li>
+            <li class="{{ Route::currentRouteName() === 'exporter.scheme.list' ? 'active' : '' }}">
+                <a href="{{ route('exporter.scheme.list') }}" title="Theme Settings"
+                    data-filter-tags="theme settings">
+                    <i class="fal fa-cog text-white"></i>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application</span>
+                </a>
+            </li>
             <li class="{{ Route::currentRouteName() === 'exporter.application.list' ? 'active' : '' }}">
                 <a href="{{ route('exporter.application.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">

@@ -60,15 +60,13 @@
                         <div class="col p-4">
                             <div class="w-100">
 
+                                {{-- 
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Please choose a scheme</h1>
-                                    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
                                 </div>
 
                                 <div class="row app-list-cards">
                                     @foreach ($schemes as $key => $item)
-                                        <!-- Earnings (Monthly) Card Example -->
                                         <div class="col-xl-3 col-md-6 mb-4">
                                             <a href="{{ route($item->route_name ?? '', $item->id) }}">
                                                 <div class="card border-left-primary shadow h-100 py-2"
@@ -78,9 +76,7 @@
                                                             <div class="col mr-2">
                                                                 <div
                                                                     class="text-xs text-dark fw-bold text-primary text-uppercase mb-1">
-                                                                    {{-- {{ ++$key . '. ' . $item->short_name ?? '' }}</div> --}}
                                                                     {{ $item->short_name ?? '' }}</div>
-                                                                {{-- <div class="h5 mb-0 fw-bold text-gray-800">Rs {{ $item->amount ?? '' }}</div> --}}
                                                             </div>
                                                             <div class="col-auto">
                                                                 <i class="{{ $item->logo ?? '' }} fa-2x text-gray-300"></i>
@@ -92,7 +88,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <hr>
+                                <hr> --}}
 
                                 {{-- All the Applications will be listed --}}
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -245,6 +241,9 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('public/farp1_assets/js/datagrid/datatables/datatables.export.js') }}"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -269,7 +268,6 @@
             }
         });
     </script>
-
 
     <style>
         .app-list-cards a {

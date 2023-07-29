@@ -48,6 +48,15 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
             background-size: cover;
             height: auto;
         }
+        .blink_me {
+            animation: blinker 3s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
     </style>
 
 </head>
@@ -91,7 +100,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                         </a>
                     </div>
                     <a href="{{ route('exporter.register') }}"
-                        class="btn btn-sm bg-clr-1 text-white ml-auto">Register as Exporter</a>
+                        class="btn btn-sm btn-primary text-white ml-auto blink_me">Register as Exporter</a>
                 </div>
             </nav>
 
@@ -267,9 +276,15 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 
             <div class="footer-copy d-flex justify-content-center align-items-center text-white w-100 fw-300"
                 style="font-size: 12px;background-color: black;">
+                &copy 2023 DEPM Odisha
+                {{-- &nbsp;<a href='https://oasystspl.com/' class='text-white opacity-40 fw-500'
+                    title='Oasys' target='_blank'>https://oasystspl.com/</a> --}}
+            </div>
+            {{-- <div class="footer-copy d-flex justify-content-center align-items-center text-white w-100 fw-300"
+                style="font-size: 12px;background-color: black;">
                 2023 © OASYS by&nbsp;<a href='https://oasystspl.com/' class='text-white opacity-40 fw-500'
                     title='Oasys' target='_blank'>https://oasystspl.com/</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </body>

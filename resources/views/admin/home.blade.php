@@ -12,9 +12,11 @@
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
-                        <h2>Hello, {{ Auth::user()->first_name ?? '' }} {{ Auth::user()->last_name ?? '' }}
+                    {{-- <div class="panel-hdr"> --}}
+                        {{-- <h2>Hello, {{ Auth::user()->first_name ?? '' }} {{ Auth::user()->last_name ?? '' }}
                             (<i>{{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}</i>)
+                        </h2> --}}
+                        {{-- <h2>
                         </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
@@ -23,8 +25,8 @@
                                 data-offset="0,10" data-original-title="Fullscreen"></button>
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
-                        </div>
-                    </div>
+                        </div> --}}
+                    {{-- </div> --}}
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->

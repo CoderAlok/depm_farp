@@ -1436,18 +1436,55 @@
 
                                 <div id="js_demo_accordion-3i" class="collapse show" data-parent="#js_demo_accordion-3">
                                     <div class="card-body">
+                                        <div class="col-md-12 mb-4">
+                                            <span class="m-3">
+                                                Exporter appeal remarks :
+                                                <b>{{ $applications->get_applied_details->description ?? '' }}</b>
+                                            </span>
+                                        </div>
                                         <form
                                             action="{{ route('dept-sectry.pending.applied.application.details.update', $applications->get_applied_details->id) }}"
-                                            method="post" class="form-group col-md-12">
+                                            method="post" class="form-group col-md-12" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="appl_id" value="{{ $applications->id }}">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="dept_sec_remarks">Action against appeal</label>
+                                                <textarea name="dept_sec_remarks" id="dept_sec_remarks" cols="30" rows="5" class="form-control"
+                                                    placeholder="Enter some remarks ..."></textarea>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <input type="file" name="order_file" id="order_file"
+                                                    class="form-control" />
+                                            </div>
                                             <div class="col-md-12">
                                                 <select name="confirmed" id="confirmed" class="form-control">
                                                     <option value="">--- Select an option ---</option>
-                                                    <option value="1">Approve</option>
-                                                    <option value="2">Reject</option>
+                                                    <option value="1">Considered</option>
+                                                    <option value="2">Repeled</option>
                                                 </select>
                                             </div>
+
+                                            <div class="col-md-12 mt-3 row sanction_amount_form d-none">
+                                                <div class="col-md-4 form-group">
+                                                    <label for="">Reimbursed Amount</label>
+                                                    <input type="number" name="rim_amount" id="rim_amount"
+                                                        class="form-control" placeholder="Enter the Reimbursed amount"
+                                                        value="{{ $total_expenditure }}" />
+                                                </div>
+                                                <div class="col-md-4 form-group">
+                                                    <label for="">Considered Amount</label>
+                                                    <input type="number" name="con_amount" id="con_amount"
+                                                        class="form-control" placeholder="Enter the Considered amount"
+                                                        value="" />
+                                                </div>
+                                                <div class="col-md-4 form-group">
+                                                    <label for="">Difference Amount</label>
+                                                    <input type="number" name="dif_amount" id="dif_amount"
+                                                        class="form-control" placeholder="Enter the Difference amount"
+                                                        value="" />
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-12 mt-3">
                                                 <button class="btn btn-primary" type="submit">Submit</button>
                                             </div>
@@ -1456,6 +1493,24 @@
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            $('#confirmed').on('change', (e) => {
+                                let op = $('#confirmed').val();
+                                if (op == 1) {
+                                    $('.sanction_amount_form').addClass('d-none');
+                                } else {
+                                    $('.sanction_amount_form').removeClass('d-none');
+                                }
+                                console.log(op);
+                            });
+
+                            $('#con_amount').on('blur', (e) => {
+                                let rim_amount = $('#rim_amount').val();
+                                let con_amount = $('#con_amount').val();
+                                let dif_amount = (con_amount - rim_amount);
+                                $('#dif_amount').val(dif_amount);
+                            });
+                        </script>
                         {{-- Main form for approvalof applied aplication ended  --}}
 
                         {{-- Main content end here --}}
@@ -1558,7 +1613,7 @@
         function view_file(url) {
             console.log(url);
             Swal.fire({
-                title: '<strong>Cancelled Cheque</strong>',
+                title: '<strong>Document</strong>',
                 icon: 'info',
                 html: '<embed src="' + url + '" width="100%" height="800px" />',
                 width: 1200,

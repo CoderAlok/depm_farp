@@ -490,3 +490,4 @@
                 #2a7652 100%) !important;
     }
 </style>
+@include('layouts.footer')

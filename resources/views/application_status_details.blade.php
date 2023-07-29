@@ -600,6 +600,7 @@
                                 </div>
                                 <!-- End Additional Details Row -->
                                 {{-- {{ dd($applications->toArray()) }} --}}
+asasaas
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
                                     <h4>Complaince Form</h4>
 
@@ -764,9 +765,8 @@
                                         </div>
                                     </form>
                                 @endif
-                                <!-- Complaince Form  -->
 
-                                {{-- {{ dd($applications->toArray(0)) }} --}}
+                                <!-- Complaince Form  -->
                                 <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                     <div class="card">
                                         <div class="card-header">
@@ -796,7 +796,6 @@
                                                             <div class="col-md-12">
                                                                 <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"
                                                                     class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
-                                                                {{-- Put a condition of 500 charracters using javascript --}}
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <input type="submit" value="Submit"
@@ -875,6 +874,222 @@
                                     </div>
                                 </div>
                                 <!-- End Certificate Details Row -->
+
+                                @if (in_array($applications->status, [3, 5, 7, 9]))
+                                    <h4>Complaince Form</h4>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-9">
+                                            Exporters Remarks : <span
+                                                class="text-danger font-weight-bold">{{ $applications->get_application_progress_master_details[0]->remarks ?? '' }}</span>
+                                        </div>
+                                        <div class="col-md-3 justify-content-end">
+                                            Application status : <span
+                                                class="text-danger font-weight-bold">{{ exporter_status_array($applications->status) }}</span>
+                                        </div>
+                                    </div>
+
+                                    <form
+                                        action="{{ route('exporter.application.details.complaince.submit', $applications->id) }}"
+                                        class="form-group mb-3 complaince_form_body" id="status_approval_form"
+                                        name="status_approval_form" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="row col-md-12">
+                                                <div class="form-group col-md-12">
+                                                    <textarea name="remarks" id="remarks" cols="30" rows="5" class="form-control"
+                                                        placeholder="Enter your remarks..." required>{{ $complaince[0]->exporters_remarks ?? '' }}</textarea>
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <div class="form-check">
+                                                        <input type='checkbox' class="form-check-input" value='1'
+                                                            id='chkjs' name='chkjs' />
+                                                        <label class="form-check-label h6" for="upload_file_check">
+                                                            Do you want to upload your files
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Add more section again for temporary logic starts-->
+                                                <div class="add_div_div col-md-12 d-none">
+                                                    <div class="form-group col-md-12 add_div" id="add_div0">
+                                                        <div class="row">
+                                                            <!-- form sections -->
+                                                            <div class="form-group col-md-4">
+                                                                <select name="complaince[0][section_name]" id="section_name0"
+                                                                    class="form-control">
+                                                                    <option value="">--- Select a section
+                                                                        ---
+                                                                    </option>
+                                                                    <option value="1">Exporter Details
+                                                                    </option>
+                                                                    <option value="2">Bank Details
+                                                                    </option>
+                                                                    {{-- <option value="3">Event Details</option> --}}
+                                                                    <option value="4">Travel Details
+                                                                    </option>
+                                                                    <option value="5">Stall Details
+                                                                    </option>
+                                                                    <option value="6">Additional Details
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <!-- text -->
+                                                            <div class="form-group col-md-4">
+                                                                <input type="text" name="complaince[0][file_name]"
+                                                                    id="file_name0" class="form-control"
+                                                                    placeholder="Enter the file type" value="" />
+                                                            </div>
+                                                            <!-- file -->
+                                                            <div class="form-group col-md-3">
+                                                                <input type="file" name="complaince[0][comp_doc]"
+                                                                    id="comp_doc0" class="form-control">
+                                                            </div>
+
+                                                            <!-- Button -->
+                                                            <div class="form-group col-md-1 text-right">
+                                                                <button type="button" id="add-more" name="add-more"
+                                                                    onclick="addmore()" class="btn btn-primary">+</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Add more section again for temporary logic ends-->
+
+                                                {{-- <pre>{{ print_r($complaince->toArray()) }}</pre> --}}
+                                                {{-- add  more section starts --}}
+                                                {{-- @foreach ($complaince as $key => $value)
+                                                    <input type="hidden" name="complaince[{{ $key }}][id]"
+                                                        value="{{ $value->id }}">
+                                                    <input type="hidden" name="complaince[{{ $key }}][section_type]"
+                                                        value="{{ $value->section_type }}">
+                                                    <div class="form-group col-md-12 add_div" id="add_div{{ $key }}">
+                                                        <div class="row">
+                                                            <!-- form sections -->
+                                                            <div class="form-group col-md-4">
+                                                                <select name="complaince[{{ $key }}][section_name]"
+                                                                    id="section_name{{ $key }}" class="form-control"
+                                                                    disabled>
+                                                                    <option value="">--- Select a section ---
+                                                                    </option>
+                                                                    <option value="1"
+                                                                        {{ $value->section_type == 1 ? 'selected' : '' }}>Exporter
+                                                                        Details
+                                                                    </option>
+                                                                    <option value="2"
+                                                                        {{ $value->section_type == 2 ? 'selected' : '' }}>
+                                                                        Bank Details</option>
+                                                                    <!-- <option value="3">Event Details</option> -->
+                                                                    <option value="4"
+                                                                        {{ $value->section_type == 4 ? 'selected' : '' }}>
+                                                                        Travel Details</option>
+                                                                    <option value="5"
+                                                                        {{ $value->section_type == 5 ? 'selected' : '' }}>
+                                                                        Stall Details</option>
+                                                                    <option value="6"
+                                                                        {{ $value->section_type == 6 ? 'selected' : '' }}>
+                                                                        Additional Details
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <!-- text -->
+                                                            <div class="form-group col-md-4">
+                                                                <input type="text"
+                                                                    name="complaince[{{ $key }}][file_name]"
+                                                                    id="file_name{{ $key }}" class="form-control"
+                                                                    placeholder="Enter the file type"
+                                                                    value="{{ $value->description ?? '' }}" readonly />
+                                                            </div>
+                                                            <!-- file -->
+                                                            <div class="form-group col-md-4">
+                                                                @if ($value->file_name)
+                                                                    <a href="javascript:void(0);"
+                                                                        onclick="view_file('{{ asset('public/images/exporters/applications/' . $applications->app_no . '/complaince' . $applications->id . '/' . ($value->file_name ?? '')) }}')">
+                                                                        <span class="text-warning badge bg-dark p-1">View
+                                                                            file</span>
+                                                                    </a>
+                                                                @else
+                                                                    <input type="file"
+                                                                        name="complaince[{{ $key }}][comp_doc]"
+                                                                        id="comp_doc{{ $key }}" class="form-control"
+                                                                        required>
+                                                                @endif
+                                                            </div>
+
+                                                            <!-- Button -->
+                                                            <!--<div class="form-group col-md-1 text-right">
+                                                                        <button type="button" id="add-more" name="add-more"
+                                                                            onclick="addmore()" class="btn btn-primary">+</button>
+                                                                    </div> -->
+                                                        </div>
+                                                    </div>
+                                                @endforeach --}}
+                                                {{-- Add more section ends --}}
+
+                                                {{-- {{ $complaince->isEmpty().'asa' }} --}}
+                                                {{-- @if ($complaince->isEmpty()) --}}
+                                                <div class="form-group col-md-12">
+                                                    <input type="submit" class="btn btn-primary text-uppercase"
+                                                        value="Resubmit Application">
+                                                </div>
+                                                {{-- @endif --}}
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
+
+                                <!-- Complaince Form  -->
+                                @if ($applications->appeal_facility != 0)
+                                    <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                                    data-target="#js_demo_accordion-3g" aria-expanded="true">
+                                                    <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                                    Appeal Form
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus fs-xl"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus fs-xl"></i>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3g" class="collapse show"
+                                                data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @if ($applications->appeal_facility == 1)
+                                                            <form
+                                                                action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
+                                                                method="post" name="exporter_appeal_form"
+                                                                id="exporter_appeal_form" class="form-group col-md-12">
+                                                                @csrf
+                                                                <div class="col-md-12">
+                                                                    <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"
+                                                                        class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <input type="submit" value="Submit"
+                                                                        class="btn btn-primary mt-3">
+                                                                </div>
+                                                            </form>
+                                                        @else
+                                                            <div class="col-md-12">
+                                                                <span>Appeal remarks :
+                                                                    <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                         @endswitch
                         <!-- End Condition for Travel and Stall Details Row -->
 

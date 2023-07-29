@@ -371,7 +371,7 @@
             // })
 
             Swal.fire({
-                title: '<strong>Cancelled Cheque</strong>',
+                title: '<strong>Document</strong>',
                 icon: 'info',
                 html: '<embed src="{{ asset('public/storage/images/exporters/' . ($data->get_bank_details->cheque_img ?? '')) }}" width="100%" height="800px" />',
                 width: 1200,

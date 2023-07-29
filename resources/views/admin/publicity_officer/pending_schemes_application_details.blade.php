@@ -20,15 +20,12 @@
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
+                    {{-- <div class="panel-hdr">
                         <h2>
                             Hi, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                             <b
                                 class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
                         </h2>
-
-                        {{-- <h2>Application No : <b
-                                class="text-uppercase font-size-600 ml-2">{{ $applications->app_no ?? '' }}</b></h2> --}}
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -37,7 +34,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         {{-- Main content start here --}}
@@ -803,28 +800,44 @@
                                                     <div class="row mt-5 mb-5">
                                                         @switch($applications->scheme_id)
                                                             @case(1)
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <label for="" class="text-uppercase">Total
                                                                         expenses of Exporter : </label>
                                                                     <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <label for="" class="text-uppercase">Incentive
-                                                                        amount by SO : </label>
+                                                                <div class="col-md-4">
+                                                                    <label for="" class="text-uppercase">Amount suggested for reimbursement : </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    @if (in_array($applications->status, [8, 9]))
+                                                                        <label for="" class="text-uppercase">Incentive
+                                                                            Sanctioned Amount : </label>
+                                                                        <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                    @endif
                                                                 </div>
                                                             @break
 
                                                             @case(2)
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <label for="" class="text-uppercase">Total
                                                                         cost of certification : </label>
                                                                     <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <label for="" class="text-uppercase">Amount by SO :
+                                                                <div class="col-md-4">
+                                                                    <label for="" class="text-uppercase">Amount suggested for reimbursement:
                                                                     </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    @if (in_array($applications->status, [8, 9]))
+                                                                        <label for="" class="text-uppercase">Sanctioned
+                                                                            Amount
+                                                                            :
+                                                                        </label>
+                                                                        <b
+                                                                            style="font-size: 25px">{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                    @endif
                                                                 </div>
                                                             @break
 
@@ -835,7 +848,7 @@
                                                                     <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <label for="" class="text-uppercase">Amount by SO :
+                                                                    <label for="" class="text-uppercase">Amount suggested for reimbursement:
                                                                     </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
                                                                 </div>
@@ -847,35 +860,35 @@
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Notes</th>
-                                                                <th>Putup By</th>
+                                                                <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
                                                         @elseif (isset($applications->get_application_progress_master_details[1]))
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Note</th>
-                                                                <th>Putup By</th>
+                                                                <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
                                                         @elseif (isset($applications->get_application_progress_master_details[2]))
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Note</th>
-                                                                <th>Putup By</th>
+                                                                <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
                                                         @elseif (isset($applications->get_application_progress_master_details[3]))
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Note</th>
-                                                                <th>Putup By</th>
+                                                                <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
                                                         @elseif (isset($applications->get_application_progress_master_details[4]))
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Note</th>
-                                                                <th>Putup By</th>
+                                                                <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
                                                         @else
@@ -899,7 +912,7 @@
                                                                     </td>
                                                                     <td width="10%" class="text-white"
                                                                         style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}">
-                                                                        ({{ $item->get_user_details->get_role_details->name ?? 'Exporter' }})
+                                                                        ({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})
                                                                     </td>
                                                                     <td width="20%">
                                                                         {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
@@ -1297,9 +1310,14 @@
                                                                             $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
                                                                         @endphp
                                                                         <input type="submit"
-                                                                            class="btn btn-primary text-uppercase"
+                                                                            class="btn btn-primary text-uppercase "
                                                                             value="{{ $button_array[Auth::user()->role_id] }}">
                                                                     </div>
+                                                                    <script>
+                                                                        $('#section_name0').on('change', (e) => {
+
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             @endif
                                                         @break
@@ -1455,7 +1473,7 @@
                                                                     {{-- Add more section ends --}}
                                                                     <div class="form-group col-md-12">
                                                                         @php
-                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Approved & Forward to Director, DEPM', '', 'Sanction'];
                                                                         @endphp
                                                                         <input type="submit"
                                                                             class="btn btn-primary text-uppercase"
@@ -1606,7 +1624,7 @@
         function view_file(url) {
             console.log(url);
             Swal.fire({
-                title: '<strong>Cancelled Cheque</strong>',
+                title: '<strong>Document</strong>',
                 icon: 'info',
                 html: '<embed src="' + url + '" width="100%" height="800px" />',
                 width: 1200,

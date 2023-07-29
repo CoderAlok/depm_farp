@@ -53,55 +53,53 @@
         .page-sidebar {
             @switch(Auth::user()->role_id)
                 @case(1)
-                background: linear-gradient(to top,
-                #4ad4c5 0%,
-                #3772ff 100%) !important;
-                @break
 
-                @case(2)
                 background: linear-gradient(to top,
+                    #4ad4c5 0%,
+                    #3772ff 100%) !important;
+
+            @break @case(2)
+
+            background: linear-gradient(to top,
                 #996655 0%,
                 #3772ff 100%) !important;
-                @break
 
-                @case(3)
-                background: linear-gradient(to top,
-                #996655 0%,
-                #3772ff 100%) !important;
-                @break
+        @break @case(3)
 
-                @case(4)
-                background: linear-gradient(to top,
-                #996655 0%,
-                #3772ff 100%) !important;
-                @break
+        background: linear-gradient(to top,
+            #996655 0%,
+            #3772ff 100%) !important;
 
-                @case(5)
-                background: linear-gradient(to top,
-                #996655 0%,
-                #3772ff 100%) !important;
-                @break
+    @break @case(4)
 
-                @case(7)
-                background: linear-gradient(to top,
-                #996655 0%,
-                #3772ff 100%) !important;
-                @break
+    background: linear-gradient(to top,
+        #996655 0%,
+        #3772ff 100%) !important;
 
-                @case(10)
-                background: linear-gradient(to top,
-                #996655 0%,
-                #3772ff 100%) !important;
-                @break
+@break @case(5)
 
-                @default
-                background: linear-gradient(to top,
-                #4ad4c5 0%,
-                #3772ff 100%) !important;
-                @break
-            @endswitch
-        }
-    </style>
+background: linear-gradient(to top,
+    #996655 0%,
+    #3772ff 100%) !important;
+
+@break @case(7)
+
+background: linear-gradient(to top,
+#996655 0%,
+#3772ff 100%) !important;
+
+@break @case(10)
+
+background: linear-gradient(to top,
+#996655 0%,
+#3772ff 100%) !important;
+@break @default background: linear-gradient(to top,
+#4ad4c5 0%,
+#3772ff 100%) !important;
+@break
+@endswitch
+}
+</style>
 
 
 
@@ -109,131 +107,132 @@
 </head>
 
 <body class="mod-bg-1">
-    <script>
-        /**
-         *	This script should be placed right after the body tag for fast execution
-         *	Note: the script is written in pure javascript and does not depend on thirdparty library
-         **/
-        "use strict";
+<script>
+    /**
+     *	This script should be placed right after the body tag for fast execution
+     *	Note: the script is written in pure javascript and does not depend on thirdparty library
+     **/
+    "use strict";
 
-        var classHolder = document.getElementsByTagName("BODY")[0],
-            /**
-             * Load from localstorage
-             **/
-            themeSettings = localStorage.getItem("themeSettings") ?
-            JSON.parse(localStorage.getItem("themeSettings")) : {},
-            themeURL = themeSettings.themeURL || "",
-            themeOptions = themeSettings.themeOptions || "";
+    var classHolder = document.getElementsByTagName("BODY")[0],
         /**
-         * Load theme options
+         * Load from localstorage
          **/
-        if (themeSettings.themeOptions) {
-            classHolder.className = themeSettings.themeOptions;
-            console.log("%c✔ Theme settings loaded", "color: #148f32");
-        } else {
-            console.log(
-                "Heads up! Theme settings is empty or does not exist, loading default settings..."
-            );
+        themeSettings = localStorage.getItem("themeSettings") ?
+        JSON.parse(localStorage.getItem("themeSettings")) : {},
+        themeURL = themeSettings.themeURL || "",
+        themeOptions = themeSettings.themeOptions || "";
+    /**
+     * Load theme options
+     **/
+    if (themeSettings.themeOptions) {
+        classHolder.className = themeSettings.themeOptions;
+        console.log("%c✔ Theme settings loaded", "color: #148f32");
+    } else {
+        console.log(
+            "Heads up! Theme settings is empty or does not exist, loading default settings..."
+        );
+    }
+    if (themeSettings.themeURL && !document.getElementById("mytheme")) {
+        var cssfile = document.createElement("link");
+        cssfile.id = "mytheme";
+        cssfile.rel = "stylesheet";
+        cssfile.href = themeURL;
+        document.getElementsByTagName("head")[0].appendChild(cssfile);
+    }
+    /**
+     * Save to localstorage
+     **/
+    var saveSettings = function() {
+        themeSettings.themeOptions = String(classHolder.className)
+            .split(/[^\w-]+/)
+            .filter(function(item) {
+                return /^(nav|header|mod|display)-/i.test(item);
+            })
+            .join(" ");
+        if (document.getElementById("mytheme")) {
+            themeSettings.themeURL = document
+                .getElementById("mytheme")
+                .getAttribute("href");
         }
-        if (themeSettings.themeURL && !document.getElementById("mytheme")) {
-            var cssfile = document.createElement("link");
-            cssfile.id = "mytheme";
-            cssfile.rel = "stylesheet";
-            cssfile.href = themeURL;
-            document.getElementsByTagName("head")[0].appendChild(cssfile);
-        }
-        /**
-         * Save to localstorage
-         **/
-        var saveSettings = function() {
-            themeSettings.themeOptions = String(classHolder.className)
-                .split(/[^\w-]+/)
-                .filter(function(item) {
-                    return /^(nav|header|mod|display)-/i.test(item);
-                })
-                .join(" ");
-            if (document.getElementById("mytheme")) {
-                themeSettings.themeURL = document
-                    .getElementById("mytheme")
-                    .getAttribute("href");
-            }
-            localStorage.setItem(
-                "themeSettings",
-                JSON.stringify(themeSettings)
-            );
-        };
-        /**
-         * Reset settings
-         **/
-        var resetSettings = function() {
-            localStorage.setItem("themeSettings", "");
-        };
-    </script>
+        localStorage.setItem(
+            "themeSettings",
+            JSON.stringify(themeSettings)
+        );
+    };
+    /**
+     * Reset settings
+     **/
+    var resetSettings = function() {
+        localStorage.setItem("themeSettings", "");
+    };
+</script>
 
-    <!-- BEGIN Page Wrapper -->
-    <div class="page-wrapper">
-        <div class="page-inner">
-            <!-- BEGIN Left Aside -->
-            @include('admin.layouts.sidebar')
-            <!-- END Left Aside -->
+<!-- BEGIN Page Wrapper -->
+<div class="page-wrapper">
+<div class="page-inner">
+<!-- BEGIN Left Aside -->
+@include('admin.layouts.sidebar')
+<!-- END Left Aside -->
 
-            <div class="page-content-wrapper">
-                <!-- BEGIN Page Header -->
-                <header class="page-header" role="banner">
-                    <div class="ml-auto d-flex">
-                        <!-- app user menu -->
-                        <div>
-                            <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com"
-                                class="header-icon d-flex align-items-center justify-content-center ml-2 bg-success">
-                                <i class="fa fa-user rounded-circle profile-image"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
-                                <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
-                                    <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
-                                        <span class="mr-2">
-                                            <i class="fa fa-user rounded-circle profile-image"></i>
-                                        </span>
-                                        <div class="info-card-text">
-                                            <div class="fs-lg text-truncate text-truncate-lg">
-                                                {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
-                                            </div>
-                                            <span
-                                                class="text-truncate text-truncate-md opacity-80">{{ Auth::user()->email ?? '' }}</span>
-                                            <span class="text-truncate text-truncate-md opacity-80">
-                                                <i>{{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}</i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dropdown-divider m-0"></div>
-                                <a href="{{ route('admin.profile') }}" class="dropdown-item">
-                                    <span data-i18n="drpdwn.reset_layout">Profile</span>
-                                </a>
-                                <div class="dropdown-divider m-0"></div>
-                                <a href="#" class="dropdown-item" data-action="app-fullscreen">
-                                    <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
-                                    <i class="float-right text-muted fw-n">F11</i>
-                                </a>
-                                <a href="#" class="dropdown-item" data-action="app-print">
-                                    <span data-i18n="drpdwn.print">Print</span>
-                                    <i class="float-right text-muted fw-n">Ctrl + P</i>
-                                </a>
-                                <div class="dropdown-divider m-0"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+<div class="page-content-wrapper">
+<!-- BEGIN Page Header -->
+<header class="page-header" role="banner">
+<div class="ml-auto d-flex">
+<!-- app user menu -->
+<div>
+<a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com"
+    class="header-icon d-flex align-items-center justify-content-center ml-2 bg-success">
+    {{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}
+    <i class="fa fa-user rounded-circle profile-image"></i>
+</a>
+<div class="dropdown-menu dropdown-menu-animated dropdown-lg">
+    <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
+        <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
+            <span class="mr-2">
+                <i class="fa fa-user rounded-circle profile-image"></i>
+            </span>
+            <div class="info-card-text">
+                <div class="fs-lg text-truncate text-truncate-lg">
+                    {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
+                </div>
+                <span
+                    class="text-truncate text-truncate-md opacity-80">{{ Auth::user()->email ?? '' }}</span>
+                <span class="text-truncate text-truncate-md opacity-80">
+                    <i>{{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}</i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown-divider m-0"></div>
+    <a href="{{ route('admin.profile') }}" class="dropdown-item">
+        <span data-i18n="drpdwn.reset_layout">Profile</span>
+    </a>
+    <div class="dropdown-divider m-0"></div>
+    <a href="#" class="dropdown-item" data-action="app-fullscreen">
+        <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
+        <i class="float-right text-muted fw-n">F11</i>
+    </a>
+    <a href="#" class="dropdown-item" data-action="app-print">
+        <span data-i18n="drpdwn.print">Print</span>
+        <i class="float-right text-muted fw-n">Ctrl + P</i>
+    </a>
+    <div class="dropdown-divider m-0"></div>
+    <a class="dropdown-item" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </header>
-                <!-- END Page Header -->
+        {{ __('Logout') }}
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+</div>
+</div>
+</div>
+</header>
+<!-- END Page Header -->
 
-                @yield('content')
-                <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
-                <!-- END Page Content -->
-                @include('admin.layouts.footer')
+@yield('content')
+<div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
+<!-- END Page Content -->
+@include('admin.layouts.footer')

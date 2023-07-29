@@ -63,6 +63,7 @@ Route::group(['prefix' => 'exporters', 'middleware' => 'expor-middle'], function
     Route::post('/exporter-reset-password', [TblExportersController::class, 'exporter_reset_password'])->name('exporter.reset.password');
 
     Route::group(['prefix' => 'applications'], function () {
+        Route::get('/scheme-list', [TblExportersController::class, 'scheme_list'])->name('exporter.scheme.list');
         Route::get('/list', [TblExportersController::class, 'application_list'])->name('exporter.application.list');
         Route::get('/rejected-list', [TblExportersController::class, 'rejected_application_list'])->name('exporter.rejected.application.list');
         Route::get('/appeal-list', [TblExportersController::class, 'appeal_application_list'])->name('exporter.appeal.application.list');
@@ -121,6 +122,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'scrutiny-officer'], function () {
         Route::get('/pending-exporters', [AdminController::class, 'pending_exporters'])->name('admin.publicity.officer.pending.exporters');
+        Route::get('/sanctioned-exporters', [ApplicationController::class, 'sanctioned_exporters_application'])->name('admin.publicity.officer.sanctioned.exporters');
         Route::post('/update-pending-exporters-status', [AdminController::class, 'update_pending_exporters_status'])->name('admin.publicity.officer.pending.exporters.status');
 
         Route::get('/pending-exporters-application', [ApplicationController::class, 'pending_exporters_application'])->name('admin.publicity.officer.pending.exporters.applications');

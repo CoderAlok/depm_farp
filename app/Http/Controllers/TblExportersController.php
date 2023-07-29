@@ -400,7 +400,7 @@ class TblExportersController extends Controller
      * @author AlokDas
      * @return void
      */
-    public function application_list(Request $request)
+    public function scheme_list(Request $request)
     {
         $data['page_title'] = 'Application List';
         $user               = Auth::guard('exporter')->user();
@@ -408,6 +408,35 @@ class TblExportersController extends Controller
         $data['schemes']    = Schemes::get();
 
         $applications = Applications::where('exporter_id', $user->id)->with([
+            'get_exporter_details',
+            'get_scheme_details',
+            'get_event_details',
+            'get_travel_details',
+            'get_stall_details.get_event_details',
+            'get_file_details',
+            'get_address_details',
+            'get_other_code_details',
+            'get_bank_details',
+            'get_application_status_details',
+        ])->latest()->get();
+        $data['applications'] = $applications;
+        // dd($data);
+        return view('scheme-list')->with($data);
+    }
+    /**
+     * Method annexure1
+     * @param Request $request [explicite description]
+     * @author AlokDas
+     * @return void
+     */
+    public function application_list(Request $request)
+    {
+        $data['page_title'] = 'Application List';
+        $user               = Auth::guard('exporter')->user();
+        $data['data']       = $user;
+        $data['schemes']    = Schemes::get();
+
+        $applications = Applications::where('exporter_id', $user->id)->whereIn('status', [1, 2, 4, 6, 8])->with([
             'get_exporter_details',
             'get_scheme_details',
             'get_event_details',
@@ -478,7 +507,7 @@ class TblExportersController extends Controller
             'get_other_code_details',
             'get_bank_details',
             'get_application_status_details',
-            'get_applied_details'
+            'get_applied_details',
         ])->latest()->get();
         $data['applications'] = $applications;
         // dd($data);
