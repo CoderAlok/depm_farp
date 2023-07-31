@@ -7,13 +7,15 @@
         }
     </style>
     <main id="js-page-content" role="main" class="page-content">
-        {{-- <div class="subheader">
+        <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Registered exporters
+                <i class="subheader-icon fal fa-"></i> Registered Exporters List
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
-            <div class="subheader-block">All the pending exporters for approval process.</div>
-        </div> --}}
+            <div class="subheader-block">
+                {{-- All the pending exporters for approval process. --}}
+            </div>
+        </div>
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">

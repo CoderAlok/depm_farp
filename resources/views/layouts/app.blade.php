@@ -49,6 +49,12 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.js">
     </script>
 
+    <style>
+        .bg-primary-300 {
+            height: 140px !important;
+        }
+    </style>
+
 </head>
 
 <body class="mod-bg-1">
@@ -123,6 +129,7 @@
             <div class="page-content-wrapper">
                 <!-- BEGIN Page Header -->
                 <header class="page-header" role="banner">
+                    <span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span> 
                     <div class="ml-auto d-flex">
                         <!-- app user menu -->
                         <div>
@@ -391,8 +398,8 @@
 </script>
 
 {{-- session check start --}}
-{{ Session()->get('sess_data')['status'] ?? '-' }}
-{{ Session()->get('sess_data')['message'] ?? '-' }}
+{{ Session()->get('sess_data')['status'] ?? ' ' }}
+{{ Session()->get('sess_data')['message'] ?? ' ' }}
 {{-- session check end --}}
 
 @switch(Session()->get('sess_data')['status'] ?? 0)

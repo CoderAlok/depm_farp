@@ -99,6 +99,7 @@ background: linear-gradient(to top,
 @break
 @endswitch
 }
+
 </style>
 
 
@@ -178,6 +179,7 @@ background: linear-gradient(to top,
 <div class="page-content-wrapper">
 <!-- BEGIN Page Header -->
 <header class="page-header" role="banner">
+    <span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span> 
 <div class="ml-auto d-flex">
 <!-- app user menu -->
 <div>

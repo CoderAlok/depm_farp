@@ -366,7 +366,8 @@ class TblExportersController extends Controller
                         $data['page_title'] = 'Exporter | Home';
 
                         // if ($exporterData->track_status == 1) {
-                        return redirect()->route('exporter.home');
+                        // return redirect()->route('exporter.home');
+                        return redirect()->route('exporter.scheme.list');
                         // } else {
                         //     return redirect()->route('exporter.reset.password.view');
                         // }

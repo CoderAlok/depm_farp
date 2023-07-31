@@ -600,7 +600,7 @@
                                 </div>
                                 <!-- End Additional Details Row -->
                                 {{-- {{ dd($applications->toArray()) }} --}}
-asasaas
+
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
                                     <h4>Complaince Form</h4>
 
@@ -765,8 +765,8 @@ asasaas
                                         </div>
                                     </form>
                                 @endif
-
                                 <!-- Complaince Form  -->
+
                                 <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                     <div class="card">
                                         <div class="card-header">
@@ -875,6 +875,7 @@ asasaas
                                 </div>
                                 <!-- End Certificate Details Row -->
 
+                                <!-- Complaince Form started -->
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
                                     <h4>Complaince Form</h4>
 
@@ -1039,8 +1040,9 @@ asasaas
                                         </div>
                                     </form>
                                 @endif
+                                <!-- Complaince Form ended -->
 
-                                <!-- Complaince Form  -->
+                                <!-- Appeal Form ended -->
                                 @if ($applications->appeal_facility != 0)
                                     <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                         <div class="card">
@@ -1063,6 +1065,10 @@ asasaas
                                                 data-parent="#js_demo_accordion-3">
                                                 <div class="card-body">
                                                     <div class="row">
+                                                        <div class="col-md-12 m-3">
+                                                            <span>Sanctioned amount :
+                                                                <b>{{ '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) ?? '' }}</b></span>
+                                                        </div>
                                                         @if ($applications->appeal_facility == 1)
                                                             <form
                                                                 action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
@@ -1090,6 +1096,7 @@ asasaas
                                         </div>
                                     </div>
                                 @endif
+                                <!-- Appeal Form ended -->
                         @endswitch
                         <!-- End Condition for Travel and Stall Details Row -->
 

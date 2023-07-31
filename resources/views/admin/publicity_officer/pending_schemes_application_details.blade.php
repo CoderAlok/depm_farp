@@ -806,7 +806,8 @@
                                                                     <b>{{ '₹ ' . IND_money_format($total_expenditure) ?? '' }}</b>
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <label for="" class="text-uppercase">Amount suggested for reimbursement : </label>
+                                                                    <label for="" class="text-uppercase">Amount suggested
+                                                                        for reimbursement : </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
                                                                 </div>
                                                                 <div class="col-md-4">
@@ -825,7 +826,8 @@
                                                                     <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <label for="" class="text-uppercase">Amount suggested for reimbursement:
+                                                                    <label for="" class="text-uppercase">Amount suggested
+                                                                        for reimbursement:
                                                                     </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
                                                                 </div>
@@ -848,7 +850,8 @@
                                                                     <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <label for="" class="text-uppercase">Amount suggested for reimbursement:
+                                                                    <label for="" class="text-uppercase">Amount suggested
+                                                                        for reimbursement:
                                                                     </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
                                                                 </div>
@@ -856,7 +859,7 @@
 
                                                     </div>
                                                     <table class="table table-responsive table-bordered" width="100%">
-                                                        @if (isset($applications->get_application_progress_master_details[0]))
+                                                        {{-- @if (isset($applications->get_application_progress_master_details[0]))
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Notes</th>
@@ -891,28 +894,33 @@
                                                                 <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
-                                                        @else
-                                                            {{-- blank  --}}
-                                                        @endif
+                                                        @else 
+                                                        @endif --}}
+                                                        <thead>
+                                                            <th>SlNo</th>
+                                                            <th>Notes</th>
+                                                            <th>Put Up By</th>
+                                                            <th>Date</th>
+                                                        </thead>
 
                                                         {{-- Way 1 Start --}}
-
                                                         <body>
                                                             {{-- <pre>{{ print_r($applications->get_application_progress_master_details->toArray()) }}</pre> --}}
                                                             @php
                                                                 $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
                                                             @endphp
                                                             @foreach ($applications->get_application_progress_master_details as $key => $item)
-                                                                <tr>
+                                                                <tr class="bg-{{ $item->get_user_details->role_id == 1 ? 'dark': '' }}">
                                                                     <td width="5%">
                                                                         {{ ++$key }}
                                                                     </td>
                                                                     <td width="65%">
                                                                         {{ $item->remarks ?? '' }}
                                                                     </td>
-                                                                    <td width="10%" class="text-white"
-                                                                        style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}">
-                                                                        ({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})
+                                                                    <td width="10%" class="">
+                                                                        {{-- class="text-white" style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}"> --}}
+                                                                        {{-- ({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }}) --}}
+                                                                        <b>({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})</b>
                                                                     </td>
                                                                     <td width="20%">
                                                                         {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
@@ -1310,12 +1318,18 @@
                                                                             $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
                                                                         @endphp
                                                                         <input type="submit"
-                                                                            class="btn btn-primary text-uppercase "
+                                                                            class="btn btn-primary text-uppercase btn-name"
                                                                             value="{{ $button_array[Auth::user()->role_id] }}">
                                                                     </div>
                                                                     <script>
-                                                                        $('#section_name0').on('change', (e) => {
+                                                                        $('#status').on('change', (e) => {
+                                                                            let op = $('#status').val();
 
+                                                                            if (op == 5) {
+                                                                                $('.btn-name').val('Query to exporter');
+                                                                            } else {
+                                                                                $('.btn-name').val('Forward to Addl Special Secretary');
+                                                                            }
                                                                         });
                                                                     </script>
                                                                 </div>
@@ -1396,9 +1410,20 @@
                                                                             $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Forward to Director, DEPM', '', 'Sanction'];
                                                                         @endphp
                                                                         <input type="submit"
-                                                                            class="btn btn-primary text-uppercase"
+                                                                            class="btn btn-primary text-uppercase btn-name"
                                                                             value="{{ $button_array[Auth::user()->role_id] }}">
                                                                     </div>
+                                                                    <script>
+                                                                        $('#status').on('change', (e) => {
+                                                                            let op = $('#status').val();
+
+                                                                            if (op == 7) {
+                                                                                $('.btn-name').val('Query to exporter');
+                                                                            } else {
+                                                                                $('.btn-name').val('Forward to Department Secretary');
+                                                                            }
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             @endif
                                                         @break
@@ -1414,6 +1439,8 @@
                                                                             <option value="8">Approve
                                                                             </option>
                                                                             <option value="9">Query
+                                                                            </option>
+                                                                            <option value="10">Reject application
                                                                             </option>
                                                                         </select>
                                                                     </div>
@@ -1473,12 +1500,25 @@
                                                                     {{-- Add more section ends --}}
                                                                     <div class="form-group col-md-12">
                                                                         @php
-                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Approved & Forward to Director, DEPM', '', 'Sanction'];
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Approve & Forward to Director, DEPM', '', 'Sanction'];
                                                                         @endphp
                                                                         <input type="submit"
-                                                                            class="btn btn-primary text-uppercase"
+                                                                            class="btn btn-primary text-uppercase btn-name"
                                                                             value="{{ $button_array[Auth::user()->role_id] }}">
                                                                     </div>
+                                                                    <script>
+                                                                        $('#status').on('change', (e) => {
+                                                                            let op = $('#status').val();
+
+                                                                            if (op == 9) {
+                                                                                $('.btn-name').val('Query to exporter');
+                                                                            } else if (op == 10) {
+                                                                                $('.btn-name').val('Reject application');
+                                                                            } else {
+                                                                                $('.btn-name').val('Approve & Forward to Director, DEPM');
+                                                                            }
+                                                                        });
+                                                                    </script>
                                                                 </div>
                                                             @endif
                                                         @break

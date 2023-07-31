@@ -9,10 +9,12 @@
     <main id="js-page-content" role="main" class="page-content">
         <div class="subheader">
             <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Senction applications
+                <i class="subheader-icon fal fa-"></i> Senctioned Application List
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
-            <div class="subheader-block d-none">All the pending applications for approval process.</div>
+            <div class="subheader-block d-none">
+                {{-- All the pending applications for approval process. --}}
+            </div>
         </div>
         <div class="row">
             <div class="col-xl-12">

@@ -1413,7 +1413,7 @@
                         {{-- Main form for approval Ended  --}}
 
                         {{-- Main form for approval of applied aplication started  --}}
-                        <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                        {{-- <div class="accordion accordion-outline" id="js_demo_accordion-3">
                             <div class="card">
                                 <div class="card-header">
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
@@ -1441,7 +1441,6 @@
                                                 <select name="confirmed" id="confirmed" class="form-control">
                                                     <option value="">--- Select an option ---</option>
                                                     <option value="8">Approve - senction fund with DDO</option>
-                                                    {{-- <option value="2">Reject</option> --}}
                                                 </select>
                                             </div>
 
@@ -1452,7 +1451,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         {{-- Main form for approvalof applied aplication ended  --}}
 
                         {{-- Main content end here --}}

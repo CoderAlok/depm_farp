@@ -1422,7 +1422,7 @@
                                     <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
                                         data-target="#js_demo_accordion-3i" aria-expanded="true">
                                         <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                        Applied Application Approval
+                                        Appealed Application Approval
                                         <span class="ml-auto">
                                             <span class="collapsed-reveal">
                                                 <i class="fal fa-minus fs-xl"></i>
@@ -1481,7 +1481,7 @@
                                                     <label for="">Difference Amount</label>
                                                     <input type="number" name="dif_amount" id="dif_amount"
                                                         class="form-control" placeholder="Enter the Difference amount"
-                                                        value="" />
+                                                        value="" readonly />
                                                 </div>
                                             </div>
 
@@ -1496,10 +1496,12 @@
                         <script>
                             $('#confirmed').on('change', (e) => {
                                 let op = $('#confirmed').val();
-                                if (op == 1) {
+                                if (op == 2) {
                                     $('.sanction_amount_form').addClass('d-none');
-                                } else {
+                                } else if (op == 1) {
                                     $('.sanction_amount_form').removeClass('d-none');
+                                } else {
+                                    $('.sanction_amount_form').addClass('d-none');
                                 }
                                 console.log(op);
                             });

@@ -60,15 +60,14 @@
                         <div class="col p-4">
                             <div class="w-100">
 
-                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h3 mb-0 text-gray-800">Please choose a scheme</h1>
+                                {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 class="h3 mb-0 text-gray-800">Please choose an application type</h1> --}}
                                     {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
-                                </div>
-
+                                {{-- </div> --}}
+{{-- 
                                 <div class="row app-list-cards">
                                     @foreach ($schemes as $key => $item)
-                                        <!-- Earnings (Monthly) Card Example -->
                                         <div class="col-xl-3 col-md-6 mb-4">
                                             <a href="{{ route($item->route_name ?? '', $item->id) }}">
                                                 <div class="card border-left-primary shadow h-100 py-2"
@@ -78,9 +77,7 @@
                                                             <div class="col mr-2">
                                                                 <div
                                                                     class="text-xs text-dark fw-bold text-primary text-uppercase mb-1">
-                                                                    {{-- {{ ++$key . '. ' . $item->short_name ?? '' }}</div> --}}
                                                                     {{ $item->short_name ?? '' }}</div>
-                                                                {{-- <div class="h5 mb-0 fw-bold text-gray-800">Rs {{ $item->amount ?? '' }}</div> --}}
                                                             </div>
                                                             <div class="col-auto">
                                                                 <i class="{{ $item->logo ?? '' }} fa-2x text-gray-300"></i>
@@ -92,11 +89,11 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <hr>
+                                <hr> --}}
 
                                 {{-- All the Applications will be listed --}}
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <h1 class="h3 mb-0 text-gray-800">Application List</h1>
+                                    <h1 class="h3 mb-0 text-gray-800">Select your application for appeal</h1>
                                 </div>
 
                                 {{-- {{ dd($applications->toArray()) }} --}}

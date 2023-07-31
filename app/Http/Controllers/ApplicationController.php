@@ -1332,7 +1332,23 @@ class ApplicationController extends Controller
             // $occurence_counter = $complaince->where('appl_id', $id)->first()->occurence;
             // $occurence_counter = $occurence_counter + 1;
 
-            $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
+            // Appeal facility given towards Approval and Rejection
+            switch ($request->status) {
+                case 8:
+                    # code...
+                    $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
+                    break;
+
+                case 9:
+                    $update_status = 1;
+                    break;
+
+                default:
+                    # code...
+                    $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
+                    break;
+            }
+
             if ($update_status) {
 
                 if ($request->status == 9) {
@@ -1606,8 +1622,9 @@ class ApplicationController extends Controller
             'get_applied_details',
         ])->first(); //->toArray();
         $data['applications']      = $applications; //->toArray();
-        $data['total_expenditure'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
-        $data['incentive_amount']  = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['total_expenditure'] = $applications->get_application_progress_master_details[0]->incentive_amount ?? 0;
+        // $data['total_expenditure'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
         // $data['considered_amount'] = ($applications->get_application_progress_master_details[0]->incentive_amount ?? 0);
         $data['pending'] = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);
@@ -1622,20 +1639,44 @@ class ApplicationController extends Controller
      */
     public function pending_exporters_applied_application_for_dept_sect_details_update(Request $request, $id = null)
     {
-        dd([$request->all(), $id]);
+        // dd([$request->all(), $id]);
 
-        $dif_amount       = $request->dif_amount;
+        $user             = Auth::user();
+        $con_amount       = $request->con_amount ?? 0;
+        $dif_amount       = $request->dif_amount ?? 0;
         $order_file       = $request->order_file;
-        $dept_sec_remarks = $request->dept_sec_remarks;
+        $dept_sec_remarks = $request->dept_sec_remarks ?? '';
+        $application_no   = Applications::where('id', $request->appl_id)->first()->app_no;
 
         try {
             $appliedApplication = new AppliedApplication();
             $confirmed          = $request->confirmed;
             if ($confirmed != null) {
-                $status = $appliedApplication->where('id', $id)->update(['confirmed' => $confirmed]);
+
+                // Upload the file
+                if ($request->order_file) {
+                    $order_image     = $request->order_file;
+                    $order_file_name = 'ORDER' . substr(sha1($order_image . uniqid('', true)), 20, 5) . date('my') . $order_image->getClientOriginalName();
+                    $order_image->storeAs('public/images/exporters/applications/' . $application_no . '/' . 'appealed/', $order_file_name);
+                    $status = $appliedApplication->where('id', $id)->update(['order_file_name' => $order_file_name]);
+                }
+
+                // Insert amount in application progress master
+                $insert_app_prog_mst_data = [
+                    'appl_id'          => $request->appl_id,
+                    'total_expense'    => $request->rim_amount,
+                    'incentive_amount' => $con_amount,
+                    'remarks'          => $dept_sec_remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                ApplicationProgressMaster::insert($insert_app_prog_mst_data);
+
+                $status = $appliedApplication->where('id', $id)->update(['appealed_amount' => $con_amount, 'confirmed' => $confirmed]);
 
                 if ($confirmed == 1) {
-                    Applications::where('id', $request->appl_id)->update(['appeal_facility' => 3]);
+                    Applications::where('id', $request->appl_id)->update(['appeal_facility' => 3, 'status' => 8]);
                 } else {
                     Applications::where('id', $request->appl_id)->update(['appeal_facility' => 4]);
                 }

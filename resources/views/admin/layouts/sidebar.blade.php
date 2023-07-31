@@ -2,9 +2,10 @@
     <div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative"
             data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp" aria-roledescription="logo"
-                style="width:10%" />
-            <span class="page-logo-text mr-1">EIRP</span>
+            <img src="{{ asset('public/img/DEPM.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo"
+                style="width:80%" />
+            <span class="page-logo-text mr-1"></span>
+            {{-- <span class="page-logo-text mr-1">EIRP</span> --}}
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
@@ -78,7 +79,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
                         </a>
                     </li>
                     <li
@@ -119,17 +120,17 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
                         </a>
                     </li>
-                    <li
+                    {{-- <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li
                         class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters.applications' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
@@ -174,17 +175,17 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
                         </a>
                     </li>
-                    <li
+                    {{-- <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li
                         class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters.applications' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
@@ -222,17 +223,17 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
                         </a>
                     </li>
-                    <li
+                    {{-- <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li
                         class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters.applications' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"
@@ -248,7 +249,7 @@
                         <a href="{{ route('dept-sectry.pending.applied.application') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending applied list</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending appealed list</span>
                             {{-- <b>{{ get_pending_applied_list_count_for_admin }}</b> --}}
                         </a>
                     </li>
@@ -274,21 +275,22 @@
                             <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                         </a>
                     </li>
-                    {{-- <li>
+                    <li
+                        class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
                         </a>
-                    </li> --}}
-                    <li
+                    </li>
+                    {{-- <li
                         class="d-none {{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
                             <span class="nav-link-text" data-i18n="nav.application_intel">Pending exporters</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li
                         class="{{ Route::currentRouteName() === 'admin.publicity.officer.pending.exporters.applications' ? 'active' : '' }}">
                         <a href="{{ route('admin.publicity.officer.pending.exporters.applications') }}"

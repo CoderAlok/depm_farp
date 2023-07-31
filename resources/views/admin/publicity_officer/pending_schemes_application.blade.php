@@ -10,10 +10,12 @@
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class="subheader-icon fal fa-"></i>
-                {{ $ddo_array_flag == 7 ? 'Sanctioned Application' : 'Pending applications' }}
+                {{ $ddo_array_flag == 7 ? 'Sanctioned Application' : 'Received Applications List' }}
                 <sup class="badge badge-primary fw-500">*</sup>
             </h1>
-            <div class="subheader-block d-none">All the pending applications for approval process.</div>
+            <div class="subheader-block d-none">
+                {{-- All the pending applications for approval process. --}}
+            </div>
         </div>
         <div class="row">
             <div class="col-xl-12">

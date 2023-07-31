@@ -2,9 +2,10 @@
     <div class="page-logo">
         <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative"
             data-toggle="modal" data-target="#modal-shortcut">
-            <img src="{{ asset('public/img/logo.jpg') }}" alt="SmartAdmin WebApp" aria-roledescription="logo"
-                style="width:10%" />
-            <span class="page-logo-text mr-1">FARP</span>
+            <img src="{{ asset('public/img/DEPM.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo"
+                style="width:80%" />
+            <span class="page-logo-text mr-1"></span>
+            {{-- <span class="page-logo-text mr-1">FARP</span> --}}
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
             <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
         </a>
@@ -26,12 +27,12 @@
         {{-- @switch($data->track_status)
             @case(1) --}}
         <ul id="js-nav-menu" class="nav-menu">
-            <li class="{{ Route::currentRouteName() === 'exporter.home' ? 'active' : '' }}">
+            {{-- <li class="{{ Route::currentRouteName() === 'exporter.home' ? 'active' : '' }}">
                 <a href="{{ route('exporter.home') }}" title="Application Intel" data-filter-tags="application intel">
                     <i class="fal fa-info-circle text-white"></i>
                     <span class="nav-link-text" data-i18n="nav.application_intel">Dashboard</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="{{ Route::currentRouteName() === 'exporter.scheme.list' ? 'active' : '' }}">
                 <a href="{{ route('exporter.scheme.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">
