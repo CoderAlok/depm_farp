@@ -910,7 +910,7 @@
                                                                 $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
                                                             @endphp
                                                             @foreach ($applications->get_application_progress_master_details as $key => $item)
-                                                                <tr class="bg-{{ $item->get_user_details->role_id == 1 ? 'dark': '' }}">
+                                                                <tr class="bg-{{ $item->get_user_details->role_id == 1 ? 'secondary': '' }}" style="">
                                                                     <td width="5%">
                                                                         {{ ++$key }}
                                                                     </td>
