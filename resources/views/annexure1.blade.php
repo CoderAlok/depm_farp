@@ -156,7 +156,7 @@
                                                                 class="fa fa-info-circle"></i></span>
                                                     </h6>
                                                     <input class="form-control form-control-sm" type="file"
-                                                        id="file_iec" name="file_iec" value="{{ old('file_iec') }}"/>
+                                                        id="file_iec" name="file_iec" value="{{ old('file_iec') }}" />
                                                     @if ($errors->has('file_iec'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('file_iec') }}.</strong>
@@ -491,6 +491,17 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4 mb-1">
+                                                    <label class="form-label h6">(c). Travelled from <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" name="travelled_from" id="travelled_from"
+                                                        class="form-control" value="{{ old('travelled_from') }}" />
+                                                    @if ($errors->has('travelled_from'))
+                                                        <span class="invalid feedback text-danger"role="alert">
+                                                            <strong>{{ $errors->first('travelled_from') }}.</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-4 mb-1">
                                                     <label class="form-label h6">(d). Designation <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="traveller_designation"
@@ -525,8 +536,7 @@
                                                     <label class="form-label h6">(f). Class of Travel <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="class_of_tarvel" id="class_of_tarvel"
-                                                        class="form-control" value="{{ old('class_of_tarvel') }}"
-                                                        readonly>
+                                                        class="form-control" value="{{ old('class_of_tarvel') }}">
                                                     @if ($errors->has('class_of_tarvel'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('class_of_tarvel') }}.</strong>
@@ -773,13 +783,15 @@
                                         <input class="form-check-input" type="checkbox" value="1" name="terms"
                                             id="terms">
                                         <label class="form-check-label h6" for="terms">
-                                            I solemnly declare that all the details given above are accurate,
+                                            I hereby certify that all the information mentioned here is true, and I take
+                                            full responsibility for its accuracy and authenticity.
+                                            {{-- I solemnly declare that all the details given above are accurate,
                                             and I bear
                                             the responsibility for any variation from them in the future. I hereby confirm
                                             and
                                             verify that all the information mentioned here, and I take full responsibility
                                             for its
-                                            accuracy and authenticity.
+                                            accuracy and authenticity. --}}
                                         </label>
                                     </div>
                                 </div>
@@ -830,10 +842,10 @@
             $('#mode_of_travel').on('change', (e) => {
                 let mode = $('select#mode_of_travel option:selected').val();
                 if (mode == 1) {
-                    $('#class_of_tarvel').val('Economy class');
+                    // $('#class_of_tarvel').val('Economy class');
                     $('.boarding_pass_div').removeClass('d-none');
                 } else {
-                    $('#class_of_tarvel').val('2nd AC');
+                    // $('#class_of_tarvel').val('2nd AC');
                     $('.boarding_pass_div').addClass('d-none');
                 }
             })
