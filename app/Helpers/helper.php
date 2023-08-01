@@ -533,3 +533,17 @@ function get_sanctioned_applied_list_count_for_admin($role_id)
     // dd([$r[$role_id], $pending_count]);
     return $pending_count;
 }
+
+function common_file_upload($file, $file_path_array)
+{
+    // return [$file, $file_path_array];
+
+    try {
+        $image     = $file;
+        $file_name = $file_path_array['file_name'] . substr(sha1($image . uniqid('', true)), 20, 5) . date('my') . $image->getClientOriginalName();
+        $image->storeAs('public/images/exporters/applications/' . $file_path_array['appl_id'] . '/' . $file_path_array['folder_name'] . '/', $file_name);
+        return $file_name;
+    } catch (\Exception $e) {
+        return response($e->getMessage(), 500);
+    }
+}
