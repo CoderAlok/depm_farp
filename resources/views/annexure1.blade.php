@@ -871,8 +871,7 @@
 
             cols +=
                 '<div class="form-group col-md-12 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
-                counter +
-                ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
+                counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
 
             cols += `<div class="row col-md-12 travel_details_div">
                         <div class="col-md-4 mb-1">
@@ -938,7 +937,7 @@
         }
 
         function removeAdd(key) {
-            $("#add_div" + key).remove();
+            $("#add_div_" + key).remove();
         }
     </script>
 
