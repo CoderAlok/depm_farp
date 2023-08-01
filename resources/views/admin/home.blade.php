@@ -102,7 +102,7 @@ font-weight: 500 !important;color:white !important;
                                                         {{-- 30 --}}
                                                         {{ rand(10, 100) }}
                                                         <small
-                                                            class="m-0 l-h-n text-dark">{{ $item->short_name ?? '' }}</small>
+                                                            class="m-0 l-h-n text-white">{{ $item->short_name ?? '' }}</small>
                                                     </h3>
                                                 </div>
                                                 <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"

@@ -146,7 +146,7 @@
                         <a href="{{ route('dir-depm.pending.applied.application') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Approved applied applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Appealed Applications</span>
                         </a>
                     </li>
                     <li

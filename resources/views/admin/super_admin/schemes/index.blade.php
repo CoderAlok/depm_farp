@@ -418,7 +418,8 @@
                                         <th>ID</th>
                                         <th>Short name</th>
                                         <th>Long name</th>
-                                        <th>Logo</th>
+                                        {{-- <th>Logo</th> --}}
+                                        <th>Color</th>
                                         <th>Amount</th>
                                         <th>Action</th>
                                     </thead>
@@ -429,7 +430,7 @@
                                                     <td>{{ ++$key }}</td>
                                                     <td>{{ $value->short_name ?? '' }}</td>
                                                     <td>{{ $value->long_name ?? '' }}</td>
-                                                    <td>{{ $value->logo ?? '' }}</td>
+                                                    {{-- <td> <i class="{!! $value->logo ?? '' !!}"></i>  {{ $value->logo ?? '' }} <i class="fa fa-trash"></i></td> --}}
                                                     <td style="background: {{ $value->color ?? '' }}">
                                                         {{ $value->color ?? '' }}</td>
                                                     <td>{{ $value->amount ?? '' }}</td>

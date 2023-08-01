@@ -261,7 +261,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
                                                 {{-- </div> --}}
                                                 <div class="col-lg-12 pl-lg-1 my-2">
                                                     <button id="js-login-btn" type="submit"
-                                                        class="btn btn-success btn-block btn-sm">Login in</button>
+                                                        class="btn btn-success btn-block btn-sm">{{ __('Click to Login') }}</button>
                                                 </div>
                                             </div>
                                         </form>
