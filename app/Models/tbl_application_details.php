@@ -46,7 +46,7 @@ class tbl_application_details extends Model
 
     public function get_travel_details()
     {
-        return $this->hasOne(ApplicationTravels::class, 'appl_id', 'id');
+        return $this->hasMany(ApplicationTravels::class, 'appl_id', 'id');
     }
 
     public function get_stall_details()
