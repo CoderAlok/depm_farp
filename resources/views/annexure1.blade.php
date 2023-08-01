@@ -30,10 +30,10 @@
                 <div id="panel-1" class="panel">
                     {{-- <div class="panel-hdr">
                         <h2> --}}
-                            {{-- Scheme :
+                    {{-- Scheme :
                             {{ strlen($scheme->long_name) > 200 ? substr($scheme->long_name, 0, 200) . '...' : $scheme->long_name }} --}}
-                        {{-- </h2> --}}
-                        {{-- <div class="panel-toolbar">
+                    {{-- </h2> --}}
+                    {{-- <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
                             <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
@@ -138,8 +138,7 @@
                                                     </h6>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Enter Proprietor/Director/CEO" name="dir_ceo"
-                                                        id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}"
-                                                        readonly />
+                                                        id="dir_ceo" value="{{ $data->chief_ex_name ?? '' }}" readonly />
                                                     @if ($errors->has('dir_ceo'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('dir_ceo') }}.</strong>
@@ -457,7 +456,7 @@
                                                         <div class="form-group col-md-12 text-right">
                                                             <button type="button" id="add-more" name="add-more"
                                                                 onclick="addmore()" class="btn btn-primary">+</button>
-
+                                                            <input type="hidden" id="travel_det_0" value="0">
                                                         </div>
 
                                                         <!-- form sections -->
@@ -467,8 +466,10 @@
                                                                 <label class="form-label h6">(a). Travel Destination Type
                                                                     <span class="text-danger">*</span></label>
                                                                 <br />
-                                                                <select name="travel_destination_type[0]"
-                                                                    id="travel_destination_type0" class="travl_desti form-control">
+                                                                <select name="travel_destination_type[]"
+                                                                    id="travel_destination_type_0"
+                                                                    class="travel_destination_type form-control"
+                                                                    onchange="change_destination_type(0)">
                                                                     <option value="">Select travel destination type
                                                                     </option>
                                                                     <option value="1"
@@ -485,11 +486,12 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <div class="col-md-4 mb-1 d-none upload_visa_div">
+                                                            <div class="col-md-4 mb-1 d-none upload_visa_div" id="upload_visa_div_0">
                                                                 <label class="form-label h6">(b). Upload Visa Invitation
                                                                     Letter <span class="text-danger">*</span></label>
-                                                                <input type="file" name="file_visa_invitation_letter[0]"
-                                                                    id="file_visa_invitation_letter0" class="form-control">
+                                                                <input type="file" name="file_visa_invitation_letter[]"
+                                                                    id="file_visa_invitation_letter_0"
+                                                                    class="form-control">
                                                                 @if ($errors->has('visa_invitation_letter'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
@@ -500,8 +502,8 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(c). Name of the Traveller
                                                                     <span class="text-danger">*</span></label>
-                                                                <input type="text" name="traveller_name[0]"
-                                                                    id="traveller_name0" class="form-control"
+                                                                <input type="text" name="traveller_name[]"
+                                                                    id="traveller_name_0" class="form-control"
                                                                     value="{{ old('traveller_name') }}" />
                                                                 @if ($errors->has('traveller_name'))
                                                                     <span
@@ -513,8 +515,8 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(d). Travelled from <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="travelled_from[0]"
-                                                                    id="travelled_from0" class="form-control"
+                                                                <input type="text" name="travelled_from[]"
+                                                                    id="travelled_from_0" class="form-control"
                                                                     value="{{ old('travelled_from') }}" />
                                                                 @if ($errors->has('travelled_from'))
                                                                     <span
@@ -526,8 +528,8 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(e). Designation <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="traveller_designation[0]"
-                                                                    id="traveller_designation0" class="form-control"
+                                                                <input type="text" name="traveller_designation[]"
+                                                                    id="traveller_designation_0" class="form-control"
                                                                     value="{{ old('traveller_designation') }}">
                                                                 @if ($errors->has('traveller_designation'))
                                                                     <span
@@ -539,8 +541,8 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(f). Mode of Travel <span
                                                                         class="text-danger">*</span></label>
-                                                                <select name="mode_of_travel[0]" id="mode_of_travel0"
-                                                                    class="form-control">
+                                                                <select name="mode_of_travel[]" id="mode_of_travel_0"
+                                                                    class="form-control" onchange="change_mode_of_travel(0)">
                                                                     <option value="">Choose a mode</option>
                                                                     <option value="1"
                                                                         {{ old('mode_of_travel') == 1 ? 'selected' : '' }}>
@@ -559,8 +561,8 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(g). Class of Travel <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="class_of_tarvel[0]"
-                                                                    id="class_of_tarvel0" class="form-control"
+                                                                <input type="text" name="class_of_tarvel[]"
+                                                                    id="class_of_tarvel_0" class="form-control"
                                                                     value="{{ old('class_of_tarvel') }}">
                                                                 @if ($errors->has('class_of_tarvel'))
                                                                     <span
@@ -572,8 +574,8 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(h). Upload ticket <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="file" name="file_ticket[0]" id="file_ticket0"
-                                                                    class="form-control">
+                                                                <input type="file" name="file_ticket[]"
+                                                                    id="file_ticket_0" class="form-control">
                                                                 @if ($errors->has('file_ticket'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
@@ -581,11 +583,11 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <div class="col-md-4 mb-1 boarding_pass_div d-none">
+                                                            <div class="col-md-4 mb-1 boarding_pass_div d-none" id="boarding_pass_div_0">
                                                                 <label class="form-label h6">(i). Upload Boarding Pass
                                                                     <span class="text-danger">*</span></label>
-                                                                <input type="file" name="file_boarding_pass[0]"
-                                                                    id="file_boarding_pass0" class="form-control">
+                                                                <input type="file" name="file_boarding_pass[]"
+                                                                    id="file_boarding_pass_0" class="form-control">
                                                                 @if ($errors->has('file_boarding_pass'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
@@ -599,8 +601,8 @@
                                                                     <span>&#8377;</span> <span
                                                                         class="text-danger">*</span><br /></label>
                                                                 <input type="number" class="form-control form-control-sm"
-                                                                    placeholder="₹" name="total_travel_expense[0]"
-                                                                    id="total_travel_expense0"
+                                                                    placeholder="₹" name="total_travel_expense[]"
+                                                                    id="total_travel_expense_0"
                                                                     value="{{ old('total_travel_expense') }}" />
                                                                 @if ($errors->has('total_travel_expense'))
                                                                     <span
@@ -614,8 +616,8 @@
                                                                     travel<span>&#8377;</span><span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="number" class="form-control form-control-sm"
-                                                                    placeholder="₹" name="travel_incentive[0]"
-                                                                    id="travel_incentive0"
+                                                                    placeholder="₹" name="travel_incentive[]"
+                                                                    id="travel_incentive_0"
                                                                     value="{{ old('travel_incentive') }}" />
                                                                 @if ($errors->has('travel_incentive'))
                                                                     <span
@@ -858,47 +860,49 @@
     <script src="{{ asset('public/farp1_assets/js/formplugins/select2/select2.bundle.js') }}"></script>
 
     <script>
+        var counter = 1;
+
         function addmore() {
             var lastId = $(".add_div").last().attr("id");
             var res = lastId.split("add_div");
-            var counter = parseInt(res[1]) + 1;
             var cols = "";
-            var newCols = $('<div class="form-group col-md-12 add_div" id="add_div' + counter + '">');
+            var newCols = $('<div class="form-group col-md-12 add_div" id="add_div_' + counter + '">');
             cols += '<div class="row">';
 
             cols +=
                 '<div class="form-group col-md-12 text-right"><button type="button" id="add-more" name="add-more" onclick="removeAdd(' +
-                counter + ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
+                counter +
+                ')" class="btn btn-danger"><i class="fa fa-trash"></i></button></div>';
 
             cols += `<div class="row col-md-12 travel_details_div">
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(a). Travel Destination Type <span class="text-danger">*</span></label>
                             <br />
-                            <select name="travel_destination_type[${counter}]" id="travel_destination_type${counter}" class="form-control">
+                            <select name="travel_destination_type[]" id="travel_destination_type_${counter}" class="form-control" onchange="change_destination_type(${counter})">
                                 <option value="">Select travel destination type</option>
                                 <option value="1">Within India</option>
                                 <option value="2">Outside India</option>
                             </select>
                         </div>
-                        <div class="col-md-4 mb-1 d-none upload_visa_div">
+                        <div class="col-md-4 mb-1 d-none upload_visa_div" id="upload_visa_div_${counter}">
                             <label class="form-label h6">(b). Upload Visa Invitation Letter<span class="text-danger">*</span></label>
-                            <input type="file" name="file_visa_invitation_letter[${counter}]" id="file_visa_invitation_letter${counter}" class="form-control"/>
+                            <input type="file" name="file_visa_invitation_letter[]" id="file_visa_invitation_letter_${counter}" class="form-control"/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(c). Name of the Traveller <span class="text-danger">*</span></label>
-                            <input type="text" name="traveller_name[${counter}]" id="traveller_name${counter}" class="form-control" />
+                            <input type="text" name="traveller_name[]" id="traveller_name_${counter}" class="form-control" />
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(d). Travel from <span class="text-danger">*</span></label>
-                            <input type="text" name="travelled_from[${counter}]" id="travelled_from${counter}" class="form-control" value="" />
+                            <input type="text" name="travelled_from[]" id="travelled_from_${counter}" class="form-control" value="" />
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(d). Designation <span class="text-danger">*</span></label>
-                            <input type="text" name="traveller_designation[${counter}]" id="traveller_designation${counter}" class="form-control"/>
+                            <input type="text" name="traveller_designation[]" id="traveller_designation_${counter}" class="form-control"/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(f). Mode of Travel <span class="text-danger">*</span></label>
-                            <select name="mode_of_travel[${counter}]" id="mode_of_travel${counter}" class="form-control">
+                            <select name="mode_of_travel[]" id="mode_of_travel_${counter}" class="form-control" onchange="change_mode_of_travel(${counter})">
                                 <option value="">Choose a mode</option>
                                 <option value="1">Flight</option>
                                 <option value="2">Train</option>
@@ -906,34 +910,56 @@
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(g). Class of Travel <span class="text-danger">*</span></label>
-                            <input type="text" name="class_of_tarvel[${counter}]" id="class_of_tarvel${counter}" class="form-control" value=""/>
+                            <input type="text" name="class_of_tarvel[]" id="class_of_tarvel_${counter}" class="form-control" value=""/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(h). Upload ticket <span class="text-danger">*</span></label>
-                            <input type="file" name="file_ticket[${counter}]" id="file_ticket${counter}" class="form-control"/>
+                            <input type="file" name="file_ticket[]" id="file_ticket_${counter}" class="form-control"/>
                         </div>
-                        <div class="col-md-4 mb-1 boarding_pass_div d-none">
+                        <div class="col-md-4 mb-1 boarding_pass_div d-none" id="boarding_pass_div_${counter}">
                             <label class="form-label h6">(i). Upload Boarding Pass <span class="text-danger">*</span></label>
-                            <input type="file" name="file_boarding_pass[${counter}]" id="file_boarding_pass${counter}" class="form-control"/>
+                            <input type="file" name="file_boarding_pass[]" id="file_boarding_pass_${counter}" class="form-control"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(j). Total expense made for travel <span>&#8377;</span><span class="text-danger">*</span><br/></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="total_travel_expense[${counter}]" id="total_travel_expense${counter}"/>
+                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="total_travel_expense[]" id="total_travel_expense_${counter}"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(k). Incentive claimed towards travel <span>&#8377;</span><span class="text-danger">*</span></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel_incentive[${counter}]" id="travel_incentive${counter}"/>
+                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel_incentive[]" id="travel_incentive_${counter}"/>
                         </div>
                     </div>`;
 
             cols += "</div>";
             cols += "</div>";
+            counter = counter + 1;
             newCols.append(cols);
             $("#" + lastId).after(newCols);
         }
 
         function removeAdd(key) {
             $("#add_div" + key).remove();
+        }
+    </script>
+
+    <script>
+
+        function change_destination_type(e) {
+            let op = $('#travel_destination_type_' + e).val();
+            if (op == 2) {
+                $('#upload_visa_div_' + e).removeClass('d-none');
+            } else {
+                $('#upload_visa_div_' + e).addClass('d-none');
+            }
+        }
+
+        function change_mode_of_travel(e) {
+            let op = $('#mode_of_travel_' + e).val();
+            if (op == 1) {
+                $('#boarding_pass_div_' + e).removeClass('d-none');
+            } else {
+                $('#boarding_pass_div_' + e).addClass('d-none');
+            }
         }
     </script>
 
@@ -958,32 +984,31 @@
             });
 
             // Display Economy if 20 = Flight else 2nd Ac for Train
-            $('#mode_of_travel0').on('change', (e) => {
-                let mode = $('select#mode_of_travel0 option:selected').val();
-                if (mode == 1) {
-                    // $('#class_of_tarvel').val('Economy class');
-                    $('.boarding_pass_div0').removeClass('d-none');
-                } else {
-                    // $('#class_of_tarvel').val('2nd AC');
-                    $('.boarding_pass_div0').addClass('d-none');
-                }
-            })
+            // $('#mode_of_travel0').on('change', (e) => {
+            //     let mode = $('select#mode_of_travel0 option:selected').val();
+            //     if (mode == 1) {
+            //         // $('#class_of_tarvel').val('Economy class');
+            //         $('.boarding_pass_div0').removeClass('d-none');
+            //     } else {
+            //         // $('#class_of_tarvel').val('2nd AC');
+            //         $('.boarding_pass_div0').addClass('d-none');
+            //     }
+            // })
 
             // Display Economy if 20 = Flight else 2nd Ac for Train
-            $('.travl_desti').on('change', (e) => {
-                // alert('hi');
-                //$(this).parent().addClass('.das'); 
-                // $(this).closest('.brim').addClass('.ddd');
-                console.log('asasa');
-                let mode = $('select#travel_destination_type0 option:selected').val();
-                if (mode == 1) {
-                    $('.upload_visa_div').addClass('d-none');
-                } else if (mode == 2) {
-                    $('.upload_visa_div').removeClass('d-none');
-                } else {
-                    $('.upload_visa_div').addClass('d-none');
-                }
-            })
+            // $('.travel_destination_type').on('change', (e) => {
+            //     // alert('hi');
+            //     //$(this).parent().addClass('.das'); 
+            //     // $(this).closest('.brim').addClass('.ddd');
+            //     let mode = $('select#travel_destination_type0 option:selected').val();
+            //     if (mode == 1) {
+            //         $('.upload_visa_div').addClass('d-none');
+            //     } else if (mode == 2) {
+            //         $('.upload_visa_div').removeClass('d-none');
+            //     } else {
+            //         $('.upload_visa_div').addClass('d-none');
+            //     }
+            // })
 
             // Condition for other event type details.
             // $('#event_type_1').on('click', (e) => {
