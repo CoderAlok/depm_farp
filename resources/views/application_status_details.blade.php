@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
+                    {{-- <div class="panel-hdr">
                         <h2>Application No : <b
                                 class="text-uppercase font-size-600 ml-2">{{ $applications->app_no ?? '' }}</b></h2>
                         <div class="panel-toolbar">
@@ -31,7 +31,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         {{-- Main content start here --}}

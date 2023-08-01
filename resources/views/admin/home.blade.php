@@ -99,8 +99,8 @@ font-weight: 500 !important;color:white !important;
                                                 class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                                                 <div class="">
                                                     <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                        {{-- 30 --}}
-                                                        {{ rand(10, 100) }}
+                                                        {{-- 30 Enter the total application applied--}}
+                                                        {{ rand(10, 100) }}   
                                                         <small
                                                             class="m-0 l-h-n text-white">{{ $item->short_name ?? '' }}</small>
                                                     </h3>
@@ -233,7 +233,7 @@ font-weight: 500 !important;color:white !important;
                                     </div>
                                 </div> --}}
                             </div>
-                            {{-- <div class="row">
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div id="panel-1" class="panel">
                                         <div class="row">
@@ -303,8 +303,8 @@ font-weight: 500 !important;color:white !important;
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
-                            {{-- <div class="row">
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div id="panel-1" class="panel">
                                         <div class="panel-hdr">
@@ -446,7 +446,7 @@ font-weight: 500 !important;color:white !important;
                                         </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </main>
                         <!-- Main content ends here -->
                     </div>

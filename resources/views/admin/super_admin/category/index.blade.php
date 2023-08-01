@@ -6,14 +6,14 @@
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class="subheader-icon fal fa-"></i> Category
-                <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal">Add Category</sup>
+                {{-- <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal">Add Category</sup> --}}
             </h1>
-            <div class="subheader-block">All the categories are listed here</div>
+            {{-- <div class="subheader-block">All the categories are listed here</div> --}}
         </div>
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
+                    {{-- <div class="panel-hdr">
                         <h2>Categories Details</h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
@@ -23,7 +23,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->

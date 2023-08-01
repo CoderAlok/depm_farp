@@ -7,12 +7,12 @@
                 <i class="subheader-icon fal fa-"></i> Roles
                 <sup class="badge badge-primary fw-500">+</sup>
             </h1>
-            <div class="subheader-block">All the roles details are listed here</div>
+            {{-- <div class="subheader-block">All the roles details are listed here</div> --}}
         </div>
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
+                    {{-- <div class="panel-hdr">
                         <h2></h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
@@ -22,7 +22,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->

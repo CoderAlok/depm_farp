@@ -13,6 +13,7 @@ class CustomRepository implements CustomInterface
     {
         define('APP_CODE', 'EXPREG');
         define('SCH_CODE', 'EXPAPS');
+        // 0823RCMC00002
     }
 
     public function generateExpApp($exist_app_no = '')
@@ -22,7 +23,7 @@ class CustomRepository implements CustomInterface
         if (!empty($exist_app_no)) {
             $appnew   = tbl_exporters::where('app_no', $exist_app_no)->first();
             $newCount = (int) $appnew->app_count_no;
-            if ($newCount < 999) {
+            if ($newCount < 9999) {
                 $newCount = $this->getNumApp($newCount + 1);
             } else {
                 $newCount = $newCount + 1;
@@ -40,7 +41,7 @@ class CustomRepository implements CustomInterface
             $app = tbl_exporters::orderBy('id', 'desc')->first();
             if (!empty($app->app_no)) {
                 $newCount = (int) $app->app_count_no;
-                if ($newCount < 999) {
+                if ($newCount < 9999) {
                     $newCount = $this->getNumApp($newCount + 1);
                 } else {
                     $newCount = $newCount + 1;
@@ -55,9 +56,9 @@ class CustomRepository implements CustomInterface
                     return $appInfo;
                 }
             } else {
-                $applicaton_no            = APP_CODE . $this->getCurrFinancialYr() . $this->getMonth() . '0001';
+                $applicaton_no            = APP_CODE . $this->getCurrFinancialYr() . $this->getMonth() . '00001';
                 $appInfo['applicaton_no'] = $applicaton_no;
-                $appInfo['app_count_no']  = '0001';
+                $appInfo['app_count_no']  = '00001';
                 return $appInfo;
             }
         }
@@ -88,7 +89,7 @@ class CustomRepository implements CustomInterface
         $num    = (string) $num;
         $strlen = strlen($num);
         $newnum = '';
-        for ($i = 0; $i < (4 - $strlen); $i++) {
+        for ($i = 0; $i < (5 - $strlen); $i++) {
             $newnum .= '0';
         }
         $newnum .= (int) $num;
@@ -153,12 +154,13 @@ class CustomRepository implements CustomInterface
         if (!empty($exist_app_no)) {
             $appnew   = Applications::where('app_no', $exist_app_no)->first();
             $newCount = (int) $appnew->app_count_no;
-            if ($newCount < 999) {
+            if ($newCount < 9999) {
                 $newCount = $this->getNumApp($newCount + 1);
             } else {
                 $newCount = $newCount + 1;
             }
-            $applicaton_no = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . $newCount;
+            // $applicaton_no = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . $newCount;
+            $applicaton_no = $this->getMonth() . $this->getCurrFinancialYr() . 'RCMC' . $newCount;
             $appnew        = Applications::where('app_no', $applicaton_no);
             if (!$appnew->exists()) {
                 $appInfo['applicaton_no'] = $applicaton_no;
@@ -171,12 +173,13 @@ class CustomRepository implements CustomInterface
             $app = Applications::orderBy('id', 'desc')->first();
             if (!empty($app->app_no)) {
                 $newCount = (int) $app->app_count_no;
-                if ($newCount < 999) {
+                if ($newCount < 9999) {
                     $newCount = $this->getNumApp($newCount + 1);
                 } else {
                     $newCount = $newCount + 1;
                 }
-                $applicaton_no = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . $newCount;
+                // $applicaton_no = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . $newCount;
+                $applicaton_no = $this->getMonth() . $this->getCurrFinancialYr() . 'RCMC' . $newCount;
                 $check         = Applications::where('app_no', $applicaton_no);
                 if ($check->exists()) {
                     $this->generateExpApp($applicaton_no);
@@ -186,9 +189,10 @@ class CustomRepository implements CustomInterface
                     return $appInfo;
                 }
             } else {
-                $applicaton_no            = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . '0001';
+                // $applicaton_no            = SCH_CODE . $this->getCurrFinancialYr() . $this->getMonth() . '00001';
+                $applicaton_no            = $this->getMonth() . $this->getCurrFinancialYr() . 'RCMC' . '00001';
                 $appInfo['applicaton_no'] = $applicaton_no;
-                $appInfo['app_count_no']  = '0001';
+                $appInfo['app_count_no']  = '00001';
                 return $appInfo;
             }
         }

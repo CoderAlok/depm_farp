@@ -28,11 +28,11 @@
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
-                        <h2>
+                    {{-- <div class="panel-hdr">
+                        <h2> --}}
                             {{-- Scheme :
                             {{ strlen($scheme->long_name) > 200 ? substr($scheme->long_name, 0, 200) . '...' : $scheme->long_name }} --}}
-                        </h2>
+                        {{-- </h2>
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -41,7 +41,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
@@ -320,8 +320,7 @@
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control form-control-sm"
                                                         placeholder="Certificate" name="certificate_name"
-                                                        id="certificate_name"
-                                                        value="{{ old('certificate_name') }}" />
+                                                        id="certificate_name" value="{{ old('certificate_name') }}" />
                                                     @if ($errors->has('certificate_name'))
                                                         <span class="invalid feedback text-danger"role="alert">
                                                             <strong>{{ $errors->first('certificate_name') }}.</strong>
@@ -378,10 +377,13 @@
                                         <input class="form-check-input" type="checkbox" value="1" name="terms"
                                             id="terms">
                                         <label class="form-check-label h6" for="travel_details">
-                                            I solemnly declare that all the details given above are accurate,
+                                            I hereby certify that all the information mentioned here is true, and I take
+                                            full responsibility for its accuracy and authenticity.
+
+                                            {{-- I solemnly declare that all the details given above are accurate,
                                             and I bear the responsibility for any variation from them in the future. I
                                             hereby confirm and verify that all the information mentioned here, and I take
-                                            full responsibility for its accuracy and authenticity.
+                                            full responsibility for its accuracy and authenticity. --}}
                                         </label>
                                     </div>
                                 </div>

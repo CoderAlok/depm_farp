@@ -42,7 +42,7 @@ class ApplicationController extends Controller
         try {
             $valid_rule  = [];
             $valid_error = [];
-            // dd($request->all());
+            dd([$this->app->generateExpSchAppCode(), $request->all()]);
             switch ($request->scheme_id) {
                 // Validation for scheme 1
                 case 1:
@@ -163,7 +163,7 @@ class ApplicationController extends Controller
                             // 'traveller_name'              => 'required',
                             // 'traveller_designation'       => 'required',
                             // 'mode_of_travel'              => 'required',
-                            // 'class_of_tarvel'             => 'required',
+                            // 'class_of_t-arvel'             => 'required',
                             // 'total_travel_expense'        => 'required',
                             // 'travel_incentive'            => 'required',
                             // 'file_visa_invitation_letter' => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',

@@ -858,80 +858,50 @@
                                                         @endswitch
 
                                                     </div>
-                                                    <table class="table table-responsive table-bordered" width="100%">
-                                                        {{-- @if (isset($applications->get_application_progress_master_details[0]))
+
+                                                    {{-- {{ dd([$applications->get_application_progress_master_details->toArray(), $applications->get_application_progress_master_details->isNotEmpty()]) }} --}}
+
+                                                    @if ($applications->get_application_progress_master_details->isNotEmpty() == null)
+                                                        <table class="table table-responsive table-bordered"
+                                                            width="100%">
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Notes</th>
                                                                 <th>Put Up By</th>
                                                                 <th>Date</th>
                                                             </thead>
-                                                        @elseif (isset($applications->get_application_progress_master_details[1]))
-                                                            <thead>
-                                                                <th>SlNo</th>
-                                                                <th>Note</th>
-                                                                <th>Put Up By</th>
-                                                                <th>Date</th>
-                                                            </thead>
-                                                        @elseif (isset($applications->get_application_progress_master_details[2]))
-                                                            <thead>
-                                                                <th>SlNo</th>
-                                                                <th>Note</th>
-                                                                <th>Put Up By</th>
-                                                                <th>Date</th>
-                                                            </thead>
-                                                        @elseif (isset($applications->get_application_progress_master_details[3]))
-                                                            <thead>
-                                                                <th>SlNo</th>
-                                                                <th>Note</th>
-                                                                <th>Put Up By</th>
-                                                                <th>Date</th>
-                                                            </thead>
-                                                        @elseif (isset($applications->get_application_progress_master_details[4]))
-                                                            <thead>
-                                                                <th>SlNo</th>
-                                                                <th>Note</th>
-                                                                <th>Put Up By</th>
-                                                                <th>Date</th>
-                                                            </thead>
-                                                        @else 
-                                                        @endif --}}
-                                                        <thead>
-                                                            <th>SlNo</th>
-                                                            <th>Notes</th>
-                                                            <th>Put Up By</th>
-                                                            <th>Date</th>
-                                                        </thead>
 
-                                                        {{-- Way 1 Start --}}
-                                                        <body>
-                                                            {{-- <pre>{{ print_r($applications->get_application_progress_master_details->toArray()) }}</pre> --}}
-                                                            @php
-                                                                $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
-                                                            @endphp
-                                                            @foreach ($applications->get_application_progress_master_details as $key => $item)
-                                                                <tr class="bg-{{ $item->get_user_details->role_id == 1 ? 'secondary': '' }}" style="">
-                                                                    <td width="5%">
-                                                                        {{ ++$key }}
-                                                                    </td>
-                                                                    <td width="65%">
-                                                                        {{ $item->remarks ?? '' }}
-                                                                    </td>
-                                                                    <td width="10%" class="">
-                                                                        {{-- class="text-white" style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}"> --}}
-                                                                        {{-- ({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }}) --}}
-                                                                        <b>({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})</b>
-                                                                    </td>
-                                                                    <td width="20%">
-                                                                        {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </body>
-                                                        {{-- Way 1 end --}}
+                                                            {{-- Way 1 Start --}}
 
-                                                        {{-- Way 2 start --}}
-                                                        {{-- <tbody>
+                                                            <body>
+                                                                {{-- <pre>{{ print_r($applications->get_application_progress_master_details->toArray()) }}</pre> --}}
+                                                                @php
+                                                                    $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
+                                                                @endphp
+                                                                @foreach ($applications->get_application_progress_master_details as $key => $item)
+                                                                    <tr class="bg-{{ $item->get_user_details->role_id == 1 ? 'secondary' : '' }}"
+                                                                        style="">
+                                                                        <td width="5%">
+                                                                            {{ ++$key }}
+                                                                        </td>
+                                                                        <td width="65%">
+                                                                            {{ $item->remarks ?? '' }}
+                                                                        </td>
+                                                                        <td width="10%" class="">
+                                                                            {{-- class="text-white" style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}"> --}}
+                                                                            {{-- ({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }}) --}}
+                                                                            <b>({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})</b>
+                                                                        </td>
+                                                                        <td width="20%">
+                                                                            {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </body>
+                                                            {{-- Way 1 end --}}
+
+                                                            {{-- Way 2 start --}}
+                                                            {{-- <tbody>
 
                                                             @if (isset($applications->get_application_progress_master_details[0]))
                                                                 <tr>
@@ -1020,8 +990,10 @@
                                                                 </tr>
                                                             @endif
                                                         </tbody> --}}
-                                                        {{-- Way 2 End --}}
-                                                    </table>
+                                                            {{-- Way 2 End --}}
+                                                        </table>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                             {{-- @else --}}

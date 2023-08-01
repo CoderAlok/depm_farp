@@ -2,27 +2,27 @@
 
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
-        {{-- <div class="subheader">
+        <div class="subheader">
             <h1 class="subheader-title">
                 <i class="subheader-icon fal fa-"></i> Users
-                <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal"> Add user </sup>
+                {{-- <sup class="badge badge-primary fw-500" data-toggle="modal" data-target="#exampleModal"> Add user </sup> --}}
             </h1>
-            <div class="subheader-block">All the departmental users are listed here</div>
-        </div> --}}
+            {{-- <div class="subheader-block">All the departmental users are listed here</div> --}}
+        </div>
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
+                    {{-- <div class="panel-hdr">
                         <h2>User Details</h2>
-                        {{-- <div class="panel-toolbar">
+                        <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
                             <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Fullscreen"></button>
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
-                        </div> --}}
-                    </div>
+                        </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->

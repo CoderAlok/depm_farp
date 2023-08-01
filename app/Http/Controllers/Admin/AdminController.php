@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Schemes;
 use Spatie\Permission\Models\Role;
 use User;
+use Applications;
 
 class AdminController extends Controller
 {
@@ -28,6 +29,9 @@ class AdminController extends Controller
         $role_id            = Auth::user()->role_id;
         $data['role']       = Role::where('id', $role_id)->first()->name;
         $data['schemes']    = Schemes::get();
+
+        $data['scheme_counts'] = Applications::get();
+        dd($data['scheme_counts']);
         return view('admin.home')->with($data);
     }
 
