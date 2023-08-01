@@ -469,7 +469,7 @@
                                                                 <select name="travel_destination_type[]"
                                                                     id="travel_destination_type_0"
                                                                     class="travel_destination_type form-control"
-                                                                    onchange="change_destination_type(0)">
+                                                                    onchange="change_destination_type(0)" required>
                                                                     <option value="">Select travel destination type
                                                                     </option>
                                                                     <option value="1"
@@ -504,11 +504,11 @@
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="text" name="traveller_name[]"
                                                                     id="traveller_name_0" class="form-control"
-                                                                    value="{{ old('traveller_name') }}" />
-                                                                @if ($errors->has('traveller_name'))
+                                                                    value="{{ old('traveller_name[0]') }}" required />
+                                                                @if ($errors->has('traveller_name[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('traveller_name') }}.</strong>
+                                                                        <strong>{{ $errors->first('traveller_name[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -517,11 +517,11 @@
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="travelled_from[]"
                                                                     id="travelled_from_0" class="form-control"
-                                                                    value="{{ old('travelled_from') }}" />
-                                                                @if ($errors->has('travelled_from'))
+                                                                    value="{{ old('travelled_from[0]') }}" required />
+                                                                @if ($errors->has('travelled_from[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('travelled_from') }}.</strong>
+                                                                        <strong>{{ $errors->first('travelled_from[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -530,11 +530,11 @@
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="traveller_designation[]"
                                                                     id="traveller_designation_0" class="form-control"
-                                                                    value="{{ old('traveller_designation') }}">
-                                                                @if ($errors->has('traveller_designation'))
+                                                                    value="{{ old('traveller_designation[0]') }}" required />
+                                                                @if ($errors->has('traveller_designation[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('traveller_designation') }}.</strong>
+                                                                        <strong>{{ $errors->first('traveller_designation[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -542,7 +542,7 @@
                                                                 <label class="form-label h6">(f). Mode of Travel <span
                                                                         class="text-danger">*</span></label>
                                                                 <select name="mode_of_travel[]" id="mode_of_travel_0"
-                                                                    class="form-control" onchange="change_mode_of_travel(0)">
+                                                                    class="form-control" onchange="change_mode_of_travel(0)" required>
                                                                     <option value="">Choose a mode</option>
                                                                     <option value="1"
                                                                         {{ old('mode_of_travel') == 1 ? 'selected' : '' }}>
@@ -563,11 +563,11 @@
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="class_of_tarvel[]"
                                                                     id="class_of_tarvel_0" class="form-control"
-                                                                    value="{{ old('class_of_tarvel') }}">
-                                                                @if ($errors->has('class_of_tarvel'))
+                                                                    value="{{ old('class_of_tarvel[0]') }}" required />
+                                                                @if ($errors->has('class_of_tarvel[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('class_of_tarvel') }}.</strong>
+                                                                        <strong>{{ $errors->first('class_of_tarvel[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -575,11 +575,11 @@
                                                                 <label class="form-label h6">(h). Upload ticket <span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="file" name="file_ticket[]"
-                                                                    id="file_ticket_0" class="form-control">
-                                                                @if ($errors->has('file_ticket'))
+                                                                    id="file_ticket_0" class="form-control" required>
+                                                                @if ($errors->has('file_ticket[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('file_ticket') }}.</strong>
+                                                                        <strong>{{ $errors->first('file_ticket[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -588,10 +588,10 @@
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="file" name="file_boarding_pass[]"
                                                                     id="file_boarding_pass_0" class="form-control">
-                                                                @if ($errors->has('file_boarding_pass'))
+                                                                @if ($errors->has('file_boarding_pass[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('file_boarding_pass') }}.</strong>
+                                                                        <strong>{{ $errors->first('file_boarding_pass[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -603,11 +603,11 @@
                                                                 <input type="number" class="form-control form-control-sm"
                                                                     placeholder="₹" name="total_travel_expense[]"
                                                                     id="total_travel_expense_0"
-                                                                    value="{{ old('total_travel_expense') }}" />
-                                                                @if ($errors->has('total_travel_expense'))
+                                                                    value="{{ old('total_travel_expense[0]') }}" required/>
+                                                                @if ($errors->has('total_travel_expense[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('total_travel_expense') }}.</strong>
+                                                                        <strong>{{ $errors->first('total_travel_expense[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -618,11 +618,11 @@
                                                                 <input type="number" class="form-control form-control-sm"
                                                                     placeholder="₹" name="travel_incentive[]"
                                                                     id="travel_incentive_0"
-                                                                    value="{{ old('travel_incentive') }}" />
-                                                                @if ($errors->has('travel_incentive'))
+                                                                    value="{{ old('travel_incentive[0]') }}" required/>
+                                                                @if ($errors->has('travel_incentive[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
-                                                                        <strong>{{ $errors->first('travel_incentive') }}.</strong>
+                                                                        <strong>{{ $errors->first('travel_incentive[0]') }}.</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>
@@ -877,7 +877,7 @@
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(a). Travel Destination Type <span class="text-danger">*</span></label>
                             <br />
-                            <select name="travel_destination_type[]" id="travel_destination_type_${counter}" class="form-control" onchange="change_destination_type(${counter})">
+                            <select name="travel_destination_type[]" id="travel_destination_type_${counter}" class="form-control" onchange="change_destination_type(${counter})" required/>
                                 <option value="">Select travel destination type</option>
                                 <option value="1">Within India</option>
                                 <option value="2">Outside India</option>
@@ -889,19 +889,19 @@
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(c). Name of the Traveller <span class="text-danger">*</span></label>
-                            <input type="text" name="traveller_name[]" id="traveller_name_${counter}" class="form-control" />
+                            <input type="text" name="traveller_name[]" id="traveller_name_${counter}" class="form-control" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(d). Travel from <span class="text-danger">*</span></label>
-                            <input type="text" name="travelled_from[]" id="travelled_from_${counter}" class="form-control" value="" />
+                            <input type="text" name="travelled_from[]" id="travelled_from_${counter}" class="form-control" value="" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(d). Designation <span class="text-danger">*</span></label>
-                            <input type="text" name="traveller_designation[]" id="traveller_designation_${counter}" class="form-control"/>
+                            <input type="text" name="traveller_designation[]" id="traveller_designation_${counter}" class="form-control" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(f). Mode of Travel <span class="text-danger">*</span></label>
-                            <select name="mode_of_travel[]" id="mode_of_travel_${counter}" class="form-control" onchange="change_mode_of_travel(${counter})">
+                            <select name="mode_of_travel[]" id="mode_of_travel_${counter}" class="form-control" onchange="change_mode_of_travel(${counter})" required/>
                                 <option value="">Choose a mode</option>
                                 <option value="1">Flight</option>
                                 <option value="2">Train</option>
@@ -909,11 +909,11 @@
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(g). Class of Travel <span class="text-danger">*</span></label>
-                            <input type="text" name="class_of_tarvel[]" id="class_of_tarvel_${counter}" class="form-control" value=""/>
+                            <input type="text" name="class_of_tarvel[]" id="class_of_tarvel_${counter}" class="form-control" value="" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(h). Upload ticket <span class="text-danger">*</span></label>
-                            <input type="file" name="file_ticket[]" id="file_ticket_${counter}" class="form-control"/>
+                            <input type="file" name="file_ticket[]" id="file_ticket_${counter}" class="form-control" required/>
                         </div>
                         <div class="col-md-4 mb-1 boarding_pass_div d-none" id="boarding_pass_div_${counter}">
                             <label class="form-label h6">(i). Upload Boarding Pass <span class="text-danger">*</span></label>
@@ -921,11 +921,11 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(j). Total expense made for travel <span>&#8377;</span><span class="text-danger">*</span><br/></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="total_travel_expense[]" id="total_travel_expense_${counter}"/>
+                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="total_travel_expense[]" id="total_travel_expense_${counter}" required/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(k). Incentive claimed towards travel <span>&#8377;</span><span class="text-danger">*</span></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel_incentive[]" id="travel_incentive_${counter}"/>
+                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel_incentive[]" id="travel_incentive_${counter}" required/>
                         </div>
                     </div>`;
 
@@ -947,8 +947,10 @@
             let op = $('#travel_destination_type_' + e).val();
             if (op == 2) {
                 $('#upload_visa_div_' + e).removeClass('d-none');
+                $('#file_visa_invitation_letter_' + e).attr('required', 'required');
             } else {
                 $('#upload_visa_div_' + e).addClass('d-none');
+                $('#file_visa_invitation_letter_' + e).removeAttr('required');
             }
         }
 
@@ -956,8 +958,10 @@
             let op = $('#mode_of_travel_' + e).val();
             if (op == 1) {
                 $('#boarding_pass_div_' + e).removeClass('d-none');
+                $('#file_boarding_pass_' + e).attr('required', 'required');
             } else {
                 $('#boarding_pass_div_' + e).addClass('d-none');
+                $('#file_boarding_pass_' + e).removeAttr('required');
             }
         }
     </script>
