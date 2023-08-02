@@ -42,7 +42,11 @@
                             <div class="col-md-6 my-3 mx-auto">
                                 <div class="row d-flex align-items-center">
                                     <div class="col-md-3 text-right">
-                                        <img src="{{ asset('public/img/odisha-govt-logo-black.png') }}"
+                                        <img src="{{ asset('public/img/odisha-govt-logo-black.png') }}" style="
+    position: absolute;
+    top: -2.5rem;
+    right: -1rem;
+"
                                             alt="SmartAdmin WebApp" aria-roledescription="logo" class="img-fluid"
                                             width="50%">
                                     </div>
