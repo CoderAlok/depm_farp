@@ -272,24 +272,24 @@ class ApplicationController extends Controller
                             'file_tour_dairy'                      => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
                         ];
                         $valid_error = [
-                            'exporter_id.required'                 => 'Please, enter the exporter_id',
-                            'scheme_id.required'                   => 'Please, enter the scheme_id',
-                            'iec.required'                         => 'Please, enter the iec',
-                            'exporting_organization.required'      => 'Please, enter the exporting_organization',
-                            'dir_ceo.required'                     => 'Please, enter the dir_ceo',
-                            'exptr_email.required'                 => 'Please, enter the exptr_email',
-                            'exptr_phone.required'                 => 'Please, enter the exptr_phone',
-                            'bank_name.required'                   => 'Please, enter the bank_name',
-                            'bank_ac.required'                     => 'Please, enter the bank_ac',
-                            'bank_ifsc.required'                   => 'Please, enter the bank_ifsc',
-                            'event_detail'                         => '',
-                            'event_name.required'                  => 'Please, enter the event_name',
-                            'event_type.required'                  => 'Please, enter the event_type',
-                            'participation_type.required'          => 'Please, enter the participation_type',
-                            'event_city.required'                  => 'Please, enter the event_city',
-                            'event_country.required'               => 'Please, enter the event_country',
-                            'file_iec.required'                    => 'Please, fill the required file iec',
-                            'file_bank_cheque.required'            => 'Please, fill the required file bank cheque',
+                            'exporter_id.required'                          => 'Please, enter the exporter_id',
+                            'scheme_id.required'                            => 'Please, enter the scheme_id',
+                            'iec.required'                                  => 'Please, enter the iec',
+                            'exporting_organization.required'               => 'Please, enter the exporting_organization',
+                            'dir_ceo.required'                              => 'Please, enter the dir_ceo',
+                            'exptr_email.required'                          => 'Please, enter the exptr_email',
+                            'exptr_phone.required'                          => 'Please, enter the exptr_phone',
+                            'bank_name.required'                            => 'Please, enter the bank_name',
+                            'bank_ac.required'                              => 'Please, enter the bank_ac',
+                            'bank_ifsc.required'                            => 'Please, enter the bank_ifsc',
+                            'event_detail'                                  => '',
+                            'event_name.required'                           => 'Please, enter the event_name',
+                            'event_type.required'                           => 'Please, enter the event_type',
+                            'participation_type.required'                   => 'Please, enter the participation_type',
+                            'event_city.required'                           => 'Please, enter the event_city',
+                            'event_country.required'                        => 'Please, enter the event_country',
+                            'file_iec.required'                             => 'Please, fill the required file iec',
+                            'file_bank_cheque.required'                     => 'Please, fill the required file bank cheque',
 
                             // Travel
                             'travel.*.travel_destination_type.required'     => 'Please, enter the travel_destination_type',
@@ -311,9 +311,9 @@ class ApplicationController extends Controller
                             // 'file_stall_pay_recpt.required'        => 'Please, enter the file_stall_pay_recpt',
 
                             // Additional
-                            'meeting_detail.required'              => 'Please, enter the meeting_detail',
-                            'participation_det.required'           => 'Please, enter the participation_det',
-                            'file_tour_dairy.required'             => 'Please, enter the file_tour_dairy',
+                            'meeting_detail.required'                       => 'Please, enter the meeting_detail',
+                            'participation_det.required'                    => 'Please, enter the participation_det',
+                            'file_tour_dairy.required'                      => 'Please, enter the file_tour_dairy',
                         ];
                     } else {
                         // Both Travel & Stall Details are not selected
@@ -703,8 +703,11 @@ class ApplicationController extends Controller
     public function pending_exporters_application(Request $request)
     {
         $data['page_title'] = 'Pending exporters applications';
+        // For exporters
         if (Auth::user()->role_id == 7) {
             $data['applications'] = Applications::where('status', 8)->with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
+                $total_expenses = 0;
+                $total_expenses += ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0);
                 return [
                     // 'r'           => $r->toArray(),
                     'id'          => $r->id ?? '',
@@ -712,23 +715,31 @@ class ApplicationController extends Controller
                     'scheme'      => $r->get_scheme_details->short_name ?? '',
                     'name'        => $r->get_exporter_details->name ?? '',
                     'contact_no'  => $r->get_exporter_details->phone ?? '',
-                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0) : $r->certi_cost,
+                    'claimed_amt' => $r->scheme_id == 1 ? $total_expenses : $r->certi_cost,
                     'status'      => $r->status,
                 ];
             })->toArray();
             $data['pending']        = Applications::where('status', 2)->count();
             $data['ddo_array_flag'] = 7;
         } else {
+            // For Departmental Users
             $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
+                $total_expenses = 0;
+                // $total_expenses += ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0);
+
                 return [
-                    // 'r'           => $r->toArray(),
-                    'id'          => $r->id ?? '',
-                    'app_no'      => $r->app_no ?? '',
-                    'scheme'      => $r->get_scheme_details->short_name ?? '',
-                    'name'        => $r->get_exporter_details->name ?? '',
-                    'contact_no'  => $r->get_exporter_details->phone ?? '',
-                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0) : $r->certi_cost,
-                    'status'      => $r->status,
+                    'r'              => $r->toArray(),
+                    'total_expenses' => $r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) use ($total_expenses) {
+                        return $r1->total_expense;
+                    })->sum() : 0,
+
+                    // 'id'          => $r->id ?? '',
+                    // 'app_no'      => $r->app_no ?? '',
+                    // 'scheme'      => $r->get_scheme_details->short_name ?? '',
+                    // 'name'        => $r->get_exporter_details->name ?? '',
+                    // 'contact_no'  => $r->get_exporter_details->phone ?? '',
+                    // 'claimed_amt' => $r->scheme_id == 1 ? $total_expenses : $r->certi_cost,
+                    // 'status'      => $r->status,
                 ];
             })->toArray();
             $data['pending']        = Applications::where('status', 2)->count();
@@ -767,8 +778,8 @@ class ApplicationController extends Controller
             },
         ])->first(); //->toArray();
         $data['applications']      = $applications; //->toArray();
-        $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
-        $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['total_expenditure'] = 0; //(int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount']  = 0; //(int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
         $data['pending']           = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
