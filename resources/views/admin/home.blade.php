@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 <style>
-    
+
 .bg-primary-300{
 
 height: 140px !important;
@@ -14,53 +14,18 @@ font-weight: 500 !important;color:white !important;
 
 @section('content')
     <main id="js-page-content" role="main" class="page-content">
-        {{-- <div class="subheader">
-            <h1 class="subheader-title">
-                <i class="subheader-icon fal fa-"></i> Dashboard
-                <sup class="badge badge-primary fw-500">*</sup>
-            </h1>
-            <div class="subheader-block">Register to create your account</div>
-        </div> --}}
+
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    {{-- <div class="panel-hdr"> --}}
-                        {{-- <h2>Hello, {{ Auth::user()->first_name ?? '' }} {{ Auth::user()->last_name ?? '' }}
-                            (<i>{{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}</i>)
-                        </h2> --}}
-                        {{-- <h2>
-                        </h2>
-                        <div class="panel-toolbar">
-                            <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
-                                data-offset="0,10" data-original-title="Collapse"></button>
-                            <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-                                data-offset="0,10" data-original-title="Fullscreen"></button>
-                            <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
-                                data-original-title="Close"></button>
-                        </div> --}}
-                    {{-- </div> --}}
+
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        {{-- <div class="mb-4 row">
-                            <div class="col-md-4">
-                                <h6>Name </h6>
-                                <b>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</b>
-                            </div>
-                            <div class="col-md-4">
-                                <h6>Email</h6>
-                                <b>{{ Auth::user()->email }}</b>
-                            </div>
-                            <div class="col-md-4">
-                                <h6>Phone</h6>
-                                <b>{{ Auth::user()->phone }}</b>
-                            </div>
-                        </div> --}}
+
                         <main id="js-page-content" role="main" class="page-content">
                             <ol class="breadcrumb page-breadcrumb">
-                                {{-- <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
-                                <li class="breadcrumb-item">Application Intel</li>
-                                <li class="breadcrumb-item active">Marketing Dashboard</li> --}}
+
                                 <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
                                         class="js-get-date"></span></li>
                             </ol>
@@ -68,39 +33,36 @@ font-weight: 500 !important;color:white !important;
                                 <h1 class="subheader-title">
                                     <i class='subheader-icon fal fa-chart-area'></i> Dashboard
                                 </h1>
-                                <div class="d-flex mr-4">
-                                    {{-- <div class="mr-2">
-                                        <span class="peity-donut"
-                                            data-peity="{ &quot;fill&quot;: [&quot;#967bbd&quot;, &quot;#ccbfdf&quot;],  &quot;innerRadius&quot;: 14, &quot;radius&quot;: 20 }">7/10</span>
-                                    </div>
-                                    <div>
-                                        <label class="fs-sm mb-0 mt-2 mt-md-0">New Sessions</label>
-                                        <h4 class="font-weight-bold mb-0">70.60%</h4>
-                                    </div> --}}
-                                </div>
-                                <div class="d-flex mr-0">
-                                    {{-- <div class="mr-2">
-                                        <span class="peity-donut"
-                                            data-peity="{ &quot;fill&quot;: [&quot;#2196F3&quot;, &quot;#9acffa&quot;],  &quot;innerRadius&quot;: 14, &quot;radius&quot;: 20 }">3/10</span>
-                                    </div>
-                                    <div>
-                                        <label class="fs-sm mb-0 mt-2 mt-md-0">Page Views</label>
-                                        <h4 class="font-weight-bold mb-0">14,134</h4>
-                                    </div> --}}
-                                </div>
                             </div>
                             <div class="row">
+                            <div class="col-sm-6 col-xl-6">
 
-                                <div class="row app-list-cards">
-                                    @foreach ($schemes as $key => $item)
-                                        <!-- Earnings (Monthly) Card Example -->
-                                        <div class="col-sm-6 col-xl-3">
+<div class="row">
+<div class="col-sm-6 col-xl-6">
+                                            <div style="background:#8e3011;"
+                                                class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+                                                <div class="">
+                                                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+
+                                                        {{ $tot_application_count }}
+                                                        <small
+                                                            class="m-0 l-h-n text-white">Total Exporters</small>
+                                                    </h3>
+                                                </div>
+                                                <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
+                                                    style="font-size:6rem"></i>
+                                            </div>
+
+                             </div>
+                             <!-- {{ print_r($application_counts[4])}} -->
+                                @foreach ($schemes as $key => $item)
+
+                                        <div class="col-sm-6 col-xl-6">
                                             <div style="background:{{ $item->color ?? '' }}"
                                                 class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
                                                 <div class="">
                                                     <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                        {{-- 30 --}}
-                                                        {{ rand(10, 100) }}
+                                                        {{ $application_counts[$item->id]}}
                                                         <small
                                                             class="m-0 l-h-n text-white">{{ $item->short_name ?? '' }}</small>
                                                     </h3>
@@ -108,345 +70,85 @@ font-weight: 500 !important;color:white !important;
                                                 <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
                                                     style="font-size:6rem"></i>
                                             </div>
-
-                                            {{-- <a href="{{ route($item->route_name ?? '', $item->id) }}">
-                                                <div class="card border-left-primary shadow h-100 py-2"
-                                                    style="background:{{ $item->color ?? '' }}">
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div
-                                                                    class="text-xs text-dark fw-bold text-primary text-uppercase mb-1">
-                                                                    {{ $item->short_name ?? '' }}</div>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <i class="{{ $item->logo ?? '' }} fa-2x text-gray-300"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a> --}}
                                         </div>
+
+
                                     @endforeach
-                                </div>
-                                {{-- <div class="col-sm-6 col-xl-3">
-                                    <div
-                                        class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                21.5k
-                                                <small class="m-0 l-h-n">users signed up</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
-                                            style="font-size:6rem"></i>
-                                    </div>
-                                </div> --}}
+</div>
 
-                                {{-- <div class="col-sm-6 col-xl-3">
-                                    <div
-                                        class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                21.5k
-                                                <small class="m-0 l-h-n">users signed up</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
-                                            style="font-size:6rem"></i>
-                                    </div>
+
                                 </div>
-                                <div class="col-sm-6 col-xl-3">
-                                    <div
-                                        class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                $10,203
-                                                <small class="m-0 l-h-n">Visual Index Figure</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4"
-                                            style="font-size: 6rem;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xl-3">
-                                    <div
-                                        class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                - 103.72
-                                                <small class="m-0 l-h-n">Offset Balance Ratio</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6"
-                                            style="font-size: 8rem;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xl-3">
-                                    <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                +40%
-                                                <small class="m-0 l-h-n">Product level increase</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4"
-                                            style="font-size: 6rem;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xl-3">
-                                    <div
-                                        class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                $10,203
-                                                <small class="m-0 l-h-n">Visual Index Figure</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-gem position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4"
-                                            style="font-size: 6rem;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xl-3">
-                                    <div
-                                        class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                - 103.72
-                                                <small class="m-0 l-h-n">Offset Balance Ratio</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-lightbulb position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6"
-                                            style="font-size: 8rem;"></i>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-xl-3">
-                                    <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-white mb-g">
-                                        <div class="">
-                                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                                +40%
-                                                <small class="m-0 l-h-n">Product level increase</small>
-                                            </h3>
-                                        </div>
-                                        <i class="fal fa-globe position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n4"
-                                            style="font-size: 6rem;"></i>
-                                    </div>
-                                </div> --}}
-                            </div>
-                            {{-- <div class="row">
-                                <div class="col-lg-12">
-                                    <div id="panel-1" class="panel">
-                                        <div class="row">
-                                            <div class="col-lg-6 mb-4">
+
+                                <div class="col-lg-6 mb-6">
 
                                                 <!-- Project Card Example -->
                                                 <div class="card shadow">
                                                     <div class="card-header py-3">
-                                                        <h6 class="m-0 fw-bold text-primary">Re-imbursements</h6>
+                                                        <h6 class="m-0 fw-bold text-primary">Departmental Progress</h6>
                                                     </div>
                                                     <div class="card-body">
-                                                        <h4 class="small fw-bold">Exporter <span
-                                                                class="float-right">20%</span>
+                                                        <h4 class="small fw-bold">Scretiny Officer DEPM <span
+                                                                class="float-right">{{get_pending_list_count_for_admin(2)}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-danger" role="progressbar"
-                                                                style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                                style="width:{{(get_pending_list_count_for_admin(2)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(2    )/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
-                                                        <h4 class="small fw-bold">Organic <span
-                                                                class="float-right">40%</span>
+                                                        <h4 class="small fw-bold">Director DEPM <span
+                                                                class="float-right">{{get_pending_list_count_for_admi   n(3)}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: 40%" aria-valuenow="40" aria-valuemin="0"
+                                                                style="width:{{(get_pending_list_count_for_admin(3)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(3)/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
-                                                        <h4 class="small fw-bold">Merchant <span
-                                                                class="float-right">60%</span>
+                                                        <h4 class="small fw-bold">Additional Secretary <span
+                                                                class="float-right">{{get_pending_list_count_for_admin(4)}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
-                                                            <div class="progress-bar" role="progressbar" style="width: 60%"
-                                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                                            <div class="progress-bar" role="progressbar" style="width:{{(get_pending_list_count_for_admin(4)/$tot_application_count)*100}}%"
+                                                                aria-valuenow="{{(get_pending_list_count_for_admin(4)/$tot_application_count)*100}}" aria-valuemin="0" aria-valuemax="100">
                                                             </div>
                                                         </div>
-                                                        <h4 class="small fw-bold">Manufacturer <span
-                                                                class="float-right">80%</span>
+                                                        <h4 class="small fw-bold">Department Secretary <span
+                                                                class="float-right">{{get_pending_list_count_for_admin(5)}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-info" role="progressbar"
-                                                                style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+                                                                style="width:{{(get_pending_list_count_for_admin(5)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(5)/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
-                                                        <h4 class="small fw-bold">Producer <span
-                                                                class="float-right">Complete!</span></h4>
+                                                        <h4 class="small fw-bold">DDO <span
+                                                                class="float-right">{{get_pending_list_count_for_admin(6)}}/{{$tot_application_count}}</span></h4>
                                                         <div class="progress">
                                                             <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                                                style="width:{{(get_pending_list_count_for_admin(6)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(6)/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div  class="card shadow">
+    <div class="card-header py-3">
+        <h6 class="m-0 fw-bold text-primary">Categories Wise Exporters</h6>
+    </div>
+    <div class="card-body">
+        <canvas id="myChart"
+            style="width: 800px; height: 400px;"></canvas>
+    </div>
+</div>
+
                                             </div>
 
 
-                                            <div class="col-lg-6">
-                                                <div class="card shadow">
-                                                    <div class="card-header py-3">
-                                                        <h6 class="m-0 fw-bold text-primary">Re-imbursements</h6>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <canvas id="myChart"
-                                                            style="width: 800px; height: 480px;"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-                            </div> --}}
-                            {{-- <div class="row">
-                                <div class="col-lg-12">
-                                    <div id="panel-1" class="panel">
-                                        <div class="panel-hdr">
-                                            <h2>
-                                                Applications
-                                            </h2>
-                                        </div>
-                                        <div class="panel-container show">
-                                            <div class="panel-content bg-subtlelight-fade">
-                                                <div id="js-checkbox-toggles" class="d-flex mb-3">
-                                                    <div class="custom-control custom-switch mr-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            name="gra-0" id="gra-0" checked="checked">
-                                                        <label class="custom-control-label" for="gra-0">Target
-                                                            Profit</label>
-                                                    </div>
-                                                    <div class="custom-control custom-switch mr-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            name="gra-1" id="gra-1" checked="checked">
-                                                        <label class="custom-control-label" for="gra-1">Actual
-                                                            Profit</label>
-                                                    </div>
-                                                    <div class="custom-control custom-switch mr-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            name="gra-2" id="gra-2" checked="checked">
-                                                        <label class="custom-control-label" for="gra-2">User
-                                                            Signups</label>
-                                                    </div>
-                                                </div>
-                                                <div id="flot-toggles" class="w-100 mt-4" style="height: 300px"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div id="panel-2" class="panel panel-locked" data-panel-sortable
-                                        data-panel-collapsed data-panel-close>
-                                        <div class="panel-hdr">
-                                            <h2>
-                                                Returning <span class="fw-300"><i>Target</i></span>
-                                            </h2>
-                                        </div>
-                                        <div class="panel-container show">
-                                            <div class="panel-content poisition-relative">
-                                                <div
-                                                    class="p-1 position-absolute pos-right pos-top mt-3 mr-3 z-index-cloud d-flex align-items-center justify-content-center">
-                                                    <div
-                                                        class="border-faded border-top-0 border-left-0 border-bottom-0 py-2 pr-4 mr-3 hidden-sm-down">
-                                                        <div class="text-right fw-500 l-h-n d-flex flex-column">
-                                                            <div
-                                                                class="h3 m-0 d-flex align-items-center justify-content-end">
-                                                                <div class='icon-stack mr-2'>
-                                                                    <i
-                                                                        class="base base-7 icon-stack-3x opacity-100 color-success-600"></i>
-                                                                    <i
-                                                                        class="base base-7 icon-stack-2x opacity-100 color-success-500"></i>
-                                                                    <i
-                                                                        class="fal fa-arrow-up icon-stack-1x opacity-100 color-white"></i>
-                                                                </div>
-                                                                $44.34 / GE
-                                                            </div>
-                                                            <span class="m-0 fs-xs text-muted">Increased Profit as per
-                                                                redux margins and estimates</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="js-easy-pie-chart color-info-400 position-relative d-inline-flex align-items-center justify-content-center"
-                                                        data-percent="35" data-piesize="95" data-linewidth="10"
-                                                        data-scalelength="5">
-                                                        <div class="js-easy-pie-chart color-success-400 position-relative position-absolute pos-left pos-right pos-top pos-bottom d-flex align-items-center justify-content-center"
-                                                            data-percent="65" data-piesize="60" data-linewidth="5"
-                                                            data-scalelength="1" data-scalecolor="#fff">
-                                                            <div
-                                                                class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">
-                                                                78%</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="flot-area" style="width:100%; height:300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div id="panel-3" class="panel panel-locked" data-panel-sortable
-                                        data-panel-collapsed data-panel-close>
-                                        <div class="panel-hdr">
-                                            <h2>
-                                                Effective <span class="fw-300"><i>Marketing</i></span>
-                                            </h2>
-                                        </div>
-                                        <div class="panel-container show">
-                                            <div class="panel-content poisition-relative">
-                                                <div class="pb-5 pt-3">
-                                                    <div class="row">
-                                                        <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                            <div class="p-2 mr-3 bg-info-200 rounded">
-                                                                <span class="peity-bar"
-                                                                    data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">3,4,5,8,2</span>
-                                                            </div>
-                                                            <div>
-                                                                <label class="fs-sm mb-0">Bounce Rate</label>
-                                                                <h4 class="font-weight-bold mb-0">37.56%</h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                            <div class="p-2 mr-3 bg-info-300 rounded">
-                                                                <span class="peity-bar"
-                                                                    data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">5,3,1,7,9</span>
-                                                            </div>
-                                                            <div>
-                                                                <label class="fs-sm mb-0">Sessions</label>
-                                                                <h4 class="font-weight-bold mb-0">759</h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                            <div class="p-2 mr-3 bg-success-300 rounded">
-                                                                <span class="peity-bar"
-                                                                    data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">3,4,3,5,5</span>
-                                                            </div>
-                                                            <div>
-                                                                <label class="fs-sm mb-0">New Sessions</label>
-                                                                <h4 class="font-weight-bold mb-0">12.17%</h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6 col-xl-3 d-sm-flex align-items-center">
-                                                            <div class="p-2 mr-3 bg-success-500 rounded">
-                                                                <span class="peity-bar"
-                                                                    data-peity="{&quot;fill&quot;: [&quot;#fff&quot;], &quot;width&quot;: 27, &quot;height&quot;: 27 }">6,4,7,5,6</span>
-                                                            </div>
-                                                            <div>
-                                                                <label class="fs-sm mb-0">Clickthrough</label>
-                                                                <h4 class="font-weight-bold mb-0">19.77%</h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="flotVisit" style="width:100%; height:208px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
+
+
+
+
+</div>
+                            </div>
                         </main>
                         <!-- Main content ends here -->
                     </div>
@@ -606,8 +308,8 @@ font-weight: 500 !important;color:white !important;
                                 <a class='dropdown-item' href='javascript:void(0);'>Generate Report</a>
                             </div>
                         </div>`;
-                                                                
-                                                            ES5 example below:	
+
+                                                            ES5 example below:
 
                                                             */
                             return "\n\t\t\t\t\t\t<a href='javascript:void(0);' class='btn btn-sm btn-icon btn-outline-danger rounded-circle mr-1' title='Delete Record'>\n\t\t\t\t\t\t\t<i class=\"fal fa-times\"></i>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t\t<div class='dropdown d-inline-block dropleft'>\n\t\t\t\t\t\t\t<a href='#'' class='btn btn-sm btn-icon btn-outline-primary rounded-circle shadow-0' data-toggle='dropdown' aria-expanded='true' title='More options'>\n\t\t\t\t\t\t\t\t<i class=\"fal fa-ellipsis-v\"></i>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t<div class='dropdown-menu'>\n\t\t\t\t\t\t\t\t<a class='dropdown-item' href='javascript:void(0);'>Change Status</a>\n\t\t\t\t\t\t\t\t<a class='dropdown-item' href='javascript:void(0);'>Generate Report</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>";
