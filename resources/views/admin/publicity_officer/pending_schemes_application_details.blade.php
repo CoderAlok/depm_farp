@@ -764,33 +764,33 @@
                                             @php
                                                 $route_name = '';
                                                 $table_showing_status = '';
-                                                
+
                                                 switch (Auth::user()->role_id) {
                                                     case 2:
                                                         $route_name = 'admin.publicity.officer.pending.exporters.applications.details.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[0]) ?? false;
                                                         break;
-                                                
+
                                                     case 3:
                                                         $route_name = 'dir-depm.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[1]) ?? false;
                                                         break;
-                                                
+
                                                     case 4:
                                                         $route_name = 'spl-sectry.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[2]) ?? false;
                                                         break;
-                                                
+
                                                     case 5:
                                                         $route_name = 'dept-sectry.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[3]) ?? false;
                                                         break;
-                                                
+
                                                     case 7:
                                                         $route_name = 'ddo.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[4]) ?? false;
                                                         break;
-                                                
+
                                                     default:
                                                         break;
                                                 }
@@ -1547,7 +1547,7 @@
     @routes
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="{{ asset('public/farp1_assets/js/formplugins/select2/select2.bundle.js') }}"></script>
     <script src="{{ asset('public/farp1_assets/js/miscellaneous/lightgallery/lightgallery.bundle.js') }}"></script>
     <script>
@@ -1666,7 +1666,7 @@
 
             $('[data-toggle="tooltip"]').tooltip();
 
-            // 
+            //
             $('#status').on('change', (e) => {
                 var status = $('#status').val();
                 var array = [3, 5, 7, 9];
