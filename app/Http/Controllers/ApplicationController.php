@@ -705,17 +705,18 @@ class ApplicationController extends Controller
         $data['page_title'] = 'Pending exporters applications';
         // For exporters
         if (Auth::user()->role_id == 7) {
+
             $data['applications'] = Applications::where('status', 8)->with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
                 $total_expenses = 0;
                 $total_expenses += ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0);
                 return [
-                    // 'r'           => $r->toArray(),
+                    'r'           => $r->toArray(),
                     'id'          => $r->id ?? '',
                     'app_no'      => $r->app_no ?? '',
                     'scheme'      => $r->get_scheme_details->short_name ?? '',
                     'name'        => $r->get_exporter_details->name ?? '',
                     'contact_no'  => $r->get_exporter_details->phone ?? '',
-                    'claimed_amt' => $r->scheme_id == 1 ? $total_expenses : $r->certi_cost,
+                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->total_expense;})->sum() : 0) : (int) $r->certi_cost,
                     'status'      => $r->status,
                 ];
             })->toArray();
@@ -724,29 +725,23 @@ class ApplicationController extends Controller
         } else {
             // For Departmental Users
             $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
-                $total_expenses = 0;
-                // $total_expenses += ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0);
-
                 return [
-                    'r'              => $r->toArray(),
-                    'total_expenses' => $r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) use ($total_expenses) {
-                        return $r1->total_expense;
-                    })->sum() : 0,
+                    // 'r'              => $r->toArray(),
 
-                    // 'id'          => $r->id ?? '',
-                    // 'app_no'      => $r->app_no ?? '',
-                    // 'scheme'      => $r->get_scheme_details->short_name ?? '',
-                    // 'name'        => $r->get_exporter_details->name ?? '',
-                    // 'contact_no'  => $r->get_exporter_details->phone ?? '',
-                    // 'claimed_amt' => $r->scheme_id == 1 ? $total_expenses : $r->certi_cost,
-                    // 'status'      => $r->status,
+                    'id'          => $r->id ?? '',
+                    'app_no'      => $r->app_no ?? '',
+                    'scheme'      => $r->get_scheme_details->short_name ?? '',
+                    'name'        => $r->get_exporter_details->name ?? '',
+                    'contact_no'  => $r->get_exporter_details->phone ?? '',
+                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->total_expense;})->sum() : 0) : (int) $r->certi_cost,
+                    'status'      => $r->status,
                 ];
             })->toArray();
             $data['pending']        = Applications::where('status', 2)->count();
             $data['ddo_array_flag'] = 0;
         }
 
-        dd($data);
+        // dd($data);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);
     }
 
@@ -778,10 +773,10 @@ class ApplicationController extends Controller
             },
         ])->first(); //->toArray();
         $data['applications']      = $applications; //->toArray();
-        $data['total_expenditure'] = 0; //(int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
-        $data['incentive_amount']  = 0; //(int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
-        $data['pending']           = Applications::where('status', 1)->count();
-        // dd(['Admin', $data]);
+        // dd([$data, $data['applications']->get_application_progress_master_details]);
+        $data['total_expenditure'] = (int) ($applications->scheme_id == 1 ? ($applications->get_travel_details != null ? ($applications->get_travel_details->map(function ($r) {return $r->total_expense;})->sum() ?? 0) : 0) + ($applications->get_stall_details->total_cost ?? 0) : ($applications->certi_cost ?? 0));
+        $data['incentive_amount'] = 0; //(int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['pending']          = Applications::where('status', 1)->count();
         return view('admin.publicity_officer.pending_schemes_application_details')->with($data);
     }
 

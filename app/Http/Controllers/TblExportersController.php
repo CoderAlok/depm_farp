@@ -437,18 +437,33 @@ class TblExportersController extends Controller
         $data['data']       = $user;
         $data['schemes']    = Schemes::get();
 
-        $applications = Applications::where('exporter_id', $user->id)->whereIn('status', [1, 2, 4, 6, 8])->with([
-            'get_exporter_details',
-            'get_scheme_details',
-            'get_event_details',
-            'get_travel_details',
-            'get_stall_details.get_event_details',
-            'get_file_details',
-            'get_address_details',
-            'get_other_code_details',
-            'get_bank_details',
-            'get_application_status_details',
-        ])->latest()->get();
+        $applications = Applications::where('exporter_id', $user->id)
+            ->whereIn('status', [1, 2, 4, 6, 8])
+            ->with([
+                'get_exporter_details',
+                'get_scheme_details',
+                'get_event_details',
+                'get_travel_details',
+                'get_stall_details.get_event_details',
+                'get_file_details',
+                'get_address_details',
+                'get_other_code_details',
+                'get_bank_details',
+                'get_application_status_details',
+            ])
+            ->latest()
+            ->get()
+            ->map(function ($r) {
+                return [
+                    // 'r'          => $r->toArray(),
+
+                    'id'         => $r->id,
+                    'app_no'     => $r->app_no,
+                    'short_name' => $r->get_scheme_details->short_name ?? '',
+                    'amount'     => $r->scheme_id == 1 ? (($r->get_stall_details->claimed_cost ?? 0) + ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->total_expense;})->sum() : 0)) : (int) $r->certi_cost,
+                    'status'     => $r->status ?? 0,
+                ];
+            });
         $data['applications'] = $applications;
         // dd($data);
         return view('application-list')->with($data);
