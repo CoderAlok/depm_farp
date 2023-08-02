@@ -860,7 +860,7 @@
 
                                                     </div>
 
-                                                    @if (!$applications->get_application_progress_master_details)
+                                                    @if ($applications->get_application_progress_master_details)
                                                         <table class="table table-responsive table-bordered"
                                                             width="100%">
                                                             <thead>
