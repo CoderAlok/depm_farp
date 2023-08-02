@@ -969,7 +969,7 @@ class ApplicationController extends Controller
      */
     public function exporters_application_status_details_update(Request $request, $id = null)
     {
-        dd([$request->all()]);
+        // dd([$request->all()]);
         try {
             $user          = Auth::user();
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);
@@ -1333,20 +1333,25 @@ class ApplicationController extends Controller
             // $occurence_counter = $occurence_counter + 1;
 
             // Appeal facility given towards Approval and Rejection
-            switch ($request->status) {
-                case 8:
-                    # code...
-                    $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
-                    break;
+            // switch ($request->status) {
+            //     case 8:
+            //         # code...
+            //         $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
+            //         break;
 
-                case 9:
-                    $update_status = 1;
-                    break;
+            //     case 9:
+            //         # code...
+            //         $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 0, 'updated_by' => $user->id]);
+            //         break;
 
-                default:
-                    # code...
-                    $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
-                    break;
+            //     default:
+            //         # code...
+            //         $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
+            //         break;
+            // }
+
+            if ($request->status) {
+                $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'appeal_facility' => 1, 'updated_by' => $user->id]);
             }
 
             if ($update_status) {
@@ -1354,23 +1359,25 @@ class ApplicationController extends Controller
                 if ($request->status == 9) {
                     $insert_data = [];
                     $exporter_id = Applications::where('id', $id)->first()->exporter_id;
-                    if ($request->complaince[0]['section_name'] != null) {
-                        foreach ($request->complaince as $key => $value) {
-                            $insert_data[$key]['appl_id']       = $id;
-                            $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
-                            $insert_data[$key]['exporter_id']   = $exporter_id;
-                            $insert_data[$key]['user_id']       = $user->id;
-                            $insert_data[$key]['section_type']  = $value['section_name'];
-                            $insert_data[$key]['description']   = $value['file_name'];
-                            $insert_data[$key]['created_by']    = $user->id;
-                            $insert_data[$key]['insert_status'] = true;
-                            $insert_data[$key]['created_at']    = Carbon::now();
-                        }
-                        $comp_status = Complaince::insert($insert_data);
-                    } else {
-                        $comp_status = 1;
-                    }
+                    
+                    // if ($request->complaince[0]['section_name'] != null) {
+                    //     foreach ($request->complaince as $key => $value) {
+                    //         $insert_data[$key]['appl_id']       = $id;
+                    //         $insert_data[$key]['occurence']     = $occurence_counter; // Occerance is incremented everytime time when a query is raised.
+                    //         $insert_data[$key]['exporter_id']   = $exporter_id;
+                    //         $insert_data[$key]['user_id']       = $user->id;
+                    //         $insert_data[$key]['section_type']  = $value['section_name'];
+                    //         $insert_data[$key]['description']   = $value['file_name'];
+                    //         $insert_data[$key]['created_by']    = $user->id;
+                    //         $insert_data[$key]['insert_status'] = true;
+                    //         $insert_data[$key]['created_at']    = Carbon::now();
+                    //     }
+                    //     $comp_status = Complaince::insert($insert_data);
+                    // } else {
+                    //     $comp_status = 1;
+                    // }
 
+                    $comp_status = 1; // Decleared just for now above code is for multiple complaince form which is now disabled.   
                     if ($comp_status) {
                         // Mail for those who will be rejected
                         $data = [
