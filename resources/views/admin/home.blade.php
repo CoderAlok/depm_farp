@@ -96,7 +96,7 @@ font-weight: 500 !important;color:white !important;
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">Director DEPM <span
-                                                                class="float-right">{{get_pending_list_count_for_admi   n(3)}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{get_pending_list_count_for_admin(3)}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-warning" role="progressbar"

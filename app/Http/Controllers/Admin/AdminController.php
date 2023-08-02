@@ -11,8 +11,10 @@ use ExporterRemark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Schemes;
+use Applications;
 use Spatie\Permission\Models\Role;
 use User;
+use ApplicationProgressMaster;
 
 class AdminController extends Controller
 {
@@ -28,6 +30,13 @@ class AdminController extends Controller
         $role_id            = Auth::user()->role_id;
         $data['role']       = Role::where('id', $role_id)->first()->name;
         $data['schemes']    = Schemes::get();
+        $data['tot_application_count']    = Applications::get()->count();
+        $scheme_application_counts[]=array();
+        foreach ($data['schemes'] as $sheme){
+            array_push($scheme_application_counts,Applications::where([['scheme_id',$sheme->id],['appeal_facility',0]])->get()->count().
+            "/".Applications::where('scheme_id',$sheme->id)->get()->count());
+        }
+        $data['application_counts'] = array_filter($scheme_application_counts);
         return view('admin.home')->with($data);
     }
 
