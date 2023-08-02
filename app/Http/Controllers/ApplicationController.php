@@ -684,13 +684,14 @@ class ApplicationController extends Controller
                 'scheme'      => $r->get_scheme_details->short_name ?? '',
                 'name'        => $r->get_exporter_details->name ?? '',
                 'contact_no'  => $r->get_exporter_details->phone ?? '',
-                'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0) : $r->certi_cost,
+                'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->incentive_claimed;})->sum() : 0) + ($r->get_stall_details->claimed_cost ?? 0) : (int) $r->certi_cost,
+                // 'total_amt'   => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->total_expense;})->sum() : 0) + ($r->get_stall_details->total_cost ?? 0) : (int) $r->certi_cost,
                 'status'      => $r->status,
             ];
         })->toArray();
         $data['pending'] = Applications::where('status', 2)->count();
 
-        //dd($data);
+        // dd($data);
         return view('admin.ddo.pending_schemes_application')->with($data);
     }
 
@@ -707,8 +708,6 @@ class ApplicationController extends Controller
         if (Auth::user()->role_id == 7) {
 
             $data['applications'] = Applications::where('status', 8)->with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
-                $total_expenses = 0;
-                $total_expenses += ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0);
                 return [
                     // 'r'           => $r->toArray(),
 
@@ -723,6 +722,7 @@ class ApplicationController extends Controller
             })->toArray();
             $data['pending']        = Applications::where('status', 2)->count();
             $data['ddo_array_flag'] = 7;
+            // dd($data);
         } else {
             // For Departmental Users
             $data['applications'] = Applications::with(['get_scheme_details', 'get_exporter_details', 'get_travel_details', 'get_stall_details'])->latest()->get()->map(function ($r) {
@@ -1359,7 +1359,7 @@ class ApplicationController extends Controller
                 if ($request->status == 9) {
                     $insert_data = [];
                     $exporter_id = Applications::where('id', $id)->first()->exporter_id;
-                    
+
                     // if ($request->complaince[0]['section_name'] != null) {
                     //     foreach ($request->complaince as $key => $value) {
                     //         $insert_data[$key]['appl_id']       = $id;
@@ -1377,7 +1377,7 @@ class ApplicationController extends Controller
                     //     $comp_status = 1;
                     // }
 
-                    $comp_status = 1; // Decleared just for now above code is for multiple complaince form which is now disabled.   
+                    $comp_status = 1; // Decleared just for now above code is for multiple complaince form which is now disabled.
                     if ($comp_status) {
                         // Mail for those who will be rejected
                         $data = [
@@ -1584,12 +1584,13 @@ class ApplicationController extends Controller
                 ->get()
                 ->map(function ($r) {
                     return [
-                        // 'yy'             => $r->toArray(0),
+                        'yy'             => $r->toArray(),
+
                         'id'             => $r->id,
                         'appl_id'        => $r->get_application_details->id,
                         'app_code'       => $r->get_application_details->app_no ?? '',
                         'scheme'         => $r->get_application_details->get_scheme_details->short_name ?? '',
-                        'claimed_amount' => $r->get_application_details->scheme_id == 1 ? (($r->get_application_details->get_travel_details->total_expense ?? 0) + ($r->get_application_details->get_stall_details->total_cost ?? 0)) : ($r->get_application_details->certi_cost ?? 0),
+                        'claimed_amount' => $r->get_application_details->scheme_id == 1 ? (($r->get_application_details->get_travel_details != null ? ($r->get_application_details->get_travel_details->map(function ($r1) {return $r1->incentive_claimed;})->sum() ?? 0) : 0) + ($r->get_application_details->get_stall_details->claimed_cost ?? 0)) : ($r->get_application_details->certi_cost ?? 0),
                         'status'         => $r->get_application_details->get_applied_details->confirmed ?? 0,
                     ];
                 });
@@ -1631,7 +1632,7 @@ class ApplicationController extends Controller
         $data['applications']      = $applications; //->toArray();
         $data['total_expenditure'] = $applications->get_application_progress_master_details[0]->incentive_amount ?? 0;
         // $data['total_expenditure'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
-        $data['incentive_amount'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['incentive_amount'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->map(function ($r) {return $r->incentive_claimed;})->sum() ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
         // $data['considered_amount'] = ($applications->get_application_progress_master_details[0]->incentive_amount ?? 0);
         $data['pending'] = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);

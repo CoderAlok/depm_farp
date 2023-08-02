@@ -527,19 +527,34 @@ class TblExportersController extends Controller
         $data['data']       = $user;
         $data['schemes']    = Schemes::get();
 
-        $applications = Applications::where('exporter_id', $user->id)->whereNotIn('appeal_facility', [0])->with([
-            'get_exporter_details',
-            'get_scheme_details',
-            'get_event_details',
-            'get_travel_details',
-            'get_stall_details.get_event_details',
-            'get_file_details',
-            'get_address_details',
-            'get_other_code_details',
-            'get_bank_details',
-            'get_application_status_details',
-            'get_applied_details',
-        ])->latest()->get();
+        $applications = Applications::where('exporter_id', $user->id)
+            ->whereNotIn('appeal_facility', [0])
+            ->with([
+                'get_exporter_details',
+                'get_scheme_details',
+                'get_event_details',
+                'get_travel_details',
+                'get_stall_details.get_event_details',
+                'get_file_details',
+                'get_address_details',
+                'get_other_code_details',
+                'get_bank_details',
+                'get_application_status_details',
+                'get_applied_details',
+            ])
+            ->latest()
+            ->get()
+            ->map(function ($r) {
+                return [
+                    // 'r'          => $r->toArray(),
+
+                    'id'         => $r->id,
+                    'app_no'     => $r->app_no,
+                    'short_name' => $r->get_scheme_details->short_name,
+                    'amount'     => (int) ($r->scheme_id == 1 ? ($r->get_travel_details != null ? ($r->get_travel_details->map(function ($r) {return $r->incentive_claimed;})->sum() ?? 0) : 0) + ($r->get_stall_details->claimed_cost ?? 0) : ($r->certi_cost ?? 0)),
+                    'status'     => $r->status,
+                ];
+            });
         $data['applications'] = $applications;
         // dd($data);
         return view('appealed-application-list')->with($data);

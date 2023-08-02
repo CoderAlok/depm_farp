@@ -62,10 +62,10 @@
 
                                 {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Please choose an application type</h1> --}}
-                                    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
                                 {{-- </div> --}}
-{{-- 
+                                {{-- 
                                 <div class="row app-list-cards">
                                     @foreach ($schemes as $key => $item)
                                         <div class="col-xl-3 col-md-6 mb-4">
@@ -126,10 +126,10 @@
                                                                 target="_blank">{{ $item['app_no'] ?? '' }}</a>
                                                         </td>
                                                         <td width="40%">
-                                                            <span>{{ $item['get_scheme_details']['short_name'] ?? '' }}</span>
+                                                            <span>{{ $item['short_name'] ?? '' }}</span>
                                                         </td>
                                                         <td width="10%">
-                                                            <span>{{ $item['scheme_id'] == 1 ? '₹ ' . IND_money_format(($item['get_stall_details']['claimed_cost'] ?? 0) + ($item['get_travel_details']['incentive_claimed'] ?? 0)) : '₹ ' . IND_money_format($item['certi_cost']) }}</span>
+                                                            <span>{{ IND_money_format($item['amount']) }}</span>
                                                         </td>
 
                                                         <td>

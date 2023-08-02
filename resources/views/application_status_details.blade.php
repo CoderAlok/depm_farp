@@ -770,7 +770,7 @@
                                 @endif
                                 <!-- Complaince Form  -->
 
-                                @if ($applications->get_applied_details)
+                                @if ($applications->appeal_facility == 1)
                                     <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                         <div class="card">
                                             <div class="card-header">
@@ -798,6 +798,12 @@
                                                                 method="post" name="exporter_appeal_form"
                                                                 id="exporter_appeal_form" class="form-group col-md-12">
                                                                 @csrf
+                                                                <div class="col-md-12">
+                                                                    <div class="col-md-12 m-3">
+                                                                        <span>Sanctioned amount :
+                                                                            <b>{{ '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) ?? '' }}</b></span>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-12">
                                                                     <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"
                                                                         class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
@@ -1049,7 +1055,7 @@
                                 <!-- Complaince Form ended -->
 
                                 <!-- Appeal Form ended -->
-                                @if ($applications->appeal_facility != 0)
+                                @if ($applications->appeal_facility == 1)
                                     <div class="accordion accordion-outline" id="js_demo_accordion-3">
                                         <div class="card">
                                             <div class="card-header">
