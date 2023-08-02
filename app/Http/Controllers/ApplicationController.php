@@ -710,13 +710,14 @@ class ApplicationController extends Controller
                 $total_expenses = 0;
                 $total_expenses += ($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0);
                 return [
-                    'r'           => $r->toArray(),
+                    // 'r'           => $r->toArray(),
+
                     'id'          => $r->id ?? '',
                     'app_no'      => $r->app_no ?? '',
                     'scheme'      => $r->get_scheme_details->short_name ?? '',
                     'name'        => $r->get_exporter_details->name ?? '',
                     'contact_no'  => $r->get_exporter_details->phone ?? '',
-                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->total_expense;})->sum() : 0) : (int) $r->certi_cost,
+                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->incentive_claimed;})->sum() : 0) + ($r->get_stall_details->claimed_cost ?? 0) : (int) $r->certi_cost,
                     'status'      => $r->status,
                 ];
             })->toArray();
@@ -733,7 +734,7 @@ class ApplicationController extends Controller
                     'scheme'      => $r->get_scheme_details->short_name ?? '',
                     'name'        => $r->get_exporter_details->name ?? '',
                     'contact_no'  => $r->get_exporter_details->phone ?? '',
-                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->total_expense;})->sum() : 0) : (int) $r->certi_cost,
+                    'claimed_amt' => $r->scheme_id == 1 ? ($r->get_travel_details != null ? $r->get_travel_details->map(function ($r1) {return $r1->incentive_claimed;})->sum() : 0) + ($r->get_stall_details->claimed_cost ?? 0) : (int) $r->certi_cost,
                     'status'      => $r->status,
                 ];
             })->toArray();
@@ -772,7 +773,7 @@ class ApplicationController extends Controller
                 $r->where('insert_status', 1);
             },
         ])->first(); //->toArray();
-        $data['applications']      = $applications; //->toArray();
+        $data['applications'] = $applications; //->toArray();
         // dd([$data, $data['applications']->get_application_progress_master_details]);
         $data['total_expenditure'] = (int) ($applications->scheme_id == 1 ? ($applications->get_travel_details != null ? ($applications->get_travel_details->map(function ($r) {return $r->total_expense;})->sum() ?? 0) : 0) + ($applications->get_stall_details->total_cost ?? 0) : ($applications->certi_cost ?? 0));
         $data['incentive_amount'] = 0; //(int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
@@ -968,7 +969,7 @@ class ApplicationController extends Controller
      */
     public function exporters_application_status_details_update(Request $request, $id = null)
     {
-        // dd([$request->all()]);
+        dd([$request->all()]);
         try {
             $user          = Auth::user();
             $update_status = Applications::where('id', $id)->update(['status' => $request->status, 'updated_by' => $user->id]);

@@ -860,7 +860,8 @@
 
                                                     </div>
 
-                                                    @if ($applications->get_application_progress_master_details)
+                                                    {{-- @if ($applications->get_application_progress_master_details) --}}
+                                                    @if ($applications->status > 1)
                                                         <table class="table table-responsive table-bordered"
                                                             width="100%">
                                                             <thead>
@@ -871,9 +872,7 @@
                                                             </thead>
 
                                                             {{-- Way 1 Start --}}
-
                                                             <body>
-                                                                {{-- <pre>{{ print_r($applications->get_application_progress_master_details->toArray()) }}</pre> --}}
                                                                 @php
                                                                     $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
                                                                 @endphp

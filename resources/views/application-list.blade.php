@@ -107,6 +107,8 @@
                                             <th>Status</th>
                                             {{-- <th>Action</th> --}}
                                         </thead>
+
+                                        {{-- {{ dd($applications->toArray()) }} --}}
                                         <tbody>
                                             @if (isset($applications))
                                                 @php
