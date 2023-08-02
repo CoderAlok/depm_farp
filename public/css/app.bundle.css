@@ -705,14 +705,14 @@ html body {
 
 /* app header */
 .header-icon {
-    border-radius: 50%;
     color: #666666;
     height: 3.125rem;
     display: block;
-    line-height: 3.125rem;
+    line-height: 4.125rem;
     text-decoration: none;
     position: relative;
-    width: 3.125rem;
+    width: 3.125;
+    border-radius: 50%;
 }
   .header-icon:not(.btn) {
     min-width: 3.125rem;

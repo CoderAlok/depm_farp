@@ -179,13 +179,15 @@ background: linear-gradient(to top,
 <div class="page-content-wrapper">
 <!-- BEGIN Page Header -->
 <header class="page-header" role="banner">
-    <span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span> 
+<span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span>
+    <span style="width: 14rem;height: 3rem;background-color: aquamarine;font-size: 18px;color: #444;font-weight: 600;position: relative;right: -36rem;padding: 12px 0px 0px 10px;margin: 0px 0px 0px 18px;border-bottom-left-radius: 15px;border-top-left-radius: 15px;">    {{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}
+</span>
 <div class="ml-auto d-flex">
 <!-- app user menu -->
 <div>
 <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com"
     class="header-icon d-flex align-items-center justify-content-center ml-2 bg-success">
-    {{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}
+
     <i class="fa fa-user rounded-circle profile-image"></i>
 </a>
 <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
