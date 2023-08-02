@@ -30,8 +30,8 @@ class AdminController extends Controller
         $data['role']       = Role::where('id', $role_id)->first()->name;
         $data['schemes']    = Schemes::get();
 
-        $data['scheme_counts'] = Applications::get();
-        dd($data['scheme_counts']);
+        // $data['scheme_counts'] = Applications::get();
+        // dd($data['scheme_counts']);
         return view('admin.home')->with($data);
     }
 

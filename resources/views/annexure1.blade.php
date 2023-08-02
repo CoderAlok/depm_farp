@@ -466,7 +466,7 @@
                                                                 <label class="form-label h6">(a). Travel Destination Type
                                                                     <span class="text-danger">*</span></label>
                                                                 <br />
-                                                                <select name="travel_destination_type[]"
+                                                                <select name="travel[0][travel_destination_type]"
                                                                     id="travel_destination_type_0"
                                                                     class="travel_destination_type form-control"
                                                                     onchange="change_destination_type(0)" required>
@@ -489,7 +489,7 @@
                                                             <div class="col-md-4 mb-1 d-none upload_visa_div" id="upload_visa_div_0">
                                                                 <label class="form-label h6">(b). Upload Visa Invitation
                                                                     Letter <span class="text-danger">*</span></label>
-                                                                <input type="file" name="file_visa_invitation_letter[]"
+                                                                <input type="file" name="travel[0][file_visa_invitation_letter]"
                                                                     id="file_visa_invitation_letter_0"
                                                                     class="form-control">
                                                                 @if ($errors->has('visa_invitation_letter'))
@@ -502,7 +502,7 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(c). Name of the Traveller
                                                                     <span class="text-danger">*</span></label>
-                                                                <input type="text" name="traveller_name[]"
+                                                                <input type="text" name="travel[0][traveller_name]"
                                                                     id="traveller_name_0" class="form-control"
                                                                     value="{{ old('traveller_name[0]') }}" required />
                                                                 @if ($errors->has('traveller_name[0]'))
@@ -515,7 +515,7 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(d). Travelled from <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="travelled_from[]"
+                                                                <input type="text" name="travel[0][travelled_from]"
                                                                     id="travelled_from_0" class="form-control"
                                                                     value="{{ old('travelled_from[0]') }}" required />
                                                                 @if ($errors->has('travelled_from[0]'))
@@ -526,9 +526,9 @@
                                                                 @endif
                                                             </div>
                                                             <div class="col-md-4 mb-1">
-                                                                <label class="form-label h6">(e). Designation <span
+                                                                <label class="form-label h6">(e). Destination <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="traveller_designation[]"
+                                                                <input type="text" name="travel[0][traveller_designation]"
                                                                     id="traveller_designation_0" class="form-control"
                                                                     value="{{ old('traveller_designation[0]') }}" required />
                                                                 @if ($errors->has('traveller_designation[0]'))
@@ -541,7 +541,7 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(f). Mode of Travel <span
                                                                         class="text-danger">*</span></label>
-                                                                <select name="mode_of_travel[]" id="mode_of_travel_0"
+                                                                <select name="travel[0][mode_of_travel]" id="mode_of_travel_0"
                                                                     class="form-control" onchange="change_mode_of_travel(0)" required>
                                                                     <option value="">Choose a mode</option>
                                                                     <option value="1"
@@ -561,7 +561,7 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(g). Class of Travel <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="class_of_tarvel[]"
+                                                                <input type="text" name="travel[0][class_of_tarvel]"
                                                                     id="class_of_tarvel_0" class="form-control"
                                                                     value="{{ old('class_of_tarvel[0]') }}" required />
                                                                 @if ($errors->has('class_of_tarvel[0]'))
@@ -574,7 +574,7 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(h). Upload ticket <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="file" name="file_ticket[]"
+                                                                <input type="file" name="travel[0][file_ticket]"
                                                                     id="file_ticket_0" class="form-control" required>
                                                                 @if ($errors->has('file_ticket[0]'))
                                                                     <span
@@ -586,7 +586,7 @@
                                                             <div class="col-md-4 mb-1 boarding_pass_div d-none" id="boarding_pass_div_0">
                                                                 <label class="form-label h6">(i). Upload Boarding Pass
                                                                     <span class="text-danger">*</span></label>
-                                                                <input type="file" name="file_boarding_pass[]"
+                                                                <input type="file" name="travel[0][file_boarding_pass]"
                                                                     id="file_boarding_pass_0" class="form-control">
                                                                 @if ($errors->has('file_boarding_pass[0]'))
                                                                     <span
@@ -601,7 +601,7 @@
                                                                     <span>&#8377;</span> <span
                                                                         class="text-danger">*</span><br /></label>
                                                                 <input type="number" class="form-control form-control-sm"
-                                                                    placeholder="₹" name="total_travel_expense[]"
+                                                                    placeholder="₹" name="travel[0][total_travel_expense]"
                                                                     id="total_travel_expense_0"
                                                                     value="{{ old('total_travel_expense[0]') }}" required/>
                                                                 @if ($errors->has('total_travel_expense[0]'))
@@ -616,7 +616,7 @@
                                                                     travel<span>&#8377;</span><span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="number" class="form-control form-control-sm"
-                                                                    placeholder="₹" name="travel_incentive[]"
+                                                                    placeholder="₹" name="travel[0][travel_incentive]"
                                                                     id="travel_incentive_0"
                                                                     value="{{ old('travel_incentive[0]') }}" required/>
                                                                 @if ($errors->has('travel_incentive[0]'))
@@ -877,7 +877,7 @@
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(a). Travel Destination Type <span class="text-danger">*</span></label>
                             <br />
-                            <select name="travel_destination_type[]" id="travel_destination_type_${counter}" class="form-control" onchange="change_destination_type(${counter})" required/>
+                            <select name="travel[${counter}][travel_destination_type]" id="travel_destination_type_${counter}" class="form-control" onchange="change_destination_type(${counter})" required/>
                                 <option value="">Select travel destination type</option>
                                 <option value="1">Within India</option>
                                 <option value="2">Outside India</option>
@@ -885,23 +885,23 @@
                         </div>
                         <div class="col-md-4 mb-1 d-none upload_visa_div" id="upload_visa_div_${counter}">
                             <label class="form-label h6">(b). Upload Visa Invitation Letter<span class="text-danger">*</span></label>
-                            <input type="file" name="file_visa_invitation_letter[]" id="file_visa_invitation_letter_${counter}" class="form-control"/>
+                            <input type="file" name="travel[${counter}][file_visa_invitation_letter]" id="file_visa_invitation_letter_${counter}" class="form-control"/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(c). Name of the Traveller <span class="text-danger">*</span></label>
-                            <input type="text" name="traveller_name[]" id="traveller_name_${counter}" class="form-control" required/>
+                            <input type="text" name="travel[${counter}][traveller_name]" id="traveller_name_${counter}" class="form-control" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(d). Travel from <span class="text-danger">*</span></label>
-                            <input type="text" name="travelled_from[]" id="travelled_from_${counter}" class="form-control" value="" required/>
+                            <input type="text" name="travel[${counter}][travelled_from]" id="travelled_from_${counter}" class="form-control" value="" required/>
                         </div>
                         <div class="col-md-4 mb-1">
-                            <label class="form-label h6">(d). Designation <span class="text-danger">*</span></label>
-                            <input type="text" name="traveller_designation[]" id="traveller_designation_${counter}" class="form-control" required/>
+                            <label class="form-label h6">(d). Destination <span class="text-danger">*</span></label>
+                            <input type="text" name="travel[${counter}][traveller_designation]" id="traveller_designation_${counter}" class="form-control" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(f). Mode of Travel <span class="text-danger">*</span></label>
-                            <select name="mode_of_travel[]" id="mode_of_travel_${counter}" class="form-control" onchange="change_mode_of_travel(${counter})" required/>
+                            <select name="travel[${counter}][mode_of_travel]" id="mode_of_travel_${counter}" class="form-control" onchange="change_mode_of_travel(${counter})" required/>
                                 <option value="">Choose a mode</option>
                                 <option value="1">Flight</option>
                                 <option value="2">Train</option>
@@ -909,23 +909,23 @@
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(g). Class of Travel <span class="text-danger">*</span></label>
-                            <input type="text" name="class_of_tarvel[]" id="class_of_tarvel_${counter}" class="form-control" value="" required/>
+                            <input type="text" name="travel[${counter}][class_of_tarvel]" id="class_of_tarvel_${counter}" class="form-control" value="" required/>
                         </div>
                         <div class="col-md-4 mb-1">
                             <label class="form-label h6">(h). Upload ticket <span class="text-danger">*</span></label>
-                            <input type="file" name="file_ticket[]" id="file_ticket_${counter}" class="form-control" required/>
+                            <input type="file" name="travel[${counter}][file_ticket]" id="file_ticket_${counter}" class="form-control" required/>
                         </div>
                         <div class="col-md-4 mb-1 boarding_pass_div d-none" id="boarding_pass_div_${counter}">
                             <label class="form-label h6">(i). Upload Boarding Pass <span class="text-danger">*</span></label>
-                            <input type="file" name="file_boarding_pass[]" id="file_boarding_pass_${counter}" class="form-control"/>
+                            <input type="file" name="travel[${counter}][file_boarding_pass]" id="file_boarding_pass_${counter}" class="form-control"/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(j). Total expense made for travel <span>&#8377;</span><span class="text-danger">*</span><br/></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="total_travel_expense[]" id="total_travel_expense_${counter}" required/>
+                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel[${counter}][total_travel_expense]" id="total_travel_expense_${counter}" required/>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label h6">(k). Incentive claimed towards travel <span>&#8377;</span><span class="text-danger">*</span></label>
-                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel_incentive[]" id="travel_incentive_${counter}" required/>
+                            <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel[${counter}][travel_incentive]" id="travel_incentive_${counter}" required/>
                         </div>
                     </div>`;
 

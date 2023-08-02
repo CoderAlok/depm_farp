@@ -89,6 +89,7 @@ class tbl_application_details extends Model
         return $this->hasMany(Complaince::class, 'appl_id', 'id');
     }
 
+    // Rename to get_appealed_details
     public function get_applied_details()
     {
         return $this->hasOne(AppliedApplication::class, 'appl_id', 'id');

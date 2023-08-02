@@ -369,16 +369,14 @@
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="traveller_name" id="traveller_name"
                                                                     class="form-control"
-                                                                    value="{{ $item->traveller_name ?? '' }}"
-                                                                    reaonly />
+                                                                    value="{{ $item->traveller_name ?? '' }}" reaonly />
                                                             </div>
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(d). Designation <span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="traveller_designation"
                                                                     id="traveller_designation" class="form-control"
-                                                                    value="{{ $item->designation ?? '' }}"
-                                                                    readonly />
+                                                                    value="{{ $item->designation ?? '' }}" readonly />
                                                             </div>
 
                                                             <div class="col-md-4 mb-1">
@@ -398,8 +396,7 @@
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="class_of_tarvel" id="class_of_tarvel"
                                                                     class="form-control"
-                                                                    value="{{ $item->class_of_travel ?? '' }}"
-                                                                    readonly />
+                                                                    value="{{ $item->class_of_travel ?? '' }}" readonly />
                                                             </div>
 
                                                             <div class="col-md-4 mb-1">
@@ -443,7 +440,7 @@
                                                                     readonly />
                                                             </div>
                                                         </div>
-                                                        <hr/>
+                                                        <hr />
                                                     @endforeach
 
                                                 </div>
@@ -773,52 +770,55 @@
                                 @endif
                                 <!-- Complaince Form  -->
 
-                                <div class="accordion accordion-outline" id="js_demo_accordion-3">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
-                                                data-target="#js_demo_accordion-3g" aria-expanded="true">
-                                                <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
-                                                Appeal Form
-                                                <span class="ml-auto">
-                                                    <span class="collapsed-reveal">
-                                                        <i class="fal fa-minus fs-xl"></i>
+                                @if ($applications->get_applied_details)
+                                    <div class="accordion accordion-outline" id="js_demo_accordion-3">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse"
+                                                    data-target="#js_demo_accordion-3g" aria-expanded="true">
+                                                    <i class="fal fa-file-medical-alt width-2 fs-xl"></i>
+                                                    Appeal Form
+                                                    <span class="ml-auto">
+                                                        <span class="collapsed-reveal">
+                                                            <i class="fal fa-minus fs-xl"></i>
+                                                        </span>
+                                                        <span class="collapsed-hidden">
+                                                            <i class="fal fa-plus fs-xl"></i>
+                                                        </span>
                                                     </span>
-                                                    <span class="collapsed-hidden">
-                                                        <i class="fal fa-plus fs-xl"></i>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div id="js_demo_accordion-3g" class="collapse show" data-parent="#js_demo_accordion-3">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    @if ($applications->appeal_facility == 1)
-                                                        <form
-                                                            action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
-                                                            method="post" name="exporter_appeal_form" id="exporter_appeal_form"
-                                                            class="form-group col-md-12">
-                                                            @csrf
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3g" class="collapse show"
+                                                data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @if ($applications->appeal_facility == 1)
+                                                            <form
+                                                                action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
+                                                                method="post" name="exporter_appeal_form"
+                                                                id="exporter_appeal_form" class="form-group col-md-12">
+                                                                @csrf
+                                                                <div class="col-md-12">
+                                                                    <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"
+                                                                        class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <input type="submit" value="Submit"
+                                                                        class="btn btn-primary mt-3">
+                                                                </div>
+                                                            </form>
+                                                        @else
                                                             <div class="col-md-12">
-                                                                <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"
-                                                                    class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
+                                                                <span>Appeal remarks :
+                                                                    <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
                                                             </div>
-                                                            <div class="col-md-12">
-                                                                <input type="submit" value="Submit"
-                                                                    class="btn btn-primary mt-3">
-                                                            </div>
-                                                        </form>
-                                                    @else
-                                                        <div class="col-md-12">
-                                                            <span>Appeal remarks :
-                                                                <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
-                                                        </div>
-                                                    @endif
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @break
 
                             @default
@@ -1091,10 +1091,13 @@
                                                                 </div>
                                                             </form>
                                                         @else
-                                                            <div class="col-md-12">
-                                                                <span>Appeal remarks :
-                                                                    <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
-                                                            </div>
+                                                            {{ $applications->get_applied_details }}
+                                                            @if ($applications->get_applied_details)
+                                                                <div class="col-md-12">
+                                                                    <span>Appeal remarks : ass
+                                                                        <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
+                                                                </div>
+                                                            @endif
                                                         @endif
                                                     </div>
                                                 </div>

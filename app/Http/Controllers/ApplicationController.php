@@ -42,99 +42,98 @@ class ApplicationController extends Controller
         try {
             $valid_rule  = [];
             $valid_error = [];
-            dd([$this->app->generateExpSchAppCode(), $request->all()]);
             switch ($request->scheme_id) {
                 // Validation for scheme 1
                 case 1:
                     if ($request->travel_details == 1 && $request->stall_details == 1) {
                         // Both Travel & Stall detail ACTIVE
                         $valid_rule = [
-                            'exporter_id'                 => 'required',
-                            'scheme_id'                   => 'required',
-                            'iec'                         => 'required',
-                            'exporting_organization'      => 'required',
-                            'dir_ceo'                     => 'required',
-                            'exptr_email'                 => 'required',
-                            'exptr_phone'                 => 'required',
-                            'bank_name'                   => 'required',
-                            'bank_ac'                     => 'required',
-                            'bank_ifsc'                   => 'required',
-                            'event_detail'                => '',
-                            'event_name'                  => 'required',
-                            'event_type'                  => 'required',
-                            'participation_type'          => 'required',
-                            'event_city'                  => 'required',
-                            'event_country'               => 'required',
-                            'file_iec'                    => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_bank_cheque'            => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'exporter_id'                          => 'required',
+                            'scheme_id'                            => 'required',
+                            'iec'                                  => 'required',
+                            'exporting_organization'               => 'required',
+                            'dir_ceo'                              => 'required',
+                            'exptr_email'                          => 'required',
+                            'exptr_phone'                          => 'required',
+                            'bank_name'                            => 'required',
+                            'bank_ac'                              => 'required',
+                            'bank_ifsc'                            => 'required',
+                            'event_detail'                         => '',
+                            'event_name'                           => 'required',
+                            'event_type'                           => 'required',
+                            'participation_type'                   => 'required',
+                            'event_city'                           => 'required',
+                            'event_country'                        => 'required',
+                            'file_iec'                             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'                     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Travel
-                            'travel_destination_type'     => 'required',
-                            'traveller_name'              => 'required',
-                            'traveller_designation'       => 'required',
-                            'mode_of_travel'              => '',
-                            'class_of_tarvel'             => 'required',
-                            'total_travel_expense'        => 'required',
-                            'travel_incentive'            => 'required',
-                            'file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_ticket'                 => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'travel.*.travel_destination_type'     => 'required',
+                            'travel.*.traveller_name'              => 'required',
+                            'travel.*.traveller_designation'       => 'required',
+                            'travel.*.mode_of_travel'              => '',
+                            'travel.*.class_of_tarvel'             => 'required',
+                            'travel.*.total_travel_expense'        => 'required',
+                            'travel.*.travel_incentive'            => 'required',
+                            'travel.*.file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'travel.*.file_ticket'                 => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'travel.*.file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Stall
-                            'stall_event_name'            => 'required',
-                            'total_stall_reg_cost'        => 'required',
-                            'stall_incentive'             => 'required',
-                            'file_stall_allot_letter'     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_stall_pay_recpt'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'stall_event_name'                     => 'required',
+                            'total_stall_reg_cost'                 => 'required',
+                            'stall_incentive'                      => 'required',
+                            'file_stall_allot_letter'              => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_stall_pay_recpt'                 => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Additional
-                            'meeting_detail'              => 'required',
-                            'participation_det'           => 'required',
-                            'file_tour_dairy'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'meeting_detail'                       => 'required',
+                            'participation_det'                    => 'required',
+                            'file_tour_dairy'                      => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
                         ];
                         $valid_error = [
-                            'exporter_id.required'                 => 'Please, enter the exporter_id',
-                            'scheme_id.required'                   => 'Please, enter the scheme_id',
-                            'iec.required'                         => 'Please, enter the iec',
-                            'exporting_organization.required'      => 'Please, enter the exporting_organization',
-                            'dir_ceo.required'                     => 'Please, enter the dir_ceo',
-                            'exptr_email.required'                 => 'Please, enter the exptr_email',
-                            'exptr_phone.required'                 => 'Please, enter the exptr_phone',
-                            'bank_name.required'                   => 'Please, enter the bank_name',
-                            'bank_ac.required'                     => 'Please, enter the bank_ac',
-                            'bank_ifsc.required'                   => 'Please, enter the bank_ifsc',
-                            'event_detail'                         => '',
-                            'event_name.required'                  => 'Please, enter the event_name',
-                            'event_type.required'                  => 'Please, enter the event_type',
-                            'participation_type.required'          => 'Please, enter the participation_type',
-                            'event_city.required'                  => 'Please, enter the event_city',
-                            'event_country.required'               => 'Please, enter the event_country',
-                            'file_iec.required'                    => 'Please, fill the required file iec',
-                            'file_bank_cheque.required'            => 'Please, fill the required file bank cheque',
+                            'exporter_id.required'                          => 'Please, enter the exporter_id',
+                            'scheme_id.required'                            => 'Please, enter the scheme_id',
+                            'iec.required'                                  => 'Please, enter the iec',
+                            'exporting_organization.required'               => 'Please, enter the exporting_organization',
+                            'dir_ceo.required'                              => 'Please, enter the dir_ceo',
+                            'exptr_email.required'                          => 'Please, enter the exptr_email',
+                            'exptr_phone.required'                          => 'Please, enter the exptr_phone',
+                            'bank_name.required'                            => 'Please, enter the bank_name',
+                            'bank_ac.required'                              => 'Please, enter the bank_ac',
+                            'bank_ifsc.required'                            => 'Please, enter the bank_ifsc',
+                            'event_detail'                                  => '',
+                            'event_name.required'                           => 'Please, enter the event_name',
+                            'event_type.required'                           => 'Please, enter the event_type',
+                            'participation_type.required'                   => 'Please, enter the participation_type',
+                            'event_city.required'                           => 'Please, enter the event_city',
+                            'event_country.required'                        => 'Please, enter the event_country',
+                            'file_iec.required'                             => 'Please, fill the required file iec',
+                            'file_bank_cheque.required'                     => 'Please, fill the required file bank cheque',
 
                             // Travel
-                            'travel_destination_type.required'     => 'Please, enter the travel_destination_type',
-                            'traveller_name.required'              => 'Please, enter the traveller_name',
-                            'traveller_designation.required'       => 'Please, enter the traveller_designation',
-                            'mode_of_travel.required'              => 'Please, enter the mode_of_travel',
-                            'class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
-                            'total_travel_expense.required'        => 'Please, enter the total_travel_expense',
-                            'travel_incentive.required'            => 'Please, enter the travel_incentive',
-                            'file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
-                            'file_ticket.required'                 => 'Please, enter the file_ticket',
-                            'file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
+                            'travel.*.travel_destination_type.required'     => 'Please, enter the travel_destination_type',
+                            'travel.*.traveller_name.required'              => 'Please, enter the traveller_name',
+                            'travel.*.traveller_designation.required'       => 'Please, enter the traveller_designation',
+                            'travel.*.mode_of_travel.required'              => 'Please, enter the mode_of_travel',
+                            'travel.*.class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
+                            'travel.*.total_travel_expense.required'        => 'Please, enter the total_travel_expense',
+                            'travel.*.travel_incentive.required'            => 'Please, enter the travel_incentive',
+                            'travel.*.file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
+                            'travel.*.file_ticket.required'                 => 'Please, enter the file_ticket',
+                            'travel.*.file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
 
                             // Stall
-                            'stall_event_name.required'            => 'Please, enter the stall_event_name',
-                            'total_stall_reg_cost.required'        => 'Please, enter the total_stall_reg_cost',
-                            'stall_incentive.required'             => 'Please, enter the stall_incentive',
-                            'file_stall_allot_letter.required'     => 'Please, enter the file_stall_allot_letter',
-                            'file_stall_pay_recpt.required'        => 'Please, enter the file_stall_pay_recpt',
+                            'stall_event_name.required'                     => 'Please, enter the stall_event_name',
+                            'total_stall_reg_cost.required'                 => 'Please, enter the total_stall_reg_cost',
+                            'stall_incentive.required'                      => 'Please, enter the stall_incentive',
+                            'file_stall_allot_letter.required'              => 'Please, enter the file_stall_allot_letter',
+                            'file_stall_pay_recpt.required'                 => 'Please, enter the file_stall_pay_recpt',
 
                             // Additional
-                            'meeting_detail.required'              => 'Please, enter the meeting_detail',
-                            'participation_det.required'           => 'Please, enter the participation_det',
-                            'file_tour_dairy.required'             => 'Please, enter the file_tour_dairy',
+                            'meeting_detail.required'                       => 'Please, enter the meeting_detail',
+                            'participation_det.required'                    => 'Please, enter the participation_det',
+                            'file_tour_dairy.required'                      => 'Please, enter the file_tour_dairy',
                         ];
                     } elseif ($request->stall_details == 1) {
                         // Stall detail ACTIVE
@@ -229,36 +228,36 @@ class ApplicationController extends Controller
                     } else if ($request->travel_details == 1) {
                         // Travel Details Active
                         $valid_rule = [
-                            'exporter_id'                 => 'required',
-                            'scheme_id'                   => 'required',
-                            'iec'                         => 'required',
-                            'exporting_organization'      => 'required',
-                            'dir_ceo'                     => 'required',
-                            'exptr_email'                 => 'required',
-                            'exptr_phone'                 => 'required',
-                            'bank_name'                   => 'required',
-                            'bank_ac'                     => 'required',
-                            'bank_ifsc'                   => 'required',
-                            'event_detail'                => '',
-                            'event_name'                  => 'required',
-                            'event_type'                  => 'required',
-                            'participation_type'          => 'required',
-                            'event_city'                  => 'required',
-                            'event_country'               => 'required',
-                            'file_iec'                    => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_bank_cheque'            => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'exporter_id'                          => 'required',
+                            'scheme_id'                            => 'required',
+                            'iec'                                  => 'required',
+                            'exporting_organization'               => 'required',
+                            'dir_ceo'                              => 'required',
+                            'exptr_email'                          => 'required',
+                            'exptr_phone'                          => 'required',
+                            'bank_name'                            => 'required',
+                            'bank_ac'                              => 'required',
+                            'bank_ifsc'                            => 'required',
+                            'event_detail'                         => '',
+                            'event_name'                           => 'required',
+                            'event_type'                           => 'required',
+                            'participation_type'                   => 'required',
+                            'event_city'                           => 'required',
+                            'event_country'                        => 'required',
+                            'file_iec'                             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'file_bank_cheque'                     => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Travel
-                            'travel_destination_type'     => 'required',
-                            'traveller_name'              => 'required',
-                            'traveller_designation'       => 'required',
-                            'mode_of_travel'              => 'required',
-                            'class_of_tarvel'             => 'required',
-                            'total_travel_expense'        => 'required',
-                            'travel_incentive'            => 'required',
-                            'file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_ticket'                 => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
-                            'file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'travel.*.travel_destination_type'     => 'required',
+                            'travel.*.traveller_name'              => 'required',
+                            'travel.*.traveller_designation'       => 'required',
+                            'travel.*.mode_of_travel'              => 'required',
+                            'travel.*.class_of_tarvel'             => 'required',
+                            'travel.*.total_travel_expense'        => 'required',
+                            'travel.*.travel_incentive'            => 'required',
+                            'travel.*.file_visa_invitation_letter' => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'travel.*.file_ticket'                 => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'travel.*.file_boarding_pass'          => 'file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Stall
                             // 'stall_event_name'            => 'required',
@@ -268,9 +267,9 @@ class ApplicationController extends Controller
                             // 'file_stall_pay_recpt'        => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
 
                             // Additional
-                            'meeting_detail'              => 'required',
-                            'participation_det'           => 'required',
-                            'file_tour_dairy'             => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
+                            'meeting_detail'                       => 'required',
+                            'participation_det'                    => 'required',
+                            'file_tour_dairy'                      => 'required|file|max:4096|mimes:jpeg,jpg,png,pdf',
                         ];
                         $valid_error = [
                             'exporter_id.required'                 => 'Please, enter the exporter_id',
@@ -293,16 +292,16 @@ class ApplicationController extends Controller
                             'file_bank_cheque.required'            => 'Please, fill the required file bank cheque',
 
                             // Travel
-                            'travel_destination_type.required'     => 'Please, enter the travel_destination_type',
-                            'traveller_name.required'              => 'Please, enter the traveller_name',
-                            'traveller_designation.required'       => 'Please, enter the traveller_designation',
-                            'mode_of_travel.required'              => 'Please, enter the mode_of_travel',
-                            'class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
-                            'total_travel_expense.required'        => 'Please, enter the total_travel_expense',
-                            'travel_incentive.required'            => 'Please, enter the travel_incentive',
-                            'file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
-                            'file_ticket.required'                 => 'Please, enter the file_ticket',
-                            'file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
+                            'travel.*.travel_destination_type.required'     => 'Please, enter the travel_destination_type',
+                            'travel.*.traveller_name.required'              => 'Please, enter the traveller_name',
+                            'travel.*.traveller_designation.required'       => 'Please, enter the traveller_designation',
+                            'travel.*.mode_of_travel.required'              => 'Please, enter the mode_of_travel',
+                            'travel.*.class_of_tarvel.required'             => 'Please, enter the class_of_tarvel',
+                            'travel.*.total_travel_expense.required'        => 'Please, enter the total_travel_expense',
+                            'travel.*.travel_incentive.required'            => 'Please, enter the travel_incentive',
+                            'travel.*.file_visa_invitation_letter.required' => 'Please, enter the file_visa_invitation_letter',
+                            'travel.*.file_ticket.required'                 => 'Please, enter the file_ticket',
+                            'travel.*.file_boarding_pass.required'          => 'Please, enter the file_boarding_pass',
 
                             // Stall
                             // 'stall_event_name.required'            => 'Please, enter the stall_event_name',
@@ -459,13 +458,10 @@ class ApplicationController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             } else {
-                // dd($request->all());
-
                 $user_id        = Auth::guard('exporter')->user()->id;
                 $application_no = $this->app->generateExpSchAppCode();
 
                 if ($request->scheme_id != 1) {
-                    //    dd([$request->all(), '!1']);
                     // Payment reciept upload
                     $payment_reciept_image     = $request->file_payment_reciept;
                     $payment_reciept_file_name = 'PAYREC' . substr(sha1($payment_reciept_image . uniqid('', true)), 20, 5) . date('my') . $payment_reciept_image->getClientOriginalName();
@@ -486,7 +482,6 @@ class ApplicationController extends Controller
                         'created_at'                 => Carbon::now(),
                     ];
                 } else {
-                    // dd([$request->all(), '1']);
                     $appl_data = [
                         'app_no'                => $application_no['applicaton_no'],
                         'app_count_no'          => $application_no['app_count_no'],
@@ -501,24 +496,17 @@ class ApplicationController extends Controller
                 }
 
                 $appl_id = Applications::insertGetId($appl_data);
-                // dd([$appl_id, $appl_data, $request->all()]);
 
                 if ($appl_id) {
                     // IEC certificate upload
-                    $iec_image     = $request->file_iec;
-                    $iec_file_name = 'IEC_' . substr(sha1($iec_image . uniqid('', true)), 20, 5) . date('my') . $iec_image->getClientOriginalName();
-                    $iec_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'iec/', $iec_file_name);
+                    $iec_file_name = common_file_upload($request->file_iec, ['file_name' => 'IEC_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'iec']);
 
                     // Bank cheque upload
-                    $bank_cheque_image     = $request->file_bank_cheque;
-                    $bank_cheque_file_name = 'BANK_CHEQUE_' . substr(sha1($bank_cheque_image . uniqid('', true)), 20, 5) . date('my') . $bank_cheque_image->getClientOriginalName();
-                    $bank_cheque_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'bank/', $bank_cheque_file_name);
+                    $bank_cheque_file_name = common_file_upload($request->file_bank_cheque, ['file_name' => 'BANK_CHEQUE_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'bank']);
 
                     if ($request->scheme_id == 1) {
                         // Tour Dairy upload
-                        $tour_dairy_image     = $request->file_tour_dairy;
-                        $tour_dairy_file_name = 'TOUR_DAIRY_' . substr(sha1($tour_dairy_image . uniqid('', true)), 20, 5) . date('my') . $tour_dairy_image->getClientOriginalName();
-                        $tour_dairy_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'tour_dairy/', $tour_dairy_file_name);
+                        $tour_dairy_file_name = common_file_upload($request->file_tour_dairy, ['file_name' => 'TOUR_DAIRY_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'tour_dairy']);
 
                         // Event details will be added
                         $event_data = [
@@ -537,68 +525,78 @@ class ApplicationController extends Controller
                     }
 
                     if ($request->travel_details == 1) {
-                        // Visa upload
-                        if ($request->file_visa_invitation_letter) {
-                            $visa_image     = $request->file_visa_invitation_letter;
-                            $visa_file_name = 'VISA_' . substr(sha1($visa_image . uniqid('', true)), 20, 5) . date('my') . $visa_image->getClientOriginalName();
-                            $visa_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'visa_image/', $visa_file_name);
-                        } else {
-                            $visa_file_name = '';
-                        }
+                        // file submittion loop start
+                        foreach ($request->travel as $key => $value) {
 
-                        // Ticket upload
-                        if ($request->file_ticket) {
-                            $ticket_image     = $request->file_ticket;
-                            $ticket_file_name = 'TICKET_' . substr(sha1($ticket_image . uniqid('', true)), 20, 5) . date('my') . $ticket_image->getClientOriginalName();
-                            $ticket_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'ticket/', $ticket_file_name);
-                        } else {
-                            $ticket_image = '';
-                        }
+                            $common_data[$key]['appl_id']            = $appl_id;
+                            $common_data[$key]['destination_type']   = $value['travel_destination_type'];
+                            $common_data[$key]['traveller_name']     = $value['traveller_name'];
+                            $common_data[$key]['travel_from']        = $value['travelled_from'];
+                            $common_data[$key]['designation']        = $value['traveller_designation'];
+                            $common_data[$key]['mode_of_travel']     = $value['mode_of_travel'];
+                            $common_data[$key]['class_of_travel']    = $value['class_of_tarvel'];
+                            $common_data[$key]['total_expense']      = $value['total_travel_expense'];
+                            $common_data[$key]['incentive_claimed']  = $value['travel_incentive'];
+                            $common_data[$key]['file_visa']          = '';
+                            $common_data[$key]['file_ticket']        = '';
+                            $common_data[$key]['file_boarding_pass'] = '';
+                            $common_data[$key]['status']             = 1;
+                            $common_data[$key]['created_by']         = $user_id;
+                            $common_data[$key]['created_at']         = Carbon::now();
 
-                        // Boarding pass upload
-                        if ($request->file_boarding_pass) {
-                            $boarding_pass_image     = $request->file_boarding_pass;
-                            $boarding_pass_file_name = 'BOARDING_PASS_' . substr(sha1($boarding_pass_image . uniqid('', true)), 20, 5) . date('my') . $boarding_pass_image->getClientOriginalName();
-                            $boarding_pass_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'boarding_pass/', $boarding_pass_file_name);
-                        } else {
-                            $boarding_pass_image = '';
-                        }
+                            if ($value['travel_destination_type'] == 2) {
+                                // Visa upload
+                                if ($value['file_visa_invitation_letter'] != null) {
+                                    $visa_file_name = common_file_upload($value['file_visa_invitation_letter'], ['file_name' => 'VISA_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'visa_image']);
+                                } else {
+                                    $visa_file_name = '';
+                                }
 
-                        // Travel details
-                        $travel_data = [
-                            'appl_id'            => $appl_id,
-                            'destination_type'   => $request->travel_destination_type ?? '',
-                            'traveller_name'     => $request->traveller_name ?? '',
-                            'designation'        => $request->traveller_designation ?? '',
-                            'mode_of_travel'     => $request->mode_of_travel ?? '',
-                            'class_of_travel'    => $request->class_of_tarvel ?? '',
-                            'total_expense'      => $request->total_travel_expense ?? '',
-                            'incentive_claimed'  => $request->travel_incentive ?? '',
-                            'file_visa'          => $visa_file_name ?? '',
-                            'file_ticket'        => $ticket_file_name ?? '',
-                            'file_boarding_pass' => $boarding_pass_file_name ?? '',
-                            'status'             => 1,
-                            'created_by'         => $user_id,
-                            'created_at'         => Carbon::now(),
-                        ];
-                        $travel_id = ApplicationTravels::insert($travel_data);
+                                $common_data[$key]['file_visa'] = $visa_file_name;
+                            }
+                            if ($value['mode_of_travel'] == 1) {
+                                // $common_data[$key]['class_of_travel'] = $value['class_of_tarvel'];
+
+                                // Ticket upload
+                                if ($value['file_ticket']) {
+                                    $ticket_file_name = common_file_upload($value['file_ticket'], ['file_name' => 'TICKET_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'ticket']);
+                                } else {
+                                    $ticket_file_name = '';
+                                }
+                                $common_data[$key]['file_ticket'] = $ticket_file_name;
+
+                                // Boarding pass upload
+                                if ($value['file_boarding_pass']) {
+                                    $boarding_pass_file_name = common_file_upload($value['file_boarding_pass'], ['file_name' => 'BOARDING_PASS_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'boarding_pass']);
+                                } else {
+                                    $boarding_pass_file_name = '';
+                                }
+                                $common_data[$key]['file_boarding_pass'] = $boarding_pass_file_name;
+
+                            } else {
+                                // Ticket upload
+                                if ($value['file_ticket']) {
+                                    $ticket_file_name = common_file_upload($value['file_ticket'], ['file_name' => 'TICKET_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'ticket']);
+                                } else {
+                                    $ticket_file_name = '';
+                                }
+                                $common_data[$key]['file_ticket'] = $ticket_file_name;
+                            }
+                        }
+                        $travel_id = ApplicationTravels::insert($common_data);
                     }
 
                     if ($request->stall_details == 1) {
                         // Stall allotment upload
                         if ($request->file_stall_allot_letter) {
-                            $stall_allotment_image     = $request->file_stall_allot_letter;
-                            $stall_allotment_file_name = 'STALL_ALLOTMENT_' . substr(sha1($stall_allotment_image . uniqid('', true)), 20, 5) . date('my') . $stall_allotment_image->getClientOriginalName();
-                            $stall_allotment_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_allotment/', $stall_allotment_file_name);
+                            $stall_allotment_file_name = common_file_upload($request->file_stall_allot_letter, ['file_name' => 'STALL_ALLOTMENT_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'stall_allotment']);
                         } else {
                             $stall_allotment_image = $request->file_stall_allot_letter;
                         }
 
                         // Stall registration payment reciept upload
                         if ($request->file_stall_pay_recpt) {
-                            $stall_pay_reciept_image     = $request->file_stall_pay_recpt;
-                            $stall_pay_reciept_file_name = 'STALL_PAY_RECIEPT_' . substr(sha1($stall_pay_reciept_image . uniqid('', true)), 20, 5) . date('my') . $stall_pay_reciept_image->getClientOriginalName();
-                            $stall_pay_reciept_image->storeAs('public/images/exporters/applications/' . $application_no['applicaton_no'] . '/' . 'stall_pay_reciept/', $stall_pay_reciept_file_name);
+                            $stall_pay_reciept_file_name = common_file_upload($request->file_stall_pay_recpt, ['file_name' => 'STALL_PAY_RECIEPT_', 'appl_id' => $application_no['applicaton_no'], 'folder_name' => 'stall_pay_reciept']);
                         } else {
                             $stall_pay_reciept_image = $request->file_stall_pay_recpt;
                         }
@@ -648,20 +646,17 @@ class ApplicationController extends Controller
                     $log_status = ApplicationLog::insert($insert_log_data);
 
                     $data['data'] = [
-                        'appl_id'   => $appl_id ?? '',
-                        'event_id'  => $event_id ?? '',
-                        'travel_id' => $travel_id ?? '',
-                        'stall_id'  => $stall_id ?? '',
-                        'file_id'   => $file_id ?? '',
+                        'appl_id'  => $appl_id ?? '',
+                        'event_id' => $event_id ?? '',
+                        'stall_id' => $stall_id ?? '',
+                        'file_id'  => $file_id ?? '',
                     ];
                     $data['message'] = 'Application submission successful.';
                     $request->session()->flash('message', $data['message']);
-                    // return redirect()->back()->with($data);
                     return redirect()->route('exporter.application.list')->with($data);
                 } else {
                     $data['data']    = [];
                     $data['message'] = 'Applictaion submission failed.';
-                    // return redirect()->back()->with($data);
                     return redirect()->route('exporter.application.list')->with($data);
                 }
             }
@@ -669,8 +664,6 @@ class ApplicationController extends Controller
             $data['data']    = [];
             $data['message'] = $e->getMessage();
             return response($data, 500);
-
-            // return redirect()->route('exporter.application.list')->with($data);
         }
     }
 
@@ -742,7 +735,7 @@ class ApplicationController extends Controller
             $data['ddo_array_flag'] = 0;
         }
 
-        //dd($data);
+        dd($data);
         return view('admin.publicity_officer.pending_schemes_application')->with($data);
     }
 
@@ -856,7 +849,7 @@ class ApplicationController extends Controller
                         'exporters_remarks' => $remarks,
                         'insert_status'     => 1, //0, // -- for now its 1 to keep the track Of latest uploaded files and showing them to the departmental
                         'created_by' => $user->id,
-                        'updated_by'        => $user->id,
+                        'updated_by'        => 0,
                         'created_at'        => Carbon::now(),
                     ];
                     $status = $complaince::insert($insert_comp_data);
@@ -873,7 +866,7 @@ class ApplicationController extends Controller
                     'exporters_remarks' => $remarks,
                     'insert_status'     => 0,
                     'created_by'        => $user->id,
-                    'updated_by'        => $user->id,
+                    'updated_by'        => 0,
                     'created_at'        => Carbon::now(),
                 ];
                 $status = $complaince::insert($insert_comp_data);
