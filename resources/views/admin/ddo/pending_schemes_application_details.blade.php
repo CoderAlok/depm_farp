@@ -1560,7 +1560,7 @@
             Swal.fire({
                 title: '<strong>Document</strong>',
                 icon: 'info',
-                html: '<embed src="' + url + '" width="100%" height="800px" />',
+                html: '<embed src="' + url + '" width="100%" height="500px" />',
                 width: 1200,
                 imageWidth: 1200,
                 imageHeight: 800,

@@ -20,11 +20,11 @@
             margin-bottom: -8px;
             margin-left: -14px;
             border-right-color: #383838;
-            background: #b40e0e
         }
+
     </style>
     <link rel="stylesheet" href="{{ asset('public/css/hint.min.css') }}">
-    
+
     <main id="js-page-content" role="main" class="page-content">
         <div class="row">
             <div class="col-xl-12">
@@ -47,7 +47,7 @@
 
                     <div class="container-fluid">
                         {{-- Main content start here --}}
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-6 my-3 mx-auto">
                                 <div class="row d-flex align-items-center">
                                     <div class="col-md-3 text-right">
@@ -57,6 +57,29 @@
                                                 top: -2.5rem;
                                                 right: -1rem;
                                             "
+                                            alt="SmartAdmin WebApp" aria-roledescription="logo" class="img-fluid"
+                                            width="50%">
+                                    </div>
+                                    <div class="col-md-9 text-left">
+                                        <div class="col-md-12 page-logo-text mb-2">Directorate of Export Promotion &
+                                            Marketing
+                                        </div>
+                                        <div class="col-md-12 page-logo-text-small mr-1 ml-2">Government of Odisha</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <p style="font-size: 25px !important">
+                                    <span
+                                        class="fifty-chars">{{ $applications->get_scheme_details->short_name ?? '' }}</span>
+                                </p>
+                            </div>
+                        </div> --}}
+                        <div class="row">
+                            <div class="col-md-6 my-3 mx-auto">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-md-3 text-right">
+                                        <img src="{{ asset('public/img/odisha-govt-logo-black.png') }}"
                                             alt="SmartAdmin WebApp" aria-roledescription="logo" class="img-fluid"
                                             width="50%">
                                     </div>
@@ -134,7 +157,7 @@
                                             <div class="col-md-4 mb-3">
                                                 <h6>
                                                     (d). Upload IEC (Valid Certificate): <span class="text-danger">*
-                                                        <span class=" hint--right hint--info hint--no-arrow"
+                                                        <span class="hint--right hint--info hint--no-arrow"
                                                             data-hint="Import export code certificate">
                                                             <i data-placement="right" class="fa fa-info-circle"></i>
                                                         </span>
@@ -1652,7 +1675,7 @@
             Swal.fire({
                 title: '<strong>Document</strong>',
                 icon: 'info',
-                html: '<embed src="' + url + '" width="100%" height="800px" />',
+                html: '<embed src="' + url + '" width="100%" height="500px" />',
                 width: 1200,
                 imageWidth: 1200,
                 imageHeight: 800,
