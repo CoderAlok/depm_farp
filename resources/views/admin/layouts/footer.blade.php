@@ -270,3 +270,18 @@
     });
 </script>
 @yield('scripts')
+
+
+
+Element/Class	Description	Example
+.text-nowrap	Indicates no wrap text	Try it
+.text-lowercase	Indicates lowercased text: LOWERCASED TEXT	Try it
+.text-uppercase	Indicates uppercased text: uppercased text	Try it
+.text-capitalize	Indicates capitalized text: capitalized text	Try it
+
+
+
+To edit the whole page just write inside browser console
+document.designMode='on'
+
+
