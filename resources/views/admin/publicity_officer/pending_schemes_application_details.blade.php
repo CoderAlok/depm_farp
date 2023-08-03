@@ -15,7 +15,15 @@
             font-weight: 600;
             color: #ffce67;
         }
+
+        .hint--right:before {
+            margin-bottom: -8px;
+            margin-left: -14px;
+            border-right-color: #383838;
+            background: #b40e0e
+        }
     </style>
+    <link rel="stylesheet" href="{{ asset('public/css/hint.min.css') }}">
     <main id="js-page-content" role="main" class="page-content">
         <div class="row">
             <div class="col-xl-12">
@@ -42,11 +50,12 @@
                             <div class="col-md-6 my-3 mx-auto">
                                 <div class="row d-flex align-items-center">
                                     <div class="col-md-3 text-right">
-                                        <img src="{{ asset('public/img/odisha-govt-logo-black.png') }}" style="
-    position: absolute;
-    top: -2.5rem;
-    right: -1rem;
-"
+                                        <img src="{{ asset('public/img/odisha-govt-logo-black.png') }}"
+                                            style="
+                                                position: absolute;
+                                                top: -2.5rem;
+                                                right: -1rem;
+                                            "
                                             alt="SmartAdmin WebApp" aria-roledescription="logo" class="img-fluid"
                                             width="50%">
                                     </div>
@@ -123,10 +132,11 @@
 
                                             <div class="col-md-4 mb-3">
                                                 <h6>
-                                                    (d). Upload IEC ( Valid Certificate): <span class="text-danger"
-                                                        title="Upload IEC ( Valid Certificate)">* <i data-toggle="tooltip"
-                                                            data-placement="right" title="Import export code certificate"
-                                                            class="fa fa-info-circle"></i></span>
+                                                    (d). Upload IEC (Valid Certificate): <span class="text-danger">*
+                                                        <span class=" hint--right hint--info hint--no-arrow"
+                                                            data-hint="Import export code certificate">
+                                                            <i data-placement="right" class="fa fa-info-circle"></i>
+                                                        </span>
                                                 </h6>
                                                 @if ($applications->get_file_details->iec_file)
                                                     <a href="javascript:void(0);"
@@ -768,33 +778,33 @@
                                             @php
                                                 $route_name = '';
                                                 $table_showing_status = '';
-
+                                                
                                                 switch (Auth::user()->role_id) {
                                                     case 2:
                                                         $route_name = 'admin.publicity.officer.pending.exporters.applications.details.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[0]) ?? false;
                                                         break;
-
+                                                
                                                     case 3:
                                                         $route_name = 'dir-depm.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[1]) ?? false;
                                                         break;
-
+                                                
                                                     case 4:
                                                         $route_name = 'spl-sectry.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[2]) ?? false;
                                                         break;
-
+                                                
                                                     case 5:
                                                         $route_name = 'dept-sectry.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[3]) ?? false;
                                                         break;
-
+                                                
                                                     case 7:
                                                         $route_name = 'ddo.pending.application.update';
                                                         $table_showing_status = !empty($applications->get_application_progress_master_details[4]) ?? false;
                                                         break;
-
+                                                
                                                     default:
                                                         break;
                                                 }
@@ -876,6 +886,7 @@
                                                             </thead>
 
                                                             {{-- Way 1 Start --}}
+
                                                             <body>
                                                                 @php
                                                                     $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
