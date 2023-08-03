@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Applications;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMail;
+use App\Models\Categories;
+use App\Models\tbl_exporters;
 use Auth;
 use Carbon\Carbon;
 use Exporter;
@@ -11,12 +14,9 @@ use ExporterRemark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Schemes;
-use Applications;
 use Spatie\Permission\Models\Role;
 use User;
-use App\Models\Categories;
-use ApplicationProgressMaster;
-use App\Models\tbl_exporters;
+
 class AdminController extends Controller
 {
     /**
@@ -27,86 +27,82 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $data['page_title'] = 'Admin Panel';
-        $role_id            = Auth::user()->role_id;
-        $data['role']       = Role::where('id', $role_id)->first()->name;
-        $data['schemes']    = Schemes::get();
-        $data['tot_application_count']    = Applications::get()->count();
-        $scheme_application_counts[]=array();
-        foreach ($data['schemes'] as $sheme){
-            array_push($scheme_application_counts,Applications::where([['scheme_id',$sheme->id],['appeal_facility',0]])->get()->count().
-            "/".Applications::where('scheme_id',$sheme->id)->get()->count());
+        $data['page_title']            = 'Admin Panel';
+        $role_id                       = Auth::user()->role_id;
+        $data['role']                  = Role::where('id', $role_id)->first()->name;
+        $data['schemes']               = Schemes::get();
+        $data['tot_application_count'] = Applications::get()->count();
+        $scheme_application_counts[]   = array();
+        foreach ($data['schemes'] as $sheme) {
+            array_push($scheme_application_counts, Applications::where([['scheme_id', $sheme->id], ['appeal_facility', 0]])->get()->count() .
+                "/" . Applications::where('scheme_id', $sheme->id)->get()->count());
         }
         $data['application_counts'] = array_filter($scheme_application_counts);
-        $department_users = User::all();
-        $application_data = [];
+        $department_users           = User::all();
+        $application_data           = [];
 
-        foreach ($department_users as $key => $department )
-        {
-            if($department->role_id>1){
-            $application_data[$department->role_id]['department'] = array();
-            $application_data[$department->role_id]['count'] = array();
-            $application_data[$department->role_id]['department'] = $department->username;
-            $applications_count_approved = Applications::all();
-            $final_count = 0;
-            $application_data[$department->role_id]['count'] = 0;
-            foreach($applications_count_approved as $key => $application){
-                $get_role_id =  User::where('id',$application->updated_by)->first();
+        foreach ($department_users as $key => $department) {
+            if ($department->role_id > 1) {
+                $application_data[$department->role_id]['department'] = array();
+                $application_data[$department->role_id]['count']      = array();
+                $application_data[$department->role_id]['department'] = $department->username;
+                $applications_count_approved                          = Applications::all();
+                $final_count                                          = 0;
+                $application_data[$department->role_id]['count']      = 0;
+                foreach ($applications_count_approved as $key => $application) {
+                    $get_role_id = User::where('id', $application->updated_by)->first();
 
-                //For SO (Role id = 2)
-                if($get_role_id->role_id == 2 && $department->role_id == 2 && $application->status == 2){
+                    //For SO (Role id = 2)
+                    if ($get_role_id->role_id == 2 && $department->role_id == 2 && $application->status == 2) {
+                        $application_data[$department->role_id]['count'] += 1;
+                    }
 
-                    $application_data[$department->role_id]['count'] += 1;
-                }
-                //For DirDEPM (Role id = 3)
-                if($get_role_id->role_id == 3 && $department->role_id == 3 && $application->status == 4){
-                    $application_data[2]['count'] += 1;
-                    $application_data[$department->role_id]['count'] += 1;
+                    //For DirDEPM (Role id = 3)
+                    if ($get_role_id->role_id == 3 && $department->role_id == 3 && $application->status == 4) {
+                        $application_data[2]['count'] += 1;
+                        $application_data[$department->role_id]['count'] += 1;
+                    }
 
-                }
-                //For Additional Special Secretory (Role id = 4)
+                    //For Additional Special Secretory (Role id = 4)
 
-                if($get_role_id->role_id == 4 && $department->role_id == 4 && $application->status == 6){
-                    $application_data[2]['count'] += 1;
-                    $application_data[3]['count'] += 1;
-                    $application_data[$department->role_id]['count'] += 1;
+                    if ($get_role_id->role_id == 4 && $department->role_id == 4 && $application->status == 6) {
+                        $application_data[2]['count'] += 1;
+                        $application_data[3]['count'] += 1;
+                        $application_data[$department->role_id]['count'] += 1;
+                    }
 
-                }
+                    //For Department Secretory (Role id = 5)
+                    if ($get_role_id->role_id == 5 && $department->role_id == 5 && $application->status == 8) {
+                        $application_data[2]['count'] += 1;
+                        $application_data[3]['count'] += 1;
+                        $application_data[4]['count'] += 1;
+                        $application_data[$department->role_id]['count'] += 1;
 
-                //For Department Secretory (Role id = 5)
+                    }
 
-                if($get_role_id->role_id == 5 && $department->role_id == 5 && $application->status == 8){
-                    $application_data[2]['count'] += 1;
-                    $application_data[3]['count'] += 1;
-                    $application_data[4]['count'] += 1;
-                    $application_data[$department->role_id]['count'] += 1;
+                    //For DDO (Role id = 7)
+                    if ($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 8) {
+                        $application_data[2]['count'] += 1;
+                        $application_data[3]['count'] += 1;
+                        $application_data[4]['count'] += 1;
+                        $application_data[5]['count'] += 1;
+                        $application_data[7]['count'] += 1;
 
-                }
-
-                //For DDO (Role id = 7)
-                if($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 8){
-                    $application_data[2]['count'] += 1;
-                    $application_data[3]['count'] += 1;
-                    $application_data[4]['count'] += 1;
-                    $application_data[5]['count'] += 1;
-                    $application_data[7]['count'] += 1;
-
+                    }
                 }
             }
+
         }
-
-
-    }
-    $data['application_count_details'] = $application_data;
-    $categories = Categories::all();
-    $category_data = array();
-    $category_data['all_names'] = array();
-    $category_data['all_count'] = array();
-    foreach ($categories as $category) {
-        array_push($category_data['all_names'], $category->name);
-        array_push($category_data['all_count'], tbl_exporters::where('category_id', $category->id)->count());
-    }
-    $data['piecart_data'] = $category_data;
+        $data['application_count_details'] = $application_data;
+        $categories                        = Categories::all();
+        $category_data                     = array();
+        $category_data['all_names']        = array();
+        $category_data['all_count']        = array();
+        foreach ($categories as $category) {
+            array_push($category_data['all_names'], $category->name);
+            array_push($category_data['all_count'], tbl_exporters::where('category_id', $category->id)->count());
+        }
+        $data['piecart_data'] = $category_data;
 
         return view('admin.home')->with($data);
 

@@ -800,16 +800,18 @@
                                                                 $bg_array = ['#22355a', '#223a5a', '#54599a', '#e445aa', '#ea96aa', '#ff4566', '#ef6569', '#fff696', '#ff8596', '#556dff'];
                                                             @endphp
                                                             @foreach ($applications->get_application_progress_master_details as $key => $item)
-                                                                <tr>
+                                                                <tr
+                                                                    class="bg-{{ $item->get_user_details->role_id == 1 ? 'secondary' : '' }}">
                                                                     <td width="5%">
                                                                         {{ ++$key }}
                                                                     </td>
                                                                     <td width="65%">
                                                                         {{ $item->remarks ?? '' }}
                                                                     </td>
-                                                                    <td width="10%" class="text-white"
-                                                                        style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}">
-                                                                        ({{ $item->get_user_details->get_role_details->name ?? 'Exporter' }})
+                                                                    <td width="10%">
+                                                                        {{-- class="text-white" style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}">
+                                                                        ({{ $item->get_user_details->get_role_details->name ?? 'Exporter' }}) --}}
+                                                                        <b>({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})</b>
                                                                     </td>
                                                                     <td width="20%">
                                                                         {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}

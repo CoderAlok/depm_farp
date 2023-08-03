@@ -136,12 +136,14 @@
                                                             {{-- Change the color --}}
                                                             {{-- {{ $item->get_applied_details->confirmed }} --}}
                                                             @php
-                                                                $status_color = ['warning', 'success', 'danger'];
-                                                                $status_text = ['Appealed', 'Considered', 'Repeled'];
+                                                                $status_color = ['', '', 'warning', 'success', 'danger'];
+                                                                $status_text = ['', '', 'Appealed', 'Considered', 'Repeled'];
                                                             @endphp
                                                             <span
-                                                                class="badge badge-{{ $status_color[$item->get_applied_details->confirmed ?? 0] }}">
-                                                                {{ $status_text[$item->get_applied_details->confirmed ?? 0] }}
+                                                                class="badge badge-{{ $status_color[$item['status'] ?? 0] }}">
+                                                                {{-- class="badge badge-{{ $status_color[$item->get_applied_details->confirmed ?? 0] }}"> --}}
+                                                                {{ $status_text[$item['status'] ?? 0] }}
+                                                                {{-- {{ $status_text[$item->get_applied_details->confirmed ?? 0] }} --}}
                                                             </span>
                                                         </td>
 

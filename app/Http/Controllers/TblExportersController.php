@@ -552,7 +552,7 @@ class TblExportersController extends Controller
                     'app_no'     => $r->app_no,
                     'short_name' => $r->get_scheme_details->short_name,
                     'amount'     => (int) ($r->scheme_id == 1 ? ($r->get_travel_details != null ? ($r->get_travel_details->map(function ($r) {return $r->incentive_claimed;})->sum() ?? 0) : 0) + ($r->get_stall_details->claimed_cost ?? 0) : ($r->certi_cost ?? 0)),
-                    'status'     => $r->status,
+                    'status'     => $r->appeal_facility,
                 ];
             });
         $data['applications'] = $applications;

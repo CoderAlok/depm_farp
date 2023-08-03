@@ -1545,7 +1545,7 @@ class ApplicationController extends Controller
                 ->get()
                 ->map(function ($r) {
                     return [
-                        'yy'             => $r->toArray(),
+                        // 'yy'             => $r->toArray(),
 
                         'id'             => $r->id,
                         'appl_id'        => $r->get_application_details->id,
