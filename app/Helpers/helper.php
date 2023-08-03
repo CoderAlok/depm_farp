@@ -329,7 +329,8 @@ function so_status_array($status_id)
         7  => 'Not verified by Addl / Spl Secretory',
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
-        10 => 'Application Rejected', // --*  Appeal rejected
+        10 => 'Application Rejected',
+        11 => 'Payment Released',
     ];
     return $arr[$status_id];
 }
@@ -346,7 +347,8 @@ function dir_status_array($status_id)
         7  => 'Not verified by Addl / Spl Secretory',
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
-        10 => 'Application Rejected', // --*  Appeal rejected
+        10 => 'Application Rejected',
+        11 => 'Payment Released',
     ];
     return $arr[$status_id];
 }
@@ -363,7 +365,8 @@ function addl_status_array($status_id)
         7  => 'Not verified',
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
-        10 => 'Application Rejected', // --*  Appeal rejected
+        10 => 'Application Rejected',
+        11 => 'Payment Released',
     ];
     return $arr[$status_id];
 }
@@ -380,7 +383,8 @@ function dept_sectry_status_array($status_id)
         7  => 'Not verified by Addl / Spl Secretory',
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
-        10 => 'Application Rejected', // --*  Appeal rejected
+        10 => 'Application Rejected',
+        11 => 'Payment Released',
     ];
     return $arr[$status_id];
 }
@@ -398,6 +402,7 @@ function ddo_status_array($status_id)
         8  => 'Approved',
         9  => 'Not approved by Department Secretory',
         10 => 'Applictaion Rejected',
+        11 => 'Payment Released',
     ];
     return $arr[$status_id];
 }
@@ -415,6 +420,7 @@ function exporter_status_array($status_id)
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
         10 => 'Application Rejected',
+        11 => 'Payment Released',
     ];
     return $arr[$status_id];
 }

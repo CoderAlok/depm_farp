@@ -1413,11 +1413,17 @@ class ApplicationController extends Controller
     public function exporters_application_ddo_update(Request $request, $id = null)
     {
         try {
-            dd(['DDO', $request->all(), $id, $request->status]);
+            // dd(['DDO', $request->all(), $id, $request->status, Carbon::parse($request->sanction_order_date)]);
 
-            $update_status = Applications::where('id', $id)->update(['status' => $request->status]);
+            if ($request->payment_order_attachment) {
+                $file_name = common_file_upload($request->payment_order_attachment, ['file_name' => 'SANC_ORD', 'appl_id' => $id, 'folder_name' => 'sanction_order']);
+            }
+
+            // status = 11 Denotes application payment has been sanctioned
+            $update_status = Applications::where('id', $id)->update(['status' => 11, 'sanction_order_date' => Carbon::parse($request->sanction_order_date), 'payment_released_date' => Carbon::parse($request->payment_released_date), 'payment_order_attachment' => ($file_name ?? '')]);
             if ($update_status) {
-                $data['message'] = 'Status updated successfully.';
+                ApplicationFiles::where('appl_id', $id)->update(['payment_order_attachment' => $file_name]);
+                $data['message'] = 'Payment sanctioned successfully.';
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
             }

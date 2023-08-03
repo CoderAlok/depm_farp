@@ -21,7 +21,6 @@
             margin-left: -14px;
             border-right-color: #383838;
         }
-
     </style>
     <link rel="stylesheet" href="{{ asset('public/css/hint.min.css') }}">
 
@@ -1536,7 +1535,38 @@
                                                             {{-- DDO --}}
                                                             @if ($applications->status == 8)
                                                                 <div class="row col-md-12">
+
+                                                                    <div class="col-md-4 form-group">
+                                                                        <label for="sanction_order_date">Sanction Order
+                                                                            date</label>
+                                                                        <input type="date" name="sanction_order_date"
+                                                                            id="sanction_order_date" class="form-control"
+                                                                            value="" placeholder="" />
+                                                                    </div>
+                                                                    <div class="col-md-4 form-group">
+                                                                        <label for="payment_released_date">Sanction Order
+                                                                            date</label>
+                                                                        <input type="date" name="payment_released_date"
+                                                                            id="payment_released_date" class="form-control"
+                                                                            value="" placeholder="" />
+                                                                    </div>
+                                                                    <div class="col-md-4 form-group">
+                                                                        <label for="payment_order_attachment">Payment Order
+                                                                            attachment</label>
+                                                                        <input type="file" name="payment_order_attachment"
+                                                                            id="payment_order_attachment" class="form-control" />
+                                                                    </div>
+
                                                                     <div class="form-group col-md-12">
+                                                                        @php
+                                                                            $button_array = ['', '', 'Forward to Director, DEPM', 'Forward to Addl Special Secretary', 'Forward to Department Secretary', 'Approve', '', 'Sanction'];
+                                                                        @endphp
+                                                                        <input type="submit"
+                                                                            class="btn btn-primary text-uppercase"
+                                                                            value="{{ $button_array[Auth::user()->role_id] }}">
+                                                                    </div>
+
+                                                                    {{-- <div class="form-group col-md-12">
                                                                         <label for="status">Status</label>
                                                                         <select name="status" id="status"
                                                                             class="form-control mb-3">
@@ -1555,7 +1585,7 @@
                                                                         <input type="submit"
                                                                             class="btn btn-primary text-uppercase"
                                                                             value="{{ $button_array[Auth::user()->role_id] }}">
-                                                                    </div>
+                                                                    </div> --}}
                                                                 </div>
                                                             @endif
                                                         @break
