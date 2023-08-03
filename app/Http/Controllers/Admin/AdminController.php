@@ -14,8 +14,9 @@ use Schemes;
 use Applications;
 use Spatie\Permission\Models\Role;
 use User;
+use App\Models\Categories;
 use ApplicationProgressMaster;
-
+use App\Models\tbl_exporters;
 class AdminController extends Controller
 {
     /**
@@ -37,7 +38,77 @@ class AdminController extends Controller
             "/".Applications::where('scheme_id',$sheme->id)->get()->count());
         }
         $data['application_counts'] = array_filter($scheme_application_counts);
+        $department_users = User::all();
+        $application_data = [];
+
+        foreach ($department_users as $key => $department )
+        {
+            if($department->role_id>1){
+            $application_data[$department->role_id]['department'] = array();
+            $application_data[$department->role_id]['count'] = array();
+            $application_data[$department->role_id]['department'] = $department->username;
+            $applications_count_approved = Applications::all();
+            $final_count = 0;
+            $application_data[$department->role_id]['count'] = 0;
+            foreach($applications_count_approved as $key => $application){
+
+                //For SO (Role id = 2)
+                if($application->updated_by == 2 && $department->role_id == 2 && $application->status == 2){
+
+                    $application_data[$department->role_id]['count'] += 1;
+                }
+                //For DirDEPM (Role id = 3)
+                if($application->updated_by == 3 && $department->role_id == 3 && $application->status == 4){
+                    $application_data[2]['count'] += 1;
+                    $application_data[$department->role_id]['count'] += 1;
+
+                }
+                //For Additional Special Secretory (Role id = 4)
+
+                if($application->updated_by == 4 && $department->role_id == 4 && $application->status == 6){
+                    $application_data[2]['count'] += 1;
+                    $application_data[3]['count'] += 1;
+                    $application_data[$department->role_id]['count'] += 1;
+
+                }
+
+                //For Department Secretory (Role id = 5)
+
+                if($application->updated_by == 5 && $department->role_id == 5 && $application->status == 8){
+                    $application_data[2]['count'] += 1;
+                    $application_data[3]['count'] += 1;
+                    $application_data[4]['count'] += 1;
+                    $application_data[$department->role_id]['count'] += 1;
+
+                }
+
+                //For DDO (Role id = 7)
+                if($application->updated_by == 7 && $department->role_id == 7 && $application->status == 8){
+                    $application_data[2]['count'] += 1;
+                    $application_data[3]['count'] += 1;
+                    $application_data[4]['count'] += 1;
+                    $application_data[5]['count'] += 1;
+                    $application_data[7]['count'] += 1;
+
+                }
+            }
+        }
+
+
+    }
+    $data['application_count_details'] = $application_data;
+    $categories = Categories::all();
+    $category_data = array();
+    $category_data['all_names'] = array();
+    $category_data['all_count'] = array();
+    foreach ($categories as $category) {
+        array_push($category_data['all_names'], $category->name);
+        array_push($category_data['all_count'], tbl_exporters::where('category_id', $category->id)->count());
+    }
+    $data['piecart_data'] = $category_data;
+
         return view('admin.home')->with($data);
+
     }
 
     /**

@@ -88,42 +88,42 @@ font-weight: 500 !important;color:white !important;
                                                     </div>
                                                     <div class="card-body">
                                                         <h4 class="small fw-bold">Scretiny Officer DEPM <span
-                                                                class="float-right">{{get_pending_list_count_for_admin(2)}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[2]['count']}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-danger" role="progressbar"
-                                                                style="width:{{(get_pending_list_count_for_admin(2)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(2    )/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[2]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[2]['count']/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">Director DEPM <span
-                                                                class="float-right">{{get_pending_list_count_for_admin(3)}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[3]['count']}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width:{{(get_pending_list_count_for_admin(3)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(3)/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[3]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[3]['count']/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">Additional Secretary <span
-                                                                class="float-right">{{get_pending_list_count_for_admin(4)}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[4]['count']}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
-                                                            <div class="progress-bar" role="progressbar" style="width:{{(get_pending_list_count_for_admin(4)/$tot_application_count)*100}}%"
-                                                                aria-valuenow="{{(get_pending_list_count_for_admin(4)/$tot_application_count)*100}}" aria-valuemin="0" aria-valuemax="100">
+                                                            <div class="progress-bar" role="progressbar" style="width:{{($application_count_details[4]['count']/$tot_application_count)*100}}%"
+                                                                aria-valuenow="{{($application_count_details[4]['count']/$tot_application_count)*100}}" aria-valuemin="0" aria-valuemax="100">
                                                             </div>
                                                         </div>
                                                         <h4 class="small fw-bold">Department Secretary <span
-                                                                class="float-right">{{get_pending_list_count_for_admin(5)}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[5]['count']}}/{{$tot_application_count}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-info" role="progressbar"
-                                                                style="width:{{(get_pending_list_count_for_admin(5)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(5)/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[5]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[5]['count']/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">DDO <span
-                                                                class="float-right">{{get_pending_list_count_for_admin(6)}}/{{$tot_application_count}}</span></h4>
+                                                                class="float-right">{{$application_count_details[7]['count']}}/{{$tot_application_count}}</span></h4>
                                                         <div class="progress">
                                                             <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width:{{(get_pending_list_count_for_admin(6)/$tot_application_count)*100}}%" aria-valuenow="{{(get_pending_list_count_for_admin(6)/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[7]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[7]['count']/$tot_application_count)*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
@@ -164,11 +164,11 @@ font-weight: 500 !important;color:white !important;
         new Chart(document.getElementById("myChart"), {
             type: 'doughnut',
             data: {
-                labels: ["MSME", "Trading", "Manufacturing", "Pharma", "Cotton"],
+                labels: {!! json_encode($piecart_data['all_names']) !!},
                 datasets: [{
                     label: "Population (millions)",
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                    data: [2478, 5267, 734, 784, 433]
+                    data: {!! json_encode($piecart_data['all_count']) !!}
                 }]
             },
             options: {
