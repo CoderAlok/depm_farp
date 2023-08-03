@@ -84,7 +84,7 @@ class AdminController extends Controller
                         }
 
                         //For DDO (Role id = 7)
-                        if($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 8){
+                        if($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 11){
                             $application_data[2]['count'] += 1;
                             $application_data[3]['count'] += 1;
                             $application_data[4]['count'] += 1;
@@ -113,6 +113,7 @@ class AdminController extends Controller
         return view('admin.home')->with($data);
 
     }
+
 
     /**
      * Method profile
