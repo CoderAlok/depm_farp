@@ -52,46 +52,48 @@ class AdminController extends Controller
             $application_data[$department->role_id]['count'] = 0;
             foreach($applications_count_approved as $key => $application){
                 $get_role_id =  User::where('id',$application->updated_by)->first();
+                if(!is_null($get_role_id)){
+                        //For SO (Role id = 2)
+                        if($get_role_id->role_id == 2 && $department->role_id == 2 && $application->status == 2){
 
-                //For SO (Role id = 2)
-                if($get_role_id->role_id == 2 && $department->role_id == 2 && $application->status == 2){
+                            $application_data[$department->role_id]['count'] += 1;
+                        }
+                        //For DirDEPM (Role id = 3)
+                        if($get_role_id->role_id == 3 && $department->role_id == 3 && $application->status == 4){
+                            $application_data[2]['count'] += 1;
+                            $application_data[$department->role_id]['count'] += 1;
 
-                    $application_data[$department->role_id]['count'] += 1;
+                        }
+                        //For Additional Special Secretory (Role id = 4)
+
+                        if($get_role_id->role_id == 4 && $department->role_id == 4 && $application->status == 6){
+                            $application_data[2]['count'] += 1;
+                            $application_data[3]['count'] += 1;
+                            $application_data[$department->role_id]['count'] += 1;
+
+                        }
+
+                        //For Department Secretory (Role id = 5)
+
+                        if($get_role_id->role_id == 5 && $department->role_id == 5 && $application->status == 8){
+                            $application_data[2]['count'] += 1;
+                            $application_data[3]['count'] += 1;
+                            $application_data[4]['count'] += 1;
+                            $application_data[$department->role_id]['count'] += 1;
+
+                        }
+
+                        //For DDO (Role id = 7)
+                        if($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 8){
+                            $application_data[2]['count'] += 1;
+                            $application_data[3]['count'] += 1;
+                            $application_data[4]['count'] += 1;
+                            $application_data[5]['count'] += 1;
+                            $application_data[7]['count'] += 1;
+
+                        }
                 }
-                //For DirDEPM (Role id = 3)
-                if($get_role_id->role_id == 3 && $department->role_id == 3 && $application->status == 4){
-                    $application_data[2]['count'] += 1;
-                    $application_data[$department->role_id]['count'] += 1;
 
-                }
-                //For Additional Special Secretory (Role id = 4)
-
-                if($get_role_id->role_id == 4 && $department->role_id == 4 && $application->status == 6){
-                    $application_data[2]['count'] += 1;
-                    $application_data[3]['count'] += 1;
-                    $application_data[$department->role_id]['count'] += 1;
-
-                }
-
-                //For Department Secretory (Role id = 5)
-
-                if($get_role_id->role_id == 5 && $department->role_id == 5 && $application->status == 8){
-                    $application_data[2]['count'] += 1;
-                    $application_data[3]['count'] += 1;
-                    $application_data[4]['count'] += 1;
-                    $application_data[$department->role_id]['count'] += 1;
-
-                }
-
-                //For DDO (Role id = 7)
-                if($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 8){
-                    $application_data[2]['count'] += 1;
-                    $application_data[3]['count'] += 1;
-                    $application_data[4]['count'] += 1;
-                    $application_data[5]['count'] += 1;
-                    $application_data[7]['count'] += 1;
-
-                }
             }
         }
 
