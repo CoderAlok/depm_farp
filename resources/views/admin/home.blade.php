@@ -46,7 +46,7 @@ font-weight: 500 !important;color:white !important;
 
                                                         {{ $tot_application_count }}
                                                         <small
-                                                            class="m-0 l-h-n text-white">Total Exporters</small>
+                                                            class="m-0 l-h-n text-white">Total Exporters Application</small>
                                                     </h3>
                                                 </div>
                                                 <i class="fal fa-user position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1"
@@ -167,7 +167,7 @@ font-weight: 500 !important;color:white !important;
                 labels: {!! json_encode($piecart_data['all_names']) !!},
                 datasets: [{
                     label: "Population (millions)",
-                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850","#3edddd", "#8eeee2", "#3cbbbb", "#e8cccc", "#c45cc5"],
                     data: {!! json_encode($piecart_data['all_count']) !!}
                 }]
             },

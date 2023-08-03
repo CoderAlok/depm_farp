@@ -51,21 +51,22 @@ class AdminController extends Controller
             $final_count = 0;
             $application_data[$department->role_id]['count'] = 0;
             foreach($applications_count_approved as $key => $application){
+                $get_role_id =  User::where('id',$application->updated_by)->first();
 
                 //For SO (Role id = 2)
-                if($application->updated_by == 2 && $department->role_id == 2 && $application->status == 2){
+                if($get_role_id->role_id == 2 && $department->role_id == 2 && $application->status == 2){
 
                     $application_data[$department->role_id]['count'] += 1;
                 }
                 //For DirDEPM (Role id = 3)
-                if($application->updated_by == 3 && $department->role_id == 3 && $application->status == 4){
+                if($get_role_id->role_id == 3 && $department->role_id == 3 && $application->status == 4){
                     $application_data[2]['count'] += 1;
                     $application_data[$department->role_id]['count'] += 1;
 
                 }
                 //For Additional Special Secretory (Role id = 4)
 
-                if($application->updated_by == 4 && $department->role_id == 4 && $application->status == 6){
+                if($get_role_id->role_id == 4 && $department->role_id == 4 && $application->status == 6){
                     $application_data[2]['count'] += 1;
                     $application_data[3]['count'] += 1;
                     $application_data[$department->role_id]['count'] += 1;
@@ -74,7 +75,7 @@ class AdminController extends Controller
 
                 //For Department Secretory (Role id = 5)
 
-                if($application->updated_by == 5 && $department->role_id == 5 && $application->status == 8){
+                if($get_role_id->role_id == 5 && $department->role_id == 5 && $application->status == 8){
                     $application_data[2]['count'] += 1;
                     $application_data[3]['count'] += 1;
                     $application_data[4]['count'] += 1;
@@ -83,7 +84,7 @@ class AdminController extends Controller
                 }
 
                 //For DDO (Role id = 7)
-                if($application->updated_by == 7 && $department->role_id == 7 && $application->status == 8){
+                if($get_role_id->role_id == 7 && $department->role_id == 7 && $application->status == 8){
                     $application_data[2]['count'] += 1;
                     $application_data[3]['count'] += 1;
                     $application_data[4]['count'] += 1;
