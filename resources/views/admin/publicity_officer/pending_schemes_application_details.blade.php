@@ -24,6 +24,7 @@
         }
     </style>
     <link rel="stylesheet" href="{{ asset('public/css/hint.min.css') }}">
+    
     <main id="js-page-content" role="main" class="page-content">
         <div class="row">
             <div class="col-xl-12">

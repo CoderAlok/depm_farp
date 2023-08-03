@@ -1544,12 +1544,6 @@
                 position: 'topRight'
             });
 
-            // iziToast.error({
-            //     title: 'Error',
-            //     message: data.message,
-            //     position: 'topRight',
-            // });
-
             $(".amount_field").keyup(function() {
                 convertToINRFormat($(this).val(), $(this));
             });
