@@ -432,7 +432,7 @@ function status_color_array($status)
 
     if (in_array($status, ['Applied', 'Verified by SO', 'Verified', 'Verified', 'Verified by director depm', 'Verified by Addl Special secretory', 'Verified by Director, DEPM'])) {
         $color_code = ['#f5f94a', 'dark']; // Yellow
-    } else if (in_array($status, ['Approved'])) {
+    } else if (in_array($status, ['Approved', 'Payment Released'])) {
         $color_code = ['#0e5306', 'white']; // Green
     } else if (in_array($status, ['Pending', 'Accepted'])) {
         $color_code = ['#e5a01e', 'dark']; // Orange
