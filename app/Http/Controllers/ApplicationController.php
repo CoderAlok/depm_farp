@@ -1742,7 +1742,7 @@ class ApplicationController extends Controller
                         'appl_id'        => $r->id,
                         'app_code'       => $r->app_no ?? '',
                         'scheme'         => $r->get_scheme_details->short_name ?? '',
-                        'claimed_amount' => $r->scheme_id == 1 ? (($r->get_travel_details->total_expense ?? 0) + ($r->get_stall_details->total_cost ?? 0)) : ($r->certi_cost ?? 0),
+                        'claimed_amount' => $r->scheme_id == 1 ? (($r->get_travel_details != null ? $r->get_travel_details->map(function ($r) {return $r->incentive_claimed;})->sum() : 0) + ($r->get_stall_details->claimed_cost ?? 0)) : ($r->certi_cost ?? 0),
                         'status'         => $r->get_applied_details->confirmed ?? 0,
                     ];
                 });
@@ -1813,11 +1813,12 @@ class ApplicationController extends Controller
                 $r->where('insert_status', 1);
             },
             'get_applied_details',
-        ])->first(); //->toArray();
-        $data['applications']      = $applications; //->toArray();
-        $data['total_expenditure'] = (int) ($applications->get_travel_details->total_expense ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
-        $data['incentive_amount']  = (int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
-        $data['pending']           = Applications::where('status', 1)->count();
+        ])->first();
+        $data['applications']      = $applications;
+        $data['total_expenditure'] = (int) (($applications->get_travel_details != null ? $applications->get_travel_details->map(function ($applications) {return $applications->total_expense;})->sum() : 0) ?? 0) + ($applications->get_stall_details->total_cost ?? 0);
+        $data['incentive_amount'] = (int) (($applications->get_travel_details != null ? $applications->get_travel_details->map(function ($applications) {return $applications->incentive_claimed;})->sum() : 0) ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
+        $data['approved_appeal_amount'] = (int) AppliedApplication::where(['appl_id' => $id, 'confirmed' => 1])->first()->appealed_amount ?? 0;
+        $data['pending']                = Applications::where('status', 1)->count();
         // dd(['Admin', $data]);
         return view('admin.director_depm.pending_schemes_application_details')->with($data);
     }
