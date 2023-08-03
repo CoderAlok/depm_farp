@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use ApplicationEvents;
 use ApplicationFiles;
-use ApplicationLog;
 use ApplicationProgressMaster;
 use Applications;
 use ApplicationStalls;
@@ -632,19 +631,6 @@ class ApplicationController extends Controller
                     ];
                     $file_id = ApplicationFiles::insert($files_data);
 
-                    $insert_log_data = [
-                        'appl_id'        => $appl_id,
-                        'from_user_type' => 1,
-                        'from_user'      => $user_id,
-                        'to_user_type'   => 2,
-                        'to_user'        => User::where(['role_id' => 2])->first()->id,
-                        'status'         => 1,
-                        'remarks'        => '',
-                        'updated_date'   => Carbon::now(),
-                        'created_at'     => Carbon::now(),
-                    ];
-                    $log_status = ApplicationLog::insert($insert_log_data);
-
                     $data['data'] = [
                         'appl_id'  => $appl_id ?? '',
                         'event_id' => $event_id ?? '',
@@ -1000,20 +986,6 @@ class ApplicationController extends Controller
                 Session::flash('message', $data['message']);
                 // }
 
-                // Insert into Application log -- This code is useless just maintaining the application log file
-                $insert_log_data = [
-                    'appl_id'        => $id,
-                    'from_user_type' => 1,
-                    'from_user'      => $user->id,
-                    'to_user_type'   => 2,
-                    'to_user'        => null,
-                    'status'         => 1,
-                    'remarks'        => $request->remarks,
-                    'updated_date'   => Carbon::now(),
-                    'created_at'     => Carbon::now(),
-                ];
-                $log_status = ApplicationLog::insert($insert_log_data);
-
                 // Also, update the complaince table insert_status to zoro of those pericular files
                 if ($request->complaince) {
                     foreach ($request->complaince['id'] as $key => $value) {
@@ -1068,20 +1040,6 @@ class ApplicationController extends Controller
         //         $data['message'] = 'Application status updated successfully.';
         //         Session::flash('message', $data['message']);
         //         // }
-
-        //         // Insert into Application log
-        //         $insert_log_data = [
-        //             'appl_id'        => $id,
-        //             'from_user_type' => 1,
-        //             'from_user'      => $user->id,
-        //             'to_user_type'   => 2,
-        //             'to_user'        => null,
-        //             'status'         => 1,
-        //             'remarks'        => $request->remarks,
-        //             'updated_date'   => Carbon::now(),
-        //             'created_at'     => Carbon::now(),
-        //         ];
-        //         $log_status = ApplicationLog::insert($insert_log_data);
 
         //     } else {
         //         $data['message'] = 'Failed to update the status from SO.';
