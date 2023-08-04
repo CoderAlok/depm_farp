@@ -246,14 +246,17 @@
                                                             readonly />
                                                     </div>
 
-                                                    <div class="col-md-4 mb-3 other_event_details_div">
-                                                        <label class="form-label h6">Other events details <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="other_event_details" id="other_event_details"
-                                                            class="form-control"
-                                                            value="{{ $applications->get_event_details->other_event_type ?? '' }}"
-                                                            placeholder="Enter other event details..." readonly>
-                                                    </div>
+
+                                                    @if ($applications->get_event_details->event_type == 3)
+                                                        <div class="col-md-4 mb-3 other_event_details_div">
+                                                            <label class="form-label h6">Other events details <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input type="text" name="other_event_details"
+                                                                id="other_event_details" class="form-control"
+                                                                value="{{ $applications->get_event_details->other_event_type ?? '' }}"
+                                                                placeholder="Enter other event details..." readonly>
+                                                        </div>
+                                                    @endif
 
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label h6">(b). Name of the event <span
@@ -352,16 +355,19 @@
                                                             </div>
 
                                                             {{-- {{ dd($applications->toArray()) }}   --}}
-                                                            @if ($item->file_visa)
-                                                                <div class="col-md-4 mb-1 upload_visa_div">
-                                                                    <label class="form-label h6">(b). Upload Visa Invitation Letter
-                                                                        <span class="text-danger">*</span></label>
-                                                                    <a href="javascript:void(0);"
-                                                                        onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($item->file_visa ?? '')) }}')">
-                                                                        <span class="text-warning badge bg-dark p-1">View
-                                                                            file</span>
-                                                                    </a>
-                                                                </div>
+                                                            @if ($item->destination_type == 2)
+                                                                @if ($item->file_visa)
+                                                                    <div class="col-md-4 mb-1 upload_visa_div">
+                                                                        <label class="form-label h6">(b). Upload Visa Invitation
+                                                                            Letter
+                                                                            <span class="text-danger">*</span></label>
+                                                                        <a href="javascript:void(0);"
+                                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/visa_image' . '/' . ($item->file_visa ?? '')) }}')">
+                                                                            <span class="text-warning badge bg-dark p-1">View
+                                                                                file</span>
+                                                                        </a>
+                                                                    </div>
+                                                                @endif
                                                             @endif
 
                                                             <div class="col-md-4 mb-1">
@@ -408,16 +414,18 @@
                                                                 </a>
                                                             </div>
 
-                                                            @if ($applications->get_file_details->file_boarding_pass)
-                                                                <div class="col-md-4 mb-1 boarding_pass_div">
-                                                                    <label class="form-label h6">(h). Upload Boarding Pass <span
-                                                                            class="text-danger">*</span></label>
-                                                                    <a href="javascript:void(0);"
-                                                                        onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
-                                                                        <span class="text-warning badge bg-dark p-1">View
-                                                                            file</span>
-                                                                    </a>
-                                                                </div>
+                                                            @if ($item->mode_of_travel == 1)
+                                                                @if ($applications->get_file_details->file_boarding_pass)
+                                                                    <div class="col-md-4 mb-1 boarding_pass_div">
+                                                                        <label class="form-label h6">(h). Upload Boarding Pass
+                                                                            <span class="text-danger">*</span></label>
+                                                                        <a href="javascript:void(0);"
+                                                                            onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/boarding_pass' . '/' . ($applications->get_file_details->file_boarding_pass ?? '')) }}')">
+                                                                            <span class="text-warning badge bg-dark p-1">View
+                                                                                file</span>
+                                                                        </a>
+                                                                    </div>
+                                                                @endif
                                                             @endif
 
                                                             <div class="col-md-4 mb-3">
@@ -500,8 +508,8 @@
                                                             <br />
                                                             <input type="text" name="stall_event_name" id="stall_event_name"
                                                                 class="form-control" placeholder="Name of the event"
-                                                                value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}"
-                                                                readonly>
+                                                                value="{{ $applications->get_event_details->details ?? '' }}"
+                                                                {{-- value="{{ $applications->get_stall_details->get_event_details->details ?? '' }}" --}} readonly>
                                                         </div>
                                                         <div class="col-md-4 mb-1">
                                                             <label class="form-label h6">(b). Upload Stall Allotment / Registration

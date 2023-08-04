@@ -510,7 +510,7 @@ class ApplicationController extends Controller
                         // Event details will be added
                         $event_data = [
                             'appl_id'            => $appl_id,
-                            'details'            => $request->event_detail ?? '',
+                            'details'            => $request->event_name ?? '',
                             'event_type'         => $request->event_type,
                             'other_event_type'   => $request->other_event_details,
                             'participation_type' => $request->participation_type,
