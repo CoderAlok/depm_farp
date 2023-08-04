@@ -45,8 +45,9 @@
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        <form method="POST" class="p-4" action="{{ route('exporter.application.annexure1.submit') }}"
-                            name="annexure1_form" id="annexure1_form" enctype="multipart/form-data">
+                        <form method="POST" class="p-4 formSave"
+                            action="{{ route('exporter.application.annexure1.submit') }}" name="annexure1_form"
+                            id="annexure1_form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="exporter_id" id="exporter_id" value="{{ $data->id ?? '' }}" />
                             <input type="hidden" name="scheme_id" id="scheme_id" value="{{ $scheme->id ?? '' }}" />
@@ -486,10 +487,12 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <div class="col-md-4 mb-1 d-none upload_visa_div" id="upload_visa_div_0">
+                                                            <div class="col-md-4 mb-1 d-none upload_visa_div"
+                                                                id="upload_visa_div_0">
                                                                 <label class="form-label h6">(b). Upload Visa Invitation
                                                                     Letter <span class="text-danger">*</span></label>
-                                                                <input type="file" name="travel[0][file_visa_invitation_letter]"
+                                                                <input type="file"
+                                                                    name="travel[0][file_visa_invitation_letter]"
                                                                     id="file_visa_invitation_letter_0"
                                                                     class="form-control">
                                                                 @if ($errors->has('visa_invitation_letter'))
@@ -528,9 +531,11 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(e). Destination <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" name="travel[0][traveller_designation]"
+                                                                <input type="text"
+                                                                    name="travel[0][traveller_designation]"
                                                                     id="traveller_designation_0" class="form-control"
-                                                                    value="{{ old('traveller_designation[0]') }}" required />
+                                                                    value="{{ old('traveller_designation[0]') }}"
+                                                                    required />
                                                                 @if ($errors->has('traveller_designation[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
@@ -541,8 +546,9 @@
                                                             <div class="col-md-4 mb-1">
                                                                 <label class="form-label h6">(f). Mode of Travel <span
                                                                         class="text-danger">*</span></label>
-                                                                <select name="travel[0][mode_of_travel]" id="mode_of_travel_0"
-                                                                    class="form-control" onchange="change_mode_of_travel(0)" required>
+                                                                <select name="travel[0][mode_of_travel]"
+                                                                    id="mode_of_travel_0" class="form-control"
+                                                                    onchange="change_mode_of_travel(0)" required>
                                                                     <option value="">Choose a mode</option>
                                                                     <option value="1"
                                                                         {{ old('mode_of_travel') == 1 ? 'selected' : '' }}>
@@ -583,7 +589,8 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <div class="col-md-4 mb-1 boarding_pass_div d-none" id="boarding_pass_div_0">
+                                                            <div class="col-md-4 mb-1 boarding_pass_div d-none"
+                                                                id="boarding_pass_div_0">
                                                                 <label class="form-label h6">(i). Upload Boarding Pass
                                                                     <span class="text-danger">*</span></label>
                                                                 <input type="file" name="travel[0][file_boarding_pass]"
@@ -603,7 +610,8 @@
                                                                 <input type="number" class="form-control form-control-sm"
                                                                     placeholder="₹" name="travel[0][total_travel_expense]"
                                                                     id="total_travel_expense_0"
-                                                                    value="{{ old('total_travel_expense[0]') }}" required/>
+                                                                    value="{{ old('total_travel_expense[0]') }}"
+                                                                    required />
                                                                 @if ($errors->has('total_travel_expense[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
@@ -618,7 +626,7 @@
                                                                 <input type="number" class="form-control form-control-sm"
                                                                     placeholder="₹" name="travel[0][travel_incentive]"
                                                                     id="travel_incentive_0"
-                                                                    value="{{ old('travel_incentive[0]') }}" required/>
+                                                                    value="{{ old('travel_incentive[0]') }}" required />
                                                                 @if ($errors->has('travel_incentive[0]'))
                                                                     <span
                                                                         class="invalid feedback text-danger"role="alert">
@@ -942,7 +950,6 @@
     </script>
 
     <script>
-
         function change_destination_type(e) {
             let op = $('#travel_destination_type_' + e).val();
             if (op == 2) {

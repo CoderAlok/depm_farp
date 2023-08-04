@@ -45,7 +45,7 @@
 
                     <div class="container-fluid">
                         <!-- Main content starts here -->
-                        <form method="POST" class="p-4" action="{{ route('exporter.application.annexure1.submit') }}"
+                        <form method="POST" class="p-4 formSave" action="{{ route('exporter.application.annexure1.submit') }}"
                             id="annexure2_form" name="annexure2_form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="exporter_id" id="" value="{{ $data->id ?? '' }}" />

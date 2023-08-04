@@ -755,12 +755,15 @@ class ApplicationController extends Controller
             'get_bank_details',
             'get_application_status_details',
             'get_application_progress_master_details.get_user_details.get_role_details',
+            // 'get_application_progress_master_details'=> function($r){
+            //     $r->with('get_user_details.get_role_details');
+            // },
             'get_complaince_details' => function ($r) {
                 $r->where('insert_status', 1);
             },
         ])->first(); //->toArray();
         $data['applications'] = $applications; //->toArray();
-        // dd([$data, $data['applications']->get_application_progress_master_details]);
+        // dd([$data['applications']->toArray(), $data['applications']->get_application_progress_master_details]);
         $data['total_expenditure'] = (int) ($applications->scheme_id == 1 ? ($applications->get_travel_details != null ? ($applications->get_travel_details->map(function ($r) {return $r->total_expense;})->sum() ?? 0) : 0) + ($applications->get_stall_details->total_cost ?? 0) : ($applications->certi_cost ?? 0));
         $data['incentive_amount'] = 0; //(int) ($applications->get_travel_details->incentive_claimed ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
         $data['pending']          = Applications::where('status', 1)->count();
@@ -873,8 +876,8 @@ class ApplicationController extends Controller
                     'incentive_amount' => 0,
                     'remarks'          => $request->remarks,
                     'created_by'       => $user->id,
-                    'updated_by'       => $user->id,
-                    'created_at'       => Carbon::now(),
+                    'updated_by'       => 0, //$user->id,
+                    'created_at' => Carbon::now(),
                 ];
                 $status = ApplicationProgressMaster::insert($insert_data);
 

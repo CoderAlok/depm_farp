@@ -129,7 +129,7 @@
             <div class="page-content-wrapper">
                 <!-- BEGIN Page Header -->
                 <header class="page-header" role="banner">
-                    <span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span> 
+                    <span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span>
                     <div class="ml-auto d-flex">
                         <!-- app user menu -->
                         <div>
@@ -178,7 +178,8 @@
                                     onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
                                     @csrf
                                 </form>
                             </div>
@@ -452,6 +453,15 @@
     }
 
     $(document).ready((e) => {
+
+        // This will disable the submit button with a loading icon applicable for all form submission
+        $('.formSave').on('submit', function() {
+            var html =
+                '<button class="btn btn-info space-button" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...</button>';
+            $('button[type="submit"]').after(html);
+            $('button[type="submit"]').hide();
+        });
+
         // function view_file(url) {
         //     event.preventDefault();
         //     $('#content').html('<embed src="' + url +

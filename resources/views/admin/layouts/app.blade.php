@@ -99,7 +99,6 @@ background: linear-gradient(to top,
 @break
 @endswitch
 }
-
 </style>
 
 
@@ -180,7 +179,9 @@ background: linear-gradient(to top,
 <!-- BEGIN Page Header -->
 <header class="page-header" role="banner">
 <span style="font-size: 20px; color: #444">Welcome to EIRP Portal, DEPM Odisha</span>
-    <span style="width: 14rem;height: 3rem;background-color: aquamarine;font-size: 18px;color: #444;font-weight: 600;position:absolute;right: 3.5rem;padding: 12px 0px 0px 10px;margin: 0px 0px 0px 18px;border-bottom-left-radius: 15px;border-top-left-radius: 15px;">    {{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}
+<span
+style="width: 14rem;height: 3rem;background-color: aquamarine;font-size: 18px;color: #444;font-weight: 600;position:absolute;right: 3.5rem;padding: 12px 0px 0px 10px;margin: 0px 0px 0px 18px;border-bottom-left-radius: 15px;border-top-left-radius: 15px;">
+{{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }}
 </span>
 <div class="ml-auto d-flex">
 <!-- app user menu -->
@@ -224,7 +225,7 @@ background: linear-gradient(to top,
     <div class="dropdown-divider m-0"></div>
     <a class="dropdown-item" href="{{ route('logout') }}"
         onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
+        document.getElementById('logout-form').submit();">
         {{ __('Logout') }}
     </a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

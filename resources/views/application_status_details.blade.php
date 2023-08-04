@@ -628,7 +628,7 @@
 
                                     <form
                                         action="{{ route('exporter.application.details.complaince.submit', $applications->id) }}"
-                                        class="form-group mb-3 complaince_form_body" id="status_approval_form"
+                                        class="form-group mb-3 complaince_form_body formSave" id="status_approval_form"
                                         name="status_approval_form" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
@@ -804,7 +804,7 @@
                                                             <form
                                                                 action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
                                                                 method="post" name="exporter_appeal_form"
-                                                                id="exporter_appeal_form" class="form-group col-md-12">
+                                                                id="exporter_appeal_form" class="form-group col-md-12 formSave">
                                                                 @csrf
                                                                 <div class="col-md-12">
                                                                     <div class="col-md-12 m-3">
@@ -912,7 +912,7 @@
 
                                     <form
                                         action="{{ route('exporter.application.details.complaince.submit', $applications->id) }}"
-                                        class="form-group mb-3 complaince_form_body" id="status_approval_form"
+                                        class="form-group mb-3 complaince_form_body formSave" id="status_approval_form"
                                         name="status_approval_form" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
@@ -1093,7 +1093,7 @@
                                                             <form
                                                                 action="{{ route('exporter.application.appeal.submit', $applications->id) }}"
                                                                 method="post" name="exporter_appeal_form"
-                                                                id="exporter_appeal_form" class="form-group col-md-12">
+                                                                id="exporter_appeal_form" class="form-group col-md-12 formSave">
                                                                 @csrf
                                                                 <div class="col-md-12">
                                                                     <textarea name="exporter_appeal_remarks" id="exporter_appeal_remarks" cols="30" rows="5"

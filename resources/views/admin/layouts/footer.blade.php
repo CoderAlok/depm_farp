@@ -198,6 +198,16 @@
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <script>
     $(document).ready((e) => {
+
+        // This will disable the submit button with a loading icon applicable for all form submission
+        $('.formSave').on('submit', function() {
+            var html =
+                '<button class="btn btn-info space-button" type="button" disabled><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...</button>';
+            $('button[type="submit"]').after(html);
+            $('button[type="submit"]').hide();
+        });
+
+
         // initialize datatable
         $('#dt-basic-example').dataTable({
             responsive: true,
