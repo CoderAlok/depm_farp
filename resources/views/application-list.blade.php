@@ -105,7 +105,7 @@
                                             <th>Scheme</th>
                                             <th>Claimed Amount</th>
                                             <th>Status</th>
-                                            {{-- <th>Action</th> --}}
+                                            <th>Action</th>
                                         </thead>
 
                                         {{-- {{ dd($applications->toArray()) }} --}}
@@ -122,9 +122,10 @@
                                                         <td width="20%">
                                                             {{-- <a href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}"
                                                                 class="" target="_blank">{{ $item['app_no'] ?? '' }}</a> --}}
-                                                            <a href="{{ route('exporter.application.details', $item['id']) }}"
+                                                            {{-- <a href="{{ route('exporter.application.details', $item['id']) }}"
                                                                 class=""
-                                                                target="_blank">{{ $item['app_no'] ?? '' }}</a>
+                                                                target="_blank">{{ $item['app_no'] ?? '' }}</a> --}}
+                                                            {{ $item['app_no'] ?? '' }}
                                                         </td>
                                                         <td width="40%">
                                                             <span>{{ $item['short_name'] ?? '' }}</span>
@@ -142,18 +143,17 @@
                                                             </span>
                                                         </td>
 
-                                                        {{-- <td width="10%"> --}}
-                                                        {{-- <a class="edit-user p-3 btn btn-info view_exporter"
-                                                                data-toggle="modal" data-target="#viewmodal"
-                                                                data-id="{{ $item->id }}">
+                                                        <td width="10%">
+                                                            <a class="edit-user p-3 btn btn-info view_exporter"
+                                                                href="{{ route('exporter.application.details', $item['id']) }}">
                                                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>
-                                                            </a> --}}
+                                                            </a>
 
-                                                        {{-- <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
+                                                            {{-- <a class="edit-user p-3 btn btn-info view_exporter btn-sm"
                                                                 href="{{ route('admin.publicity.officer.pending.exporters.applications.details', ['id' => $item['id']]) }}">
                                                                 <i class="fa fa-address-book-o" aria-hidden="true"></i>
                                                             </a> --}}
-                                                        {{-- </td> --}}
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             @else

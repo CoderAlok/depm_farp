@@ -20,15 +20,12 @@
         <div class="row">
             <div class="col-xl-12">
                 <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
+                    {{-- <div class="panel-hdr">
                         <h2>
                             Hi, {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                             <b
                                 class="text-uppercase font-size-600 ml-2">({{ \Spatie\Permission\Models\Role::select('name')->where('id', Auth::user()->role_id)->first()->name ?? '' }})</b>
                         </h2>
-
-                        {{-- <h2>Application No : <b
-                                class="text-uppercase font-size-600 ml-2">{{ $applications->app_no ?? '' }}</b></h2> --}}
                         <div class="panel-toolbar">
                             <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
                                 data-offset="0,10" data-original-title="Collapse"></button>
@@ -37,7 +34,7 @@
                             <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
                                 data-original-title="Close"></button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="container-fluid">
                         {{-- Main content start here --}}
@@ -753,7 +750,7 @@
 
                                                     </div>
                                                     <table class="table table-responsive table-bordered" width="100%">
-                                                        @if (isset($applications->get_application_progress_master_details[0]))
+                                                        {{-- @if (isset($applications->get_application_progress_master_details[0]))
                                                             <thead>
                                                                 <th>SlNo</th>
                                                                 <th>Notes</th>
@@ -789,8 +786,15 @@
                                                                 <th>Date</th>
                                                             </thead>
                                                         @else
-                                                            {{-- blank  --}}
-                                                        @endif
+                                                            
+                                                        @endif --}}
+
+                                                        <thead>
+                                                            <th>SlNo</th>
+                                                            <th>Note</th>
+                                                            <th>Putup By</th>
+                                                            <th>Date</th>
+                                                        </thead>
 
                                                         {{-- Way 1 Start --}}
 
@@ -801,7 +805,7 @@
                                                             @endphp
                                                             @foreach ($applications->get_application_progress_master_details as $key => $item)
                                                                 <tr
-                                                                    class="bg-{{ $item->get_user_details->role_id == 1 ? 'secondary' : '' }}">
+                                                                    class="bg-{{ $item->updated_by == 0 ? 'secondary' : '' }}">
                                                                     <td width="5%">
                                                                         {{ ++$key }}
                                                                     </td>
@@ -811,7 +815,7 @@
                                                                     <td width="10%">
                                                                         {{-- class="text-white" style="background-color: {{ $bg_array[$item->get_user_details ? $item->get_user_details->role_id : 0] }}">
                                                                         ({{ $item->get_user_details->get_role_details->name ?? 'Exporter' }}) --}}
-                                                                        <b>({{ $item->get_user_details->role_id == 1 ? 'Exporter' : $item->get_user_details->get_role_details->name }})</b>
+                                                                        <b>({{ $item->updated_by == 0 ? 'Exporter' : $item->get_user_details->get_role_details->name }})</b>
                                                                     </td>
                                                                     <td width="20%">
                                                                         {{ date('d-m-Y h:i:s a', strtotime($item->created_at)) ?? '' }}
@@ -1453,7 +1457,7 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="dept_sec_remarks">Action against appeal</label>
                                                 <textarea name="dept_sec_remarks" id="dept_sec_remarks" cols="30" rows="5" class="form-control"
-                                                    placeholder="Enter some remarks ..."></textarea>
+                                                    placeholder="Enter some remarks ..." required></textarea>
                                             </div>
                                             <div class="col-md-12 mb-3">
                                                 <input type="file" name="order_file" id="order_file"
@@ -1501,12 +1505,15 @@
                                 let op = $('#confirmed').val();
                                 if (op == 2) {
                                     $('.sanction_amount_form').addClass('d-none');
+                                    $('#con_amount').removeAttr('required', 'required');
                                 } else if (op == 1) {
                                     $('.sanction_amount_form').removeClass('d-none');
+                                    $('#con_amount').attr('required', 'required');
                                 } else {
                                     $('.sanction_amount_form').addClass('d-none');
+                                    $('#con_amount').removeAttr('required', 'required');
                                 }
-                                console.log(op);
+                                // console.log(op);
                             });
 
                             $('#con_amount').on('blur', (e) => {

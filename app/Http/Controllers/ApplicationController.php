@@ -829,10 +829,13 @@ class ApplicationController extends Controller
 
             if ($request->chkjs) {
                 foreach ($request->complaince as $key => $value) {
-                    $comp_docu = $request->complaince[$key]['comp_doc'];
-                    $file_name = 'COMP_' . substr(sha1($comp_docu . uniqid('', true)), 10, 5) . date('my') . $comp_docu->getClientOriginalName();
-                    $file_path = 'public/images/exporters/applications/' . $app_no . '/complaince' . $id . '/';
-                    $comp_docu->storeAs($file_path, $file_name);
+
+                    if (isset($request->complaince[$key]['comp_doc'])) {
+                        $comp_docu = $request->complaince[$key]['comp_doc'];
+                        $file_name = 'COMP_' . substr(sha1($comp_docu . uniqid('', true)), 10, 5) . date('my') . $comp_docu->getClientOriginalName();
+                        $file_path = 'public/images/exporters/applications/' . $app_no . '/complaince' . $id . '/';
+                        $comp_docu->storeAs($file_path, $file_name);
+                    }
 
                     // Temporary feature
                     $insert_comp_data = [
@@ -842,7 +845,7 @@ class ApplicationController extends Controller
                         'user_id'           => $user->id,
                         'section_type'      => $value['section_name'],
                         'description'       => $value['file_name'],
-                        'file_name'         => $file_name,
+                        'file_name'         => $file_name ?? null,
                         'exporters_remarks' => $remarks,
                         'insert_status'     => 1, //0, // -- for now its 1 to keep the track Of latest uploaded files and showing them to the departmental
                         'created_by' => $user->id,
@@ -1419,14 +1422,31 @@ class ApplicationController extends Controller
         try {
             // dd(['DDO', $request->all(), $id, $request->status, Carbon::parse($request->sanction_order_date)]);
 
+            $user                 = Auth::user();
+            $application_progress = ApplicationProgressMaster::where('appl_id', $id)->first();
+
             if ($request->payment_order_attachment) {
                 $file_name = common_file_upload($request->payment_order_attachment, ['file_name' => 'SANC_ORD', 'appl_id' => $id, 'folder_name' => 'sanction_order']);
             }
 
             // status = 11 Denotes application payment has been sanctioned
-            $update_status = Applications::where('id', $id)->update(['status' => 11, 'sanction_order_date' => Carbon::parse($request->sanction_order_date), 'payment_released_date' => Carbon::parse($request->payment_released_date), 'payment_order_attachment' => ($file_name ?? '')]);
+            // $update_status = Applications::where('id', $id)->update(['status' => 11, 'sanction_order_date' => Carbon::parse($request->sanction_order_date), 'payment_released_date' => Carbon::parse($request->payment_released_date), 'payment_order_attachment' => ($file_name ?? '')]);
+            $update_status = Applications::where('id', $id)->update(['status' => 11, 'sanction_order_date' => Carbon::parse($request->sanction_order_date), 'payment_order_attachment' => ($file_name ?? '')]);
             if ($update_status) {
-                ApplicationFiles::where('appl_id', $id)->update(['payment_order_attachment' => $file_name]);
+                $insert_data = [
+                    'appl_id'          => $id,
+                    'total_expense'    => $application_progress->total_expenses,
+                    'incentive_amount' => $application_progress->incentive_amount,
+                    'remarks'          => 'Sanction order has been passed.',
+                    'created_by'       => $user->id,
+                    'updated_by'       => $user->id,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status          = ApplicationProgressMaster::insert($insert_data);
+                $data['message'] = 'Application status updated successfully.';
+                Session::flash('message', $data['message']);
+
+                ApplicationFiles::where('appl_id', $id)->update(['payment_order_attachment' => ($file_name ?? '')]);
                 $data['message'] = 'Payment sanctioned successfully.';
             } else {
                 $data['message'] = 'Failed to update the status from SO.';
@@ -1489,12 +1509,27 @@ class ApplicationController extends Controller
 
     public function exporters_appeal_submit(Request $request, $appl_id)
     {
+        // dd([$request->all(), $appl_id, Auth::guard('exporter')->user()->id, $application_details, $application_details->total_expense, $application_details->incentive_amount]);
         try {
             $user        = Auth::guard('exporter')->user();
             $applyStatus = AppliedApplication::firstOrCreate(['appl_id' => $appl_id, 'description' => $request->exporter_appeal_remarks, 'created_by' => $user->id, 'created_at' => Carbon::now()]);
 
             if ($applyStatus) {
                 Applications::where('id', $appl_id)->update(['appeal_facility' => 2]);
+
+                $application_details = ApplicationProgressMaster::where('appl_id', $appl_id)->first();
+                $insert_data         = [
+                    'appl_id'          => $appl_id,
+                    'total_expense'    => $application_details->total_expense,
+                    'incentive_amount' => $application_details->incentive_amount,
+                    'remarks'          => $request->exporter_appeal_remarks,
+                    'created_by'       => $user->id,
+                    'updated_by'       => 0,
+                    'created_at'       => Carbon::now(),
+                ];
+                $status          = ApplicationProgressMaster::insert($insert_data);
+                $data['message'] = 'Application status updated successfully.';
+                Session::flash('message', $data['message']);
 
                 // Mail for those who will be rejected
                 $data = [
@@ -1606,7 +1641,7 @@ class ApplicationController extends Controller
         $data['incentive_amount'] = $applications->scheme_id != 1 ? (int) ($applications->certi_cost ?? 0) : (int) ($applications->get_travel_details->map(function ($r) {return $r->incentive_claimed;})->sum() ?? 0) + ($applications->get_stall_details->claimed_cost ?? 0);
         // $data['considered_amount'] = ($applications->get_application_progress_master_details[0]->incentive_amount ?? 0);
         $data['pending'] = Applications::where('status', 1)->count();
-        // dd(['Admin', $data]);
+        // dd(['Admin', $data, $applications->toArray()]);
         return view('admin.dept_secretory.pending_schemes_application_details')->with($data);
     }
 

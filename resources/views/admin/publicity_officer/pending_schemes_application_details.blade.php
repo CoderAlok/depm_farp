@@ -366,6 +366,7 @@
                                                 data-parent="#js_demo_accordion-3">
                                                 <div class="card-body">
 
+                                                    {{-- {{ dd($applications->toArray()) }} --}}
                                                     @foreach ($applications->get_travel_details as $item)
                                                         {{-- Travel details div --}}
                                                         <div class="row col-md-12 travel_details_div">
@@ -402,7 +403,14 @@
                                                                     value="{{ $item->traveller_name ?? '' }}" reaonly />
                                                             </div>
                                                             <div class="col-md-4 mb-1">
-                                                                <label class="form-label h6">(d). Designation <span
+                                                                <label class="form-label h6">(d). Traveled from <span
+                                                                        class="text-danger">*</span></label>
+                                                                <input type="text" name="travelled_from" id="travelled_from"
+                                                                    class="form-control" value="{{ $item->travel_from ?? '' }}"
+                                                                    readonly />
+                                                            </div>
+                                                            <div class="col-md-4 mb-1">
+                                                                <label class="form-label h6">(d). Destination <span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" name="traveller_designation"
                                                                     id="traveller_designation" class="form-control"
@@ -470,6 +478,7 @@
                                                                     readonly />
                                                             </div>
                                                         </div>
+                                                        <hr class="mt-3 mb-3" />
                                                     @endforeach
 
                                                 </div>
@@ -1209,8 +1218,8 @@
                                                                             <tbody>
                                                                                 @foreach ($applications->get_complaince_details as $key => $item)
                                                                                     <tr>
-                                                                                        <td>{{ ++$key }}</td>
-                                                                                        <td>
+                                                                                        <td width="10%">{{ ++$key }}</td>
+                                                                                        <td width="50%">
                                                                                             <select name="" id=""
                                                                                                 class="form-control" disabled>
                                                                                                 <option value="">--- Select a
@@ -1240,14 +1249,16 @@
                                                                                                 </option>
                                                                                             </select>
                                                                                         </td>
-                                                                                        <td>{{ $item->description ?? '' }}</td>
-                                                                                        <td>
-                                                                                            <a href="javascript:void(0);"
-                                                                                                onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/complaince' . $applications->id . '/' . ($item->file_name ?? '')) }}')">
-                                                                                                <span
-                                                                                                    class="text-warning badge bg-dark p-1">View
-                                                                                                    file</span>
-                                                                                            </a>
+                                                                                        <td width="30%">{{ $item->description ?? '' }}</td>
+                                                                                        <td width="60%">
+                                                                                            @if ($item->file_name)
+                                                                                                <a href="javascript:void(0);"
+                                                                                                    onclick="view_file('{{ asset('public/storage/images/exporters/applications/' . $applications->app_no . '/complaince' . $applications->id . '/' . ($item->file_name ?? '')) }}')">
+                                                                                                    <span
+                                                                                                        class="text-warning badge bg-dark p-1">View
+                                                                                                        file</span>
+                                                                                                </a>
+                                                                                            @endif
 
                                                                                             {{-- {{ $item->file_name ?? '' }} --}}
                                                                                             {{-- {{ $item->insert_status }} --}}
@@ -1581,13 +1592,13 @@
                                                                             id="sanction_order_date" class="form-control"
                                                                             value="" placeholder="" />
                                                                     </div>
-                                                                    <div class="col-md-4 form-group">
-                                                                        <label for="payment_released_date">Sanction Order
-                                                                            date</label>
+                                                                    {{-- <div class="col-md-4 form-group">
+                                                                        <label for="payment_released_date">Payment Released
+                                                                            Date</label>
                                                                         <input type="date" name="payment_released_date"
                                                                             id="payment_released_date" class="form-control"
                                                                             value="" placeholder="" />
-                                                                    </div>
+                                                                    </div> --}}
                                                                     <div class="col-md-4 form-group">
                                                                         <label for="payment_order_attachment">Payment Order
                                                                             attachment</label>
