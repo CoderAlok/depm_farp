@@ -440,7 +440,7 @@
                                                             </div>
 
                                                             <div class="col-md-4 mb-3">
-                                                                <label class="form-label h6">(j). Incentive claimed towards travel
+                                                                <label class="form-label h6">(j). Reimbursement claimed towards travel
                                                                     (₹)<span class="text-danger">*</span></label>
                                                                 <input type="text" name="travel_incentive"
                                                                     id="travel_incentive" class="form-control"
