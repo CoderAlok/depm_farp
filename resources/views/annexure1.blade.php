@@ -620,7 +620,7 @@
                                                                 @endif
                                                             </div>
                                                             <div class="col-md-4 mb-3">
-                                                                <label class="form-label h6">(k). Incentive claimed towards
+                                                                <label class="form-label h6">(k). Reimbursement claimed towards
                                                                     travel<span>&#8377;</span><span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="number" class="form-control form-control-sm"
@@ -932,7 +932,7 @@
                             <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel[${counter}][total_travel_expense]" id="total_travel_expense_${counter}" required/>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label h6">(k). Incentive claimed towards travel <span>&#8377;</span><span class="text-danger">*</span></label>
+                            <label class="form-label h6">(k). Reimbursement claimed towards travel <span>&#8377;</span><span class="text-danger">*</span></label>
                             <input type="number" class="form-control form-control-sm" placeholder="₹" name="travel[${counter}][travel_incentive]" id="travel_incentive_${counter}" required/>
                         </div>
                     </div>`;

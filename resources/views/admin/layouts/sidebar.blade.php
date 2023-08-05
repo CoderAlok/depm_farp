@@ -98,7 +98,7 @@
                         <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanctioned Applications</span>
                             @if (get_sanctioned_applied_list_count_for_admin(2) > 0)
                                 <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(2) }}</b>
                             @endif
@@ -154,7 +154,7 @@
                         <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanctioned Applications</span>
                             @if (get_sanctioned_applied_list_count_for_admin(3) > 0)
                                 <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(3) }}</b>
                             @endif
@@ -202,7 +202,7 @@
                         <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanctioned Applications</span>
                             @if (get_sanctioned_applied_list_count_for_admin(4) > 0)
                                 <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(4) }}</b>
                             @endif
@@ -258,7 +258,7 @@
                         <a href="{{ route('admin.publicity.officer.sanctioned.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanction Applications</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Sanctioned Applications</span>
                             @if (get_sanctioned_applied_list_count_for_admin(5) > 0)
                                 <b class="badge badge-danger">{{ get_sanctioned_applied_list_count_for_admin(5) }}</b>
                             @endif

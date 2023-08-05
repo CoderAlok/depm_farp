@@ -613,7 +613,7 @@
                                 {{-- {{ dd($applications->toArray()) }} --}}
 
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
-                                    <h4>Complaince Form</h4>
+                                    <h4>Complaince Details</h4>
 
                                     <div class="row mb-3">
                                         <div class="col-md-9">
@@ -899,7 +899,7 @@
 
                                 <!-- Complaince Form started -->
                                 @if (in_array($applications->status, [3, 5, 7, 9]))
-                                    <h4>Complaince Form</h4>
+                                    <h4>Complaince Details</h4>
 
                                     <div class="row mb-3">
                                         <div class="col-md-9">

@@ -37,21 +37,21 @@
                 <a href="{{ route('exporter.scheme.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">
                     <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application</span>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Apply</span>
                 </a>
             </li>
             <li class="{{ Route::currentRouteName() === 'exporter.application.list' ? 'active' : '' }}">
                 <a href="{{ route('exporter.application.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">
                     <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application List</span>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Application Submitted</span>
                 </a>
             </li>
             <li class="{{ Route::currentRouteName() === 'exporter.rejected.application.list' ? 'active' : '' }}">
                 <a href="{{ route('exporter.rejected.application.list') }}" title="Theme Settings"
                     data-filter-tags="theme settings">
                     <i class="fal fa-cog text-white"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Complaince / Query List</span>
+                    <span class="nav-link-text" data-i18n="nav.theme_settings">Query & Complaince List</span>
                 </a>
             </li>
             <li class="{{ Route::currentRouteName() === 'exporter.appeal.application.list' ? 'active' : '' }}">
