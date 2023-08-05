@@ -79,7 +79,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
                         </a>
                     </li>
                     <li
@@ -120,7 +120,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
                         </a>
                     </li>
                     {{-- <li
@@ -175,7 +175,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
                         </a>
                     </li>
                     {{-- <li
@@ -223,7 +223,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
                         </a>
                     </li>
                     {{-- <li
@@ -280,7 +280,7 @@
                         <a href="{{ route('admin.publicity.officer.pending.exporters') }}" title="Application Intel"
                             data-filter-tags="application intel">
                             <i class="fal fa-info-circle text-white"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters list</span>
+                            <span class="nav-link-text" data-i18n="nav.application_intel">Exporters List</span>
                         </a>
                     </li>
                     {{-- <li
