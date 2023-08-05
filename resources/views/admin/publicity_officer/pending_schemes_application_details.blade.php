@@ -861,7 +861,12 @@
                                                                     @if (in_array($applications->status, [8, 9]))
                                                                         <label for="" class="text-uppercase">Incentive
                                                                             Sanctioned Amount : </label>
-                                                                        <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                        {{-- {{ dd($applications->toArray()) }} --}}
+                                                                        @if ($applications->appeal_facility == 3)
+                                                                            <b>{{ @$applications->get_applied_details->appealed_amount ? '₹ ' . IND_money_format($applications->get_applied_details->appealed_amount) : '' }}</b>
+                                                                        @else
+                                                                            <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                        @endif
                                                                     @endif
                                                                 </div>
                                                             @break
@@ -881,17 +886,18 @@
                                                                 <div class="col-md-4">
                                                                     @if (in_array($applications->status, [8, 9]))
                                                                         <label for="" class="text-uppercase">Sanctioned
-                                                                            Amount
-                                                                            :
-                                                                        </label>
-                                                                        <b
-                                                                            style="font-size: 25px">{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                            Amount : </label>
+                                                                        @if ($applications->appeal_facility == 3)
+                                                                            <b>{{ @$applications->get_applied_details->appealed_amount ? '₹ ' . IND_money_format($applications->get_applied_details->appealed_amount) : '' }}</b>
+                                                                        @else
+                                                                            <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                        @endif
                                                                     @endif
                                                                 </div>
                                                             @break
 
                                                             @default
-                                                                <div class="col-md-6">
+                                                                {{-- <div class="col-md-6">
                                                                     <label for="" class="text-uppercase">Total
                                                                         cost of certification : </label>
                                                                     <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
@@ -901,6 +907,29 @@
                                                                         for reimbursement:
                                                                     </label>
                                                                     <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div> --}}
+
+                                                                <div class="col-md-4">
+                                                                    <label for="" class="text-uppercase">Total
+                                                                        cost of certification : </label>
+                                                                    <b>{{ '₹ ' . IND_money_format($applications->certi_cost) ?? '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="" class="text-uppercase">Amount suggested
+                                                                        for reimbursement:
+                                                                    </label>
+                                                                    <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    @if (in_array($applications->status, [8, 9]))
+                                                                        <label for="" class="text-uppercase">Sanctioned
+                                                                            Amount : </label>
+                                                                        @if ($applications->appeal_facility == 3)
+                                                                            <b>{{ @$applications->get_applied_details->appealed_amount ? '₹ ' . IND_money_format($applications->get_applied_details->appealed_amount) : '' }}</b>
+                                                                        @else
+                                                                            <b>{{ @$applications->get_application_progress_master_details[0]->incentive_amount ? '₹ ' . IND_money_format($applications->get_application_progress_master_details[0]->incentive_amount) : '' }}</b>
+                                                                        @endif
+                                                                    @endif
                                                                 </div>
                                                         @endswitch
 

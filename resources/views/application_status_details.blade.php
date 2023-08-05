@@ -768,10 +768,10 @@
                                                 {{-- {{ $complaince->isEmpty().'asa' }} --}}
                                                 {{-- @if ($complaince->isEmpty()) --}}
                                                 <div class="form-group col-md-12">
-                                                    <input type="submit" class="btn btn-primary text-uppercase"
-                                                        value="Resubmit Application">
+                                                    <button class="btn btn-primary" type="submit">Resubmit Application</button>
                                                 </div>
                                                 {{-- @endif --}}
+
                                             </div>
                                         </div>
                                     </form>
@@ -817,8 +817,9 @@
                                                                         class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <input type="submit" value="Submit"
-                                                                        class="btn btn-primary mt-3">
+                                                                    {{-- <input type="submit" value="Submit"
+                                                                        class="btn btn-primary mt-3"> --}}
+                                                                        <button class="btn btn-primary mt-3" type="submit">Submit</button>
                                                                 </div>
                                                             </form>
                                                         @else
@@ -1100,15 +1101,16 @@
                                                                         class="form-control" placeholder="Enter a valid reason for the approval process."></textarea>
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <input type="submit" value="Submit"
-                                                                        class="btn btn-primary mt-3">
+                                                                    <button class="btn btn-primary mt-3" type="submit">Submit</button>
+                                                                    {{-- <input type="submit" value="Submit"
+                                                                        class="btn btn-primary mt-3"> --}}
                                                                 </div>
                                                             </form>
                                                         @else
                                                             {{ $applications->get_applied_details }}
                                                             @if ($applications->get_applied_details)
                                                                 <div class="col-md-12">
-                                                                    <span>Appeal remarks : ass
+                                                                    <span>Appeal remarks : 
                                                                         <b>{{ $applications->get_applied_details->description ?? '' }}</b></span>
                                                                 </div>
                                                             @endif

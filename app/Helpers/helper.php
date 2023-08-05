@@ -330,7 +330,7 @@ function so_status_array($status_id)
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
         10 => 'Application Rejected',
-        11 => 'Payment Released',
+        11 => 'Incentive Released',
     ];
     return $arr[$status_id];
 }
@@ -348,7 +348,7 @@ function dir_status_array($status_id)
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
         10 => 'Application Rejected',
-        11 => 'Payment Released',
+        11 => 'Incentive Released',
     ];
     return $arr[$status_id];
 }
@@ -366,7 +366,7 @@ function addl_status_array($status_id)
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
         10 => 'Application Rejected',
-        11 => 'Payment Released',
+        11 => 'Incentive Released',
     ];
     return $arr[$status_id];
 }
@@ -384,7 +384,7 @@ function dept_sectry_status_array($status_id)
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
         10 => 'Application Rejected',
-        11 => 'Payment Released',
+        11 => 'Incentive Released',
     ];
     return $arr[$status_id];
 }
@@ -402,7 +402,7 @@ function ddo_status_array($status_id)
         8  => 'Approved',
         9  => 'Not approved by Department Secretory',
         10 => 'Applictaion Rejected',
-        11 => 'Payment Released',
+        11 => 'Incentive Released',
     ];
     return $arr[$status_id];
 }
@@ -420,7 +420,7 @@ function exporter_status_array($status_id)
         8  => 'Approved',
         9  => 'Not Approved by Department Secretory',
         10 => 'Application Rejected',
-        11 => 'Payment Released',
+        11 => 'Incentive Released',
     ];
     return $arr[$status_id];
 }
@@ -432,7 +432,7 @@ function status_color_array($status)
 
     if (in_array($status, ['Applied', 'Verified by SO', 'Verified', 'Verified', 'Verified by director depm', 'Verified by Addl Special secretory', 'Verified by Director, DEPM'])) {
         $color_code = ['#f5f94a', 'dark']; // Yellow
-    } else if (in_array($status, ['Approved', 'Payment Released'])) {
+    } else if (in_array($status, ['Approved', 'Incentive Released'])) {
         $color_code = ['#0e5306', 'white']; // Green
     } else if (in_array($status, ['Pending', 'Accepted'])) {
         $color_code = ['#e5a01e', 'dark']; // Orange

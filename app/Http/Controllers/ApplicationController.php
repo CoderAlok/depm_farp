@@ -761,6 +761,7 @@ class ApplicationController extends Controller
             'get_complaince_details' => function ($r) {
                 $r->where('insert_status', 1);
             },
+            'get_applied_details',
         ])->first(); //->toArray();
         $data['applications'] = $applications; //->toArray();
         // dd([$data['applications']->toArray(), $data['applications']->get_application_progress_master_details]);
