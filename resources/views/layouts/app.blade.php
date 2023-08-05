@@ -133,7 +133,18 @@
                     <div class="ml-auto d-flex">
                         <!-- app user menu -->
                         <div>
-                            <h4 class="mt-5">Welcome, {{ $data->name ?? '' }}</h4>
+                            <h4 class="mt-5" style="
+    margin-top: 1rem !important;
+    background-color: aquamarine;
+    height: 26px;
+    padding: 10px 16px 30px 20px;
+    position: relative;
+    top: -10px;
+    right: -20px;
+    font-weight: 600;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+">Welcome, {{ $data->name ?? '' }}</h4>
                         </div>
                         <div>
                             <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com"
