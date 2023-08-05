@@ -96,34 +96,34 @@ font-weight: 500 !important;color:white !important;
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">Director DEPM <span
-                                                                class="float-right">{{$application_count_details[3]['count']}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[3]['count']}}/{{$application_count_details[3]['total']}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width:{{($application_count_details[3]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[3]['count']/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[3]['count']/$application_count_details[3]['total'])*100}}%" aria-valuenow="{{($application_count_details[3]['count']/$application_count_details[3]['total'])*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">Additional Secretary <span
-                                                                class="float-right">{{$application_count_details[4]['count']}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[4]['count']}}/{{$application_count_details[4]['total']}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
-                                                            <div class="progress-bar" role="progressbar" style="width:{{($application_count_details[4]['count']/$tot_application_count)*100}}%"
-                                                                aria-valuenow="{{($application_count_details[4]['count']/$tot_application_count)*100}}" aria-valuemin="0" aria-valuemax="100">
+                                                            <div class="progress-bar" role="progressbar" style="width:{{($application_count_details[4]['count']/$application_count_details[4]['total'])*100}}%"
+                                                                aria-valuenow="{{($application_count_details[4]['count']/$application_count_details[4]['total'])*100}}" aria-valuemin="0" aria-valuemax="100">
                                                             </div>
                                                         </div>
                                                         <h4 class="small fw-bold">Department Secretary <span
-                                                                class="float-right">{{$application_count_details[5]['count']}}/{{$tot_application_count}}</span>
+                                                                class="float-right">{{$application_count_details[5]['count']}}/{{$application_count_details[5]['total']}}</span>
                                                         </h4>
                                                         <div class="progress mb-4">
                                                             <div class="progress-bar bg-info" role="progressbar"
-                                                                style="width:{{($application_count_details[5]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[5]['count']/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[5]['count']/$application_count_details[5]['total'])*100}}%" aria-valuenow="{{($application_count_details[5]['count']/$application_count_details[5]['total'])*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                         <h4 class="small fw-bold">DDO <span
-                                                                class="float-right">{{$application_count_details[7]['count']}}/{{$tot_application_count}}</span></h4>
+                                                                class="float-right">{{$application_count_details[7]['count']}}/{{$application_count_details[7]['total']}}</span></h4>
                                                         <div class="progress">
                                                             <div class="progress-bar bg-success" role="progressbar"
-                                                                style="width:{{($application_count_details[7]['count']/$tot_application_count)*100}}%" aria-valuenow="{{($application_count_details[7]['count']/$tot_application_count)*100}}" aria-valuemin="0"
+                                                                style="width:{{($application_count_details[7]['count']/$application_count_details[7]['total'])*100}}%" aria-valuenow="{{($application_count_details[7]['count']/$application_count_details[7]['total'])*100}}" aria-valuemin="0"
                                                                 aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
