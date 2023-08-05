@@ -50,6 +50,8 @@ class AdminController extends Controller
                 $final_count                                          = 0;
                 $application_data[$department->role_id]['count']      = 0;
                 $application_data[$department->role_id]['total']      = 0;
+                $application_data[$department->role_id]['count_details'] ="0/0";
+                $application_data[$department->role_id]['count_details_percentage']      = 0;
                 foreach ($applications_count_approved as $key => $application) {
                     $get_role_id = User::where('id', $application->updated_by)->first();
                     if (!is_null($get_role_id)) {
@@ -58,12 +60,18 @@ class AdminController extends Controller
 
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(2);
+                            $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
+                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+
+
                         }
                         //For DirDEPM (Role id = 3)
                         if ($get_role_id->role_id == 3 && $department->role_id == 3 && $application->status == 4) {
                             $application_data[2]['count'] += 1;
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(3);
+                            $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
+                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
 
 
                         }
@@ -74,6 +82,8 @@ class AdminController extends Controller
                             $application_data[3]['count'] += 1;
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(4);
+                            $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
+                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
 
 
                         }
@@ -86,6 +96,8 @@ class AdminController extends Controller
                             $application_data[4]['count'] += 1;
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(5);
+                            $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
+                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
 
 
                         }
@@ -98,6 +110,8 @@ class AdminController extends Controller
                             $application_data[5]['count'] += 1;
                             $application_data[7]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(7);
+                            $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
+                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
 
 
                         }
