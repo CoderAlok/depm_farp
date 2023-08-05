@@ -61,8 +61,13 @@ class AdminController extends Controller
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(2);
                             $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
-                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+                            if($application_data[$department->role_id]['total'] == 0) {
+                                $application_data[$department->role_id]['count_details_percentage'] = 0;
 
+                            }else{
+                                $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+
+                            }
 
                         }
                         //For DirDEPM (Role id = 3)
@@ -71,8 +76,13 @@ class AdminController extends Controller
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(3);
                             $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
-                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+                            if($application_data[$department->role_id]['total'] == 0) {
+                                $application_data[$department->role_id]['count_details_percentage'] = 0;
 
+                            }else{
+                                $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+
+                            }
 
                         }
                         //For Additional Special Secretory (Role id = 4)
@@ -83,8 +93,13 @@ class AdminController extends Controller
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(4);
                             $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
-                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+                            if($application_data[$department->role_id]['total'] == 0) {
+                                $application_data[$department->role_id]['count_details_percentage'] = 0;
 
+                            }else{
+                                $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+
+                            }
 
                         }
 
@@ -97,7 +112,15 @@ class AdminController extends Controller
                             $application_data[$department->role_id]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(5);
                             $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
-                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+                            if($application_data[$department->role_id]['total'] == 0) {
+                                $application_data[$department->role_id]['count_details_percentage'] = 0;
+
+                            }else{
+                                $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+
+                            }
+
+
 
 
                         }
@@ -111,8 +134,13 @@ class AdminController extends Controller
                             $application_data[7]['count'] += 1;
                             $application_data[$department->role_id]['total'] = get_pending_list_count_for_admin(7);
                             $application_data[$department->role_id]['count_details'] = $application_data[$department->role_id]['count'].'/'.$application_data[$department->role_id]['total'];
-                            $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+                            if($application_data[$department->role_id]['total'] == 0) {
+                                $application_data[$department->role_id]['count_details_percentage'] = 0;
 
+                            }else{
+                                $application_data[$department->role_id]['count_details_percentage'] = (number_format((float)($application_data[$department->role_id]['count']/$application_data[$department->role_id]['total']*100)));
+
+                            }
 
                         }
                     }
